@@ -47,7 +47,7 @@ Build and push Docker image to Docker Hub.
 ### Usage
 
 ```bash
-export BRANCH_NAME=master
+export BRANCH_NAME=main
 export DOCKER_USER=<username>
 export DOCKER_PASS=<password>
 ./buildscript.sh
