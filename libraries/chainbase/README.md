@@ -1,24 +1,28 @@
-# ChainBase - a fast version controlled, transactional database 
+# ChainBase - a fast version controlled, transactional database
 
-  ChainBase is designed to meet the demanding requirements of blockchain applications, but is suitable for use
-  in any application that requires a robust transactional database with the ability to have near-infinite
-  levels of undo history.
+ChainBase is designed to meet the demanding requirements of blockchain applications, but is suitable for use
+in any application that requires a robust transactional database with the ability to have near-infinite
+levels of undo history.
 
-  While chainbase was designed for blockchain applications, it is suitable for any program that needs to
-  persist complex application state with the ability to undo.
+While chainbase was designed for blockchain applications, it is suitable for any program that needs to
+persist complex application state with the ability to undo.
 
-## Features 
+## Features
 
-  - Supports multiple objects (tables) with multiple indices (based upon boost::multi_index_container)
-  - State is persistent and sharable among multiple processes 
-  - Nested Transactional Writes with ability to undo changes
+- Supports multiple objects (tables) with multiple indices (based upon boost::multi_index_container)
+- State is persistent and sharable among multiple processes
+- Nested Transactional Writes with ability to undo changes
+- **Memory-mapped storage** - Direct file mapping for high performance
+- **MVCC** - Multi-version concurrency control for safe concurrent access
+- **Copy-on-Write** - Objects are immutable, modifications create new versions
+- **Session-based transactions** - Nested undo/redo support
 
-## Dependencies 
-  
-  - c++11 
-  - [Boost](http://www.boost.org/) 
-  - CMake Build Process
-  - Supports Linux, Mac OS X  (no Windows Support)
+## Dependencies
+
+- c++11 or newer
+- [Boost](http://www.boost.org/) - MultiIndex, Interprocess
+- CMake Build Process
+- Supports Linux, Mac OS X (no Windows Support)
 
 ## Example Usage 
 
@@ -155,4 +159,129 @@ the logic necessary for multiple indices or undo history.
 
 Databases such as LevelDB provide a simple Key/Value database, but suffer from poor performance relative to
 memory mapped file implementations.
+
+## Usage in Steem
+
+ChainBase stores all Steem blockchain state:
+- Account data (balances, authorities, metadata)
+- Posts and comments
+- Votes and rewards
+- Witness information
+- Market orders
+- All blockchain objects
+
+### Configuration
+
+In Steem's `config.ini`:
+
+```ini
+# Shared memory file location
+shared-file-dir = blockchain
+
+# Size of shared memory (adjust based on node type)
+shared-file-size = 54G  # Witness node
+# shared-file-size = 260G  # Full node
+```
+
+### Thread-Safe Access
+
+Steem extends ChainBase with locking mechanisms:
+
+```cpp
+database().with_read_lock( [&]() {
+   // Read operations - multiple readers allowed
+   const auto& account = db.get<account_object>("alice");
+   return account.balance;
+});
+
+database().with_write_lock( [&]() {
+   // Write operations - exclusive access
+   db.modify(account, [&](auto& a) {
+      a.balance += amount;
+   });
+});
+```
+
+**Note:** Read locks automatically expire after 1 second to ensure consistent block times.
+
+### Undo Sessions
+
+ChainBase sessions enable atomic operations:
+
+```cpp
+auto session = db.start_undo_session(true); // true = enable undo
+
+try {
+   // Make multiple changes
+   db.create<account_object>([&](auto& a) { /* ... */ });
+   db.modify(other_obj, [&](auto& o) { /* ... */ });
+
+   // Commit all changes atomically
+   session.commit();
+} catch(...) {
+   // Automatically rolls back on exception
+   // session.undo() is called in destructor
+}
+```
+
+### Performance Optimization
+
+1. **Use SSD or NVMe** for shared memory files
+2. **RAM Disk** for maximum performance (tmpfs/ramdisk)
+3. **Proper sizing** - Ensure shared-file-size is adequate
+4. **Index selection** - Only create needed indices
+
+Example RAM disk usage:
+```bash
+# Mount RAM disk
+sudo mount -t tmpfs -o size=64G tmpfs /mnt/ramdisk
+
+# Configure Steem
+shared-file-dir = /mnt/ramdisk/blockchain
+```
+
+## Building
+
+```bash
+cd libraries/chainbase
+mkdir build && cd build
+cmake ..
+make
+```
+
+### Running Tests
+
+```bash
+make chainbase_test
+./test/chainbase_test
+```
+
+## Troubleshooting
+
+### Out of Memory
+If you see "out of shared memory" errors:
+1. Increase `shared-file-size` in config
+2. Check available disk space
+3. Consider using a larger disk or RAM disk
+
+### Corruption Recovery
+If database is corrupted:
+1. Stop the node
+2. Delete shared memory files
+3. Replay from block log:
+   ```bash
+   ./steemd --replay-blockchain
+   ```
+
+### Performance Issues
+- Ensure using SSD/NVMe storage
+- Check `shared-file-dir` is on fast disk
+- Monitor disk I/O with `iostat`
+- Consider RAM disk for development
+
+## Additional Resources
+
+- [Steem Chain Library](../chain/) - Uses ChainBase for state storage
+- [Boost.MultiIndex Documentation](https://www.boost.org/doc/libs/release/libs/multi_index/doc/index.html)
+- [Boost.Interprocess Documentation](https://www.boost.org/doc/libs/release/doc/html/interprocess.html)
 

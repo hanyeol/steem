@@ -1,5 +1,5 @@
 AppBase
---------------
+=======
 
 The AppBase library provides a basic framework for building applications from
 a set of plugins. AppBase manages the plugin life-cycle and ensures that all
@@ -7,11 +7,11 @@ plugins are configured, initialized, started, and shutdown in the proper order.
 
 ## Key Features
 
-- Dynamically Specify Plugins to Load
-- Automaticly Load Dependent Plugins in Order
-- Plugins can specify commandline arguments and configuration file options
-- Program gracefully exits from SIGINT and SIGTERM
-- Minimal Dependencies (Boost 1.58, c++14)
+- **Dynamically Specify Plugins to Load** - Runtime plugin selection
+- **Automatically Load Dependent Plugins in Order** - Dependency resolution
+- **Plugins can specify commandline arguments and configuration file options** - Flexible configuration
+- **Program gracefully exits from SIGINT and SIGTERM** - Signal handling
+- **Minimal Dependencies** - Only requires Boost 1.58+ and C++14
 
 ## Defining a Plugin
 
@@ -94,17 +94,276 @@ a plugin needs to perform IO or other asynchronous operations then it should dis
 Because the app calls `io_service::run()` from within `application::exec()` all asynchronous operations
 posted to the io_service should be run in the same thread.  
 
-## Graceful Exit 
+## Graceful Exit
 
 To trigger a graceful exit call `appbase::app().quit()` or send SIGTERM or SIGINT to the process.
 
-## Dependencies 
+## Plugin Access
 
-1. c++14 or newer  (clang or g++)
-2. Boost 1.60 or newer compiled with C++14 support
+Get references to other plugins:
 
-To compile boost with c++14 use:
+```cpp
+// Get plugin (throws if not found)
+auto& plugin = appbase::app().get_plugin<my_plugin>();
 
-   ./b2 ...  cxxflags="-std=c++0x -stdlib=libc++" linkflags="-stdlib=libc++" ...
+// Find plugin (returns nullptr if not found)
+auto* plugin = appbase::app().find_plugin<my_plugin>();
+```
+
+**Safe to use:**
+- In `plugin_initialize()` for required dependencies
+- In `plugin_startup()` for any plugin (including optional dependencies)
+- In `plugin_shutdown()` for dependencies
+
+## Configuration
+
+### Command-Line Arguments
+
+```bash
+./my_app --plugin net_plugin --listen-endpoint 0.0.0.0:9876
+```
+
+### Configuration File
+
+Create a `config.ini` file:
+
+```ini
+# Plugin to load
+plugin = net_plugin
+
+# Plugin options
+listen-endpoint = 0.0.0.0:9876
+remote-endpoint = seed.example.com:9876
+```
+
+### Environment Variables
+
+Set via `set_program_options()`:
+
+```cpp
+cfg.add_options()
+    ("data-dir", bpo::value<string>()->default_value("data"),
+     "Data directory");
+```
+
+## Advanced Features
+
+### Optional Dependencies
+
+Plugins can check for optional dependencies in `plugin_startup()`:
+
+```cpp
+void plugin_startup() {
+    auto* optional = app().find_plugin<optional_plugin>();
+    if (optional) {
+        // Use optional functionality
+    }
+}
+```
+
+### Signals and Events
+
+Plugins can emit and handle events using Boost.Signals2:
+
+```cpp
+// In plugin header
+boost::signals2::signal<void(int)> my_signal;
+
+// Connect handler
+my_signal.connect([](int value) {
+    // Handle event
+});
+
+// Emit signal
+my_signal(42);
+```
+
+## Usage in Steem
+
+AppBase is used throughout Steem:
+
+- **steemd**: Main node application with 20+ plugins
+- **cli_wallet**: Wallet application
+- **Plugin System**: All Steem plugins inherit from `appbase::plugin`
+
+### Example from Steem
+
+```cpp
+// In steemd main.cpp
+appbase::app().register_plugin<chain_plugin>();
+appbase::app().register_plugin<p2p_plugin>();
+appbase::app().register_plugin<webserver_plugin>();
+
+if (!appbase::app().initialize(argc, argv))
+    return -1;
+
+appbase::app().startup();
+appbase::app().exec();
+```
+
+## Building
+
+### Standalone Build
+
+```bash
+cd libraries/appbase
+mkdir build && cd build
+cmake ..
+make
+```
+
+### As Part of Steem
+
+AppBase is built automatically with Steem:
+
+```bash
+cd build
+make appbase
+```
+
+### Running Examples
+
+```bash
+cd libraries/appbase/examples
+mkdir build && cd build
+cmake ..
+make
+./appbase_example --plugin net_plugin
+```
+
+## API Reference
+
+### Application Class
+
+```cpp
+class application {
+public:
+    // Singleton access
+    static application& app();
+
+    // Plugin registration
+    template<typename Plugin>
+    void register_plugin();
+
+    // Lifecycle
+    bool initialize(int argc, char** argv);
+    void startup();
+    void exec();
+    void quit();
+
+    // Plugin access
+    template<typename Plugin>
+    Plugin& get_plugin();
+
+    template<typename Plugin>
+    Plugin* find_plugin();
+
+    // IO service
+    boost::asio::io_service& get_io_service();
+};
+```
+
+### Plugin Base Class
+
+```cpp
+template<typename Impl>
+class plugin {
+public:
+    // Plugin name
+    static const std::string& name();
+
+    // Configuration
+    virtual void set_program_options(
+        options_description& cli,
+        options_description& cfg
+    ) {}
+
+    // Lifecycle
+    virtual void plugin_initialize(const variables_map& options) = 0;
+    virtual void plugin_startup() = 0;
+    virtual void plugin_shutdown() = 0;
+};
+```
+
+## Dependencies
+
+### Required
+1. **C++14 or newer** - clang or g++
+2. **Boost 1.60 or newer** - Compiled with C++14 support
+   - Boost.ProgramOptions
+   - Boost.Filesystem
+   - Boost.ASIO
+   - Boost.Signals2
+
+### Compiling Boost with C++14
+
+```bash
+./b2 cxxflags="-std=c++0x -stdlib=libc++" linkflags="-stdlib=libc++"
+```
+
+## Error Handling
+
+### Plugin Not Found
+
+```cpp
+try {
+    auto& plugin = app().get_plugin<missing_plugin>();
+} catch (const std::exception& e) {
+    // Plugin not registered or initialized
+}
+```
+
+### Initialization Failure
+
+```cpp
+if (!appbase::app().initialize(argc, argv)) {
+    std::cerr << "Failed to initialize\n";
+    return -1;
+}
+```
+
+## Best Practices
+
+1. **Declare Dependencies**: Always use `APPBASE_PLUGIN_REQUIRES` for required plugins
+2. **Safe Plugin Access**: Use `find_plugin()` for optional dependencies
+3. **Configuration**: Provide sensible defaults in `set_program_options()`
+4. **Cleanup**: Release resources in `plugin_shutdown()`
+5. **Async Operations**: Use `app().get_io_service().post()` for async work
+6. **Error Handling**: Throw exceptions in initialize, handle in startup
+
+## Troubleshooting
+
+### Circular Dependencies
+
+```
+Error: Circular dependency detected
+```
+
+**Solution**: Redesign plugin dependencies to eliminate cycles. Use optional dependencies or signals for cross-plugin communication.
+
+### Plugin Not Found
+
+```
+Error: Plugin 'my_plugin' not found
+```
+
+**Solution**:
+- Check plugin is registered before `initialize()`
+- Verify plugin name matches exactly
+- Ensure plugin is enabled in config
+
+### Initialization Order
+
+Plugins initialize in dependency order:
+1. Plugins with no dependencies
+2. Plugins whose dependencies are initialized
+3. Continue until all plugins initialized
+
+## Additional Resources
+
+- [Steem Plugin Documentation](../../doc/plugin.md)
+- [Steem Plugin Examples](../../libraries/plugins/)
+- [Boost.ProgramOptions](https://www.boost.org/doc/libs/release/doc/html/program_options.html)
+- [Boost.ASIO](https://www.boost.org/doc/libs/release/doc/html/boost_asio.html)
 
 
