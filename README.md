@@ -25,7 +25,6 @@ Steem is a Delegated Proof of Stake (DPoS) blockchain that uses a "Proof of Brai
 | **[Testing Guide](doc/testing.md)** | Run and write tests |
 | **[Plugin Development](doc/plugin.md)** | Create custom plugins |
 | **[API Documentation](doc/api-notes.md)** | API usage notes |
-| **[CLAUDE.md](CLAUDE.md)** | Guide for AI-assisted development |
 
 ## Quick Start
 
