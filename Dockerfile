@@ -243,11 +243,11 @@ EXPOSE 2001
 ADD doc/seednodes.txt /etc/steemd/seednodes.txt
 
 # the following adds lots of logging info to stdout
-ADD contrib/config-for-docker.ini /etc/steemd/config.ini
+ADD contrib/docker.config.ini /etc/steemd/config.ini
 ADD contrib/fullnode.config.ini /etc/steemd/fullnode.config.ini
 ADD contrib/fullnode.opswhitelist.config.ini /etc/steemd/fullnode.opswhitelist.config.ini
-ADD contrib/config-for-broadcaster.ini /etc/steemd/config-for-broadcaster.ini
-ADD contrib/config-for-ahnode.ini /etc/steemd/config-for-ahnode.ini
+ADD contrib/broadcaster.config.ini /etc/steemd/broadcaster.config.ini
+ADD contrib/ahnode.config.ini /etc/steemd/ahnode.config.ini
 ADD contrib/testnet.config.ini /etc/steemd/testnet.config.ini
 ADD contrib/fastgen.config.ini /etc/steemd/fastgen.config.ini
 
