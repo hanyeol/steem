@@ -503,6 +503,300 @@ pkill steemd
 p2p-endpoint = 0.0.0.0:2002
 ```
 
+## Docker Deployment
+
+### Docker Build for Genesis
+
+Build a custom Docker image with genesis configuration:
+
+```bash
+# Build from repository root
+docker build -t my-steem-genesis:latest .
+
+# Or build with testnet flag
+docker build --build-arg BUILD_TESTNET=ON -t my-steem-genesis:testnet .
+```
+
+### Storage Configuration
+
+Docker containers require proper storage allocation for blockchain data.
+
+#### Storage Requirements
+
+| Node Type | Shared Memory | Block Log | Total Minimum | Recommended |
+|-----------|---------------|-----------|---------------|-------------|
+| **Genesis Node** | 8GB | 1GB | 10GB | 20GB |
+| **Full Node (API)** | 56GB | 27GB+ | 100GB | 150GB |
+| **Witness Node** | 16GB | 27GB+ | 50GB | 80GB |
+| **Seed Node (Low Memory)** | 4GB | 27GB+ | 35GB | 50GB |
+
+#### Docker Volume Setup
+
+```bash
+# Create named volume for persistent storage
+docker volume create steem-genesis-data
+
+# Inspect volume
+docker volume inspect steem-genesis-data
+
+# Volume location: /var/lib/docker/volumes/steem-genesis-data/_data
+```
+
+#### Storage Options
+
+**Option 1: Named Volume (Recommended)**
+
+```bash
+docker run -d \
+  --name steem-genesis \
+  -v steem-genesis-data:/var/lib/steemd \
+  -p 2001:2001 \
+  -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
+**Option 2: Bind Mount**
+
+```bash
+# Create host directory
+mkdir -p /mnt/steem-data
+
+docker run -d \
+  --name steem-genesis \
+  -v /mnt/steem-data:/var/lib/steemd \
+  -p 2001:2001 \
+  -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
+**Option 3: tmpfs for Shared Memory (High Performance)**
+
+```bash
+docker run -d \
+  --name steem-genesis \
+  -v steem-genesis-data:/var/lib/steemd \
+  --tmpfs /dev/shm:rw,size=16g \
+  --shm-size=16g \
+  -p 2001:2001 \
+  -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
+### Docker Environment Variables
+
+Configure storage and node behavior via environment variables:
+
+```bash
+docker run -d \
+  --name steem-genesis \
+  -e HOME=/var/lib/steemd \
+  -e STEEMD_SHARED_FILE_SIZE=8G \
+  -e STEEMD_SHARED_FILE_DIR=/dev/shm \
+  -v steem-genesis-data:/var/lib/steemd \
+  --shm-size=16g \
+  -p 2001:2001 \
+  -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
+#### Key Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `HOME` | `/var/lib/steemd` | Data directory path |
+| `STEEMD_SHARED_FILE_SIZE` | `54G` | Shared memory file size |
+| `STEEMD_SHARED_FILE_DIR` | `/var/lib/steemd/blockchain` | Shared memory location |
+| `STEEMD_SEED_NODES` | (empty) | P2P seed nodes (whitespace-delimited) |
+
+### Docker Compose Setup
+
+Create `docker-compose.yml` for genesis network:
+
+```yaml
+version: '3.8'
+
+services:
+  genesis-node:
+    image: my-steem-genesis:latest
+    container_name: steem-genesis
+    ports:
+      - "2001:2001"
+      - "8090:8090"
+    volumes:
+      - genesis-data:/var/lib/steemd
+      - ./config.ini:/var/lib/steemd/config.ini:ro
+    environment:
+      - HOME=/var/lib/steemd
+      - STEEMD_SHARED_FILE_SIZE=8G
+      - STEEMD_SHARED_FILE_DIR=/dev/shm
+    shm_size: 16gb
+    restart: unless-stopped
+    networks:
+      - steem-network
+
+  witness-node:
+    image: my-steem-genesis:latest
+    container_name: steem-witness1
+    ports:
+      - "2002:2001"
+      - "8091:8090"
+    volumes:
+      - witness1-data:/var/lib/steemd
+      - ./witness1-config.ini:/var/lib/steemd/config.ini:ro
+    environment:
+      - HOME=/var/lib/steemd
+      - STEEMD_SHARED_FILE_SIZE=8G
+      - STEEMD_SEED_NODES=genesis-node:2001
+    shm_size: 16gb
+    restart: unless-stopped
+    depends_on:
+      - genesis-node
+    networks:
+      - steem-network
+
+  api-node:
+    image: my-steem-genesis:latest
+    container_name: steem-api
+    ports:
+      - "2003:2001"
+      - "8092:8090"
+    volumes:
+      - api-data:/var/lib/steemd
+      - ./api-config.ini:/var/lib/steemd/config.ini:ro
+    environment:
+      - HOME=/var/lib/steemd
+      - STEEMD_SHARED_FILE_SIZE=32G
+      - STEEMD_SEED_NODES=genesis-node:2001
+    shm_size: 48gb
+    restart: unless-stopped
+    depends_on:
+      - genesis-node
+    networks:
+      - steem-network
+
+volumes:
+  genesis-data:
+    driver: local
+  witness1-data:
+    driver: local
+  api-data:
+    driver: local
+
+networks:
+  steem-network:
+    driver: bridge
+```
+
+Launch the network:
+
+```bash
+docker-compose up -d
+
+# View logs
+docker-compose logs -f genesis-node
+
+# Scale witnesses
+docker-compose up -d --scale witness-node=3
+```
+
+### Storage Monitoring
+
+Monitor storage usage in containers:
+
+```bash
+# Check container disk usage
+docker exec steem-genesis df -h /var/lib/steemd
+
+# Check shared memory usage
+docker exec steem-genesis df -h /dev/shm
+
+# Monitor in real-time
+watch -n 5 'docker exec steem-genesis du -sh /var/lib/steemd/*'
+```
+
+### Storage Optimization for Genesis
+
+For new genesis chains, optimize storage allocation:
+
+```bash
+# Minimal genesis node (development)
+docker run -d \
+  --name steem-genesis-dev \
+  -v genesis-dev-data:/var/lib/steemd \
+  -e STEEMD_SHARED_FILE_SIZE=2G \
+  --shm-size=4g \
+  -p 2001:2001 -p 8090:8090 \
+  my-steem-genesis:latest
+
+# Production genesis node
+docker run -d \
+  --name steem-genesis-prod \
+  -v genesis-prod-data:/var/lib/steemd \
+  -e STEEMD_SHARED_FILE_SIZE=16G \
+  --shm-size=24g \
+  --restart=always \
+  -p 2001:2001 -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
+### Backup and Recovery
+
+#### Backup Genesis State
+
+```bash
+# Stop container
+docker stop steem-genesis
+
+# Backup entire data volume
+docker run --rm \
+  -v steem-genesis-data:/source:ro \
+  -v $(pwd):/backup \
+  alpine \
+  tar czf /backup/genesis-backup-$(date +%Y%m%d).tar.gz -C /source .
+
+# Restart container
+docker start steem-genesis
+```
+
+#### Restore from Backup
+
+```bash
+# Create new volume
+docker volume create steem-genesis-restore
+
+# Restore data
+docker run --rm \
+  -v steem-genesis-restore:/target \
+  -v $(pwd):/backup \
+  alpine \
+  tar xzf /backup/genesis-backup-20250101.tar.gz -C /target
+
+# Start container with restored volume
+docker run -d \
+  --name steem-genesis-restored \
+  -v steem-genesis-restore:/var/lib/steemd \
+  -p 2001:2001 -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
+### Storage Performance Tuning
+
+For optimal performance in production:
+
+```bash
+docker run -d \
+  --name steem-genesis-optimized \
+  -v steem-genesis-data:/var/lib/steemd \
+  -e STEEMD_SHARED_FILE_DIR=/dev/shm \
+  --tmpfs /dev/shm:rw,size=24g,mode=1777 \
+  --shm-size=24g \
+  --memory=32g \
+  --cpus=4 \
+  --restart=always \
+  -p 2001:2001 -p 8090:8090 \
+  my-steem-genesis:latest
+```
+
 ## Advanced Topics
 
 ### Custom Genesis Supply
