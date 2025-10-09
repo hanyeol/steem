@@ -38,16 +38,19 @@ RUN \
         jq \
         wget \
         virtualenv \
-        gdb \
         libgflags-dev \
         libsnappy-dev \
         zlib1g-dev \
         libbz2-dev \
         liblz4-dev \
         libzstd-dev \
+        curl \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    curl https://bootstrap.pypa.io/pip/3.5/get-pip.py -o get-pip.py && \
+    python3 get-pip.py && \
+    rm get-pip.py && \
     pip3 install gcovr
 
 ADD . /usr/local/src/steem
