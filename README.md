@@ -20,11 +20,11 @@ Steem is a Delegated Proof of Stake (DPoS) blockchain that uses a "Proof of Brai
 | Resource | Description |
 |----------|-------------|
 | **[Whitepaper](https://steem.io/SteemWhitePaper.pdf)** | Technical design and economic model |
-| **[Quickstart Guide](doc/exchangequickstart.md)** | Get running quickly with Docker |
-| **[Building Guide](doc/building.md)** | Build from source (Linux/macOS) |
-| **[Testing Guide](doc/testing.md)** | Run and write tests |
-| **[Plugin Development](doc/plugin.md)** | Create custom plugins |
-| **[API Documentation](doc/api-notes.md)** | API usage notes |
+| **[Quickstart Guide](docs/exchangequickstart.md)** | Get running quickly with Docker |
+| **[Building Guide](docs/building.md)** | Build from source (Linux/macOS) |
+| **[Testing Guide](docs/testing.md)** | Run and write tests |
+| **[Plugin Development](docs/plugin.md)** | Create custom plugins |
+| **[API Documentation](docs/api-notes.md)** | API usage notes |
 
 ## Quick Start
 
@@ -216,7 +216,7 @@ steem/
 │   └── util/              # Utility programs
 ├── tests/                 # Test suite
 ├── contrib/               # Configuration examples and scripts
-├── doc/                   # Documentation
+├── docs/                   # Documentation
 └── example_plugins/       # Example plugin implementations
 ```
 

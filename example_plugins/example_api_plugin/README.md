@@ -218,7 +218,7 @@ This generates boilerplate code for new plugins with proper structure.
 
 ## Related Documentation
 
-- [doc/plugin.md](../../doc/plugin.md) - Comprehensive plugin system documentation
+- [docs/plugin.md](../../docs/plugin.md) - Comprehensive plugin system documentation
 - [libraries/plugins/](../../libraries/plugins/) - Production plugin implementations
 - `programs/util/newplugin.py` - Plugin code generator
 

@@ -380,7 +380,7 @@ sudo ufw deny 8090/tcp
 
 ## Additional Resources
 
-- [Building Instructions](../../doc/building.md)
+- [Building Instructions](../../docs/building.md)
 - [Configuration Examples](../../contrib/)
 - [Plugin Documentation](../../libraries/plugins/)
-- [Testing Guide](../../doc/testing.md)
+- [Testing Guide](../../docs/testing.md)

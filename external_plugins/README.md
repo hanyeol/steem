@@ -140,8 +140,8 @@ This ensures that plugin manifests are available when building the main applicat
 ## Plugin Development Resources
 
 - [example_plugins/example_api_plugin/](../example_plugins/example_api_plugin/) - Minimal working example
-- [doc/plugin.md](../doc/plugin.md) - Plugin system documentation
-- [doc/api-notes.md](../doc/api-notes.md) - API configuration and security
+- [docs/plugin.md](../docs/plugin.md) - Plugin system documentation
+- [docs/api-notes.md](../docs/api-notes.md) - API configuration and security
 - [libraries/plugins/](../libraries/plugins/) - Production plugin examples
 - `programs/util/newplugin.py` - Plugin code generator
 

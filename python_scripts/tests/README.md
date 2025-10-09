@@ -387,7 +387,7 @@ make steemd
 
 - [steemdebugnode Package](../steemdebugnode/README.md)
 - [Debug Node Plugin](../../libraries/plugins/debug_node/README.md)
-- [Building Steem](../../doc/building.md)
+- [Building Steem](../../docs/building.md)
 - [C++ Testing Framework](../../tests/README.md)
 
 ## License

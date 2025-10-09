@@ -361,7 +361,7 @@ Plugins initialize in dependency order:
 
 ## Additional Resources
 
-- [Steem Plugin Documentation](../../doc/plugin.md)
+- [Steem Plugin Documentation](../../docs/plugin.md)
 - [Steem Plugin Examples](../../libraries/plugins/)
 - [Boost.ProgramOptions](https://www.boost.org/doc/libs/release/doc/html/program_options.html)
 - [Boost.ASIO](https://www.boost.org/doc/libs/release/doc/html/boost_asio.html)

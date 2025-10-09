@@ -385,9 +385,9 @@ git submodule update --init --recursive
 
 ## Additional Resources
 
-- [Testing Guide](../doc/testing.md)
-- [Building Steem](../doc/building.md)
-- [Plugin Development](../doc/plugin.md)
+- [Testing Guide](../docs/testing.md)
+- [Building Steem](../docs/building.md)
+- [Plugin Development](../docs/plugin.md)
 - [Boost.Test Documentation](https://www.boost.org/doc/libs/release/libs/test/)
 
 ## License

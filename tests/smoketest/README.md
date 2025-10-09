@@ -453,7 +453,7 @@ jobs:
 - [API Tests](../api_tests/README.md)
 - [Python API Tests](../../python_scripts/tests/api_tests/README.md)
 - [Account History Plugin](../../libraries/plugins/account_history/README.md)
-- [Testing Guide](../../doc/testing.md)
+- [Testing Guide](../../docs/testing.md)
 
 ## License
 

@@ -566,7 +566,7 @@ generate_blocks( 10, false );  // Don't skip validation
 - [Chain Tests](../tests/README.md)
 - [Plugin Tests](../plugin_tests/README.md)
 - [Boost.Test Documentation](https://www.boost.org/doc/libs/release/libs/test/)
-- [Testing Guide](../../doc/testing.md)
+- [Testing Guide](../../docs/testing.md)
 
 ## License
 

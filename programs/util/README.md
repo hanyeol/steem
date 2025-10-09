@@ -261,6 +261,6 @@ These are typically not run manually.
 
 ## Additional Resources
 
-- [Plugin Development](../../doc/plugin.md)
-- [Testing Guide](../../doc/testing.md)
-- [Building Instructions](../../doc/building.md)
+- [Plugin Development](../../docs/plugin.md)
+- [Testing Guide](../../docs/testing.md)
+- [Building Instructions](../../docs/building.md)

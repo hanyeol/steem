@@ -565,7 +565,7 @@ curl -X POST http://127.0.0.1:8090/rpc \
 
 - [pyresttest Documentation](https://github.com/svanoort/pyresttest)
 - [JSONPath Documentation](https://goessner.net/articles/JsonPath/)
-- [Steem API Documentation](../../doc/apis.md)
+- [Steem API Documentation](../../docs/apis.md)
 - [Database API Plugin](../../libraries/plugins/database_api/README.md)
 - [Account History API Plugin](../../libraries/plugins/account_history_api/README.md)
 

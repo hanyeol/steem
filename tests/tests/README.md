@@ -400,7 +400,7 @@ export STEEM_TESTING_GENESIS_TIMESTAMP=$(date +%s)
 - [Database Fixture](../db_fixture/README.md)
 - [Plugin Tests](../plugin_tests/README.md)
 - [Boost.Test Documentation](https://www.boost.org/doc/libs/release/libs/test/)
-- [Testing Guide](../../doc/testing.md)
+- [Testing Guide](../../docs/testing.md)
 
 ## License
 

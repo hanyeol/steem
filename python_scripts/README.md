@@ -526,8 +526,8 @@ debug_node = DebugNode(
 - [Integration Tests](tests/README.md)
 - [API Tests](tests/api_tests/README.md)
 - [Debug Node Plugin](../libraries/plugins/debug_node/README.md)
-- [Building Steem](../doc/building.md)
-- [Testing Guide](../doc/testing.md)
+- [Building Steem](../docs/building.md)
+- [Testing Guide](../docs/testing.md)
 
 ## Contributing
 
