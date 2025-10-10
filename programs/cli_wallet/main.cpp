@@ -39,7 +39,8 @@
 #include <steem/utilities/key_conversion.hpp>
 
 #include <steem/protocol/protocol.hpp>
-#include <steem/wallet/remote_node_api.hpp>
+#include <steem/wallet/api_connection_manager.hpp>
+#include <steem/wallet/remote_node_api_new.hpp>
 #include <steem/wallet/wallet.hpp>
 
 #include <fc/interprocess/signals.hpp>
@@ -157,7 +158,12 @@ int main( int argc, char** argv )
       auto con  = client.connect( wdata.ws_server );
       auto apic = std::make_shared<fc::rpc::websocket_api_connection>(*con);
 
-      auto remote_api = apic->get_remote_api< steem::wallet::remote_node_api >( 0, "condenser_api" );
+      // Create API connection manager
+      auto api_mgr = std::make_shared<api_connection_manager>( apic );
+
+      // Create new remote_node_api using the connection manager
+      auto remote_api_ptr = std::make_shared<remote_node_api>( api_mgr );
+      fc::api<remote_node_api> remote_api( remote_api_ptr );
 
       auto wapiptr = std::make_shared<wallet_api>( wdata, _steem_chain_id, remote_api );
       wapiptr->set_wallet_filename( wallet_file.generic_string() );

@@ -26,7 +26,6 @@ endif()
 add_library( steem_wallet
    wallet.cpp
    remote_node_api.cpp
-   api_type_converter.cpp
    connectors/database_api.cpp
    connectors/network_broadcast_api.cpp
    connectors/account_by_key_api.cpp
@@ -39,7 +38,6 @@ add_library( steem_wallet
    ${HEADERS}
 )
 target_link_libraries( steem_wallet PRIVATE graphene_net steem_chain steem_protocol steem_utilities fc
-   condenser_api_plugin
    database_api_plugin
    network_broadcast_api_plugin
    account_by_key_api_plugin
