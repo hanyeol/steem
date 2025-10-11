@@ -69,17 +69,6 @@ struct database_api
    verify_authority_return verify_authority( verify_authority_args );
    verify_account_authority_return verify_account_authority( verify_account_authority_args );
    verify_signatures_return verify_signatures( verify_signatures_args );
-
-   // SMT (if enabled)
-   #ifdef STEEM_ENABLE_SMT
-   get_nai_pool_return get_nai_pool( get_nai_pool_args );
-   list_smt_contributions_return list_smt_contributions( list_smt_contributions_args );
-   find_smt_contributions_return find_smt_contributions( find_smt_contributions_args );
-   list_smt_tokens_return list_smt_tokens( list_smt_tokens_args );
-   find_smt_tokens_return find_smt_tokens( list_smt_tokens_args );
-   list_smt_token_emissions_return list_smt_token_emissions( list_smt_token_emissions_args );
-   find_smt_token_emissions_return find_smt_token_emissions( find_smt_token_emissions_args );
-   #endif
 };
 
 } } // steem::wallet
@@ -142,15 +131,4 @@ FC_API( steem::wallet::database_api,
    (verify_authority)
    (verify_account_authority)
    (verify_signatures)
-
-   // SMT (if enabled)
-   #ifdef STEEM_ENABLE_SMT
-   (get_nai_pool)
-   (list_smt_contributions)
-   (find_smt_contributions)
-   (list_smt_tokens)
-   (find_smt_tokens)
-   (list_smt_token_emissions)
-   (find_smt_token_emissions)
-   #endif
 )
