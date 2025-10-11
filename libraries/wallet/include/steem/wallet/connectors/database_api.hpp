@@ -34,8 +34,6 @@ struct database_api_proxy
    database_api_ns::find_owner_histories_return find_owner_histories( database_api_ns::find_owner_histories_args );
    database_api_ns::list_account_recovery_requests_return list_account_recovery_requests( database_api_ns::list_account_recovery_requests_args );
    database_api_ns::find_account_recovery_requests_return find_account_recovery_requests( database_api_ns::find_account_recovery_requests_args );
-   database_api_ns::list_change_recovery_account_requests_return list_change_recovery_account_requests( database_api_ns::list_change_recovery_account_requests_args );
-   database_api_ns::find_change_recovery_account_requests_return find_change_recovery_account_requests( database_api_ns::find_change_recovery_account_requests_args );
    database_api_ns::list_escrows_return list_escrows( database_api_ns::list_escrows_args );
    database_api_ns::find_escrows_return find_escrows( database_api_ns::find_escrows_args );
    database_api_ns::list_withdraw_vesting_routes_return list_withdraw_vesting_routes( database_api_ns::list_withdraw_vesting_routes_args );
@@ -54,8 +52,6 @@ struct database_api_proxy
    // Comments
    database_api_ns::list_comments_return list_comments( database_api_ns::list_comments_args );
    database_api_ns::find_comments_return find_comments( database_api_ns::find_comments_args );
-   database_api_ns::list_votes_return list_votes( database_api_ns::list_votes_args );
-   database_api_ns::find_votes_return find_votes( database_api_ns::find_votes_args );
 
    // Market
    database_api_ns::list_limit_orders_return list_limit_orders( database_api_ns::list_limit_orders_args );
@@ -96,8 +92,6 @@ FC_API( steem::wallet::database_api_proxy,
    (find_owner_histories)
    (list_account_recovery_requests)
    (find_account_recovery_requests)
-   (list_change_recovery_account_requests)
-   (find_change_recovery_account_requests)
    (list_escrows)
    (find_escrows)
    (list_withdraw_vesting_routes)
@@ -116,8 +110,6 @@ FC_API( steem::wallet::database_api_proxy,
    // Comments
    (list_comments)
    (find_comments)
-   (list_votes)
-   (find_votes)
 
    // Market
    (list_limit_orders)
