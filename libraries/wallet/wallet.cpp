@@ -351,7 +351,7 @@ public:
 
    string get_wallet_filename() const { return _wallet_filename; }
 
-   optional<fc::ecc::private_key>  try_get_private_key(const public_key_type& id)const
+   optional<fc::ecc::private_key> try_get_private_key(const public_key_type& id)const
    {
       auto it = _keys.find(id);
       if( it != _keys.end() )
@@ -359,7 +359,7 @@ public:
       return optional<fc::ecc::private_key>();
    }
 
-   fc::ecc::private_key              get_private_key(const public_key_type& id)const
+   fc::ecc::private_key get_private_key(const public_key_type& id)const
    {
       auto has_key = try_get_private_key( id );
       FC_ASSERT( has_key );
@@ -1673,24 +1673,26 @@ signed_transaction wallet_api::update_witness(
 {
    FC_ASSERT( !is_locked() );
 
-   witness_update_operation op;
-
-   optional< api_witness_object > wit = my->_remote_api->get_witness_by_account( witness_account_name );
-   if( !wit.valid() )
-   {
-      op.url = url;
-   }
-   else
-   {
-      FC_ASSERT( wit->owner == witness_account_name );
-      if( url != "" )
-         op.url = url;
-      else
-         op.url = wit->url;
-   }
+   witness_set_properties_operation op;
    op.owner = witness_account_name;
-   op.block_signing_key = block_signing_key;
-   op.props = props;
+
+   if( !url.empty() )
+   {
+      auto url_data = fc::raw::pack_to_vector( url );
+      op.props["url"] = url_data;
+   }
+
+   auto key_data = fc::raw::pack_to_vector( block_signing_key );
+   op.props["key"] = key_data;
+
+   auto account_creation_fee_data = fc::raw::pack_to_vector( props.account_creation_fee );
+   op.props["account_creation_fee"] = account_creation_fee_data;
+
+   auto maximum_block_size_data = fc::raw::pack_to_vector( props.maximum_block_size );
+   op.props["maximum_block_size"] = maximum_block_size_data;
+
+   auto sbd_interest_rate_data = fc::raw::pack_to_vector( props.sbd_interest_rate );
+   op.props["sbd_interest_rate"] = sbd_interest_rate_data;
 
    signed_transaction tx;
    tx.operations.push_back(op);
@@ -2215,11 +2217,6 @@ map< uint32_t, api_operation_object > wallet_api::get_account_history( string ac
       }
    }
    return result;
-}
-
-condenser_api::state wallet_api::get_state( string url )
-{
-   return my->_remote_api->get_state( url );
 }
 
 vector< api_withdraw_vesting_route_object > wallet_api::get_withdraw_routes( string account, withdraw_route_type type )const

@@ -1098,6 +1098,7 @@ FC_REFLECT( steem::wallet::brain_key_info, (brain_priv_key)(wif_priv_key) (pub_k
 FC_REFLECT( steem::wallet::plain_keys, (checksum)(keys) )
 
 FC_REFLECT_ENUM( steem::wallet::authority_type, (owner)(active)(posting) )
+FC_REFLECT_ENUM( steem::wallet::wallet_api::withdraw_route_type, (incoming)(outgoing)(all) )
 
 FC_API( steem::wallet::wallet_api,
         /// wallet api
