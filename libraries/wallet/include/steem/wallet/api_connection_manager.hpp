@@ -41,7 +41,7 @@ public:
             FC_THROW_EXCEPTION( fc::assert_exception, "database_api is required but not available" );
          }
       }
-      return _database_api;
+      return *_database_api;
    }
 
    fc::api<network_broadcast_api> get_network_broadcast_api()
@@ -55,7 +55,7 @@ public:
             FC_THROW_EXCEPTION( fc::assert_exception, "network_broadcast_api is required but not available" );
          }
       }
-      return _network_broadcast_api;
+      return *_network_broadcast_api;
    }
 
    fc::api<account_by_key_api> get_account_by_key_api()
@@ -69,7 +69,7 @@ public:
             FC_THROW_EXCEPTION( fc::assert_exception, "account_by_key_api is required but not available" );
          }
       }
-      return _account_by_key_api;
+      return *_account_by_key_api;
    }
 
    // Optional APIs - wallet can function with degraded capabilities if not available
@@ -154,16 +154,16 @@ private:
    std::shared_ptr<fc::rpc::websocket_api_connection> _api_connection;
 
    // Required APIs
-   fc::api<database_api>            _database_api;
-   fc::api<network_broadcast_api>   _network_broadcast_api;
-   fc::api<account_by_key_api>      _account_by_key_api;
+   fc::optional<fc::api<database_api>>            _database_api;
+   fc::optional<fc::api<network_broadcast_api>>   _network_broadcast_api;
+   fc::optional<fc::api<account_by_key_api>>      _account_by_key_api;
 
    // Optional APIs
-   fc::api<block_api>               _block_api;
-   fc::api<account_history_api>     _account_history_api;
-   fc::api<follow_api>              _follow_api;
-   fc::api<market_history_api>      _market_history_api;
-   fc::api<tags_api>                _tags_api;
+   fc::optional<fc::api<block_api>>               _block_api;
+   fc::optional<fc::api<account_history_api>>     _account_history_api;
+   fc::optional<fc::api<follow_api>>              _follow_api;
+   fc::optional<fc::api<market_history_api>>      _market_history_api;
+   fc::optional<fc::api<tags_api>>                _tags_api;
 
    // Failure tracking for optional APIs
    bool _block_api_failed = false;
