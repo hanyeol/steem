@@ -53,11 +53,13 @@ remote_node_api::scheduled_hardfork remote_node_api::get_next_scheduled_hardfork
 
 database_api::api_reward_fund_object remote_node_api::get_reward_fund( string name )
 {
-   database_api::get_reward_funds_args args;
-   args.fund_names = {name};
-   auto result = _api_mgr->get_database_api()->get_reward_funds( args );
-   FC_ASSERT( result.funds.size() > 0, "Reward fund not found" );
-   return result.funds[0];
+   auto result = _api_mgr->get_database_api()->get_reward_funds( {} );
+   for( const auto& fund : result.funds )
+   {
+      if( fund.name == name )
+         return fund;
+   }
+   FC_ASSERT( false, "Reward fund '${name}' not found", ("name", name) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
