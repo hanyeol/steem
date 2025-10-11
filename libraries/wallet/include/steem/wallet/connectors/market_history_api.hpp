@@ -4,7 +4,7 @@
 
 namespace steem { namespace wallet {
 
-using namespace steem::plugins::market_history;
+namespace market_history_api_ns = steem::plugins::market_history;
 
 /**
  * Remote market history API for wallet
@@ -12,13 +12,13 @@ using namespace steem::plugins::market_history;
  */
 struct market_history_api
 {
-   get_ticker_return get_ticker();
-   get_volume_return get_volume();
-   get_order_book_return get_order_book( get_order_book_args );
-   get_trade_history_return get_trade_history( get_trade_history_args );
-   get_recent_trades_return get_recent_trades( get_recent_trades_args );
-   get_market_history_return get_market_history( get_market_history_args );
-   get_market_history_buckets_return get_market_history_buckets();
+   market_history_api_ns::get_ticker_return get_ticker();
+   market_history_api_ns::get_volume_return get_volume();
+   market_history_api_ns::get_order_book_return get_order_book( market_history_api_ns::get_order_book_args );
+   market_history_api_ns::get_trade_history_return get_trade_history( market_history_api_ns::get_trade_history_args );
+   market_history_api_ns::get_recent_trades_return get_recent_trades( market_history_api_ns::get_recent_trades_args );
+   market_history_api_ns::get_market_history_return get_market_history( market_history_api_ns::get_market_history_args );
+   market_history_api_ns::get_market_history_buckets_return get_market_history_buckets();
 };
 
 } } // steem::wallet

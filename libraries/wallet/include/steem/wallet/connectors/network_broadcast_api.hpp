@@ -4,7 +4,7 @@
 
 namespace steem { namespace wallet {
 
-using namespace steem::plugins::network_broadcast_api;
+namespace network_broadcast_api_ns = steem::plugins::network_broadcast_api;
 
 /**
  * Remote network broadcast API for wallet
@@ -12,8 +12,8 @@ using namespace steem::plugins::network_broadcast_api;
  */
 struct network_broadcast_api
 {
-   broadcast_transaction_return broadcast_transaction( broadcast_transaction_args );
-   broadcast_block_return broadcast_block( broadcast_block_args );
+   network_broadcast_api_ns::broadcast_transaction_return broadcast_transaction( network_broadcast_api_ns::broadcast_transaction_args );
+   network_broadcast_api_ns::broadcast_block_return broadcast_block( network_broadcast_api_ns::broadcast_block_args );
 };
 
 } } // steem::wallet

@@ -61,9 +61,6 @@
 
 namespace steem { namespace wallet {
 
-// Legacy types still needed for backward compatibility
-namespace condenser_api = steem::plugins::condenser_api;
-
 namespace detail {
 
 template<class T>

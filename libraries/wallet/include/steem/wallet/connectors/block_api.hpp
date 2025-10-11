@@ -4,7 +4,7 @@
 
 namespace steem { namespace wallet {
 
-using namespace steem::plugins::block_api;
+namespace block_api_ns = steem::plugins::block_api;
 
 /**
  * Remote block API for wallet
@@ -12,8 +12,8 @@ using namespace steem::plugins::block_api;
  */
 struct block_api
 {
-   get_block_header_return get_block_header( get_block_header_args );
-   get_block_return get_block( get_block_args );
+   block_api_ns::get_block_header_return get_block_header( block_api_ns::get_block_header_args );
+   block_api_ns::get_block_return get_block( block_api_ns::get_block_args );
 };
 
 } } // steem::wallet

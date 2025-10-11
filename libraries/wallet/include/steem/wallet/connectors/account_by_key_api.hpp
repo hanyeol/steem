@@ -4,7 +4,7 @@
 
 namespace steem { namespace wallet {
 
-using namespace steem::plugins::account_by_key;
+namespace account_by_key_api_ns = steem::plugins::account_by_key;
 
 /**
  * Remote account by key API for wallet
@@ -12,7 +12,7 @@ using namespace steem::plugins::account_by_key;
  */
 struct account_by_key_api
 {
-   get_key_references_return get_key_references( get_key_references_args );
+   account_by_key_api_ns::get_key_references_return get_key_references( account_by_key_api_ns::get_key_references_args );
 };
 
 } } // steem::wallet

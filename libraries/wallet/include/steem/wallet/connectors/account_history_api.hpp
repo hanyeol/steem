@@ -4,7 +4,7 @@
 
 namespace steem { namespace wallet {
 
-using namespace steem::plugins::account_history;
+namespace account_history_api_ns = steem::plugins::account_history;
 
 /**
  * Remote account history API for wallet
@@ -12,9 +12,9 @@ using namespace steem::plugins::account_history;
  */
 struct account_history_api
 {
-   get_ops_in_block_return get_ops_in_block( get_ops_in_block_args );
-   get_transaction_return get_transaction( get_transaction_args );
-   get_account_history_return get_account_history( get_account_history_args );
+   account_history_api_ns::get_ops_in_block_return get_ops_in_block( account_history_api_ns::get_ops_in_block_args );
+   account_history_api_ns::get_transaction_return get_transaction( account_history_api_ns::get_transaction_args );
+   account_history_api_ns::get_account_history_return get_account_history( account_history_api_ns::get_account_history_args );
 };
 
 } } // steem::wallet
