@@ -779,10 +779,10 @@ public:
           ss << ' ' << setw( 10 ) << "Type";
           ss << "\n=====================================================================================================\n";
           for( const auto& o : orders ) {
-             auto base_amount = static_cast<double>(o.sell_price.base.amount.value);
+             auto base_amount  = static_cast<double>(o.sell_price.base.amount.value );
              auto quote_amount = static_cast<double>(o.sell_price.quote.amount.value);
              auto sell_price = quote_amount / base_amount;
-             auto buy_price = base_amount / quote_amount;
+             auto buy_price  = base_amount  / quote_amount;
              ss << ' ' << setw( 10 ) << o.orderid;
              ss << ' ' << setw( 10 ) << (o.sell_price.base.symbol == STEEM_SYMBOL ? sell_price : buy_price);
              ss << ' ' << setw( 10 ) << fc::variant( asset( o.for_sale, o.sell_price.base.symbol ) ).as_string();
