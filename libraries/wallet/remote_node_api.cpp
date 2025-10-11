@@ -17,38 +17,28 @@ fc::variant_object remote_node_api::get_config()
 
 database_api::api_dynamic_global_property_object remote_node_api::get_dynamic_global_properties()
 {
-   auto result = _api_mgr->get_database_api()->get_dynamic_global_properties();
-   return result.dgpo;
-}
-
-protocol::legacy_chain_properties remote_node_api::get_chain_properties()
-{
-   auto result = _api_mgr->get_database_api()->get_witness_schedule();
-   return result.median_props;
+   return _api_mgr->get_database_api()->get_dynamic_global_properties();
 }
 
 protocol::price remote_node_api::get_current_median_history_price()
 {
-   auto result = _api_mgr->get_database_api()->get_current_price_feed();
-   return result.price_feed.current_median_history;
+   return _api_mgr->get_database_api()->get_current_price_feed();
 }
 
 database_api::api_feed_history_object remote_node_api::get_feed_history()
 {
-   auto result = _api_mgr->get_database_api()->get_feed_history();
-   return result.feed_history;
+   return _api_mgr->get_database_api()->get_feed_history();
 }
 
 database_api::api_witness_schedule_object remote_node_api::get_witness_schedule()
 {
-   auto result = _api_mgr->get_database_api()->get_witness_schedule();
-   return result;
+   return _api_mgr->get_database_api()->get_witness_schedule();
 }
 
 hardfork_version remote_node_api::get_hardfork_version()
 {
    auto result = _api_mgr->get_database_api()->get_hardfork_properties();
-   return result.hardfork_properties.current_hardfork_version;
+   return result.current_hardfork_version;
 }
 
 remote_node_api::scheduled_hardfork remote_node_api::get_next_scheduled_hardfork()
@@ -56,15 +46,15 @@ remote_node_api::scheduled_hardfork remote_node_api::get_next_scheduled_hardfork
    auto result = _api_mgr->get_database_api()->get_hardfork_properties();
 
    scheduled_hardfork hf;
-   hf.hf_version = result.hardfork_properties.next_hardfork;
-   hf.live_time = result.hardfork_properties.next_hardfork_time;
+   hf.hf_version = result.next_hardfork;
+   hf.live_time = result.next_hardfork_time;
    return hf;
 }
 
 database_api::api_reward_fund_object remote_node_api::get_reward_fund( string name )
 {
    database_api::get_reward_funds_args args;
-   args.fund_names.push_back( name );
+   args.fund_names = {name};
    auto result = _api_mgr->get_database_api()->get_reward_funds( args );
    FC_ASSERT( result.funds.size() > 0, "Reward fund not found" );
    return result.funds[0];
@@ -613,22 +603,6 @@ void remote_node_api::broadcast_transaction( protocol::signed_transaction trx )
    _api_mgr->get_network_broadcast_api()->broadcast_transaction( args );
 }
 
-remote_node_api::broadcast_transaction_synchronous_return remote_node_api::broadcast_transaction_synchronous( protocol::signed_transaction trx )
-{
-   // broadcast_transaction_synchronous does not exist in network_broadcast_api
-   // Use regular broadcast_transaction and return dummy values
-   network_broadcast_api::broadcast_transaction_args args;
-   args.trx = trx;
-   _api_mgr->get_network_broadcast_api()->broadcast_transaction( args );
-
-   broadcast_transaction_synchronous_return ret;
-   ret.id = trx.id();
-   ret.block_num = 0;  // Not available without synchronous API
-   ret.trx_num = 0;    // Not available without synchronous API
-   ret.expired = false;
-   return ret;
-}
-
 void remote_node_api::broadcast_block( signed_block block )
 {
    network_broadcast_api::broadcast_block_args args;
@@ -882,8 +856,8 @@ vector< tags::discussion > remote_node_api::get_replies_by_last_update( tags::di
 
    // Convert discussion_query to get_replies_by_last_update_args
    tags::get_replies_by_last_update_args args;
-   args.start_parent_author = query.start_author;
-   args.start_permlink = query.start_permlink;
+   if( query.start_author.valid() ) args.start_parent_author = *query.start_author;
+   if( query.start_permlink.valid() ) args.start_permlink = *query.start_permlink;
    args.limit = query.limit;
    auto result = (*api)->get_replies_by_last_update( args );
    return result.discussions;
@@ -898,8 +872,8 @@ vector< tags::discussion > remote_node_api::get_discussions_by_author_before_dat
 
    // Convert discussion_query to get_discussions_by_author_before_date_args
    tags::get_discussions_by_author_before_date_args args;
-   args.author = query.start_author;
-   args.start_permlink = query.start_permlink;
+   if( query.start_author.valid() ) args.author = *query.start_author;
+   if( query.start_permlink.valid() ) args.start_permlink = *query.start_permlink;
    // Use current time if not specified in query (there's no direct mapping)
    args.before_date = fc::time_point_sec::maximum();
    args.limit = query.limit;

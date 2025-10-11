@@ -53,7 +53,6 @@ public:
 
    fc::variant_object get_config();
    database_api::api_dynamic_global_property_object get_dynamic_global_properties();
-   protocol::legacy_chain_properties get_chain_properties();
    protocol::price get_current_median_history_price();
    database_api::api_feed_history_object get_feed_history();
    database_api::api_witness_schedule_object get_witness_schedule();
@@ -147,20 +146,7 @@ public:
    // Broadcasting - routed to network_broadcast_api
    /////////////////////////////////////////////////////////////////////////////
 
-   struct broadcast_transaction_synchronous_return
-   {
-      broadcast_transaction_synchronous_return() {}
-      broadcast_transaction_synchronous_return( transaction_id_type txid, int32_t bn, int32_t tn, bool ex )
-      : id(txid), block_num(bn), trx_num(tn), expired(ex) {}
-
-      transaction_id_type   id;
-      int32_t               block_num = 0;
-      int32_t               trx_num   = 0;
-      bool                  expired   = false;
-   };
-
    void broadcast_transaction( protocol::signed_transaction );
-   broadcast_transaction_synchronous_return broadcast_transaction_synchronous( protocol::signed_transaction );
    void broadcast_block( signed_block );
 
    /////////////////////////////////////////////////////////////////////////////
@@ -246,7 +232,6 @@ FC_API( steem::wallet::remote_node_api,
         (get_ops_in_block)
         (get_config)
         (get_dynamic_global_properties)
-        (get_chain_properties)
         (get_current_median_history_price)
         (get_feed_history)
         (get_witness_schedule)
@@ -304,7 +289,6 @@ FC_API( steem::wallet::remote_node_api,
         (get_discussions_by_author_before_date)
         (get_account_history)
         (broadcast_transaction)
-        (broadcast_transaction_synchronous)
         (broadcast_block)
         (get_followers)
         (get_following)
@@ -332,9 +316,6 @@ FC_REFLECT( steem::wallet::remote_node_api::scheduled_hardfork,
 
 FC_REFLECT( steem::wallet::remote_node_api::get_version_return,
             (blockchain_version)(steem_revision)(fc_revision) )
-
-FC_REFLECT( steem::wallet::remote_node_api::broadcast_transaction_synchronous_return,
-            (id)(block_num)(trx_num)(expired) )
 
 FC_REFLECT( steem::wallet::remote_node_api::account_vote,
             (authorperm)(weight)(rshares)(percent)(time) )

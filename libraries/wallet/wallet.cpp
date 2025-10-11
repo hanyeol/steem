@@ -695,11 +695,7 @@ public:
       {
          try
          {
-            auto result = _remote_api->broadcast_transaction_synchronous( tx );
-            annotated_signed_transaction rtrx(tx);
-            rtrx.block_num = result.block_num;
-            rtrx.transaction_num = result.trx_num;
-            return rtrx;
+            _remote_api->broadcast_transaction( tx );
          }
          catch (const fc::exception& e)
          {
