@@ -292,7 +292,7 @@ public:
                                                                           " old");
       result["participation"] = (100*dynamic_props.recent_slots_filled.popcount()) / 128.0;
       result["median_sbd_price"] = _remote_api->get_current_median_history_price();
-      result["account_creation_fee"] = _remote_api->get_chain_properties().account_creation_fee;
+      result["account_creation_fee"] = _remote_api->get_witness_schedule().median_props.account_creation_fee;
       result["post_reward_fund"] = fc::variant(_remote_api->get_reward_fund( STEEM_POST_REWARD_FUND_NAME )).get_object();
       return result;
    }
@@ -499,7 +499,7 @@ public:
 
          account_create_op.creator = creator_account_name;
          account_create_op.new_account_name = account_name;
-         account_create_op.fee = _remote_api->get_chain_properties().account_creation_fee;
+         account_create_op.fee = _remote_api->get_witness_schedule().median_props.account_creation_fee;
          account_create_op.owner = authority(1, owner_pubkey, 1);
          account_create_op.active = authority(1, active_pubkey, 1);
          account_create_op.memo_key = memo_pubkey;
@@ -779,8 +779,12 @@ public:
           ss << ' ' << setw( 10 ) << "Type";
           ss << "\n=====================================================================================================\n";
           for( const auto& o : orders ) {
+             auto base_amount = static_cast<double>(o.sell_price.base.amount.value);
+             auto quote_amount = static_cast<double>(o.sell_price.quote.amount.value);
+             auto is_sbd_base = o.sell_price.base.symbol == SBD_SYMBOL;
+             auto real_price = is_sbd_base ? base_amount / quote_amount : quote_amount / base_amount;
              ss << ' ' << setw( 10 ) << o.orderid;
-             ss << ' ' << setw( 10 ) << o.real_price;
+             ss << ' ' << setw( 10 ) << real_price;
              ss << ' ' << setw( 10 ) << fc::variant( asset( o.for_sale, o.sell_price.base.symbol ) ).as_string();
              ss << ' ' << setw( 10 ) << (o.sell_price.base.symbol == STEEM_SYMBOL ? "SELL" : "BUY");
              ss << "\n";
@@ -1209,7 +1213,7 @@ signed_transaction wallet_api::create_account_with_keys(
    op.posting = authority( 1, posting, 1 );
    op.memo_key = memo;
    op.json_metadata = json_meta;
-   op.fee = my->_remote_api->get_chain_properties().account_creation_fee * asset( STEEM_CREATE_ACCOUNT_WITH_STEEM_MODIFIER, STEEM_SYMBOL );
+   op.fee = my->_remote_api->get_witness_schedule().median_props.account_creation_fee * asset( STEEM_CREATE_ACCOUNT_WITH_STEEM_MODIFIER, STEEM_SYMBOL );
 
    signed_transaction tx;
    tx.operations.push_back(op);
