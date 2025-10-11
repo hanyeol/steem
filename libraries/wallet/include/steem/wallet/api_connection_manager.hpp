@@ -30,7 +30,7 @@ public:
    }
 
    // Core APIs - required for basic wallet functionality
-   fc::api<database_api> database_api()
+   fc::api<database_api> get_database_api()
    {
       if( !_database_api )
       {
@@ -44,7 +44,7 @@ public:
       return _database_api;
    }
 
-   fc::api<network_broadcast_api> network_broadcast_api()
+   fc::api<network_broadcast_api> get_network_broadcast_api()
    {
       if( !_network_broadcast_api )
       {
@@ -58,7 +58,7 @@ public:
       return _network_broadcast_api;
    }
 
-   fc::api<account_by_key_api> account_by_key_api()
+   fc::api<account_by_key_api> get_account_by_key_api()
    {
       if( !_account_by_key_api )
       {
@@ -73,7 +73,7 @@ public:
    }
 
    // Optional APIs - wallet can function with degraded capabilities if not available
-   fc::optional<fc::api<block_api>> block_api()
+   fc::optional<fc::api<block_api>> get_block_api()
    {
       if( !_block_api && !_block_api_failed )
       {
@@ -87,7 +87,7 @@ public:
       return _block_api;
    }
 
-   fc::optional<fc::api<account_history_api>> account_history_api()
+   fc::optional<fc::api<account_history_api>> get_account_history_api()
    {
       if( !_account_history_api && !_account_history_api_failed )
       {
@@ -101,7 +101,7 @@ public:
       return _account_history_api;
    }
 
-   fc::optional<fc::api<follow_api>> follow_api()
+   fc::optional<fc::api<follow_api>> get_follow_api()
    {
       if( !_follow_api && !_follow_api_failed )
       {
@@ -115,7 +115,7 @@ public:
       return _follow_api;
    }
 
-   fc::optional<fc::api<market_history_api>> market_history_api()
+   fc::optional<fc::api<market_history_api>> get_market_history_api()
    {
       if( !_market_history_api && !_market_history_api_failed )
       {
@@ -129,7 +129,7 @@ public:
       return _market_history_api;
    }
 
-   fc::optional<fc::api<tags_api>> tags_api()
+   fc::optional<fc::api<tags_api>> get_tags_api()
    {
       if( !_tags_api && !_tags_api_failed )
       {
