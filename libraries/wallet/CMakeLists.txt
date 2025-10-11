@@ -46,6 +46,7 @@ target_link_libraries( steem_wallet PRIVATE graphene_net steem_chain steem_proto
    follow_api_plugin
    market_history_api_plugin
    tags_api_plugin
+   witness_api_plugin
    ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS}
 )
 target_include_directories( steem_wallet PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
