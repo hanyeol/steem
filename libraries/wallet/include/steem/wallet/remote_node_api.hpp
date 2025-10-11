@@ -19,6 +19,14 @@ using fc::optional;
 using namespace chain;
 using namespace plugins;
 
+// Alias plugin namespaces for convenience
+namespace database_api = plugins::database_api;
+namespace account_history = plugins::account_history;
+namespace market_history = plugins::market_history;
+namespace tags = plugins::tags;
+namespace follow = plugins::follow;
+namespace witness = plugins::witness;
+
 /**
  * Facade API that delegates calls to appropriate module APIs
  *
