@@ -10,7 +10,7 @@ namespace database_api_ns = steem::plugins::database_api;
  * Remote database API for wallet
  * This is a dummy API that provides method signatures for fc::api RPC calls
  */
-struct database_api
+struct database_api_proxy
 {
    // Globals
    database_api_ns::get_config_return get_config();
@@ -73,7 +73,7 @@ struct database_api
 
 } } // steem::wallet
 
-FC_API( steem::wallet::database_api,
+FC_API( steem::wallet::database_api_proxy,
    // Globals
    (get_config)
    (get_dynamic_global_properties)

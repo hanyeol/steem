@@ -10,7 +10,7 @@ namespace tags_api_ns = steem::plugins::tags;
  * Remote tags API for wallet
  * This is a dummy API that provides method signatures for fc::api RPC calls
  */
-struct tags_api
+struct tags_api_proxy
 {
    tags_api_ns::get_trending_tags_return get_trending_tags( tags_api_ns::get_trending_tags_args );
    tags_api_ns::get_tags_used_by_author_return get_tags_used_by_author( tags_api_ns::get_tags_used_by_author_args );
@@ -33,7 +33,7 @@ struct tags_api
 
 } } // steem::wallet
 
-FC_API( steem::wallet::tags_api,
+FC_API( steem::wallet::tags_api_proxy,
    (get_trending_tags)
    (get_tags_used_by_author)
    (get_discussion)

@@ -10,7 +10,7 @@ namespace follow_api_ns = steem::plugins::follow;
  * Remote follow API for wallet
  * This is a dummy API that provides method signatures for fc::api RPC calls
  */
-struct follow_api
+struct follow_api_proxy
 {
    follow_api_ns::get_followers_return get_followers( follow_api_ns::get_followers_args );
    follow_api_ns::get_following_return get_following( follow_api_ns::get_following_args );
@@ -26,7 +26,7 @@ struct follow_api
 
 } } // steem::wallet
 
-FC_API( steem::wallet::follow_api,
+FC_API( steem::wallet::follow_api_proxy,
    (get_followers)
    (get_following)
    (get_follow_count)

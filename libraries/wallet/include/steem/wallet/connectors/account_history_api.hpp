@@ -10,7 +10,7 @@ namespace account_history_api_ns = steem::plugins::account_history;
  * Remote account history API for wallet
  * This is a dummy API that provides method signatures for fc::api RPC calls
  */
-struct account_history_api
+struct account_history_api_proxy
 {
    account_history_api_ns::get_ops_in_block_return get_ops_in_block( account_history_api_ns::get_ops_in_block_args );
    account_history_api_ns::get_transaction_return get_transaction( account_history_api_ns::get_transaction_args );
@@ -19,7 +19,7 @@ struct account_history_api
 
 } } // steem::wallet
 
-FC_API( steem::wallet::account_history_api,
+FC_API( steem::wallet::account_history_api_proxy,
    (get_ops_in_block)
    (get_transaction)
    (get_account_history)

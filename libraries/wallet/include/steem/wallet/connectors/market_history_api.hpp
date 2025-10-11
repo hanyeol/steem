@@ -10,7 +10,7 @@ namespace market_history_api_ns = steem::plugins::market_history;
  * Remote market history API for wallet
  * This is a dummy API that provides method signatures for fc::api RPC calls
  */
-struct market_history_api
+struct market_history_api_proxy
 {
    market_history_api_ns::get_ticker_return get_ticker();
    market_history_api_ns::get_volume_return get_volume();
@@ -23,7 +23,7 @@ struct market_history_api
 
 } } // steem::wallet
 
-FC_API( steem::wallet::market_history_api,
+FC_API( steem::wallet::market_history_api_proxy,
    (get_ticker)
    (get_volume)
    (get_order_book)
