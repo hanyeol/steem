@@ -512,9 +512,7 @@ public:
             save_wallet_file();
          if( broadcast )
          {
-            //_remote_api->broadcast_transaction( tx );
-            auto result = _remote_api->broadcast_transaction_synchronous( tx );
-            FC_UNUSED(result);
+            _remote_api->broadcast_transaction( tx );
          }
          return tx;
    } FC_CAPTURE_AND_RETHROW( (account_name)(creator_account_name)(broadcast) ) }
