@@ -16,6 +16,8 @@ struct tags_api_proxy
    tags_api_ns::get_tags_used_by_author_return get_tags_used_by_author( tags_api_ns::get_tags_used_by_author_args );
    tags_api_ns::get_discussion_return get_discussion( tags_api_ns::get_discussion_args );
    tags_api_ns::get_content_replies_return get_content_replies( tags_api_ns::get_content_replies_args );
+   tags_api_ns::get_post_discussions_by_payout_return get_post_discussions_by_payout( tags_api_ns::get_post_discussions_by_payout_args );
+   tags_api_ns::get_comment_discussions_by_payout_return get_comment_discussions_by_payout( tags_api_ns::get_comment_discussions_by_payout_args );
    tags_api_ns::get_discussions_by_trending_return get_discussions_by_trending( tags_api_ns::get_discussions_by_trending_args );
    tags_api_ns::get_discussions_by_created_return get_discussions_by_created( tags_api_ns::get_discussions_by_created_args );
    tags_api_ns::get_discussions_by_active_return get_discussions_by_active( tags_api_ns::get_discussions_by_active_args );
@@ -29,6 +31,7 @@ struct tags_api_proxy
    tags_api_ns::get_discussions_by_promoted_return get_discussions_by_promoted( tags_api_ns::get_discussions_by_promoted_args );
    tags_api_ns::get_discussions_by_author_before_date_return get_discussions_by_author_before_date( tags_api_ns::get_discussions_by_author_before_date_args );
    tags_api_ns::get_replies_by_last_update_return get_replies_by_last_update( tags_api_ns::get_replies_by_last_update_args );
+   tags_api_ns::get_active_votes_return get_active_votes( tags_api_ns::get_active_votes_args );
 };
 
 } } // steem::wallet
@@ -38,6 +41,8 @@ FC_API( steem::wallet::tags_api_proxy,
    (get_tags_used_by_author)
    (get_discussion)
    (get_content_replies)
+   (get_post_discussions_by_payout)
+   (get_comment_discussions_by_payout)
    (get_discussions_by_trending)
    (get_discussions_by_created)
    (get_discussions_by_active)
@@ -51,4 +56,5 @@ FC_API( steem::wallet::tags_api_proxy,
    (get_discussions_by_promoted)
    (get_discussions_by_author_before_date)
    (get_replies_by_last_update)
+   (get_active_votes)
 )
