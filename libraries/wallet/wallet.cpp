@@ -282,18 +282,17 @@ public:
    variant info() const
    {
       auto dynamic_props = _remote_api->get_dynamic_global_properties();
+
       fc::mutable_variant_object result(fc::variant(dynamic_props).get_object());
       result["witness_majority_version"] = fc::string( _remote_api->get_witness_schedule().majority_version );
-      result["hardfork_version"] = fc::string( _remote_api->get_hardfork_version() );
-      result["head_block_num"] = dynamic_props.head_block_number;
-      result["head_block_id"] = dynamic_props.head_block_id;
-      result["head_block_age"] = fc::get_approximate_relative_time_string(dynamic_props.time,
-                                                                          time_point_sec(time_point::now()),
-                                                                          " old");
-      result["participation"] = (100*dynamic_props.recent_slots_filled.popcount()) / 128.0;
-      result["median_sbd_price"] = _remote_api->get_current_median_history_price();
-      result["account_creation_fee"] = _remote_api->get_witness_schedule().median_props.account_creation_fee;
-      result["post_reward_fund"] = fc::variant(_remote_api->get_reward_fund( STEEM_POST_REWARD_FUND_NAME )).get_object();
+      result["hardfork_version"]         = fc::string( _remote_api->get_hardfork_version() );
+      result["head_block_num"]           = dynamic_props.head_block_number;
+      result["head_block_id"]            = dynamic_props.head_block_id;
+      result["head_block_age"]           = fc::get_approximate_relative_time_string(dynamic_props.time, time_point_sec(time_point::now()), " old");
+      result["participation"]            = (100 * dynamic_props.recent_slots_filled.popcount()) / 128.0;
+      result["median_sbd_price"]         = _remote_api->get_current_median_history_price();
+      result["account_creation_fee"]     = _remote_api->get_witness_schedule().median_props.account_creation_fee;
+      result["post_reward_fund"]         = fc::variant(_remote_api->get_reward_fund( STEEM_POST_REWARD_FUND_NAME )).get_object();
       return result;
    }
 
@@ -305,15 +304,15 @@ public:
          client_version = client_version.substr( pos + 1 );
 
       fc::mutable_variant_object result;
-      result["blockchain_version"]       = STEEM_BLOCKCHAIN_VERSION;
-      result["client_version"]           = client_version;
-      result["steem_revision"]           = steem::utilities::git_revision_sha;
-      result["steem_revision_age"]       = fc::get_approximate_relative_time_string( fc::time_point_sec( steem::utilities::git_revision_unix_timestamp ) );
-      result["fc_revision"]              = fc::git_revision_sha;
-      result["fc_revision_age"]          = fc::get_approximate_relative_time_string( fc::time_point_sec( fc::git_revision_unix_timestamp ) );
-      result["compile_date"]             = "compiled on " __DATE__ " at " __TIME__;
-      result["boost_version"]            = boost::replace_all_copy(std::string(BOOST_LIB_VERSION), "_", ".");
-      result["openssl_version"]          = OPENSSL_VERSION_TEXT;
+      result["blockchain_version"] = STEEM_BLOCKCHAIN_VERSION;
+      result["client_version"]     = client_version;
+      result["steem_revision"]     = steem::utilities::git_revision_sha;
+      result["steem_revision_age"] = fc::get_approximate_relative_time_string( fc::time_point_sec( steem::utilities::git_revision_unix_timestamp ) );
+      result["fc_revision"]        = fc::git_revision_sha;
+      result["fc_revision_age"]    = fc::get_approximate_relative_time_string( fc::time_point_sec( fc::git_revision_unix_timestamp ) );
+      result["compile_date"]       = "compiled on " __DATE__ " at " __TIME__;
+      result["boost_version"]      = boost::replace_all_copy(std::string(BOOST_LIB_VERSION), "_", ".");
+      result["openssl_version"]    = OPENSSL_VERSION_TEXT;
 
       std::string bitness = boost::lexical_cast<std::string>(8 * sizeof(int*)) + "-bit";
 #if defined(__APPLE__)
@@ -331,8 +330,8 @@ public:
       {
          auto v = _remote_api->get_version();
          result["server_blockchain_version"] = v.blockchain_version;
-         result["server_steem_revision"] = v.steem_revision;
-         result["server_fc_revision"] = v.fc_revision;
+         result["server_steem_revision"]     = v.steem_revision;
+         result["server_fc_revision"]        = v.fc_revision;
       }
       catch( fc::exception& )
       {
