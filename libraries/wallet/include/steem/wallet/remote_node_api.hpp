@@ -7,7 +7,7 @@
 #include <steem/plugins/market_history_api/market_history_api.hpp>
 #include <steem/plugins/network_broadcast_api/network_broadcast_api.hpp>
 #include <steem/plugins/follow_api/follow_api.hpp>
-#include <steem/plugins/witness/witness_plugin.hpp>
+#include <steem/plugins/witness_api/witness_api.hpp>
 #include <steem/protocol/types.hpp>
 
 namespace steem { namespace wallet {
