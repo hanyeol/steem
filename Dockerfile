@@ -38,16 +38,19 @@ RUN \
         jq \
         wget \
         virtualenv \
-        gdb \
         libgflags-dev \
         libsnappy-dev \
         zlib1g-dev \
         libbz2-dev \
         liblz4-dev \
         libzstd-dev \
+        curl \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    curl https://bootstrap.pypa.io/pip/3.5/get-pip.py -o get-pip.py && \
+    python3 get-pip.py && \
+    rm get-pip.py && \
     pip3 install gcovr
 
 ADD . /usr/local/src/steem
@@ -240,14 +243,14 @@ EXPOSE 8090
 EXPOSE 2001
 
 # add seednodes from documentation to image
-ADD doc/seednodes.txt /etc/steemd/seednodes.txt
+ADD docs/seednodes.txt /etc/steemd/seednodes.txt
 
 # the following adds lots of logging info to stdout
-ADD contrib/config-for-docker.ini /etc/steemd/config.ini
+ADD contrib/docker.config.ini /etc/steemd/config.ini
 ADD contrib/fullnode.config.ini /etc/steemd/fullnode.config.ini
 ADD contrib/fullnode.opswhitelist.config.ini /etc/steemd/fullnode.opswhitelist.config.ini
-ADD contrib/config-for-broadcaster.ini /etc/steemd/config-for-broadcaster.ini
-ADD contrib/config-for-ahnode.ini /etc/steemd/config-for-ahnode.ini
+ADD contrib/broadcaster.config.ini /etc/steemd/broadcaster.config.ini
+ADD contrib/ahnode.config.ini /etc/steemd/ahnode.config.ini
 ADD contrib/testnet.config.ini /etc/steemd/testnet.config.ini
 ADD contrib/fastgen.config.ini /etc/steemd/fastgen.config.ini
 
