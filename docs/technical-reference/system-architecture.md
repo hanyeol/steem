@@ -804,5 +804,5 @@ The minimum system configuration depends on the node type:
 
 Always use SSD storage (NVMe preferred for API nodes) and ensure adequate network connectivity. For production deployments, implement redundancy, monitoring, and disaster recovery procedures.
 
-For detailed build instructions, see [docs/building.md](building.md).
-For exchange-specific setup, see [docs/exchangequickstart.md](exchangequickstart.md).
+For detailed build instructions, see [docs/getting-started/building.md](../getting-started/building.md).
+For exchange-specific setup, see [docs/getting-started/exchange-quick-start.md](../getting-started/exchange-quick-start.md).

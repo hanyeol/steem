@@ -47,7 +47,7 @@ make -j$(nproc) steemd
 - **Testnet**: 250M initial supply, auto-generated keys, "TST" prefix
 - **Mainnet**: 0 initial supply, fixed public key, "STM" prefix
 
-For complete build instructions including system requirements, dependency installation, and troubleshooting, refer to [docs/building.md](building.md).
+For complete build instructions including system requirements, dependency installation, and troubleshooting, refer to [docs/getting-started/building.md](../getting-started/building.md).
 
 ### System Requirements
 

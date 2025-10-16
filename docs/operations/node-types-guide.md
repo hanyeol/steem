@@ -474,7 +474,7 @@ account-history-whitelist-ops = fill_vesting_withdraw_operation
 shared-file-size = 70G
 ```
 
-See [docs/exchangequickstart.md](exchangequickstart.md) for detailed exchange integration.
+See [docs/getting-started/exchange-quick-start.md](../getting-started/exchange-quick-start.md) for detailed exchange integration.
 
 ### Content Platform Node
 
