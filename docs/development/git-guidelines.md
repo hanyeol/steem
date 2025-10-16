@@ -8,10 +8,10 @@ post](http://www.draconianoverlord.com/2013/09/07/no-cherry-picking.html).
 ## Branches
 - `stable`: Points to the latest version of code that is production-ready, and has been tested in production.
  Witnesses, exchanges, seed nodes, and RPC nodes should be running this branch. 
-- `master`: Points to the current release of Steem. Each release commit will be tagged
+- `main`: Points to the current release of Steem. Each release commit will be tagged
   `vMajor.Hardfork.Release`. When we get ready to release we will merge
-  feature branches into `develop` and then do a single merge into `master`
-  via a Pull Request. All PRs to `master` must pass automated testing to be
+  feature branches into `develop` and then do a single merge into `main`
+  via a Pull Request. All PRs to `main` must pass automated testing to be
   merged.
 - `develop`: The active development branch. We will strive to keep `develop`
   in a working state. All PRs must pass automated tests before being merged.
@@ -48,7 +48,7 @@ repo tidy.)
 
 ## Pull Requests
 
-All changes to `develop` and `master` are done through GitHub Pull Requests
+All changes to `develop` and `main` are done through GitHub Pull Requests
 (PRs). This is done for several reasons:
 
 - It enforces two factor authentication. GitHub will only allow merging of a
@@ -88,12 +88,12 @@ pull request.
 
 - Tags are reserved for releases. The version scheme is
   `vMajor.Hardfork.Release` (Ex. v0.5.0 is the version for the Hardfork 5
-  release). Releases should be made only on `master`.
+  release). Releases should be made only on `main`.
 
 ### Code Review Policy / PR Merge Process
 
 - Two developers *must* review *every* release before merging it into
-  `master`, enforced through pull requests.
+  `main`, enforced through pull requests.
 - Two developers *must* review *every* consensus-breaking change before it
   moves into `develop`, enforced through pull requests.
 - Two developers *should* review *every* patch before it moves into
