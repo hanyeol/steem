@@ -17,6 +17,7 @@ if( STEEM_STATIC_BUILD )
       steem_plugins
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
+      atomic  # Must be last for GCC linker
    )
 else( STEEM_STATIC_BUILD )
    target_link_libraries( steemd PRIVATE
@@ -25,6 +26,7 @@ else( STEEM_STATIC_BUILD )
       steem_plugins
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
+      atomic  # Must be last for GCC linker
    )
 endif( STEEM_STATIC_BUILD )
 

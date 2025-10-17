@@ -192,8 +192,11 @@ void segfault_handler(int sig_num, siginfo_t * info, void * ucontext)
    caller_address = (void *) uc->uc_mcontext.eip; // EIP: x86 specific
 #elif defined(__x86_64__) // gcc specific
    caller_address = (void *) uc->uc_mcontext.rip; // RIP: x86_64 specific
+#elif defined(__aarch64__) || defined(__arm64__) // ARM64
+   caller_address = (void *) uc->uc_mcontext.pc; // PC: ARM64 specific
 #else
-#error Unsupported architecture. // TODO: Add support for other arch.
+   caller_address = nullptr; // Unsupported architecture - disable stacktrace
+   // #error Unsupported architecture. // TODO: Add support for other arch.
 #endif
 
    FC_UNUSED(caller_address);
