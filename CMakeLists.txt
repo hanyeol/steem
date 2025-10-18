@@ -219,7 +219,7 @@ else( WIN32 ) # Apple AND Linux
     else( APPLE )
         # Linux Specific Options Here
         message( STATUS "Configuring Steem on Linux" )
-        set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-error=shift-count-overflow -Wno-error=misleading-indentation -fpermissive" )
+        set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-error=shift-count-overflow -Wno-error=misleading-indentation -Wno-nonnull -Wno-class-memaccess -fpermissive" )
         set( rt_library rt )
         set( pthread_library pthread)
         if ( NOT DEFINED crypto_library )

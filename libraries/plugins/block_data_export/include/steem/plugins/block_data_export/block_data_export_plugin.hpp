@@ -1,4 +1,10 @@
 #pragma once
+
+#define BOOST_THREAD_PROVIDES_EXECUTORS
+#define BOOST_THREAD_PROVIDES_FUTURE
+#define BOOST_THREAD_PROVIDES_FUTURE_CONTINUATION
+#define BOOST_THREAD_USES_MOVE
+
 #include <appbase/application.hpp>
 
 #include <steem/plugins/chain/chain_plugin.hpp>

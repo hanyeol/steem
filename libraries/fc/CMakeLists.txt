@@ -349,7 +349,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_BIND_GLOBAL_PLACEHOLDERS")
 
 # Suppress OpenSSL 3.0 deprecation warnings for legacy hash functions (SHA1, RIPEMD160, etc.)
 if(NOT APPLE)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations -Wno-class-memaccess")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations -Wno-class-memaccess -Wno-misleading-indentation")
 endif()
 
 OPTION( LOG_LONG_API "Log long API calls over websocket (ON OR OFF)" ON )

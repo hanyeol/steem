@@ -582,16 +582,9 @@ public:
 
       flat_map< string, condenser_api::api_account_object > approving_account_lut;
       size_t i = 0;
-      for( const optional< condenser_api::api_account_object >& approving_acct : approving_account_objects )
+      for( const condenser_api::extended_account& approving_acct : approving_account_objects )
       {
-         if( !approving_acct.valid() )
-         {
-            wlog( "operation_get_required_auths said approval of non-existing account ${name} was needed",
-                  ("name", v_approving_account_names[i]) );
-            i++;
-            continue;
-         }
-         approving_account_lut[ approving_acct->name ] =  *approving_acct;
+         approving_account_lut[ approving_acct.name ] = approving_acct;
          i++;
       }
       auto get_account_from_lut = [&]( const std::string& name ) -> const condenser_api::api_account_object&
@@ -1077,7 +1070,7 @@ string wallet_api::help()const
 {
    std::vector<std::string> method_names = my->method_documentation.get_method_names();
    std::stringstream ss;
-   for (const std::string method_name : method_names)
+   for (const std::string& method_name : method_names)
    {
       try
       {
