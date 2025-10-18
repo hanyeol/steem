@@ -291,4 +291,3 @@ make -j2 chain_test plugin_test
 
 - [Building Steem](../getting-started/building.md) - General build instructions
 - [Testing Guide](testing.md) - Comprehensive testing documentation
-- [Boost Upgrade Plan](boost-upgrade-plan.md) - Details on Boost 1.74 upgrade
