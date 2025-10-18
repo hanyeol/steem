@@ -88,7 +88,8 @@ namespace fc {
     return my->_sock.is_open();
   }
 
-  tcp_socket::tcp_socket(){};
+  tcp_socket::tcp_socket()
+    : my( std::make_shared<impl>() ) {}
 
   tcp_socket::~tcp_socket(){};
 

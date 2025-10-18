@@ -4,6 +4,7 @@
 #include <boost/core/demangle.hpp>
 #include <boost/asio.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/version.hpp>
 
 #include <iostream>
 
@@ -13,6 +14,13 @@ namespace appbase {
 
    namespace bpo = boost::program_options;
    namespace bfs = boost::filesystem;
+
+   // Boost 1.70+ deprecated io_service in favor of io_context
+#if BOOST_VERSION >= 107000
+   using io_service_t = boost::asio::io_context;
+#else
+   using io_service_t = boost::asio::io_service;
+#endif
 
    class application
    {
@@ -90,7 +98,7 @@ namespace appbase {
          template< typename... Plugin >
          void set_default_plugins() { default_plugins = { Plugin::name()... }; }
 
-         boost::asio::io_service& get_io_service() { return *io_serv; }
+         io_service_t& get_io_service() { return *io_serv; }
 
       protected:
          template< typename Impl >
@@ -114,7 +122,7 @@ namespace appbase {
          map< string, std::shared_ptr< abstract_plugin > >  plugins; ///< all registered plugins
          vector< abstract_plugin* >                         initialized_plugins; ///< stored in the order they were started running
          vector< abstract_plugin* >                         running_plugins; ///< stored in the order they were started running
-         std::shared_ptr< boost::asio::io_service >         io_serv;
+         std::shared_ptr< io_service_t >         io_serv;
          std::string                                        version_info;
          std::string                                        app_name = "appbase";
          std::vector< std::string >                         default_plugins;

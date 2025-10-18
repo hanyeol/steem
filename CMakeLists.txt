@@ -43,10 +43,8 @@ get_git_head_revision( GIT_REFSPEC GIT_SHA2 )
 SET(BOOST_COMPONENTS)
 LIST(APPEND BOOST_COMPONENTS thread
                              date_time
-                             system
                              filesystem
                              program_options
-                             signals
                              serialization
                              chrono
                              unit_test_framework
@@ -157,7 +155,8 @@ IF( WIN32 )
   set(BOOST_ALL_DYN_LINK OFF) # force dynamic linking for all libraries
 ENDIF(WIN32)
 
-FIND_PACKAGE(Boost 1.58 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
+set(Boost_NO_BOOST_CMAKE ON)  # Disable CMake Config mode
+FIND_PACKAGE(Boost 1.74 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
 
 if( WIN32 )
 

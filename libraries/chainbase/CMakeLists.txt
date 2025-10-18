@@ -9,7 +9,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 SET(BOOST_COMPONENTS)
 LIST(APPEND BOOST_COMPONENTS thread
                              date_time
-                             system
                              filesystem
                              chrono
                              unit_test_framework
@@ -23,7 +22,8 @@ IF( WIN32 )
   set(BOOST_ALL_DYN_LINK OFF) # force dynamic linking for all libraries
 ENDIF(WIN32)
 
-FIND_PACKAGE(Boost 1.57 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
+set(Boost_NO_BOOST_CMAKE ON)
+FIND_PACKAGE(Boost 1.74 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
 
 if( APPLE )
   # Apple Specific Options Here
@@ -32,7 +32,7 @@ if( APPLE )
 else( APPLE )
   # Linux Specific Options Here
   message( STATUS "Configuring ChainBase on Linux" )
-  set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall" )
+  set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-nonnull" )
   set( rt_library rt )
   set( pthread_library pthread)
   if ( FULL_STATIC_BUILD )

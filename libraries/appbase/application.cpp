@@ -28,7 +28,7 @@ class application_impl {
 
 application::application()
 :my(new application_impl()){
-   io_serv = std::make_shared<boost::asio::io_service>();
+   io_serv = std::make_shared<io_service_t>();
 }
 
 application::~application() { }
@@ -235,7 +235,7 @@ void application::write_default_config(const bfs::path& cfg_file) {
       bfs::create_directories(cfg_file.parent_path());
 
    std::ofstream out_cfg( bfs::path(cfg_file).make_preferred().string());
-   for(const boost::shared_ptr<bpo::option_description> od : my->_cfg_options.options())
+   for(const boost::shared_ptr<bpo::option_description>& od : my->_cfg_options.options())
    {
       if(!od->description().empty())
          out_cfg << "# " << od->description() << "\n";

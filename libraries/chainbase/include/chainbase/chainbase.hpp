@@ -59,12 +59,18 @@ namespace helpers
    template <class IndexType>
    void gather_index_static_data(const IndexType& index, index_statistic_info* info)
    {
+#if BOOST_VERSION >= 107400
+      using node_t = typename IndexType::final_node_type;
+#else
+      using node_t = typename IndexType::node_type;
+#endif
+      static_assert( sizeof( node_t ) >= sizeof( typename IndexType::value_type ) );
+
       info->_value_type_name = boost::core::demangle(typeid(typename IndexType::value_type).name());
       info->_item_count = index.size();
       info->_item_sizeof = sizeof(typename IndexType::value_type);
       info->_item_additional_allocation = 0;
-      size_t pureNodeSize = sizeof(typename IndexType::node_type) -
-         sizeof(typename IndexType::value_type);
+      size_t pureNodeSize = sizeof(node_t) - sizeof(typename IndexType::value_type);
       info->_additional_container_allocation = info->_item_count*pureNodeSize;
    }
 
@@ -204,12 +210,7 @@ namespace chainbase {
          typedef undo_state< value_type >                              undo_state_type;
 
          generic_index( allocator<value_type> a )
-         :_stack(a),_indices( a ),_size_of_value_type( sizeof(typename MultiIndexType::node_type) ),_size_of_this(sizeof(*this)){}
-
-         void validate()const {
-            if( sizeof(typename MultiIndexType::node_type) != _size_of_value_type || sizeof(*this) != _size_of_this )
-               BOOST_THROW_EXCEPTION( std::runtime_error("content of memory does not match data expected by executable") );
-         }
+         :_stack(a),_indices( a ),_size_of_value_type( sizeof(typename MultiIndexType::value_type) ),_size_of_this(sizeof(*this)){}
 
          /**
           * Construct a new element in the multi_index_container.
@@ -1066,7 +1067,6 @@ namespace chainbase {
 #else
              idx_ptr = new index_type( index_alloc() );
 #endif
-             idx_ptr->validate();
 
              if( type_id >= _index_map.size() )
                 _index_map.resize( type_id + 1 );

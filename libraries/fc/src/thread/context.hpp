@@ -2,7 +2,11 @@
 #include <fc/thread/thread.hpp>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
+#if BOOST_VERSION >= 106800
+#include <boost/context/continuation_fcontext.hpp>
+#else
 #include <boost/context/all.hpp>
+#endif
 #pragma GCC diagnostic pop
 #include <fc/exception/exception.hpp>
 #include <vector>

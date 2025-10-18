@@ -8,14 +8,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 SET(BOOST_COMPONENTS)
 LIST(APPEND BOOST_COMPONENTS thread
                              date_time
-                             system
                              filesystem
                              chrono
                              program_options
                              unit_test_framework
                              locale)
 
-FIND_PACKAGE(Boost 1.58 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
+set(Boost_NO_BOOST_CMAKE ON)
+FIND_PACKAGE(Boost 1.74 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
 set( Boost_USE_STATIC_LIBS ON CACHE STRING "ON or OFF" )
 
 if( APPLE )
