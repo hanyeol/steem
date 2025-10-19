@@ -6,9 +6,9 @@
 #include <fc/log/logger_config.hpp>
 #include <fc/io/json.hpp>
 #include <fc/network/resolve.hpp>
+#include <fc/optional.hpp>
 
 #include <boost/asio.hpp>
-#include <boost/optional.hpp>
 #include <boost/bind.hpp>
 #include <boost/preprocessor/stringize.hpp>
 
@@ -30,7 +30,7 @@ namespace asio = boost::asio;
 
 using std::map;
 using std::string;
-using boost::optional;
+using fc::optional;
 using boost::asio::ip::tcp;
 using std::shared_ptr;
 using websocketpp::connection_hdl;
