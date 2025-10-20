@@ -93,7 +93,7 @@ class BlockCacheTier : public PersistentCacheTier {
 
     InsertOp() = delete;
     InsertOp(InsertOp&& rhs) = default;
-    InsertOp& operator=(InsertOp&& rhs) = default;
+    InsertOp& operator=(InsertOp&& rhs) = delete;
 
     // used for estimating size by bounded queue
     size_t Size() { return data_.size() + key_.size(); }

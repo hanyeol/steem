@@ -13,7 +13,11 @@ namespace fc
     {
       if( itr->address().is_v4() )
       {
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+       eps.push_back( fc::ip::endpoint(itr->address().to_v4().to_uint(), itr->port()) );
+#else
        eps.push_back( fc::ip::endpoint(itr->address().to_v4().to_ulong(), itr->port()) );
+#endif
       }
       // TODO: add support for v6
     }

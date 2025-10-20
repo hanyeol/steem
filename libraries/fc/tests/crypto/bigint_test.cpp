@@ -46,7 +46,15 @@ BOOST_AUTO_TEST_CASE(bigint_test_2)
         BOOST_CHECK( bi_accu >= a_1 );
     } while ( bi_accu.log2() <= 128 );
 
+    // Test self-assignment operator
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#endif
     bi_accu = bi_accu;
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
     BOOST_CHECK( bi_accu && !bi_accu.is_negative() && bi_accu != bi_1 );
 

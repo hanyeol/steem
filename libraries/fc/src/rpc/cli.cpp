@@ -18,8 +18,15 @@
 #   pragma message("You have an old version of readline installed that might not support some of the features we need")
 #   pragma message("Readline support will not be compiled in")
 #  else
+#   if defined(__clang__)
+#    pragma clang diagnostic push
+#    pragma clang diagnostic ignored "-W#warnings"
+#   endif
 #   warning "You have an old version of readline installed that might not support some of the features we need"
 #   warning "Readline support will not be compiled in"
+#   if defined(__clang__)
+#    pragma clang diagnostic pop
+#   endif
 #  endif
 #  undef HAVE_READLINE
 # endif

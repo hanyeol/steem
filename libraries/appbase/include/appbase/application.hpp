@@ -15,8 +15,11 @@ namespace appbase {
    namespace bpo = boost::program_options;
    namespace bfs = boost::filesystem;
 
-   // Boost 1.70+ deprecated io_service in favor of io_context
-#if BOOST_VERSION >= 107000
+   // Compatibility typedef for io_service/io_context across Boost versions
+   // - Boost 1.58-1.65: Only io_service exists
+   // - Boost 1.66-1.86: Both io_service (typedef) and io_context exist
+   // - Boost 1.87+: Only io_context exists
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
    using io_service_t = boost::asio::io_context;
 #else
    using io_service_t = boost::asio::io_service;

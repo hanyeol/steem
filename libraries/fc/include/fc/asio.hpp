@@ -5,10 +5,22 @@
 #pragma once
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include <boost/version.hpp>
 #include <fc/thread/future.hpp>
 #include <fc/io/iostream.hpp>
 
-namespace fc { 
+namespace fc {
+
+// Compatibility typedef for io_service/io_context across Boost versions
+// - Boost 1.58-1.65: Only io_service exists
+// - Boost 1.66-1.86: Both io_service (typedef) and io_context exist
+// - Boost 1.87+: Only io_context exists
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+    using io_service_t = boost::asio::io_context;
+#else
+    using io_service_t = boost::asio::io_service;
+#endif
+ 
 /**
  *  @brief defines fc wrappers for boost::asio functions.
  */
@@ -67,12 +79,12 @@ namespace asio {
         #endif 
     }
     /**
-     * @return the default boost::asio::io_service for use with fc::asio
-     * 
+     * @return the default io_service (io_service or io_context depending on Boost version) for use with fc::asio
+     *
      * This IO service is automatically running in its own thread to service asynchronous
      * requests without blocking any other threads.
      */
-    boost::asio::io_service& default_io_service(bool cleanup = false);
+    fc::io_service_t& default_io_service(bool cleanup = false);
 
     /** 
      *  @brief wraps boost::asio::async_read
@@ -217,7 +229,11 @@ namespace asio {
 
     namespace tcp {
         typedef boost::asio::ip::tcp::endpoint endpoint;
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+        typedef boost::asio::ip::tcp::resolver::results_type resolver_iterator;
+#else
         typedef boost::asio::ip::tcp::resolver::iterator resolver_iterator;
+#endif
         typedef boost::asio::ip::tcp::resolver resolver;
         std::vector<endpoint> resolve( const std::string& hostname, const std::string& port );
 
@@ -249,7 +265,11 @@ namespace asio {
     }
     namespace udp {
         typedef boost::asio::ip::udp::endpoint endpoint;
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+        typedef boost::asio::ip::udp::resolver::results_type resolver_iterator;
+#else
         typedef boost::asio::ip::udp::resolver::iterator resolver_iterator;
+#endif
         typedef boost::asio::ip::udp::resolver resolver;
         /// @brief resolve all udp::endpoints for hostname:port
         std::vector<endpoint> resolve( resolver& r, const std::string& hostname, 

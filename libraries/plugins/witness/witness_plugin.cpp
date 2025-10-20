@@ -75,7 +75,7 @@ namespace detail {
 
    class witness_plugin_impl {
    public:
-      witness_plugin_impl( boost::asio::io_service& io ) :
+      witness_plugin_impl( appbase::io_service_t& io ) :
          _timer(io),
          _chain_plugin( appbase::app().get_plugin< steem::plugins::chain::chain_plugin >() ),
          _db( appbase::app().get_plugin< steem::plugins::chain::chain_plugin >().db() )
@@ -99,7 +99,11 @@ namespace detail {
 
       std::map< steem::protocol::public_key_type, fc::ecc::private_key > _private_keys;
       std::set< steem::protocol::account_name_type >                     _witnesses;
+#if BOOST_VERSION >= 104900  // Boost 1.49.0+
+      boost::asio::steady_timer                                          _timer;
+#else
       boost::asio::deadline_timer                                        _timer;
+#endif
 
       std::set< steem::protocol::account_name_type >                     _dupe_customs;
 
@@ -465,7 +469,11 @@ namespace detail {
       if(time_to_next_second < 50000)      // we must sleep for at least 50ms
          time_to_next_second += 1000000;
 
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      _timer.expires_after( std::chrono::microseconds( time_to_next_second ) );
+#else
       _timer.expires_from_now( boost::posix_time::microseconds( time_to_next_second ) );
+#endif
       _timer.async_wait( boost::bind( &witness_plugin_impl::block_production_loop, this ) );
    }
 

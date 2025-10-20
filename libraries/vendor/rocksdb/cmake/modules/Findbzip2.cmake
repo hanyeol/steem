@@ -1,4 +1,4 @@
-# - Find Bzip2
+# - Find BZip2
 # Find the bzip2 compression library and includes
 #
 # BZIP2_INCLUDE_DIR - where to find bzlib.h, etc.

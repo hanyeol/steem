@@ -74,10 +74,18 @@ namespace fc {
                              IteratorType itr) {
             if( !ec ) {
                 std::vector<EndpointType> eps;
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+                // results_type is a container, iterate directly
+                for( const auto& entry : itr ) {
+                    eps.push_back(entry.endpoint());
+                }
+#else
+                // Classic iterator pattern
                 while( itr != IteratorType() ) {
                     eps.push_back(*itr);
                     ++itr;
                 }
+#endif
                 p->set_value( eps );
             } else {
                 //elog( "%s", boost::system::system_error(ec).what() );
@@ -92,14 +100,23 @@ namespace fc {
 
     struct default_io_service_scope
     {
-       boost::asio::io_service*          io;
+       fc::io_service_t*                 io;
        std::vector<boost::thread*>       asio_threads;
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+       boost::asio::executor_work_guard<boost::asio::io_context::executor_type>* the_work;
+#else
        boost::asio::io_service::work*    the_work;
+#endif
 
        default_io_service_scope()
        {
-            io           = new boost::asio::io_service();
+            io           = new fc::io_service_t();
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+            the_work     = new boost::asio::executor_work_guard<boost::asio::io_context::executor_type>(
+                boost::asio::make_work_guard(*io));
+#else
             the_work     = new boost::asio::io_service::work(*io);
+#endif
             for( int i = 0; i < 8; ++i ) {
                asio_threads.push_back( new boost::thread( [=]()
                {
@@ -145,7 +162,7 @@ namespace fc {
     };
 
     /// If cleanup is true, do not use the return value; it is a null reference
-    boost::asio::io_service& default_io_service(bool cleanup) {
+    fc::io_service_t& default_io_service(bool cleanup) {
         static default_io_service_scope fc_asio_service[1];
         if (cleanup) {
            for( int i = 0; i < 1; ++i )
@@ -161,8 +178,13 @@ namespace fc {
         {
           resolver res( fc::asio::default_io_service() );
           promise<std::vector<boost::asio::ip::tcp::endpoint> >::ptr p( new promise<std::vector<boost::asio::ip::tcp::endpoint> >("tcp::resolve completion") );
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+          res.async_resolve( hostname, port,
+                            boost::bind( detail::resolve_handler<boost::asio::ip::tcp::endpoint,resolver_iterator>, p, _1, _2 ) );
+#else
           res.async_resolve( boost::asio::ip::tcp::resolver::query(hostname,port),
                             boost::bind( detail::resolve_handler<boost::asio::ip::tcp::endpoint,resolver_iterator>, p, _1, _2 ) );
+#endif
           return p->wait();;
         }
         FC_RETHROW_EXCEPTIONS(warn, "")
@@ -175,8 +197,13 @@ namespace fc {
         {
           resolver res( fc::asio::default_io_service() );
           promise<std::vector<endpoint> >::ptr p( new promise<std::vector<endpoint> >("udp::resolve completion") );
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+          res.async_resolve( hostname, port,
+                              boost::bind( detail::resolve_handler<endpoint,resolver_iterator>, p, _1, _2 ) );
+#else
           res.async_resolve( resolver::query(hostname,port),
                               boost::bind( detail::resolve_handler<endpoint,resolver_iterator>, p, _1, _2 ) );
+#endif
           return p->wait();
         }
         FC_RETHROW_EXCEPTIONS(warn, "")

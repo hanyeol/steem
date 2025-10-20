@@ -26,7 +26,11 @@ SOFTWARE.
 #define STATSD_CLIENT_HPP
 
 #include <cstdlib>
+#if __cplusplus >= 201703L
+#include <optional>
+#else
 #include <experimental/optional>
+#endif
 #include <string>
 #include "UDPSender.hpp"
 

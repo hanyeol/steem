@@ -575,7 +575,11 @@ namespace fc { namespace http {
                else
                   ctx->load_verify_file( ca_filename );
                ctx->set_verify_depth(10);
+#if BOOST_VERSION >= 107300  // Boost 1.73.0+
+               ctx->set_verify_callback( boost::asio::ssl::host_name_verification( get_host() ) );
+#else
                ctx->set_verify_callback( boost::asio::ssl::rfc2818_verification( get_host() ) );
+#endif
             }
 
             bool                               _shutting_down = false;

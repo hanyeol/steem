@@ -3,6 +3,11 @@ if( UNIX AND NOT APPLE )
   set(rt_library rt )
 endif()
 
+# Set atomic library for Linux/GCC (not needed on macOS)
+if( UNIX AND NOT APPLE )
+  set(atomic_library atomic )
+endif()
+
 find_package( Gperftools QUIET )
 if( GPERFTOOLS_FOUND )
     message( STATUS "Found gperftools; compiling steemd with TCMalloc")
@@ -17,7 +22,7 @@ if( STEEM_STATIC_BUILD )
       steem_plugins
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
-      atomic  # Must be last for GCC linker
+      ${atomic_library}  # Must be last for GCC linker
    )
 else( STEEM_STATIC_BUILD )
    target_link_libraries( steemd PRIVATE
@@ -26,7 +31,7 @@ else( STEEM_STATIC_BUILD )
       steem_plugins
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
-      atomic  # Must be last for GCC linker
+      ${atomic_library}  # Must be last for GCC linker
    )
 endif( STEEM_STATIC_BUILD )
 

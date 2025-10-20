@@ -59,7 +59,9 @@ class autovector {
     typedef iterator_impl<TAutoVector, TValueType> self_type;
     typedef TValueType value_type;
     typedef TValueType& reference;
+    typedef const TValueType& const_reference;
     typedef TValueType* pointer;
+    typedef const TValueType* const_pointer;
     typedef typename TAutoVector::difference_type difference_type;
     typedef std::random_access_iterator_tag iterator_category;
 
@@ -125,7 +127,7 @@ class autovector {
       return (*vect_)[index_];
     }
 
-    const_reference operator*() const {
+    reference operator*() const {
       assert(vect_->size() >= index_);
       return (*vect_)[index_];
     }
@@ -135,7 +137,7 @@ class autovector {
       return &(*vect_)[index_];
     }
 
-    const_pointer operator->() const {
+    pointer operator->() const {
       assert(vect_->size() >= index_);
       return &(*vect_)[index_];
     }

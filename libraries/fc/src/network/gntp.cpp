@@ -113,9 +113,8 @@ namespace fc
 
         for (uint32_t i = 0; i < eps.size(); ++i)
         {
-          try 
+          try
           {
-            boost::system::error_code ec;
             ilog("Attempting to connect to GNTP srvice");
             asio::tcp::connect(*sock, eps[i]);
             endpoint = eps[i];

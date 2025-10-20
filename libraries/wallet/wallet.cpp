@@ -581,11 +581,9 @@ public:
       FC_ASSERT( approving_account_objects.size() == v_approving_account_names.size(), "", ("aco.size:", approving_account_objects.size())("acn",v_approving_account_names.size()) );
 
       flat_map< string, condenser_api::api_account_object > approving_account_lut;
-      size_t i = 0;
       for( const condenser_api::extended_account& approving_acct : approving_account_objects )
       {
          approving_account_lut[ approving_acct.name ] = approving_acct;
-         i++;
       }
       auto get_account_from_lut = [&]( const std::string& name ) -> const condenser_api::api_account_object&
       {

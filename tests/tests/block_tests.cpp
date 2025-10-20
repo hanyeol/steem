@@ -76,6 +76,7 @@ BOOST_AUTO_TEST_CASE( generate_empty_blocks )
          // n.b. we generate STEEM_MIN_UNDO_HISTORY+1 extra blocks which will be discarded on save
          for( uint32_t i = 1; ; ++i )
          {
+            (void)i; // Suppress unused variable warning
             BOOST_CHECK( db.head_block_id() == b.id() );
             //witness_id_type prev_witness = b.witness;
             string cur_witness = db.get_scheduled_witness(1);

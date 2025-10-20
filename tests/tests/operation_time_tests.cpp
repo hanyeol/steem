@@ -1896,6 +1896,12 @@ BOOST_AUTO_TEST_CASE( liquidity_rewards )
       int64_t dave_steem_volume = 0;
       time_point_sec dave_reward_last_update = fc::time_point_sec::min();
 
+      // Suppress unused variable warnings - these are used later in the test
+      (void)alice_sbd_volume; (void)alice_steem_volume;
+      (void)bob_sbd_volume; (void)bob_steem_volume;
+      (void)sam_sbd_volume; (void)sam_steem_volume;
+      (void)dave_sbd_volume; (void)dave_steem_volume;
+
       BOOST_TEST_MESSAGE( "Creating Limit Order for STEEM that will stay on the books for 30 minutes exactly." );
 
       limit_order_create_operation op;

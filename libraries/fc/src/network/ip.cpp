@@ -10,11 +10,15 @@ namespace fc { namespace ip {
   address::address( uint32_t ip )
   :_ip(ip){}
 
-  address::address( const fc::string& s ) 
+  address::address( const fc::string& s )
   {
     try
     {
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      _ip = boost::asio::ip::make_address_v4(s.c_str()).to_uint();
+#else
       _ip = boost::asio::ip::address_v4::from_string(s.c_str()).to_ulong();
+#endif
     }
     FC_RETHROW_EXCEPTIONS(error, "Error parsing IP address ${address}", ("address", s))
   }
@@ -26,11 +30,15 @@ namespace fc { namespace ip {
     return uint32_t(a) != uint32_t(b);
   }
 
-  address& address::operator=( const fc::string& s ) 
+  address& address::operator=( const fc::string& s )
   {
     try
     {
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      _ip = boost::asio::ip::make_address_v4(s.c_str()).to_uint();
+#else
       _ip = boost::asio::ip::address_v4::from_string(s.c_str()).to_ulong();
+#endif
     }
     FC_RETHROW_EXCEPTIONS(error, "Error parsing IP address ${address}", ("address", s))
     return *this;
@@ -77,7 +85,11 @@ namespace fc { namespace ip {
     {
       endpoint ep;
       auto pos = endpoint_string.find(':');
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      ep._ip   = boost::asio::ip::make_address_v4(endpoint_string.substr( 0, pos ) ).to_uint();
+#else
       ep._ip   = boost::asio::ip::address_v4::from_string(endpoint_string.substr( 0, pos ) ).to_ulong();
+#endif
       ep._port = boost::lexical_cast<uint16_t>( endpoint_string.substr( pos+1, endpoint_string.size() ) );
       return ep;
     }

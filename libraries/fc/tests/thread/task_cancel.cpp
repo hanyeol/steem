@@ -89,6 +89,7 @@ BOOST_AUTO_TEST_CASE( test_non_preemptable_assertion )
       ASSERT_TASK_NOT_PREEMPTED();
       int i = 4;
       i += 2;
+      (void)i; // Suppress unused variable warning
     }
     fc::usleep(fc::seconds(1)); // this should assert
   }

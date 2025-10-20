@@ -122,7 +122,11 @@ namespace fc {
     try
     {
       auto rep = my->_sock.remote_endpoint();
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      return  fc::ip::endpoint(rep.address().to_v4().to_uint(), rep.port() );
+#else
       return  fc::ip::endpoint(rep.address().to_v4().to_ulong(), rep.port() );
+#endif
     }
     FC_RETHROW_EXCEPTIONS( warn, "error getting socket's remote endpoint" );
   }
@@ -133,7 +137,11 @@ namespace fc {
     try
     {
       auto boost_local_endpoint = my->_sock.local_endpoint();
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      return fc::ip::endpoint(boost_local_endpoint.address().to_v4().to_uint(), boost_local_endpoint.port() );
+#else
       return fc::ip::endpoint(boost_local_endpoint.address().to_v4().to_ulong(), boost_local_endpoint.port() );
+#endif
     }
     FC_RETHROW_EXCEPTIONS( warn, "error getting socket's local endpoint" );
   }
@@ -320,7 +328,11 @@ namespace fc {
       my = new impl;
     try
     {
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      my->_accept.bind(boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address_v4((string)ep.get_address()), ep.port()));
+#else
       my->_accept.bind(boost::asio::ip::tcp::endpoint(boost::asio::ip::address_v4::from_string((string)ep.get_address()), ep.port()));
+#endif
       my->_accept.listen();
     }
     FC_RETHROW_EXCEPTIONS(warn, "error listening on socket");
@@ -329,8 +341,13 @@ namespace fc {
   fc::ip::endpoint tcp_server::get_local_endpoint() const
   {
     FC_ASSERT( my != nullptr );
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+    return fc::ip::endpoint(my->_accept.local_endpoint().address().to_v4().to_uint(),
+                            my->_accept.local_endpoint().port() );
+#else
     return fc::ip::endpoint(my->_accept.local_endpoint().address().to_v4().to_ulong(),
                             my->_accept.local_endpoint().port() );
+#endif
   }
 
   uint16_t tcp_server::get_port()const

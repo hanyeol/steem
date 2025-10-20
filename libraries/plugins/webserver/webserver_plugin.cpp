@@ -83,10 +83,18 @@ class webserver_plugin_impl
 {
    public:
       webserver_plugin_impl(thread_pool_size_t thread_pool_size) :
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+         thread_pool_work( boost::asio::make_work_guard( this->thread_pool_ios ) )
+#else
          thread_pool_work( this->thread_pool_ios )
+#endif
       {
          for( uint32_t i = 0; i < thread_pool_size; ++i )
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+            thread_pool.create_thread( boost::bind( &appbase::io_service_t::run, &thread_pool_ios ) );
+#else
             thread_pool.create_thread( boost::bind( &asio::io_service::run, &thread_pool_ios ) );
+#endif
       }
 
       void start_webserver();
@@ -96,18 +104,22 @@ class webserver_plugin_impl
       void handle_http_message( websocket_server_type*, connection_hdl );
 
       shared_ptr< std::thread >  http_thread;
-      asio::io_service           http_ios;
+      appbase::io_service_t      http_ios;
       optional< tcp::endpoint >  http_endpoint;
       websocket_server_type      http_server;
 
       shared_ptr< std::thread >  ws_thread;
-      asio::io_service           ws_ios;
+      appbase::io_service_t      ws_ios;
       optional< tcp::endpoint >  ws_endpoint;
       websocket_server_type      ws_server;
 
       boost::thread_group        thread_pool;
-      asio::io_service           thread_pool_ios;
+      appbase::io_service_t      thread_pool_ios;
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      boost::asio::executor_work_guard<appbase::io_service_t::executor_type> thread_pool_work;
+#else
       asio::io_service::work     thread_pool_work;
+#endif
 
       plugins::json_rpc::json_rpc_plugin* api;
       boost::signals2::connection         chain_sync_con;
@@ -208,7 +220,11 @@ void webserver_plugin_impl::handle_ws_message( websocket_server_type* server, co
 {
    auto con = server->get_con_from_hdl( hdl );
 
+#if BOOST_VERSION >= 108700  // Boost 1.87.0+
+   boost::asio::post( thread_pool_ios, [con, msg, this]()
+#else
    thread_pool_ios.post( [con, msg, this]()
+#endif
    {
       try
       {
@@ -247,7 +263,11 @@ void webserver_plugin_impl::handle_http_message( websocket_server_type* server, 
    auto con = server->get_con_from_hdl( hdl );
    con->defer_http_response();
 
+#if BOOST_VERSION >= 108700  // Boost 1.87.0+
+   boost::asio::post( thread_pool_ios, [con, this]()
+#else
    thread_pool_ios.post( [con, this]()
+#endif
    {
       auto body = con->get_request_body();
 
@@ -315,7 +335,11 @@ void webserver_plugin::plugin_initialize( const variables_map& options )
       auto http_endpoint = options.at( "webserver-http-endpoint" ).as< string >();
       auto endpoints = fc::resolve_string_to_ip_endpoints( http_endpoint );
       FC_ASSERT( endpoints.size(), "webserver-http-endpoint ${hostname} did not resolve", ("hostname", http_endpoint) );
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      my->http_endpoint = tcp::endpoint( boost::asio::ip::make_address_v4( ( string )endpoints[0].get_address() ), endpoints[0].port() );
+#else
       my->http_endpoint = tcp::endpoint( boost::asio::ip::address_v4::from_string( ( string )endpoints[0].get_address() ), endpoints[0].port() );
+#endif
       ilog( "configured http to listen on ${ep}", ("ep", endpoints[0]) );
    }
 
@@ -324,7 +348,11 @@ void webserver_plugin::plugin_initialize( const variables_map& options )
       auto ws_endpoint = options.at( "webserver-ws-endpoint" ).as< string >();
       auto endpoints = fc::resolve_string_to_ip_endpoints( ws_endpoint );
       FC_ASSERT( endpoints.size(), "ws-server-endpoint ${hostname} did not resolve", ("hostname", ws_endpoint) );
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      my->ws_endpoint = tcp::endpoint( boost::asio::ip::make_address_v4( ( string )endpoints[0].get_address() ), endpoints[0].port() );
+#else
       my->ws_endpoint = tcp::endpoint( boost::asio::ip::address_v4::from_string( ( string )endpoints[0].get_address() ), endpoints[0].port() );
+#endif
       ilog( "configured ws to listen on ${ep}", ("ep", endpoints[0]) );
    }
 
@@ -334,7 +362,11 @@ void webserver_plugin::plugin_initialize( const variables_map& options )
       auto endpoints = fc::resolve_string_to_ip_endpoints( endpoint );
       FC_ASSERT( endpoints.size(), "rpc-endpoint ${hostname} did not resolve", ("hostname", endpoint) );
 
+#if BOOST_VERSION >= 106600  // Boost 1.66.0+
+      auto tcp_endpoint = tcp::endpoint( boost::asio::ip::make_address_v4( ( string )endpoints[0].get_address() ), endpoints[0].port() );
+#else
       auto tcp_endpoint = tcp::endpoint( boost::asio::ip::address_v4::from_string( ( string )endpoints[0].get_address() ), endpoints[0].port() );
+#endif
 
       if( !my->http_endpoint )
       {

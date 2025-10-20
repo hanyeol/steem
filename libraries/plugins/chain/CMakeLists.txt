@@ -3,7 +3,12 @@ add_library( chain_plugin
              chain_plugin.cpp
              ${HEADERS} )
 
-target_link_libraries( chain_plugin steem_chain appbase steem_utilities statsd_plugin atomic )
+# Set atomic library for Linux/GCC (not needed on macOS)
+if( UNIX AND NOT APPLE )
+  set(atomic_library atomic )
+endif()
+
+target_link_libraries( chain_plugin steem_chain appbase steem_utilities statsd_plugin ${atomic_library} )
 target_include_directories( chain_plugin PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 
 if( CLANG_TIDY_EXE )

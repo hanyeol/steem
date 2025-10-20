@@ -6,4 +6,4 @@
 	url = https://github.com/cryptonomex/secp256k1-zkp.git
 [submodule "libraries/fc/vendor/websocketpp"]
 	path = libraries/fc/vendor/websocketpp
-	url = https://github.com/zaphoyd/websocketpp.git
+	url = https://github.com/hanyeol/websocketpp.git
