@@ -17,7 +17,6 @@ RUN \
         bsdmainutils \
         build-essential \
         cmake \
-        doxygen \
         gdb \
         git \
         libboost-all-dev \
