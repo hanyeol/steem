@@ -575,12 +575,19 @@ struct comment_options_extension_visitor
       FC_ASSERT( _c.beneficiaries.size() == 0, "Comment already has beneficiaries specified." );
       FC_ASSERT( _c.abs_rshares == 0, "Comment must not have been voted on before specifying beneficiaries." );
 
+      // Validate all beneficiary accounts exist BEFORE modifying the object
+      // Throwing exceptions inside modify lambda can cause issues with chainbase
+      // undo/redo mechanism in Boost 1.74+
+      for( auto& b : cpb.beneficiaries )
+      {
+         auto acc = _db.find< account_object, by_name >( b.account );
+         FC_ASSERT( acc != nullptr, "Beneficiary \"${a}\" must exist.", ("a", b.account) );
+      }
+
       _db.modify( _c, [&]( comment_object& c )
       {
          for( auto& b : cpb.beneficiaries )
          {
-            auto acc = _db.find< account_object, by_name >( b.account );
-            FC_ASSERT( acc != nullptr, "Beneficiary \"${a}\" must exist.", ("a", b.account) );
             c.beneficiaries.push_back( b );
          }
       });
