@@ -5,7 +5,7 @@ find_package( Doxygen )
 
 # Disable Perl-based wallet documentation generation to avoid DoxyDocs.pm dependency
 # The standin version provides runtime documentation via reflection instead
-# if( PERL_FOUND AND DOXYGEN_FOUND AND NOT "${CMAKE_GENERATOR}" STREQUAL "Ninja" )
+# Original condition: if( PERL_FOUND AND DOXYGEN_FOUND AND NOT "${CMAKE_GENERATOR}" STREQUAL "Ninja" )
 if( FALSE )
   configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile )
   add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/doxygen/perlmod/DoxyDocs.pm
