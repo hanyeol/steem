@@ -228,7 +228,7 @@ EXPOSE 8090
 EXPOSE 2001
 
 # add seednodes from documentation to image
-ADD docs/seednodes.txt /etc/steemd/seednodes.txt
+# ADD docs/seednodes.txt /etc/steemd/seednodes.txt
 
 # the following adds lots of logging info to stdout
 ADD contrib/docker.config.ini /etc/steemd/config.ini
