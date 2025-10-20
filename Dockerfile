@@ -17,6 +17,7 @@ RUN \
         bsdmainutils \
         build-essential \
         cmake \
+        doxygen \
         gdb \
         git \
         libboost-all-dev \
@@ -67,6 +68,7 @@ RUN \
     ./tests/plugin_test && \
     ./programs/util/test_fixed_string && \
     cd /usr/local/src/steem && \
+    doxygen && \
     PYTHONPATH=programs/build_helpers \
     python3 -m steem_build_helpers.check_reflect && \
     programs/build_helpers/get_config_check.sh && \
@@ -95,6 +97,7 @@ RUN \
     ./tests/plugin_test && \
     ./programs/util/test_fixed_string && \
     cd /usr/local/src/steem && \
+    doxygen && \
     PYTHONPATH=programs/build_helpers \
     python3 -m steem_build_helpers.check_reflect && \
     programs/build_helpers/get_config_check.sh && \
