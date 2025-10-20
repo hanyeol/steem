@@ -2070,6 +2070,11 @@ void claim_account_evaluator::do_apply( const claim_account_operation& o )
                ("f", wso.median_props.account_creation_fee)
                ("p", o.fee) );
 
+   // Check for overflow BEFORE modifying the object
+   // Throwing exceptions inside modify lambda can cause issues with chainbase in Boost 1.74+
+   FC_ASSERT( creator.pending_claimed_accounts < std::numeric_limits< int64_t >::max(),
+              "Cannot claim account, pending_claimed_accounts would overflow." );
+
    _db.adjust_balance( _db.get_account( STEEM_NULL_ACCOUNT ), o.fee );
 
    _db.modify( creator, [&]( account_object& a )
