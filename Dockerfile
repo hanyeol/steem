@@ -1,13 +1,12 @@
-FROM phusion/baseimage:0.9.19
-
-#ARG STEEMD_BLOCKCHAIN=https://example.com/steemd-blockchain.tbz2
+FROM ubuntu:22.04
 
 ARG STEEM_STATIC_BUILD=ON
-ENV STEEM_STATIC_BUILD ${STEEM_STATIC_BUILD}
+ENV STEEM_STATIC_BUILD=${STEEM_STATIC_BUILD}
 ARG BUILD_STEP
-ENV BUILD_STEP ${BUILD_STEP}
+ENV BUILD_STEP=${BUILD_STEP}
 
 ENV LANG=en_US.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
     apt-get update && \
@@ -25,7 +24,6 @@ RUN \
         libreadline-dev \
         libssl-dev \
         libtool \
-        liblz4-tool \
         ncurses-dev \
         pkg-config \
         python3 \
@@ -34,7 +32,6 @@ RUN \
         python3-pip \
         nginx \
         fcgiwrap \
-        awscli \
         jq \
         wget \
         virtualenv \
@@ -45,12 +42,10 @@ RUN \
         liblz4-dev \
         libzstd-dev \
         curl \
+        ca-certificates \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    curl https://bootstrap.pypa.io/pip/3.5/get-pip.py -o get-pip.py && \
-    python3 get-pip.py && \
-    rm get-pip.py && \
     pip3 install gcovr
 
 ADD . /usr/local/src/steem
@@ -189,20 +184,15 @@ RUN \
         libboost-all-dev \
         libc6-dev \
         libexpat1-dev \
-        libgcc-5-dev \
         libhwloc-dev \
         libibverbs-dev \
         libicu-dev \
         libltdl-dev \
-        libncurses5-dev \
+        libncurses-dev \
         libnuma-dev \
         libopenmpi-dev \
-        libpython-dev \
-        libpython2.7-dev \
         libreadline-dev \
-        libreadline6-dev \
         libssl-dev \
-        libstdc++-5-dev \
         libtinfo-dev \
         libtool \
         linux-libc-dev \
@@ -211,8 +201,6 @@ RUN \
         manpages \
         manpages-dev \
         mpi-default-dev \
-        python-dev \
-        python2.7-dev \
         python3-dev \
     && \
     apt-get autoremove -y && \
@@ -229,10 +217,7 @@ RUN useradd -s /bin/bash -m -d /var/lib/steemd steemd
 RUN mkdir /var/cache/steemd && \
     chown steemd:steemd -R /var/cache/steemd
 
-# add blockchain cache to image
-#ADD $STEEMD_BLOCKCHAIN /var/cache/steemd/blocks.tbz2
-
-ENV HOME /var/lib/steemd
+ENV HOME=/var/lib/steemd
 RUN chown steemd:steemd -R /var/lib/steemd
 
 VOLUME ["/var/lib/steemd"]
