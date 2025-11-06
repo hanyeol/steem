@@ -2,51 +2,48 @@ FROM ubuntu:22.04
 
 ARG STEEM_STATIC_BUILD=ON
 ENV STEEM_STATIC_BUILD=${STEEM_STATIC_BUILD}
-ARG BUILD_STEP
-ENV BUILD_STEP=${BUILD_STEP}
 
 ENV LANG=en_US.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN \
-    apt-get update && \
+# Install dependencies in a single layer
+RUN apt-get update && \
     apt-get install -y \
         autoconf \
         automake \
         autotools-dev \
         bsdmainutils \
         build-essential \
+        ca-certificates \
         cmake \
+        curl \
         doxygen \
+        fcgiwrap \
         gdb \
         git \
+        jq \
         libboost-all-dev \
+        libbz2-dev \
+        libgflags-dev \
+        liblz4-dev \
         libreadline-dev \
+        libsnappy-dev \
         libssl-dev \
         libtool \
+        libzstd-dev \
         ncurses-dev \
+        nginx \
         pkg-config \
-        python3 \
-        python3-dev \
         python3-jinja2 \
         python3-pip \
-        nginx \
-        fcgiwrap \
-        jq \
-        wget \
+        runit \
         virtualenv \
-        libgflags-dev \
-        libsnappy-dev \
+        wget \
         zlib1g-dev \
-        libbz2-dev \
-        liblz4-dev \
-        libzstd-dev \
-        curl \
-        ca-certificates \
     && \
+    pip3 install --no-cache-dir gcovr && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    pip3 install gcovr
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD . /usr/local/src/steem
 
