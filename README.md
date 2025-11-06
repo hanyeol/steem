@@ -37,7 +37,7 @@ Minimal node for blockchain sync (requires ~2GB RAM):
 ```bash
 docker run \
     -d -p 2001:2001 -p 8090:8090 --name steemd-default \
-    steemit/steem
+    hanyeol/steem
 
 docker logs -f steemd-default
 ```
@@ -51,7 +51,7 @@ docker run \
     --env USE_WAY_TOO_MUCH_RAM=1 \
     --env USE_FULL_WEB_NODE=1 \
     -d -p 2001:2001 -p 8090:8090 --name steemd-full \
-    steemit/steem
+    hanyeol/steem
 
 docker logs -f steemd-full
 ```
@@ -69,7 +69,7 @@ sudo apt-get update && sudo apt-get install -y \
     libboost-all-dev
 
 # Clone and build
-git clone https://github.com/steemit/steem.git
+git clone https://github.com/hanyeol/steem.git
 cd steem
 git submodule update --init --recursive
 mkdir build && cd build
@@ -88,7 +88,7 @@ brew install autoconf automake cmake git libtool \
 # Build
 export OPENSSL_ROOT_DIR=$(brew --prefix)/Cellar/openssl/1.0.2h_1/
 export BOOST_ROOT=$(brew --prefix)/Cellar/boost@1.60/1.60.0/
-git clone https://github.com/steemit/steem.git
+git clone https://github.com/hanyeol/steem.git
 cd steem
 git submodule update --init --recursive
 mkdir build && cd build
