@@ -111,24 +111,14 @@ scheduled_hardfork remote_node_api::get_next_scheduled_hardfork() const
 }
 
 /**
- * @brief Retrieves information about a specific reward fund
- * @param name Reward fund name (e.g., "post")
- * @return Information including reward fund balance, recent claims, etc.
- * @throws fc::assert_exception If the reward fund does not exist
+ * @brief Retrieves information about all reward funds
+ * @return Vector of all reward funds
  */
-database_api::api_reward_fund_object remote_node_api::get_reward_fund( string name ) const
+vector<database_api::api_reward_fund_object> remote_node_api::get_reward_funds() const
 {
    database_api::get_reward_funds_args args;
-   auto result = send_call( "database_api", "get_reward_funds", fc::variant(args) )
-      .as<database_api::get_reward_funds_return>();
-
-   for( const auto& fund : result.funds )
-   {
-      if( fund.name == name )
-         return fund;
-   }
-
-   FC_THROW_EXCEPTION( fc::assert_exception, "Reward fund '${name}' not found", ("name", name) );
+   return send_call( "database_api", "get_reward_funds", fc::variant(args) )
+      .as<database_api::get_reward_funds_return>().funds;
 }
 
 // ============================================================================
@@ -1196,7 +1186,7 @@ void remote_node_api::broadcast_block( signed_block block ) const
 
 fc::variant remote_node_api::send_call( const string& api_name, const string& method_name, const fc::variant& args ) const
 {
-   return _connection.send_call( api_name, method_name, fc::variants{ args } );
+   return _connection.send_call( api_name, method_name, args );
 }
 
 } } // steem::wallet

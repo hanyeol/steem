@@ -56,7 +56,17 @@ variant cli::send_call( api_id_type api_id, string method_name, variants args /*
    FC_ASSERT(false);
 }
 
+variant cli::send_call( api_id_type api_id, string method_name, variant arg )
+{
+   FC_ASSERT(false);
+}
+
 variant cli::send_call( string api_name, string method_name, variants args /* = variants() */ )
+{
+   FC_ASSERT(false);
+}
+
+variant cli::send_call( string api_name, string method_name, variant arg )
 {
    FC_ASSERT(false);
 }

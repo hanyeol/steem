@@ -69,11 +69,33 @@ variant websocket_api_connection::send_call(
 }
 
 variant websocket_api_connection::send_call(
+   api_id_type api_id,
+   string method_name,
+   variant arg )
+{
+   idump( (api_id)(method_name)(arg) );
+   auto request = _rpc_state.start_remote_call(  "call", {api_id, std::move(method_name), std::move(arg) } );
+   idump( (request) );
+   _connection.send_message( fc::json::to_string(request) );
+   return _rpc_state.wait_for_response( *request.id );
+}
+
+variant websocket_api_connection::send_call(
    string api_name,
    string method_name,
    variants args )
 {
    auto request = _rpc_state.start_remote_call(  "call", {std::move(api_name), std::move(method_name), std::move(args) } );
+   _connection.send_message( fc::json::to_string(request) );
+   return _rpc_state.wait_for_response( *request.id );
+}
+
+variant websocket_api_connection::send_call(
+   string api_name,
+   string method_name,
+   variant arg )
+{
+   auto request = _rpc_state.start_remote_call(  "call", {std::move(api_name), std::move(method_name), std::move(arg) } );
    _connection.send_message( fc::json::to_string(request) );
    return _rpc_state.wait_for_response( *request.id );
 }

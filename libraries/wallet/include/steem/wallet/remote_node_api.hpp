@@ -63,7 +63,7 @@ public:
    database_api::api_witness_schedule_object get_witness_schedule() const;
    hardfork_version get_hardfork_version() const;
    scheduled_hardfork get_next_scheduled_hardfork() const;
-   database_api::api_reward_fund_object get_reward_fund( string name ) const;
+   vector<database_api::api_reward_fund_object> get_reward_funds() const;
 
    // Block API
    fc::optional<block_header> get_block_header( uint32_t block_num ) const;

@@ -291,7 +291,7 @@ public:
       result["participation"           ] = (100 * dynamic_props.recent_slots_filled.popcount()) / 128.0;
       result["median_sbd_price"        ] = _remote_api.get_current_median_history_price();
       result["account_creation_fee"    ] = _remote_api.get_chain_properties().account_creation_fee;
-      result["post_reward_fund"        ] = fc::variant(_remote_api.get_reward_fund( STEEM_POST_REWARD_FUND_NAME )).get_object();
+      result["reward_funds"            ] = _remote_api.get_reward_funds();
 
       return result;
    }

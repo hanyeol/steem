@@ -224,7 +224,9 @@ namespace fc {
 
          /** makes calls to the remote server */
          virtual variant send_call( api_id_type api_id, string method_name, variants args = variants() ) = 0;
+         virtual variant send_call( api_id_type api_id, string method_name, variant arg ) = 0;
          virtual variant send_call( string api_name, string method_name, variants args = variants() ) = 0;
+         virtual variant send_call( string api_name, string method_name, variant arg ) = 0;
          virtual variant send_callback( uint64_t callback_id, variants args = variants() ) = 0;
          virtual void    send_notice( uint64_t callback_id, variants args = variants() ) = 0;
 
@@ -366,7 +368,17 @@ namespace fc {
             FC_ASSERT( _remote_connection );
             return _remote_connection->receive_call( api_id, method_name, std::move(args) );
          }
+         virtual variant send_call( api_id_type api_id, string method_name, variant arg ) override
+         {
+            FC_ASSERT( _remote_connection );
+            return _remote_connection->receive_call( api_id, method_name, variants{std::move(arg)} );
+         }
          virtual variant send_call( string api_name, string method_name, variants args = variants() ) override
+         {
+            FC_ASSERT( false, "local call by name not supported" );
+            return variant();
+         }
+         virtual variant send_call( string api_name, string method_name, variant arg ) override
          {
             FC_ASSERT( false, "local call by name not supported" );
             return variant();
