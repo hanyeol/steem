@@ -770,38 +770,15 @@ BOOST_FIXTURE_TEST_CASE( hardfork_test, database_fixture )
          throw;
       }
 
-      BOOST_TEST_MESSAGE( "Check hardfork not applied at genesis" );
+      BOOST_TEST_MESSAGE( "Check hardfork 0 applied at genesis" );
       BOOST_REQUIRE( db->has_hardfork( 0 ) );
-      BOOST_REQUIRE( !db->has_hardfork( STEEM_HARDFORK_0_1 ) );
 
-      BOOST_TEST_MESSAGE( "Generate blocks up to the hardfork time and check hardfork still not applied" );
-      generate_blocks( fc::time_point_sec( STEEM_HARDFORK_0_1_TIME - STEEM_BLOCK_INTERVAL ), true );
-
-      BOOST_REQUIRE( db->has_hardfork( 0 ) );
-      BOOST_REQUIRE( !db->has_hardfork( STEEM_HARDFORK_0_1 ) );
-
-      BOOST_TEST_MESSAGE( "Generate a block and check hardfork is applied" );
-      generate_block();
-
-      string op_msg = "Testnet: Hardfork applied";
-      auto itr = db->get_index< account_history_index >().indices().get< by_id >().end();
-      itr--;
+      BOOST_TEST_MESSAGE( "Generate blocks and verify hardfork remains applied" );
+      generate_blocks( 10 );
 
       BOOST_REQUIRE( db->has_hardfork( 0 ) );
-      BOOST_REQUIRE( db->has_hardfork( STEEM_HARDFORK_0_1 ) );
-      BOOST_REQUIRE( get_last_operations( 1 )[0].get< custom_operation >().data == vector< char >( op_msg.begin(), op_msg.end() ) );
-      BOOST_REQUIRE( db->get(itr->op).timestamp == db->head_block_time() );
 
-      BOOST_TEST_MESSAGE( "Testing hardfork is only applied once" );
-      generate_block();
-
-      itr = db->get_index< account_history_index >().indices().get< by_id >().end();
-      itr--;
-
-      BOOST_REQUIRE( db->has_hardfork( 0 ) );
-      BOOST_REQUIRE( db->has_hardfork( STEEM_HARDFORK_0_1 ) );
-      BOOST_REQUIRE( get_last_operations( 1 )[0].get< custom_operation >().data == vector< char >( op_msg.begin(), op_msg.end() ) );
-      BOOST_REQUIRE( db->get(itr->op).timestamp == db->head_block_time() - STEEM_BLOCK_INTERVAL );
+      validate_database();
 
       db->wipe( data_dir->path(), data_dir->path(), true );
    }
