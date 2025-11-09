@@ -151,10 +151,19 @@ The command-line wallet connects to `steemd` via WebSocket.
 
 ### Requirements
 
-Node must have:
-- `account_by_key_api` plugin enabled
-- `condenser_api` plugin enabled
-- WebSocket endpoint configured: `webserver-ws-endpoint`
+Node must have the following plugins enabled:
+- `account_by_key_api`
+- `account_history_api`
+- `database_api`
+- `block_api`
+- `network_broadcast_api`
+- `tags_api`
+- `follow_api`
+- `reputation_api`
+- `market_history_api`
+- `witness_api`
+
+And WebSocket endpoint configured: `webserver-ws-endpoint`
 
 ### Usage
 
