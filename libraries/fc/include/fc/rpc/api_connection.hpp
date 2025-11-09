@@ -337,9 +337,9 @@ namespace fc {
                 memb = [con,api_id,name,api_name]( Args... args ) {
                     variant var_result;
                     if( api_name )
-                      var_result = con->send_call( *api_name, name, { convert_callbacks(con,args)...} );
+                      var_result = con->send_call( *api_name, name, variants{ convert_callbacks(con,args)...} );
                     else
-                      var_result = con->send_call( api_id, name, { convert_callbacks(con,args)...} );
+                      var_result = con->send_call( api_id, name, variants{ convert_callbacks(con,args)...} );
                     return from_variant( var_result, (Result*)nullptr, con );
                 };
             }
@@ -351,9 +351,9 @@ namespace fc {
                 auto api_name = _api_name;
                 memb = [con,api_id,name,api_name]( Args... args ) {
                    if( api_name )
-                      con->send_call( *api_name, name, { convert_callbacks(con,args)...} );
+                      con->send_call( *api_name, name, variants{ convert_callbacks(con,args)...} );
                     else
-                      con->send_call( api_id, name, { convert_callbacks(con,args)...} );
+                      con->send_call( api_id, name, variants{ convert_callbacks(con,args)...} );
                 };
             }
          };

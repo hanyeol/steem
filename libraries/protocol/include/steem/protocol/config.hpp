@@ -9,26 +9,23 @@
 // This is checked by get_config_check.sh called from Dockerfile
 
 #ifdef IS_TEST_NET
-#define STEEM_BLOCKCHAIN_VERSION              ( version(0, 21, 0) )
+#define STEEM_BLOCKCHAIN_VERSION              ( version(0, 0, 0) )
 
 #define STEEM_INIT_PRIVATE_KEY                (fc::ecc::private_key::regenerate(fc::sha256::hash(std::string("init_key"))))
 #define STEEM_INIT_PUBLIC_KEY_STR             (std::string( steem::protocol::public_key_type(STEEM_INIT_PRIVATE_KEY.get_public_key()) ))
-#define STEEM_CHAIN_ID_NAME "testnet"
-#define STEEM_CHAIN_ID (fc::sha256::hash(STEEM_CHAIN_ID_NAME))
+#define STEEM_CHAIN_ID_NAME                   "testnet"
+#define STEEM_CHAIN_ID                        (fc::sha256::hash(STEEM_CHAIN_ID_NAME))
 #define STEEM_ADDRESS_PREFIX                  "TST"
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1451606400))
 #define STEEM_MINING_TIME                     (fc::time_point_sec(1451606400))
-#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60) /// 1 hr
-#define STEEM_CASHOUT_WINDOW_SECONDS_PRE_HF12 (STEEM_CASHOUT_WINDOW_SECONDS)
-#define STEEM_CASHOUT_WINDOW_SECONDS_PRE_HF17 (STEEM_CASHOUT_WINDOW_SECONDS)
+#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7) /// 7 days
 #define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*3) /// 3 days
 #define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24) /// 1 day
-#define STEEM_UPVOTE_LOCKOUT_HF7              (fc::minutes(1))
-#define STEEM_UPVOTE_LOCKOUT_HF17             (fc::minutes(5))
+#define STEEM_UPVOTE_LOCKOUT                  (fc::hours(12))
 
 
-#define STEEM_MIN_ACCOUNT_CREATION_FEE          0
+#define STEEM_MIN_ACCOUNT_CREATION_FEE        0
 
 #define STEEM_OWNER_AUTH_RECOVERY_PERIOD                  fc::seconds(60)
 #define STEEM_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD  fc::seconds(12)
@@ -42,24 +39,21 @@
 
 #else // IS LIVE STEEM NETWORK
 
-#define STEEM_BLOCKCHAIN_VERSION              ( version(0, 19, 12) )
+#define STEEM_BLOCKCHAIN_VERSION              ( version(0, 0, 0) )
 
 #define STEEM_INIT_PUBLIC_KEY_STR             "STM8GC13uCZbP44HzMLV6zPZGwVQ8Nt4Kji8PapsPiNq1BK153XTX"
-#define STEEM_CHAIN_ID_NAME ""
-#define STEEM_CHAIN_ID fc::sha256()
+#define STEEM_CHAIN_ID_NAME                   ""
+#define STEEM_CHAIN_ID                        fc::sha256()
 #define STEEM_ADDRESS_PREFIX                  "STM"
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1458835200))
 #define STEEM_MINING_TIME                     (fc::time_point_sec(1458838800))
-#define STEEM_CASHOUT_WINDOW_SECONDS_PRE_HF12 (60*60*24)    /// 1 day
-#define STEEM_CASHOUT_WINDOW_SECONDS_PRE_HF17 (60*60*12)    /// 12 hours
 #define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7)  /// 7 days
 #define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*30) /// 30 days
 #define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24*14) /// 2 weeks
-#define STEEM_UPVOTE_LOCKOUT_HF7              (fc::minutes(1))
-#define STEEM_UPVOTE_LOCKOUT_HF17             (fc::hours(12))
+#define STEEM_UPVOTE_LOCKOUT                  (fc::hours(12))
 
-#define STEEM_MIN_ACCOUNT_CREATION_FEE           1
+#define STEEM_MIN_ACCOUNT_CREATION_FEE        1
 
 #define STEEM_OWNER_AUTH_RECOVERY_PERIOD                  fc::days(30)
 #define STEEM_ACCOUNT_RECOVERY_REQUEST_EXPIRATION_PERIOD  fc::days(1)
@@ -104,7 +98,7 @@
 #define STEEM_VESTING_WITHDRAW_INTERVALS      13
 #define STEEM_VESTING_WITHDRAW_INTERVAL_SECONDS (60*60*24*7) /// 1 week per interval
 #define STEEM_MAX_WITHDRAW_ROUTES             10
-#define STEEM_SAVINGS_WITHDRAW_TIME        	(fc::days(3))
+#define STEEM_SAVINGS_WITHDRAW_TIME           (fc::days(3))
 #define STEEM_SAVINGS_WITHDRAW_REQUEST_LIMIT  100
 #define STEEM_VOTE_REGENERATION_SECONDS       (5*60*60*24) // 5 day
 #define STEEM_MAX_VOTE_CHANGES                5
@@ -113,10 +107,9 @@
 #define STEEM_VOTE_DUST_THRESHOLD             (50000000)
 
 #define STEEM_MIN_ROOT_COMMENT_INTERVAL       (fc::seconds(60*5)) // 5 minutes
-#define STEEM_MIN_REPLY_INTERVAL              (fc::seconds(20)) // 20 seconds
-#define STEEM_MIN_REPLY_INTERVAL_HF20         (fc::seconds(3)) // 3 seconds
+#define STEEM_MIN_REPLY_INTERVAL              (fc::seconds(3)) // 3 seconds
 #define STEEM_POST_AVERAGE_WINDOW             (60*60*24u) // 1 day
-#define STEEM_POST_WEIGHT_CONSTANT            (uint64_t(4*STEEM_100_PERCENT) * (4*STEEM_100_PERCENT))// (4*STEEM_100_PERCENT) -> 2 posts per 1 days, average 1 every 12 hours
+#define STEEM_POST_WEIGHT_CONSTANT            (uint64_t(4*STEEM_100_PERCENT) * (4*STEEM_100_PERCENT)) // (4*STEEM_100_PERCENT) -> 2 posts per 1 days, average 1 every 12 hours
 
 #define STEEM_MAX_ACCOUNT_WITNESS_VOTES       30
 
@@ -166,9 +159,8 @@
 
 #define STEEM_POST_REWARD_FUND_NAME           ("post")
 #define STEEM_COMMENT_REWARD_FUND_NAME        ("comment")
-#define STEEM_RECENT_RSHARES_DECAY_TIME_HF17    (fc::days(30))
-#define STEEM_RECENT_RSHARES_DECAY_TIME_HF19    (fc::days(15))
-#define STEEM_CONTENT_CONSTANT_HF0            (uint128_t(uint64_t(2000000000000ll)))
+#define STEEM_RECENT_RSHARES_DECAY_TIME       (fc::days(15))
+#define STEEM_CONTENT_CONSTANT                (uint128_t(uint64_t(2000000000000ll)))
 // note, if redefining these constants make sure calculate_claims doesn't overflow
 
 // 5ccc e802 de5f
@@ -265,6 +257,11 @@
 #define STEEM_MAX_LIMIT_ORDER_EXPIRATION     (60*60*24*28) // 28 days
 #define STEEM_DELEGATION_RETURN_PERIOD_HF0   (STEEM_CASHOUT_WINDOW_SECONDS)
 #define STEEM_DELEGATION_RETURN_PERIOD_HF20  (STEEM_VOTE_REGENERATION_SECONDS * 2)
+
+#define STEEM_CONTENT_CONSTANT               (uint128_t(uint64_t(2000000000000ll)))
+#define STEEM_MIN_REPLY_INTERVAL             (fc::seconds(3))
+#define STEEM_REVERSE_AUCTION_TIME           (60*30) // 30 minutes in seconds
+#define STEEM_RECENT_RSHARES_DECAY_TIME      (fc::days(15))
 
 /**
  *  Reserved Account IDs with special meaning
