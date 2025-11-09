@@ -10,13 +10,15 @@ if( GPERFTOOLS_FOUND )
 endif()
 
 if( STEEM_STATIC_BUILD )
-   target_link_libraries( cli_wallet PRIVATE
-                          "-static-libstdc++ -static-libgcc -lreadline"
-                          graphene_net steem_chain steem_protocol steem_utilities steem_wallet condenser_api_plugin fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-else( STEEM_STATIC_BUILD )
-   target_link_libraries( cli_wallet PRIVATE
-                          graphene_net steem_chain steem_protocol steem_utilities steem_wallet condenser_api_plugin fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+   target_link_libraries( cli_wallet PRIVATE "-static-libstdc++ -static-libgcc -lreadline" )
 endif( STEEM_STATIC_BUILD )
+
+target_link_libraries( cli_wallet PRIVATE
+                       graphene_net steem_chain steem_protocol steem_utilities steem_wallet
+                       account_by_key_api_plugin account_history_api_plugin database_api_plugin block_api_plugin
+                       follow_api_plugin reputation_api_plugin market_history_api_plugin network_broadcast_api_plugin
+                       tags_api_plugin witness_api_plugin
+                       fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 
 if( CLANG_TIDY_EXE )
    set_target_properties(

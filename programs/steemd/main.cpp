@@ -11,7 +11,6 @@
 #include <steem/plugins/account_by_key/account_by_key_plugin.hpp>
 #include <steem/plugins/account_by_key_api/account_by_key_api_plugin.hpp>
 #include <steem/plugins/chain/chain_plugin.hpp>
-#include <steem/plugins/condenser_api/condenser_api_plugin.hpp>
 #include <steem/plugins/p2p/p2p_plugin.hpp>
 #include <steem/plugins/webserver/webserver_plugin.hpp>
 #include <steem/plugins/witness/witness_plugin.hpp>
@@ -87,8 +86,7 @@ int main( int argc, char** argv )
       appbase::app().set_default_plugins<
          steem::plugins::witness::witness_plugin,
          steem::plugins::account_by_key::account_by_key_plugin,
-         steem::plugins::account_by_key::account_by_key_api_plugin,
-         steem::plugins::condenser_api::condenser_api_plugin >();
+         steem::plugins::account_by_key::account_by_key_api_plugin >();
 
       // These plugins are loaded regardless of the config
       bool initialized = appbase::app().initialize<

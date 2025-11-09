@@ -10,7 +10,6 @@
 #include <steem/utilities/key_conversion.hpp>
 
 #include <steem/plugins/block_api/block_api_plugin.hpp>
-#include <steem/plugins/condenser_api/condenser_api_legacy_asset.hpp>
 #include <steem/plugins/database_api/database_api_plugin.hpp>
 
 #include <fc/network/http/connection.hpp>

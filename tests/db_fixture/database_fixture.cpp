@@ -9,7 +9,6 @@
 #include <steem/plugins/witness/witness_plugin.hpp>
 #include <steem/plugins/chain/chain_plugin.hpp>
 #include <steem/plugins/webserver/webserver_plugin.hpp>
-#include <steem/plugins/condenser_api/condenser_api_plugin.hpp>
 
 #include <fc/crypto/digest.hpp>
 #include <fc/smart_ref_impl.hpp>
@@ -27,7 +26,6 @@ uint32_t STEEM_TESTING_GENESIS_TIMESTAMP = 1431700000;
 using namespace steem::plugins::webserver;
 using namespace steem::plugins::database_api;
 using namespace steem::plugins::block_api;
-using steem::plugins::condenser_api::condenser_api_plugin;
 
 namespace steem { namespace chain {
 
@@ -815,7 +813,6 @@ json_rpc_database_fixture::json_rpc_database_fixture()
    rpc_plugin = &appbase::app().register_plugin< steem::plugins::json_rpc::json_rpc_plugin >();
    appbase::app().register_plugin< steem::plugins::block_api::block_api_plugin >();
    appbase::app().register_plugin< steem::plugins::database_api::database_api_plugin >();
-   appbase::app().register_plugin< steem::plugins::condenser_api::condenser_api_plugin >();
 
    db_plugin->logging = false;
    appbase::app().initialize<
@@ -824,11 +821,8 @@ json_rpc_database_fixture::json_rpc_database_fixture()
       steem::plugins::witness::witness_plugin,
       steem::plugins::json_rpc::json_rpc_plugin,
       steem::plugins::block_api::block_api_plugin,
-      steem::plugins::database_api::database_api_plugin,
-      steem::plugins::condenser_api::condenser_api_plugin
+      steem::plugins::database_api::database_api_plugin
       >( argc, argv );
-
-   appbase::app().get_plugin< steem::plugins::condenser_api::condenser_api_plugin >().plugin_startup();
 
    db = &appbase::app().get_plugin< steem::plugins::chain::chain_plugin >().db();
    BOOST_REQUIRE( db );
