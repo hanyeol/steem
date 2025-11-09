@@ -100,7 +100,7 @@ int main( int argc, char** argv )
          wdump((allowed_ips));
       }
 
-      steem::protocol::chain_id_type _steem_chain_id;
+      steem::protocol::chain_id_type _steem_chain_id = STEEM_CHAIN_ID;  // Initialize with default
 
 #ifdef IS_TEST_NET
       if( options.count("chain-id") )
