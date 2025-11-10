@@ -383,13 +383,174 @@ DEFINE_PRICE_COMPARISON_OPERATOR( >= )
 } } // steem::protocol
 
 namespace fc {
+   namespace {
+      using namespace steem::protocol;
+
+      uint32_t string_to_asset_num( const char* p, uint8_t decimals )
+      {
+         while( true )
+         {
+            switch( *p )
+            {
+               case ' ':  case '\t':  case '\n':  case '\r':
+                  ++p;
+                  continue;
+               default:
+                  break;
+            }
+            break;
+         }
+
+         // [A-Z]
+         uint32_t asset_num = 0;
+         switch( *p )
+         {
+            case 'A': case 'B': case 'C': case 'D': case 'E': case 'F': case 'G': case 'H': case 'I':
+            case 'J': case 'K': case 'L': case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+            case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z':
+            {
+               // [A-Z]{1,6}
+               int shift = 0;
+               uint64_t name_u64 = 0;
+               while( true )
+               {
+                  if( ((*p) >= 'A') && ((*p) <= 'Z') )
+                  {
+                     FC_ASSERT( shift < 64, "Cannot parse asset symbol" );
+                     name_u64 |= uint64_t(*p) << shift;
+                     shift += 8;
+                     ++p;
+                     continue;
+                  }
+                  break;
+               }
+               switch( name_u64 )
+               {
+                  case STEEM_SYMBOL_U64:
+                     FC_ASSERT( decimals == 3, "Incorrect decimal places" );
+                     asset_num = STEEM_ASSET_NUM_STEEM;
+                     break;
+                  case SBD_SYMBOL_U64:
+                     FC_ASSERT( decimals == 3, "Incorrect decimal places" );
+                     asset_num = STEEM_ASSET_NUM_SBD;
+                     break;
+                  case VESTS_SYMBOL_U64:
+                     FC_ASSERT( decimals == 6, "Incorrect decimal places" );
+                     asset_num = STEEM_ASSET_NUM_VESTS;
+                     break;
+                  default:
+                     FC_ASSERT( false, "Cannot parse asset symbol" );
+               }
+               break;
+            }
+            default:
+               FC_ASSERT( false, "Cannot parse asset symbol" );
+         }
+
+         // \s*\0
+         while( true )
+         {
+            switch( *p )
+            {
+               case ' ':  case '\t':  case '\n':  case '\r':
+                  ++p;
+                  continue;
+               case '\0':
+                  break;
+               default:
+                  FC_ASSERT( false, "Cannot parse asset symbol" );
+            }
+            break;
+         }
+
+         return asset_num;
+      }
+
+      int64_t precision( const asset_symbol_type& symbol )
+      {
+         static int64_t table[] = {
+                           1, 10, 100, 1000, 10000,
+                           100000, 1000000, 10000000, 100000000ll,
+                           1000000000ll, 10000000000ll,
+                           100000000000ll, 1000000000000ll,
+                           10000000000000ll, 100000000000000ll
+                           };
+         uint8_t d = symbol.decimals();
+         return table[ d ];
+      }
+
+      steem::protocol::asset asset_from_string( const string& asset_str )
+      {
+         try
+         {
+            string s = fc::trim( asset_str );
+            auto space_pos = s.find( " " );
+            auto dot_pos = s.find( "." );
+
+            FC_ASSERT( space_pos != std::string::npos );
+
+            steem::protocol::asset result;
+
+            string str_symbol = s.substr( space_pos + 1 );
+
+            if( dot_pos != std::string::npos )
+            {
+               FC_ASSERT( space_pos > dot_pos );
+
+               auto intpart = s.substr( 0, dot_pos );
+               auto fractpart = "1" + s.substr( dot_pos + 1, space_pos - dot_pos - 1 );
+               uint8_t decimals = uint8_t( fractpart.size() - 1 );
+
+               result.symbol = asset_symbol_type::from_asset_num( string_to_asset_num( str_symbol.c_str(), decimals ) );
+
+               int64_t prec = precision( result.symbol );
+
+               result.amount = fc::to_int64( intpart );
+               result.amount.value *= prec;
+               result.amount.value += fc::to_int64( fractpart );
+               result.amount.value -= prec;
+            }
+            else
+            {
+               auto intpart = s.substr( 0, space_pos );
+               result.amount = fc::to_int64( intpart );
+               result.symbol = asset_symbol_type::from_asset_num( string_to_asset_num( str_symbol.c_str(), 0 ) );
+            }
+            return result;
+         }
+         FC_CAPTURE_AND_RETHROW( (asset_str) )
+      }
+
+      steem::protocol::asset asset_from_object( const variant_object& asset_obj )
+      {
+         try
+         {
+            steem::protocol::asset result;
+
+            FC_ASSERT( asset_obj.contains( "amount" ), "Amount field doesn't exist." );
+            result.amount = boost::lexical_cast< int64_t >( asset_obj[ "amount" ].as< std::string >() );
+            FC_ASSERT( result.amount >= 0, "Asset amount cannot be negative" );
+
+            FC_ASSERT( asset_obj.contains( "precision" ), "Precision field doesn't exist." );
+            FC_ASSERT( asset_obj.contains( "nai" ), "NAI field doesn't exist." );
+            result.symbol = steem::protocol::asset_symbol_type::from_nai_string(
+               asset_obj[ "nai" ].as< std::string >().c_str(),
+               asset_obj[ "precision" ].as< uint8_t >()
+            );
+
+            return result;
+         }
+         FC_CAPTURE_AND_RETHROW( (asset_obj) )
+      }
+   }
+
    void to_variant( const steem::protocol::asset& var, fc::variant& vo )
    {
       try
       {
          variant v = mutable_variant_object( "amount", boost::lexical_cast< std::string >( var.amount.value ) )
-                                          ( "precision", uint64_t( var.symbol.decimals() ) )
-                                          ( "nai", var.symbol.to_nai_string() );
+                                           ( "precision", uint64_t( var.symbol.decimals() ) )
+                                           ( "nai", var.symbol.to_nai_string() );
          vo = v;
       } FC_CAPTURE_AND_RETHROW()
    }
@@ -398,17 +559,18 @@ namespace fc {
    {
       try
       {
-         FC_ASSERT( var.is_object(), "Asset has to treated as object." );
-
-         const auto& v_object = var.get_object();
-
-         FC_ASSERT( v_object.contains( "amount" ), "Amount field doesn't exist." );
-         vo.amount = boost::lexical_cast< int64_t >( v_object[ "amount" ].as< std::string >() );
-         FC_ASSERT( vo.amount >= 0, "Asset amount cannot be negative" );
-
-         FC_ASSERT( v_object.contains( "precision" ), "Precision field doesn't exist." );
-         FC_ASSERT( v_object.contains( "nai" ), "NAI field doesn't exist." );
-         vo.symbol = steem::protocol::asset_symbol_type::from_nai_string( v_object[ "nai" ].as< std::string >().c_str(), v_object[ "precision" ].as< uint8_t >() );
+         if( var.is_string() )
+         {
+            vo = asset_from_string( var.as_string() );
+         }
+         else if( var.is_object() )
+         {
+            vo = asset_from_object( var.get_object() );
+         }
+         else
+         {
+            FC_ASSERT( false, "Asset must be a string or object" );
+         }
       } FC_CAPTURE_AND_RETHROW()
    }
 }
