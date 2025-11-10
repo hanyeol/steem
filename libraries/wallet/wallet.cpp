@@ -357,7 +357,7 @@ public:
       return fc::optional<fc::ecc::private_key>();
    }
 
-   fc::ecc::private_key              get_private_key(const public_key_type& id)const
+   fc::ecc::private_key get_private_key(const public_key_type& id)const
    {
       auto has_key = try_get_private_key( id );
       FC_ASSERT( has_key );

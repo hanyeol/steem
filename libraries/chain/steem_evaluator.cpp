@@ -1151,6 +1151,7 @@ void vote_evaluator::do_apply( const vote_operation& o )
 { try {
    const auto& comment = _db.get_comment( o.author, o.permlink );
    const auto& voter   = _db.get_account( o.voter );
+   const auto& dgpo    = _db.get_dynamic_global_properties();
 
    FC_ASSERT( voter.can_vote, "Voter has declined their voting rights." );
 
@@ -1183,20 +1184,17 @@ void vote_evaluator::do_apply( const vote_operation& o )
    const auto& comment_vote_idx = _db.get_index< comment_vote_index >().indices().get< by_comment_voter >();
    auto itr = comment_vote_idx.find( std::make_tuple( comment.id, voter.id ) );
 
-   int64_t elapsed_seconds   = (_db.head_block_time() - voter.last_vote_time).to_seconds();
-
+   int64_t elapsed_seconds = (_db.head_block_time() - voter.last_vote_time).to_seconds();
    FC_ASSERT( elapsed_seconds >= STEEM_MIN_VOTE_INTERVAL_SEC, "Can only vote once every 3 seconds." );
 
    int64_t regenerated_power = (STEEM_100_PERCENT * elapsed_seconds) / STEEM_VOTE_REGENERATION_SECONDS;
    int64_t current_power     = std::min( int64_t(voter.voting_power + regenerated_power), int64_t(STEEM_100_PERCENT) );
    FC_ASSERT( current_power > 0, "Account currently does not have voting power." );
 
-   int64_t  abs_weight    = abs(o.weight);
+   int64_t abs_weight = abs(o.weight);
    // Less rounding error would occur if we did the division last, but we need to maintain backward
    // compatibility with the previous implementation which was replaced in #1285
-   int64_t  used_power  = ((current_power * abs_weight) / STEEM_100_PERCENT) * (60*60*24);
-
-   const dynamic_global_property_object& dgpo = _db.get_dynamic_global_properties();
+   int64_t used_power = ((current_power * abs_weight) / STEEM_100_PERCENT) * (60*60*24);
 
    // The second multiplication is rounded up
    int64_t max_vote_denom = dgpo.vote_power_reserve_rate * STEEM_VOTE_REGENERATION_SECONDS;
@@ -1205,7 +1203,8 @@ void vote_evaluator::do_apply( const vote_operation& o )
    used_power = (used_power + max_vote_denom - 1) / max_vote_denom;
    FC_ASSERT( used_power <= current_power, "Account does not have enough power to vote." );
 
-   int64_t abs_rshares = ((uint128_t( _db.get_effective_vesting_shares( voter, VESTS_SYMBOL ).amount.value ) * used_power) / (STEEM_100_PERCENT)).to_uint64();
+   auto effective_vesting = _db.get_effective_vesting_shares( voter, VESTS_SYMBOL ).amount.value;
+   int64_t abs_rshares = ((uint128_t( effective_vesting ) * used_power) / (STEEM_100_PERCENT)).to_uint64();
 
    abs_rshares -= STEEM_VOTE_DUST_THRESHOLD;
    abs_rshares = std::max( int64_t(0), abs_rshares );
@@ -1337,7 +1336,7 @@ void vote_evaluator::do_apply( const vote_operation& o )
       FC_ASSERT( itr->vote_percent != o.weight, "You have already voted in a similar way." );
 
       /// this is the rshares voting for or against the post
-      int64_t rshares        = o.weight < 0 ? -abs_rshares : abs_rshares;
+      int64_t rshares = o.weight < 0 ? -abs_rshares : abs_rshares;
 
       if( itr->rshares < rshares )
       {
