@@ -11,7 +11,7 @@ Example configuration files for different node types. Copy and modify as needed.
 #### `docker.config.ini`
 - **Purpose**: Basic consensus node for Docker environments
 - **Memory**: 54GB shared memory
-- **Plugins**: `witness`, `database_api`, `witness_api`, `condenser_api`
+- **Plugins**: `witness`, `database_api`, `witness_api`
 - **Use Case**: Optimized for P2P and witness node operation
 
 #### `fullnode.config.ini`
