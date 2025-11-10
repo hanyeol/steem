@@ -1198,23 +1198,29 @@ void vote_evaluator::do_apply( const vote_operation& o )
 
    const dynamic_global_property_object& dgpo = _db.get_dynamic_global_properties();
 
-   // The second multiplication is rounded up as of HF 259
+   // The second multiplication is rounded up
    int64_t max_vote_denom = dgpo.vote_power_reserve_rate * STEEM_VOTE_REGENERATION_SECONDS;
    FC_ASSERT( max_vote_denom > 0 );
 
    used_power = (used_power + max_vote_denom - 1) / max_vote_denom;
    FC_ASSERT( used_power <= current_power, "Account does not have enough power to vote." );
 
-   int64_t abs_rshares    = ((uint128_t( _db.get_effective_vesting_shares( voter, VESTS_SYMBOL ).amount.value ) * used_power) / (STEEM_100_PERCENT)).to_uint64();
+   int64_t abs_rshares = ((uint128_t( _db.get_effective_vesting_shares( voter, VESTS_SYMBOL ).amount.value ) * used_power) / (STEEM_100_PERCENT)).to_uint64();
 
    abs_rshares -= STEEM_VOTE_DUST_THRESHOLD;
    abs_rshares = std::max( int64_t(0), abs_rshares );
+
+   // Lazily delete vote
+   if( itr != comment_vote_idx.end() && itr->num_changes == -1 )
+   {
+      FC_ASSERT( false, "Cannot vote again on a comment after payout." );
+   }
 
    if( itr == comment_vote_idx.end() )
    {
       FC_ASSERT( o.weight != 0, "Vote weight cannot be 0." );
       /// this is the rshares voting for or against the post
-      int64_t rshares        = o.weight < 0 ? -abs_rshares : abs_rshares;
+      int64_t rshares = o.weight < 0 ? -abs_rshares : abs_rshares;
 
       if( rshares > 0 )
       {

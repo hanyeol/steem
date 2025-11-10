@@ -22,8 +22,6 @@ using std::string;
 using namespace chain;
 using namespace plugins;
 
-// Wallet-specific types to avoid condenser_api dependency
-
 struct broadcast_transaction_synchronous_return
 {
    transaction_id_type id;
