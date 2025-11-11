@@ -78,14 +78,6 @@ namespace steem { namespace chain {
          uint64_t          last_confirmed_block_num = 0;
 
          /**
-          * Some witnesses have the job because they did a proof of work,
-          * this field indicates where they were in the POW order. After
-          * each round, the witness with the lowest pow_worker value greater
-          * than 0 is removed.
-          */
-         uint64_t          pow_worker = 0;
-
-         /**
           *  This is the key used to sign blocks on behalf of this witness
           */
          public_key_type   signing_key;
@@ -193,7 +185,6 @@ namespace steem { namespace chain {
 
 
    struct by_vote_name;
-   struct by_pow;
    struct by_work;
    struct by_schedule_time;
    /**
@@ -205,7 +196,6 @@ namespace steem { namespace chain {
          ordered_unique< tag< by_id >, member< witness_object, witness_id_type, &witness_object::id > >,
          ordered_non_unique< tag< by_work >, member< witness_object, digest_type, &witness_object::last_work > >,
          ordered_unique< tag< by_name >, member< witness_object, account_name_type, &witness_object::owner > >,
-         ordered_non_unique< tag< by_pow >, member< witness_object, uint64_t, &witness_object::pow_worker > >,
          ordered_unique< tag< by_vote_name >,
             composite_key< witness_object,
                member< witness_object, share_type, &witness_object::votes >,
@@ -271,7 +261,7 @@ FC_REFLECT( steem::chain::witness_object,
              (owner)
              (created)
              (url)(votes)(schedule)(virtual_last_update)(virtual_position)(virtual_scheduled_time)(total_missed)
-             (last_aslot)(last_confirmed_block_num)(pow_worker)(signing_key)
+             (last_aslot)(last_confirmed_block_num)(signing_key)
              (props)
              (sbd_exchange_rate)(last_sbd_exchange_update)
              (last_work)

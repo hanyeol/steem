@@ -383,7 +383,6 @@ struct api_witness_object
       total_missed( w.total_missed ),
       last_aslot( w.last_aslot ),
       last_confirmed_block_num( w.last_confirmed_block_num ),
-      pow_worker( w.pow_worker ),
       signing_key( w.signing_key ),
       props( w.props ),
       sbd_exchange_rate( w.sbd_exchange_rate ),
@@ -407,7 +406,6 @@ struct api_witness_object
    uint32_t          total_missed = 0;
    uint64_t          last_aslot = 0;
    uint64_t          last_confirmed_block_num = 0;
-   uint64_t          pow_worker = 0;
    public_key_type   signing_key;
    chain_properties  props;
    price             sbd_exchange_rate;
@@ -601,7 +599,7 @@ FC_REFLECT( steem::plugins::database_api::api_witness_object,
              (owner)
              (created)
              (url)(votes)(virtual_last_update)(virtual_position)(virtual_scheduled_time)(total_missed)
-             (last_aslot)(last_confirmed_block_num)(pow_worker)(signing_key)
+             (last_aslot)(last_confirmed_block_num)(signing_key)
              (props)
              (sbd_exchange_rate)(last_sbd_exchange_update)
              (last_work)

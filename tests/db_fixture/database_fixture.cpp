@@ -974,6 +974,43 @@ void json_rpc_database_fixture::make_positive_request( std::string& request )
 
 namespace test {
 
+steem::protocol::asset asset_from_string( const std::string& s )
+{
+   std::istringstream iss(s);
+   std::string amount_str, symbol_str;
+
+   iss >> amount_str >> symbol_str;
+
+   // Parse amount and calculate precision
+   size_t decimal_pos = amount_str.find('.');
+   uint8_t precision = 0;
+   int64_t amount_value = 0;
+
+   if (decimal_pos != std::string::npos) {
+      precision = amount_str.length() - decimal_pos - 1;
+      amount_str.erase(decimal_pos, 1);
+   }
+
+   amount_value = std::stoll(amount_str);
+
+   // Determine asset symbol
+   steem::protocol::asset_symbol_type symbol;
+   if (symbol_str == "TESTS" || symbol_str == "STEEM") {
+      symbol = STEEM_SYMBOL;
+      FC_ASSERT( precision == STEEM_SYMBOL.decimals(), "Invalid precision for STEEM: ${p}", ("p", precision) );
+   } else if (symbol_str == "TBD" || symbol_str == "SBD") {
+      symbol = SBD_SYMBOL;
+      FC_ASSERT( precision == SBD_SYMBOL.decimals(), "Invalid precision for SBD: ${p}", ("p", precision) );
+   } else if (symbol_str == "VESTS") {
+      symbol = VESTS_SYMBOL;
+      FC_ASSERT( precision == VESTS_SYMBOL.decimals(), "Invalid precision for VESTS: ${p}", ("p", precision) );
+   } else {
+      FC_ASSERT( false, "Unknown asset symbol: ${s}", ("s", symbol_str) );
+   }
+
+   return steem::protocol::asset(amount_value, symbol);
+}
+
 bool _push_block( database& db, const signed_block& b, uint32_t skip_flags /* = 0 */ )
 {
    return db.push_block( b, skip_flags);

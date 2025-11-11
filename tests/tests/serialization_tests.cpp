@@ -27,9 +27,6 @@
 #include <steem/chain/steem_objects.hpp>
 #include <steem/chain/database.hpp>
 
-#include <steem/plugins/condenser_api/condenser_api_legacy_asset.hpp>
-#include <steem/plugins/condenser_api/condenser_api_legacy_objects.hpp>
-
 #include <fc/crypto/digest.hpp>
 #include <fc/crypto/elliptic.hpp>
 #include <fc/reflect/variant.hpp>
@@ -89,6 +86,7 @@ BOOST_AUTO_TEST_CASE( serialization_raw_test )
       throw;
    }
 }
+
 BOOST_AUTO_TEST_CASE( serialization_json_test )
 {
    try {
@@ -111,60 +109,6 @@ BOOST_AUTO_TEST_CASE( serialization_json_test )
       edump((e.to_detail_string()));
       throw;
    }
-}
-
-BOOST_AUTO_TEST_CASE( legacy_asset_test )
-{
-   try
-   {
-      using steem::plugins::condenser_api::legacy_asset;
-
-      BOOST_CHECK_EQUAL( legacy_asset().symbol.decimals(), 3 );
-      BOOST_CHECK_EQUAL( legacy_asset().to_string(), "0.000 TESTS" );
-
-      BOOST_TEST_MESSAGE( "Asset Test" );
-      legacy_asset steem = legacy_asset::from_string( "123.456 TESTS" );
-      legacy_asset sbd = legacy_asset::from_string( "654.321 TBD" );
-      legacy_asset tmp = legacy_asset::from_string( "0.456 TESTS" );
-      BOOST_CHECK_EQUAL( tmp.amount.value, 456 );
-      tmp = legacy_asset::from_string( "0.056 TESTS" );
-      BOOST_CHECK_EQUAL( tmp.amount.value, 56 );
-
-      BOOST_CHECK_EQUAL( steem.amount.value, 123456 );
-      BOOST_CHECK_EQUAL( steem.symbol.decimals(), 3 );
-      BOOST_CHECK_EQUAL( steem.to_string(), "123.456 TESTS" );
-      BOOST_CHECK( steem.symbol == STEEM_SYMBOL );
-      BOOST_CHECK_EQUAL( legacy_asset::from_asset( asset( 50, STEEM_SYMBOL ) ).to_string(), "0.050 TESTS" );
-      BOOST_CHECK_EQUAL( legacy_asset::from_asset( asset(50000, STEEM_SYMBOL ) ) .to_string(), "50.000 TESTS" );
-
-      BOOST_CHECK_EQUAL( sbd.amount.value, 654321 );
-      BOOST_CHECK_EQUAL( sbd.symbol.decimals(), 3 );
-      BOOST_CHECK_EQUAL( sbd.to_string(), "654.321 TBD" );
-      BOOST_CHECK( sbd.symbol == SBD_SYMBOL );
-      BOOST_CHECK_EQUAL( legacy_asset::from_asset( asset(50, SBD_SYMBOL ) ).to_string(), "0.050 TBD" );
-      BOOST_CHECK_EQUAL( legacy_asset::from_asset( asset(50000, SBD_SYMBOL ) ).to_string(), "50.000 TBD" );
-
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1.00000000000000000000 TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1.000TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1. 333 TESTS" ), fc::exception ); // Fails because symbol is '333 TESTS', which is too long
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1 .333 TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1. 333 X" ), fc::exception ); // Not a system asset
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1 .333 X" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1 .333" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1 1.1" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "11111111111111111111111111111111111111111111111 TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1.1.1 TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1.abc TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( " TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "TESTS" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1.333" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "1.333 " ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "" ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( " " ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "  " ), fc::exception );
-      BOOST_CHECK_THROW( legacy_asset::from_string( "100 TESTS" ), fc::exception ); // Does not match system asset precision
-   }
-   FC_LOG_AND_RETHROW()
 }
 
 BOOST_AUTO_TEST_CASE( asset_test )
@@ -528,26 +472,6 @@ BOOST_AUTO_TEST_CASE( min_block_size )
    BOOST_CHECK( min_size == STEEM_MIN_BLOCK_SIZE );
 }
 
-BOOST_AUTO_TEST_CASE( legacy_signed_transaction )
-{
-   using steem::plugins::condenser_api::legacy_signed_transaction;
-
-   signed_transaction tx;
-   vote_operation op;
-   op.voter = "alice";
-   op.author = "bob";
-   op.permlink = "foobar";
-   op.weight = STEEM_100_PERCENT;
-   tx.ref_block_num = 4000;
-   tx.ref_block_prefix = 4000000000;
-   tx.expiration = fc::time_point_sec( 1514764800 );
-   tx.operations.push_back( op );
-
-   signed_transaction tx2 = signed_transaction( fc::json::from_string( "{\"ref_block_num\":4000,\"ref_block_prefix\":4000000000,\"expiration\":\"2018-01-01T00:00:00\",\"operations\":[[\"vote\",{\"voter\":\"alice\",\"author\":\"bob\",\"permlink\":\"foobar\",\"weight\":10000}]],\"extensions\":[],\"signatures\":[\"\"]}" ).as< legacy_signed_transaction >() );
-
-   BOOST_REQUIRE( tx.id() == tx2.id() );
-}
-
 BOOST_AUTO_TEST_CASE( static_variant_json_test )
 {
    try
@@ -591,17 +515,6 @@ BOOST_AUTO_TEST_CASE( static_variant_json_test )
       STEEM_REQUIRE_THROW( from_variant( fc::json::from_string( json_str ), op ), fc::assert_exception );
    }
    FC_LOG_AND_RETHROW();
-}
-
-BOOST_AUTO_TEST_CASE( legacy_operation_test )
-{
-   try
-   {
-      auto v = fc::json::from_string( "{\"ref_block_num\": 41047, \"ref_block_prefix\": 4089157749, \"expiration\": \"2018-03-28T19:05:47\", \"operations\": [[\"witness_update\", {\"owner\": \"test\", \"url\": \"foo\", \"block_signing_key\": \"TST1111111111111111111111111111111114T1Anm\", \"props\": {\"account_creation_fee\": \"0.500 TESTS\", \"maximum_block_size\": 65536, \"sbd_interest_rate\": 0}, \"fee\": \"0.000 TESTS\"}]], \"extensions\": [], \"signatures\": [\"1f1b2d47427a46513777ae9ed032b761b504423b18350e673beb991a1b52d2381c26c36368f9cc4a72c9de3cc16bca83b269c2ea1960e28647caf151e17c35bf3f\"]}" );
-      auto ls = v.as< steem::plugins::condenser_api::legacy_signed_transaction >();
-      // not throwing an error here is success
-   }
-   FC_LOG_AND_RETHROW()
 }
 
 BOOST_AUTO_TEST_SUITE_END()

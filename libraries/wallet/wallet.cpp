@@ -364,7 +364,6 @@ public:
       return *has_key;
    }
 
-
    fc::ecc::private_key get_private_key_for_account(const database_api::api_account_object& account)const
    {
       vector<public_key_type> active_keys = account.active.get_keys();

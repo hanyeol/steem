@@ -139,8 +139,6 @@
 #define STEEM_CREATE_ACCOUNT_DELEGATION_TIME     fc::days(30)
 
 #define STEEM_MINING_REWARD                   asset( 1000, STEEM_SYMBOL )
-#define STEEM_EQUIHASH_N                      140
-#define STEEM_EQUIHASH_K                      6
 
 #define STEEM_LIQUIDITY_TIMEOUT_SEC           (fc::seconds(60*60*24*7)) // After one week volume is set to 0
 #define STEEM_MIN_LIQUIDITY_REWARD_PERIOD_SEC (fc::seconds(60)) // 1 minute required on books to receive volume
@@ -150,7 +148,6 @@
 #define STEEM_MIN_CONTENT_REWARD              STEEM_MINING_REWARD
 #define STEEM_MIN_CURATE_REWARD               STEEM_MINING_REWARD
 #define STEEM_MIN_PRODUCER_REWARD             STEEM_MINING_REWARD
-#define STEEM_MIN_POW_REWARD                  STEEM_MINING_REWARD
 
 #define STEEM_ACTIVE_CHALLENGE_FEE            asset( 2000, STEEM_SYMBOL )
 #define STEEM_OWNER_CHALLENGE_FEE             asset( 30000, STEEM_SYMBOL )
@@ -196,7 +193,6 @@
 #define STEEM_CONTENT_APR_PERCENT             3875
 #define STEEM_LIQUIDITY_APR_PERCENT            750
 #define STEEM_PRODUCER_APR_PERCENT             750
-#define STEEM_POW_APR_PERCENT                  750
 
 #define STEEM_MIN_PAYOUT_SBD                  (asset(20,SBD_SYMBOL))
 

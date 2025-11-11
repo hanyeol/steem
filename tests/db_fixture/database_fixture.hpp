@@ -137,7 +137,7 @@ extern uint32_t STEEM_TESTING_GENESIS_TIMESTAMP;
    asset_symbol_type name ## _symbol = get_new_smt_symbol( decimal_places, db );
 
 #define ASSET( s ) \
-   steem::plugins::condenser_api::legacy_asset::from_string( s ).to_asset()
+   steem::chain::test::asset_from_string( s )
 
 #define FUND( account_name, amount ) \
    fund( account_name, amount ); \
@@ -353,6 +353,7 @@ namespace test
 {
    bool _push_block( database& db, const signed_block& b, uint32_t skip_flags = 0 );
    void _push_transaction( database& db, const signed_transaction& tx, uint32_t skip_flags = 0 );
+   steem::protocol::asset asset_from_string( const std::string& s );
 }
 
 } }

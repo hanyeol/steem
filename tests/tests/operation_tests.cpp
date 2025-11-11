@@ -1048,7 +1048,7 @@ BOOST_AUTO_TEST_CASE( vote_apply )
 
          BOOST_TEST_MESSAGE( "--- Test failure when increasing rshares within lockout period" );
 
-         generate_blocks( fc::time_point_sec( ( new_bob_comment.cashout_time - STEEM_UPVOTE_LOCKOUT_HF17 ).sec_since_epoch() + STEEM_BLOCK_INTERVAL ), true );
+         generate_blocks( fc::time_point_sec( ( new_bob_comment.cashout_time - STEEM_UPVOTE_LOCKOUT ).sec_since_epoch() + STEEM_BLOCK_INTERVAL ), true );
 
          op.weight = STEEM_100_PERCENT;
          tx.operations.clear();
@@ -1696,7 +1696,6 @@ BOOST_AUTO_TEST_CASE( witness_update_apply )
       BOOST_REQUIRE( alice_witness.total_missed == 0 );
       BOOST_REQUIRE( alice_witness.last_aslot == 0 );
       BOOST_REQUIRE( alice_witness.last_confirmed_block_num == 0 );
-      BOOST_REQUIRE( alice_witness.pow_worker == 0 );
       BOOST_REQUIRE( alice_witness.votes.value == 0 );
       BOOST_REQUIRE( alice_witness.virtual_last_update == 0 );
       BOOST_REQUIRE( alice_witness.virtual_position == 0 );
@@ -1723,7 +1722,6 @@ BOOST_AUTO_TEST_CASE( witness_update_apply )
       BOOST_REQUIRE( alice_witness.total_missed == 0 );
       BOOST_REQUIRE( alice_witness.last_aslot == 0 );
       BOOST_REQUIRE( alice_witness.last_confirmed_block_num == 0 );
-      BOOST_REQUIRE( alice_witness.pow_worker == 0 );
       BOOST_REQUIRE( alice_witness.votes.value == 0 );
       BOOST_REQUIRE( alice_witness.virtual_last_update == 0 );
       BOOST_REQUIRE( alice_witness.virtual_position == 0 );
