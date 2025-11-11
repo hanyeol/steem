@@ -74,7 +74,6 @@ namespace steem { namespace protocol {
       FC_ASSERT( body.size() > 0, "Body is empty" );
       FC_ASSERT( fc::is_utf8( body ), "Body not formatted in UTF8" );
 
-
       if( parent_author.size() )
          validate_account_name( parent_author );
       validate_account_name( author );
