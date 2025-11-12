@@ -225,7 +225,7 @@ void update_witness_schedule4( database& db )
       });
    }
 
-   assert( num_elected + num_miners + num_timeshare == active_witnesses.size() );
+   assert( num_elected + num_timeshare == active_witnesses.size() );
 
    db.modify( wso, [&]( witness_schedule_object& _wso )
    {

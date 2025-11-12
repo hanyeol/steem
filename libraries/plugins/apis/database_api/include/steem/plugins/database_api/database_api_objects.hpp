@@ -5,7 +5,6 @@
 #include <steem/chain/global_property_object.hpp>
 #include <steem/chain/history_object.hpp>
 #include <steem/chain/steem_objects.hpp>
-#include <steem/chain/smt_objects.hpp>
 #include <steem/chain/transaction_object.hpp>
 #include <steem/chain/witness_objects.hpp>
 #include <steem/chain/database.hpp>
@@ -217,11 +216,6 @@ struct api_account_object
       active = authority( auth.active );
       posting = authority( auth.posting );
       last_owner_update = auth.last_owner_update;
-#ifdef STEEM_ENABLE_SMT
-      const auto& by_control_account_index = db.get_index<smt_token_index>().indices().get<by_control_account>();
-      auto smt_obj_itr = by_control_account_index.find( name );
-      is_smt = smt_obj_itr != by_control_account_index.end();
-#endif
    }
 
 
@@ -291,8 +285,6 @@ struct api_account_object
 
    time_point_sec    last_post;
    time_point_sec    last_root_post;
-
-   bool              is_smt = false;
 };
 
 struct api_owner_authority_history_object
@@ -561,7 +553,6 @@ FC_REFLECT( steem::plugins::database_api::api_account_object,
              (posting_rewards)
              (proxied_vsf_votes)(witnesses_voted_for)
              (last_post)(last_root_post)
-             (is_smt)
           )
 
 FC_REFLECT( steem::plugins::database_api::api_owner_authority_history_object,

@@ -1,243 +1,258 @@
 # Building Steem
 
-## Compile-Time Options (cmake)
+This guide covers building Steem from source on different platforms.
 
-### CMAKE_BUILD_TYPE=[Release/Debug]
+## Prerequisites
 
-Specifies whether to build with or without optimization and without or with
-the symbol table for debugging. Unless you are specifically debugging or
-running tests, it is recommended to build as release.
+### Common Requirements
 
-### LOW_MEMORY_NODE=[OFF/ON]
+All platforms require:
+- Git (for cloning the repository)
+- CMake 3.x or higher
+- C++14 compatible compiler (GCC 4.8+, Clang 3.3+, or newer)
+- Python 3 with Jinja2
+- Boost libraries
+- OpenSSL
+- Additional compression libraries (bzip2, snappy, zlib)
 
-Builds steemd to be a consensus-only low memory node. Data and fields not
-needed for consensus are not stored in the object database.  This option is
-recommended for witnesses and seed-nodes.
+## Building with Docker
 
-### CLEAR_VOTES=[ON/OFF]
+We ship a Dockerfile that builds both common node type binaries.
 
-Clears old votes from memory that are no longer required for consensus.
+```bash
+git clone https://github.com/hanyeol/steem
+cd steem
+docker build -t hanyeol/steem .
+```
 
-### BUILD_STEEM_TESTNET=[OFF/ON]
+## Building on Ubuntu 22.04
 
-Builds steem for use in a private testnet. Also required for building unit tests.
+### Install Dependencies
 
-### SKIP_BY_TX_ID=[OFF/ON]
+Install required packages:
 
-By default this is off. Enabling will prevent the account history plugin querying transactions 
-by id, but saving around 65% of CPU time when reindexing. Enabling this option is a
-huge gain if you do not need this functionality.
+```bash
+# Core build tools and libraries
+sudo apt-get install -y \
+    autoconf \
+    automake \
+    cmake \
+    g++ \
+    git \
+    libbz2-dev \
+    libsnappy-dev \
+    libssl-dev \
+    libtool \
+    make \
+    pkg-config \
+    python3 \
+    python3-jinja2
+```
 
-## Building under Docker
+Install Boost libraries:
 
-We ship a Dockerfile.  This builds both common node type binaries.
+```bash
+sudo apt-get install -y \
+    libboost-chrono-dev \
+    libboost-context-dev \
+    libboost-coroutine-dev \
+    libboost-date-time-dev \
+    libboost-filesystem-dev \
+    libboost-iostreams-dev \
+    libboost-locale-dev \
+    libboost-program-options-dev \
+    libboost-serialization-dev \
+    libboost-signals-dev \
+    libboost-system-dev \
+    libboost-test-dev \
+    libboost-thread-dev
+```
 
-    git clone https://github.com/steemit/steem
-    cd steem
-    docker build -t steemit/steem .
+Optional packages for better development experience:
 
-## Building on Ubuntu 16.04
+```bash
+sudo apt-get install -y \
+    doxygen \
+    libncurses5-dev \
+    libreadline-dev \
+    perl
+```
 
-For Ubuntu 16.04 users, after installing the right packages with `apt` Steem
-will build out of the box without further effort:
+### Clone and Build
 
-    # Required packages
-    sudo apt-get install -y \
-        autoconf \
-        automake \
-        cmake \
-        g++ \
-        git \
-        libbz2-dev \
-        libsnappy-dev \
-        libssl-dev \
-        libtool \
-        make \
-        pkg-config \
-        python3 \
-        python3-jinja2
+```bash
+git clone https://github.com/hanyeol/steem
+cd steem
+git checkout stable
+git submodule update --init --recursive
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j$(nproc) steemd
+make -j$(nproc) cli_wallet
+```
 
-    # Boost packages (also required)
-    sudo apt-get install -y \
-        libboost-chrono-dev \
-        libboost-context-dev \
-        libboost-coroutine-dev \
-        libboost-date-time-dev \
-        libboost-filesystem-dev \
-        libboost-iostreams-dev \
-        libboost-locale-dev \
-        libboost-program-options-dev \
-        libboost-serialization-dev \
-        libboost-signals-dev \
-        libboost-system-dev \
-        libboost-test-dev \
-        libboost-thread-dev
+Optional: Install binaries system-wide:
 
-    # Optional packages (not required, but will make a nicer experience)
-    sudo apt-get install -y \
-        doxygen \
-        libncurses5-dev \
-        libreadline-dev \
-        perl
+```bash
+sudo make install  # Installs to /usr/local by default
+```
 
-    git clone https://github.com/steemit/steem
-    cd steem
-    git checkout stable
-    git submodule update --init --recursive
-    mkdir build
-    cd build
-    cmake -DCMAKE_BUILD_TYPE=Release ..
-    make -j$(nproc) steemd
-    make -j$(nproc) cli_wallet
-    # optional
-    make install  # defaults to /usr/local
+## Building on macOS
 
-## Building on Ubuntu 14.04
+### Install Xcode
 
-(It is strongly advised to use Ubuntu 16.04 LTS instead)
+Install Xcode and its command line tools from https://guide.macports.org/#installing.xcode
 
-Here are the required packages:
+On macOS 10.11 (El Capitan) and newer, you'll be prompted to install developer tools when running a developer command in the terminal.
 
-    # Required packages
-    sudo apt-get install -y \
-        autoconf \
-        cmake3 \
-        g++ \
-        git \
-        libbz2-dev \
-        libsnappy-dev \
-        libssl-dev \
-        libtool \
-        make \
-        pkg-config \
-        doxygen \
-        libncurses5-dev \
-        libreadline-dev \
-        libbz2-dev \
-        python-dev \
-        perl \
-        python3 \
-        python3-jinja2
+Accept the Xcode license:
 
-The Boost provided in the Ubuntu 14.04 package manager (Boost 1.55) is too old.
-Steem requires Boost 1.58 (as in Ubuntu 16.04) and works with versions up to 1.60 (including).
-So building Steem on Ubuntu 14.04 requires downloading and installing a more recent
-version of Boost.
+```bash
+sudo xcodebuild -license accept
+```
 
-According to [this mailing list
-post](http://boost.2283326.n4.nabble.com/1-58-1-bugfix-release-necessary-td4674686.html),
-Boost 1.58 is not compatible with gcc 4.8 (the default C++ compiler for
-Ubuntu 14.04) when compiling in C++11 mode (which Steem does).
-So we will use Boost 1.60.
+### Install Homebrew
 
-Here is how to build and install Boost 1.60 into your user's home directory
-(make sure you install all the packages above first):
+Install Homebrew from http://brew.sh/
 
-    export BOOST_ROOT=$HOME/opt/boost_1_60_0
-    URL='http://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.bz2/download'
-    wget -c "$URL" -O boost_1_60_0.tar.bz2
-    [ $( sha256sum boost_1_60_0.tar.bz2 | cut -d ' ' -f 1 ) == \
-        "686affff989ac2488f79a97b9479efb9f2abae035b5ed4d8226de6857933fd3b" ] \
-        || ( echo 'Corrupt download' ; exit 1 )
-    tar xjf boost_1_60_0.tar.bz2
-    cd boost_1_60_0
-    ./bootstrap.sh "--prefix=$BOOST_ROOT"
-    ./b2 install
+Initialize Homebrew:
 
-Then the instructions are the same as for steem:
+```bash
+brew doctor
+brew update
+```
 
-    git clone https://github.com/steemit/steem
-    cd steem
-    git checkout stable
-    git submodule update --init --recursive
-    mkdir build && cd build
-    cmake -DCMAKE_BUILD_TYPE=Release ..
-    make -j$(nproc) steemd
-    make -j$(nproc) cli_wallet
+### Install Dependencies
 
-## Building on macOS X
+Install required packages:
 
-Install Xcode and its command line tools by following the instructions here:
-https://guide.macports.org/#installing.xcode.  In OS X 10.11 (El Capitan)
-and newer, you will be prompted to install developer tools when running a
-developer command in the terminal.
+```bash
+brew install \
+    autoconf \
+    automake \
+    cmake \
+    git \
+    boost \
+    libtool \
+    openssl \
+    snappy \
+    zlib \
+    python3
 
-Accept the Xcode license if you have not already:
+pip3 install --user jinja2
+```
 
-    sudo xcodebuild -license accept
+Note: The codebase has been updated to work with modern Boost versions (tested with Boost 1.89.0).
 
-Install Homebrew by following the instructions here: http://brew.sh/
+Optional packages:
 
-### Initialize Homebrew:
+```bash
+# For better performance with TCMalloc in LevelDB
+brew install google-perftools
 
-    brew doctor
-    brew update
+# For cli_wallet with better readline support
+brew install --force readline
+brew link --force readline
+```
 
-### Install steem dependencies:
+### Clone and Build
 
-    brew install \
-        autoconf \
-        automake \
-        cmake \
-        git \
-        boost160 \
-        libtool \
-        openssl \
-        snappy \
-        zlib \
-        python3
-        
-    pip3 install --user jinja2
-    
-Note: brew recently updated to boost 1.61.0, which is not yet supported by
-steem. Until then, this will allow you to install boost 1.60.0.
+```bash
+git clone https://github.com/hanyeol/steem.git
+cd steem
+git checkout stable
+git submodule update --init --recursive
 
-*Optional.* To use TCMalloc in LevelDB:
+export BOOST_ROOT=$(brew --prefix boost)
+export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
 
-    brew install google-perftools
+mkdir build && cd build
+cmake -DBOOST_ROOT="$BOOST_ROOT" -DCMAKE_BUILD_TYPE=Release ..
+make -j$(sysctl -n hw.logicalcpu)
+```
 
-*Optional.* To use cli_wallet and override macOS's default readline installation:
+### Build Specific Targets
 
-    brew install --force readline
-    brew link --force readline
+You can build specific targets instead of everything:
 
-### Clone the Repository
+```bash
+# Build only steemd
+make -j$(sysctl -n hw.logicalcpu) steemd
 
-    git clone https://github.com/steemit/steem.git
-    cd steem
+# Build only cli_wallet
+make -j$(sysctl -n hw.logicalcpu) cli_wallet
 
-### Compile
-
-    export OPENSSL_ROOT_DIR=$(brew --prefix)/Cellar/openssl/1.0.2h_1/
-    export BOOST_ROOT=$(brew --prefix)/Cellar/boost@1.60/1.60.0/
-    export SNAPPY_LIBRARIES=$(brew --prefix)/Cellar/snappy/1.1.7_1/lib/
-    export SNAPPY_INCLUDE_DIR=$(brew --prefix)/Cellar/snappy/1.1.7_1/include/
-    export ZLIB_LIBRARIES=$(brew --prefix)/Cellar/zlib/1.2.11/lib/
-    git checkout stable
-    git submodule update --init --recursive
-    mkdir build && cd build
-    cmake -DBOOST_ROOT="$BOOST_ROOT" -DCMAKE_BUILD_TYPE=Release ..
-    make -j$(sysctl -n hw.logicalcpu)
-
-Also, some useful build targets for `make` are:
-
-    steemd
-    chain_test
-    cli_wallet
-
-e.g.:
-
-    make -j$(sysctl -n hw.logicalcpu) steemd
-
-This will only build `steemd`.
+# Build test suite
+make -j$(sysctl -n hw.logicalcpu) chain_test
+```
 
 ## Building on Other Platforms
 
-- Windows build instructions do not yet exist.
+### Windows
 
-- The developers normally compile with gcc and clang. These compilers should
-  be well-supported.
-- Community members occasionally attempt to compile the code with mingw,
-  Intel and Microsoft compilers. These compilers may work, but the
-  developers do not use them. Pull requests fixing warnings / errors from
-  these compilers are accepted.
+Windows build instructions do not yet exist.
+
+### Compiler Support
+
+- **Officially supported**: GCC and Clang (used by core developers)
+- **Community supported**: MinGW, Intel C++, and Microsoft Visual C++
+  - These may work but are not regularly tested by developers
+  - Pull requests fixing warnings/errors from these compilers are welcome
+
+## CMake Build Options
+
+Configure the build by passing options to CMake:
+
+### CMAKE_BUILD_TYPE=[Release/Debug]
+
+Specifies the build type:
+- `Release`: Optimized build without debug symbols (recommended for production)
+- `Debug`: Unoptimized build with debug symbols (for development and debugging)
+
+```bash
+cmake -DCMAKE_BUILD_TYPE=Release ..
+```
+
+### LOW_MEMORY_NODE=[OFF/ON]
+
+Build a consensus-only low memory node:
+- Excludes data and fields not needed for consensus from the object database
+- Recommended for witnesses and seed nodes
+
+```bash
+cmake -DLOW_MEMORY_NODE=ON ..
+```
+
+### CLEAR_VOTES=[ON/OFF]
+
+Clear old votes from memory that are no longer required for consensus.
+
+```bash
+cmake -DCLEAR_VOTES=ON ..
+```
+
+### BUILD_STEEM_TESTNET=[OFF/ON]
+
+Build for use in a private testnet. Also required for building unit tests.
+
+```bash
+cmake -DBUILD_STEEM_TESTNET=ON ..
+```
+
+### SKIP_BY_TX_ID=[OFF/ON]
+
+Skip transaction-by-id indexing:
+- Saves around 65% of CPU time during reindexing
+- Disables the account history plugin's ability to query transactions by id
+- Highly recommended if you don't need transaction-by-id lookups
+
+```bash
+cmake -DSKIP_BY_TX_ID=ON ..
+```
+
+## Next Steps
+
+After building:
+- See [quick-start.md](quick-start.md) for running your first node
+- See [cli-wallet-guide.md](cli-wallet-guide.md) for wallet usage
+- See [node-types-guide.md](node-types-guide.md) for different node configurations

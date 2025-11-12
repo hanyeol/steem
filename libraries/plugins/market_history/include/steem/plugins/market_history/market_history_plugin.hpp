@@ -100,15 +100,8 @@ struct bucket_object : public object< bucket_object_type, bucket_object >
    bucket_object_details steem;
    bucket_object_details non_steem;
 
-#ifdef STEEM_ENABLE_SMT
-   asset_symbol_type symbol = SBD_SYMBOL;
-
-   price high()const { return asset( non_steem.high, symbol ) / asset( steem.high, STEEM_SYMBOL ); }
-   price low()const { return asset( non_steem.low, symbol ) / asset( steem.low, STEEM_SYMBOL ); }
-#else
    price high()const { return asset( non_steem.high, SBD_SYMBOL ) / asset( steem.high, STEEM_SYMBOL ); }
    price low()const { return asset( non_steem.low, SBD_SYMBOL ) / asset( steem.low, STEEM_SYMBOL ); }
-#endif
 };
 
 typedef oid< bucket_object > bucket_id_type;
@@ -166,19 +159,11 @@ FC_REFLECT( steem::plugins::market_history::bucket_object_details,
             (close)
             (volume) )
 
-#if defined STEEM_ENABLE_SMT
-FC_REFLECT( steem::plugins::market_history::bucket_object,
-                     (id)
-                     (open)(seconds)
-                     (steem)(symbol)(non_steem)
-         )
-#else
 FC_REFLECT( steem::plugins::market_history::bucket_object,
                      (id)
                      (open)(seconds)
                      (steem)(non_steem)
          )
-#endif
 
 CHAINBASE_SET_INDEX_TYPE( steem::plugins::market_history::bucket_object, steem::plugins::market_history::bucket_index )
 

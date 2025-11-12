@@ -5,7 +5,7 @@ Use docker:
 ```
 docker run \
     -d -p 2001:2001 -p 8090:8090 --name steemd-default \
-    --restart unless-stopped steemit/steem
+    --restart unless-stopped hanyeol/steem
 ```
 
 ### Low Memory Node
@@ -23,7 +23,7 @@ docker run \
     --env USE_WAY_TOO_MUCH_RAM=1 --env USE_FULL_WEB_NODE=1 \
     -d -p 2001:2001 -p 8090:8090 --name steemd-full \
     --restart unless-stopped \
-    steemit/steem
+    hanyeol/steem
 ```
 
 ## Configure for Your Use Case
@@ -49,7 +49,7 @@ This configuration exists in Docker with the following command:
 docker run -d --env TRACK_ACCOUNT="yourexchangeid" \
     --name steemd \
     --restart unless-stopped \
-    steemit/steem
+    hanyeol/steem
 ```
 
 ## Resources Usage

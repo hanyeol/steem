@@ -21,7 +21,7 @@ This guide covers the complete process of launching a new Steem blockchain, incl
 
 ### Build Requirements
 
-Build `steemd` for your target network. For detailed build instructions including dependency installation and platform-specific requirements, see [Building Steem](building.md).
+Build `steemd` for your target network. For detailed build instructions including dependency installation and platform-specific requirements, see [Building Steem](../getting-started/building.md).
 
 #### For Testnet (Development/Testing)
 
@@ -47,7 +47,7 @@ make -j$(nproc) steemd
 - **Testnet**: 250M initial supply, auto-generated keys, "TST" prefix
 - **Mainnet**: 0 initial supply, fixed public key, "STM" prefix
 
-For complete build instructions including system requirements, dependency installation, and troubleshooting, refer to [docs/getting-started/building.md](../getting-started/building.md).
+For complete build instructions including system requirements, dependency installation, and troubleshooting, refer to [Building Steem](../getting-started/building.md).
 
 ### System Requirements
 
@@ -382,10 +382,10 @@ Build a custom Docker image with genesis configuration:
 
 ```bash
 # Build from repository root
-docker build -t my-steem-genesis:latest .
+docker build -t steem:latest .
 
 # Or build with testnet flag
-docker build --build-arg BUILD_TESTNET=ON -t my-steem-genesis:testnet .
+docker build --build-arg BUILD_STEP=2 -t steem:testnet .
 ```
 
 ### Configuration File Location
@@ -398,73 +398,27 @@ This is the directory specified by the `HOME` environment variable (default: `/v
 
 #### Providing config.ini to Docker Containers
 
-**Option 1: Volume Mount (Recommended for Docker Compose)**
-
-Mount `config.ini` as a read-only file:
+Copy your `config.ini` into the volume before starting the container:
 
 ```bash
-docker run -d \
-  --name steem-genesis \
-  -v steem-genesis-data:/var/lib/steemd \
-  -v $(pwd)/config.ini:/var/lib/steemd/config.ini:ro \
-  -p 2001:2001 \
-  -p 8090:8090 \
-  my-steem-genesis:latest
-```
+# Create volume
+docker volume create steem-data
 
-**Option 2: Copy into Volume**
-
-Copy config into the volume before starting the container:
-
-```bash
-# Create and populate volume
-docker volume create steem-genesis-data
+# Copy config.ini into volume
 docker run --rm \
-  -v steem-genesis-data:/data \
-  -v $(pwd)/config.ini:/config.ini:ro \
+  -v steem-data:/var/lib/steemd \
+  -v $(pwd)/config.ini:/tmp/config.ini:ro \
   alpine \
-  cp /config.ini /data/config.ini
+  cp /tmp/config.ini /var/lib/steemd/config.ini
 
 # Start container
 docker run -d \
   --name steem-genesis \
-  -v steem-genesis-data:/var/lib/steemd \
+  -v steem-data:/var/lib/steemd \
   -p 2001:2001 \
   -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
-
-**Option 3: Build into Image**
-
-Include config in the Docker image (for fixed configurations):
-
-```dockerfile
-# Add to Dockerfile
-COPY config.ini /var/lib/steemd/config.ini
-```
-
-Then rebuild:
-
-```bash
-docker build -t my-steem-genesis:latest .
-```
-
-**Option 4: Generate at Runtime**
-
-Use environment variables and generate config at container startup:
-
-```bash
-docker run -d \
-  --name steem-genesis \
-  -v steem-genesis-data:/var/lib/steemd \
-  -e STEEMD_WITNESS_NAME=initminer \
-  -e STEEMD_PRIVATE_KEY=5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n \
-  -p 2001:2001 \
-  -p 8090:8090 \
-  my-steem-genesis:latest
-```
-
-Note: Requires custom entrypoint script to generate `config.ini` from environment variables.
 
 #### Verifying Configuration
 
@@ -495,12 +449,12 @@ Docker containers require proper storage allocation for blockchain data.
 
 ```bash
 # Create named volume for persistent storage
-docker volume create steem-genesis-data
+docker volume create steem-data
 
 # Inspect volume
-docker volume inspect steem-genesis-data
+docker volume inspect steem-data
 
-# Volume location: /var/lib/docker/volumes/steem-genesis-data/_data
+# Volume location: /var/lib/docker/volumes/steem-data/_data
 ```
 
 #### Storage Options
@@ -510,10 +464,10 @@ docker volume inspect steem-genesis-data
 ```bash
 docker run -d \
   --name steem-genesis \
-  -v steem-genesis-data:/var/lib/steemd \
+  -v steem-data:/var/lib/steemd \
   -p 2001:2001 \
   -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 **Option 2: Bind Mount**
@@ -527,7 +481,7 @@ docker run -d \
   -v /mnt/steem-data:/var/lib/steemd \
   -p 2001:2001 \
   -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 **Option 3: tmpfs for Shared Memory (High Performance)**
@@ -535,12 +489,12 @@ docker run -d \
 ```bash
 docker run -d \
   --name steem-genesis \
-  -v steem-genesis-data:/var/lib/steemd \
+  -v steem-data:/var/lib/steemd \
   --tmpfs /dev/shm:rw,size=16g \
   --shm-size=16g \
   -p 2001:2001 \
   -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 ### Docker Environment Variables
@@ -553,11 +507,11 @@ docker run -d \
   -e HOME=/var/lib/steemd \
   -e STEEMD_SHARED_FILE_SIZE=8G \
   -e STEEMD_SHARED_FILE_DIR=/dev/shm \
-  -v steem-genesis-data:/var/lib/steemd \
+  -v steem-data:/var/lib/steemd \
   --shm-size=16g \
   -p 2001:2001 \
   -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 #### Key Environment Variables
@@ -578,7 +532,7 @@ version: '3.8'
 
 services:
   genesis-node:
-    image: my-steem-genesis:latest
+    image: steem:testnet
     container_name: steem-genesis
     ports:
       - "2001:2001"
@@ -596,7 +550,7 @@ services:
       - steem-network
 
   witness-node:
-    image: my-steem-genesis:latest
+    image: steem:testnet
     container_name: steem-witness1
     ports:
       - "2002:2001"
@@ -616,7 +570,7 @@ services:
       - steem-network
 
   api-node:
-    image: my-steem-genesis:latest
+    image: steem:testnet
     container_name: steem-api
     ports:
       - "2003:2001"
@@ -687,7 +641,7 @@ docker run -d \
   -e STEEMD_SHARED_FILE_SIZE=2G \
   --shm-size=4g \
   -p 2001:2001 -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 
 # Production genesis node
 docker run -d \
@@ -697,7 +651,7 @@ docker run -d \
   --shm-size=24g \
   --restart=always \
   -p 2001:2001 -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 ### Backup and Recovery
@@ -710,7 +664,7 @@ docker stop steem-genesis
 
 # Backup entire data volume
 docker run --rm \
-  -v steem-genesis-data:/source:ro \
+  -v steem-data:/source:ro \
   -v $(pwd):/backup \
   alpine \
   tar czf /backup/genesis-backup-$(date +%Y%m%d).tar.gz -C /source .
@@ -737,7 +691,7 @@ docker run -d \
   --name steem-genesis-restored \
   -v steem-genesis-restore:/var/lib/steemd \
   -p 2001:2001 -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 ### Storage Performance Tuning
@@ -747,7 +701,7 @@ For optimal performance in production:
 ```bash
 docker run -d \
   --name steem-genesis-optimized \
-  -v steem-genesis-data:/var/lib/steemd \
+  -v steem-data:/var/lib/steemd \
   -e STEEMD_SHARED_FILE_DIR=/dev/shm \
   --tmpfs /dev/shm:rw,size=24g,mode=1777 \
   --shm-size=24g \
@@ -755,7 +709,7 @@ docker run -d \
   --cpus=4 \
   --restart=always \
   -p 2001:2001 -p 8090:8090 \
-  my-steem-genesis:latest
+  steem:testnet
 ```
 
 ## Advanced Topics
