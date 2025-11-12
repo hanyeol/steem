@@ -53,7 +53,6 @@ Plugins that expose data via JSON-RPC endpoints.
 | [market_history_api](market_history_api.md) | market_history | Market data and trading history | [→](market_history_api.md) |
 | [witness_api](witness_api.md) | witness | Witness information and schedules | [→](witness_api.md) |
 | [network_broadcast_api](network_broadcast_api.md) | chain | Transaction broadcasting | [→](network_broadcast_api.md) |
-| [condenser_api](condenser_api.md) | Multiple | Legacy API for backward compatibility | [→](condenser_api.md) |
 | [block_api](block_api.md) | chain | Block data queries | [→](block_api.md) |
 | [chain_api](chain_api.md) | chain | Chain-level queries | [→](chain_api.md) |
 | [reputation_api](reputation_api.md) | reputation | Reputation score queries | [→](reputation_api.md) |

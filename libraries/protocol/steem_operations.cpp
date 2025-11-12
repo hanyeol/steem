@@ -90,12 +90,6 @@ namespace steem { namespace protocol {
    {
       typedef void result_type;
 
-#ifdef STEEM_ENABLE_SMT
-      void operator()( const allowed_vote_assets& va) const
-      {
-         va.validate();
-      }
-#endif
       void operator()( const comment_payout_beneficiaries& cpb ) const
       {
          cpb.validate();
@@ -190,9 +184,7 @@ namespace steem { namespace protocol {
    void transfer_to_vesting_operation::validate() const
    {
       validate_account_name( from );
-      FC_ASSERT( amount.symbol == STEEM_SYMBOL ||
-                 ( amount.symbol.space() == asset_symbol_type::smt_nai_space && amount.symbol.is_vesting() == false ),
-                 "Amount must be STEEM or SMT liquid" );
+      FC_ASSERT( amount.symbol == STEEM_SYMBOL, "Amount must be STEEM" );
       if ( to != account_name_type() ) validate_account_name( to );
       FC_ASSERT( amount.amount > 0, "Must transfer a nonzero amount" );
    }
@@ -339,16 +331,8 @@ namespace steem { namespace protocol {
       validate_account_name( owner );
 
       FC_ASSERT(  ( is_asset_type( amount_to_sell, STEEM_SYMBOL ) && is_asset_type( min_to_receive, SBD_SYMBOL ) )
-               || ( is_asset_type( amount_to_sell, SBD_SYMBOL ) && is_asset_type( min_to_receive, STEEM_SYMBOL ) )
-               || (
-                     amount_to_sell.symbol.space() == asset_symbol_type::smt_nai_space
-                     && is_asset_type( min_to_receive, STEEM_SYMBOL )
-                  )
-               || (
-                     is_asset_type( amount_to_sell, STEEM_SYMBOL )
-                     && min_to_receive.symbol.space() == asset_symbol_type::smt_nai_space
-                  ),
-               "Limit order must be for the STEEM:SBD or SMT:(STEEM/SBD) market" );
+               || ( is_asset_type( amount_to_sell, SBD_SYMBOL ) && is_asset_type( min_to_receive, STEEM_SYMBOL ) ),
+               "Limit order must be for the STEEM:SBD market" );
 
       (amount_to_sell / min_to_receive).validate();
    }
@@ -361,16 +345,8 @@ namespace steem { namespace protocol {
       exchange_rate.validate();
 
       FC_ASSERT(  ( is_asset_type( amount_to_sell, STEEM_SYMBOL ) && is_asset_type( exchange_rate.quote, SBD_SYMBOL ) )
-               || ( is_asset_type( amount_to_sell, SBD_SYMBOL ) && is_asset_type( exchange_rate.quote, STEEM_SYMBOL ) )
-               || (
-                     amount_to_sell.symbol.space() == asset_symbol_type::smt_nai_space
-                     && is_asset_type( exchange_rate.quote, STEEM_SYMBOL )
-                  )
-               || (
-                     is_asset_type( amount_to_sell, STEEM_SYMBOL )
-                     && exchange_rate.quote.symbol.space() == asset_symbol_type::smt_nai_space
-                  ),
-               "Limit order must be for the STEEM:SBD or SMT:(STEEM/SBD) market" );
+               || ( is_asset_type( amount_to_sell, SBD_SYMBOL ) && is_asset_type( exchange_rate.quote, STEEM_SYMBOL ) ),
+               "Limit order must be for the STEEM:SBD market" );
 
       FC_ASSERT( (amount_to_sell * exchange_rate).amount > 0, "Amount to sell cannot round to 0 when traded" );
    }
@@ -532,26 +508,6 @@ namespace steem { namespace protocol {
       FC_ASSERT( reward_vests.amount >= 0, "Cannot claim a negative amount" );
       FC_ASSERT( reward_steem.amount > 0 || reward_sbd.amount > 0 || reward_vests.amount > 0, "Must claim something." );
    }
-
-#ifdef STEEM_ENABLE_SMT
-   void claim_reward_balance2_operation::validate()const
-   {
-      validate_account_name( account );
-      FC_ASSERT( reward_tokens.empty() == false, "Must claim something." );
-      FC_ASSERT( reward_tokens.begin()->amount >= 0, "Cannot claim a negative amount" );
-      bool is_substantial_reward = reward_tokens.begin()->amount > 0;
-      for( auto itl = reward_tokens.begin(), itr = itl+1; itr != reward_tokens.end(); ++itl, ++itr )
-      {
-         FC_ASSERT( itl->symbol.to_nai() <= itr->symbol.to_nai(),
-                    "Reward tokens have not been inserted in ascending order." );
-         FC_ASSERT( itl->symbol.to_nai() != itr->symbol.to_nai(),
-                    "Duplicate symbol ${s} inserted into claim reward operation container.", ("s", itl->symbol) );
-         FC_ASSERT( itr->amount >= 0, "Cannot claim a negative amount" );
-         is_substantial_reward |= itr->amount > 0;
-      }
-      FC_ASSERT( is_substantial_reward, "Must claim something." );
-   }
-#endif
 
    void delegate_vesting_shares_operation::validate()const
    {

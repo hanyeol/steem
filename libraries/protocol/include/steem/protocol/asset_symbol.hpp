@@ -47,8 +47,6 @@
 
 #define STEEM_ASSET_MAX_DECIMALS 12
 
-#define SMT_ASSET_NUM_PRECISION_MASK   0xF
-#define SMT_ASSET_NUM_CONTROL_MASK     0x10
 #define SMT_ASSET_NUM_VESTING_MASK     0x20
 
 namespace steem { namespace protocol {
@@ -56,12 +54,6 @@ namespace steem { namespace protocol {
 class asset_symbol_type
 {
    public:
-      enum asset_symbol_space
-      {
-         legacy_space = 1,
-         smt_nai_space = 2
-      };
-
       asset_symbol_type() {}
 
       // buf must have space for STEEM_ASSET_SYMBOL_MAX_LENGTH+1
@@ -94,15 +86,7 @@ class asset_symbol_type
        * Returns back the SBD symbol if represents SBD.
        */
       asset_symbol_type get_paired_symbol() const;
-      /**Returns asset_num stripped of precision holding bits.
-       * \warning checking that it's SMT symbol is caller responsibility.
-       */
-      uint32_t get_stripped_precision_smt_num() const
-      { 
-         return asset_num & ~( SMT_ASSET_NUM_PRECISION_MASK );
-      }
 
-      asset_symbol_space space()const;
       uint8_t decimals()const
       {  return uint8_t( asset_num & 0x0F );    }
       void validate()const;
@@ -142,34 +126,22 @@ namespace fc { namespace raw {
 template< typename Stream >
 inline void pack( Stream& s, const steem::protocol::asset_symbol_type& sym )
 {
-   switch( sym.space() )
+   uint64_t ser = 0;
+   switch( sym.asset_num )
    {
-      case steem::protocol::asset_symbol_type::legacy_space:
-      {
-         uint64_t ser = 0;
-         switch( sym.asset_num )
-         {
-            case STEEM_ASSET_NUM_STEEM:
-               ser = STEEM_SYMBOL_SER;
-               break;
-            case STEEM_ASSET_NUM_SBD:
-               ser = SBD_SYMBOL_SER;
-               break;
-            case STEEM_ASSET_NUM_VESTS:
-               ser = VESTS_SYMBOL_SER;
-               break;
-            default:
-               FC_ASSERT( false, "Cannot serialize unknown asset symbol" );
-         }
-         pack( s, ser );
+      case STEEM_ASSET_NUM_STEEM:
+         ser = STEEM_SYMBOL_SER;
          break;
-      }
-      case steem::protocol::asset_symbol_type::smt_nai_space:
-         pack( s, sym.asset_num );
+      case STEEM_ASSET_NUM_SBD:
+         ser = SBD_SYMBOL_SER;
+         break;
+      case STEEM_ASSET_NUM_VESTS:
+         ser = VESTS_SYMBOL_SER;
          break;
       default:
          FC_ASSERT( false, "Cannot serialize unknown asset symbol" );
    }
+   pack( s, ser );
 }
 
 template< typename Stream >

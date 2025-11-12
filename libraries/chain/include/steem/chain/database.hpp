@@ -367,9 +367,6 @@ namespace steem { namespace chain {
          void process_funds();
          void process_conversions();
          void process_savings_withdraws();
-#ifdef STEEM_ENABLE_SMT
-         void process_smt_objects();
-#endif
          void account_recovery_processing();
          void expire_escrow_ratification();
          void process_decline_voting_rights();
@@ -459,18 +456,6 @@ namespace steem { namespace chain {
          bool disable_low_mem_warning = true;
 #endif
 
-#ifdef STEEM_ENABLE_SMT
-         ///Smart Media Tokens related methods
-         ///@{
-         void validate_smt_invariants()const;
-         /**
-          * @return a list of available NAIs.
-         */
-         vector< asset_symbol_type > get_smt_next_identifier();
-
-         ///@}
-#endif
-
    protected:
          //Mark pop_undo() as protected -- we do not want outside calling pop_undo(); it should call pop_block() instead
          //void pop_undo() { object_database::pop_undo(); }
@@ -507,11 +492,7 @@ namespace steem { namespace chain {
          void apply_hardfork( uint32_t hardfork );
 
          ///@}
-#ifdef STEEM_ENABLE_SMT
-         template< typename smt_balance_object_type, class balance_operator_type >
-         void adjust_smt_balance( const account_name_type& name, const asset& delta, bool check_account,
-                                  balance_operator_type balance_operator );
-#endif
+
          void modify_balance( const account_object& a, const asset& delta, bool check_balance );
          void modify_reward_balance( const account_object& a, const asset& value_delta, const asset& share_delta, bool check_balance );
 

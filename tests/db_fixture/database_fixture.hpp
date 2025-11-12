@@ -133,21 +133,11 @@ extern uint32_t STEEM_TESTING_GENESIS_TIMESTAMP;
 #define ACTORS(names) BOOST_PP_SEQ_FOR_EACH(ACTORS_IMPL, ~, names) \
    validate_database();
 
-#define SMT_SYMBOL( name, decimal_places, db ) \
-   asset_symbol_type name ## _symbol = get_new_smt_symbol( decimal_places, db );
-
 #define ASSET( s ) \
    steem::chain::test::asset_from_string( s )
 
 #define FUND( account_name, amount ) \
    fund( account_name, amount ); \
-   generate_block();
-
-// To be incorporated into fund() method if deemed appropriate.
-// 'SMT' would be dropped from the name then.
-#define FUND_SMT_REWARDS( account_name, amount ) \
-   db->adjust_reward_balance( account_name, amount ); \
-   db->adjust_supply( amount ); \
    generate_block();
 
 #define OP2TX(OP,TX,KEY) \
@@ -204,9 +194,6 @@ struct database_fixture {
    virtual ~database_fixture() { appbase::reset(); }
 
    static fc::ecc::private_key generate_private_key( string seed = "init_key" );
-#ifdef STEEM_ENABLE_SMT
-   static asset_symbol_type get_new_smt_symbol( uint8_t token_decimal_places, chain::database* db );
-#endif
    string generate_anon_acct_name();
    void open_database();
    void generate_block(uint32_t skip = 0,
@@ -287,49 +274,6 @@ struct live_database_fixture : public database_fixture
 
    fc::path _chain_dir;
 };
-
-#ifdef STEEM_ENABLE_SMT
-template< typename T >
-struct t_smt_database_fixture : public T
-{
-   using units = flat_map< account_name_type, uint16_t >;
-
-   using database_fixture::set_price_feed;
-   using database_fixture::fund;
-   using database_fixture::convert;
-
-   t_smt_database_fixture(){}
-   virtual ~t_smt_database_fixture(){}
-
-   asset_symbol_type create_smt( const string& account_name, const fc::ecc::private_key& key,
-      uint8_t token_decimal_places );
-
-   /// Creates 3 different SMTs for provided control account, one with 0 precision, the other two with the same non-zero precision.
-   std::array<asset_symbol_type, 3> create_smt_3(const char* control_account_name, const fc::ecc::private_key& key);
-   /// Tries to create SMTs with too big precision or invalid name.
-   void create_invalid_smt( const char* control_account_name, const fc::ecc::private_key& key );
-   /// Tries to create SMTs matching existing one. First attempt with matching precision, second one with different (but valid) precision.
-   void create_conflicting_smt( const asset_symbol_type existing_smt, const char* control_account_name, const fc::ecc::private_key& key );
-
-   //smt_setup_operation
-   smt_generation_unit get_generation_unit ( const units& steem_unit = units(), const units& token_unit = units() );
-   smt_cap_commitment get_cap_commitment( share_type amount = 0, uint128_t nonce = 0 );
-   smt_capped_generation_policy get_capped_generation_policy
-   (
-      const smt_generation_unit& pre_soft_cap_unit = smt_generation_unit(),
-      const smt_generation_unit& post_soft_cap_unit = smt_generation_unit(),
-      const smt_cap_commitment& min_steem_units_commitment = smt_cap_commitment(),
-      const smt_cap_commitment& hard_cap_steem_units_commitment = smt_cap_commitment(),
-      uint16_t soft_cap_percent = 0,
-      uint32_t min_unit_ratio = 0,
-      uint32_t max_unit_ratio = 0
-   );
-};
-
-using smt_database_fixture = t_smt_database_fixture< clean_database_fixture >;
-using smt_database_fixture_for_plugin = t_smt_database_fixture< database_fixture >;
-
-#endif
 
 struct json_rpc_database_fixture : public database_fixture
 {

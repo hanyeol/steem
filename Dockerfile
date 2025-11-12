@@ -85,7 +85,6 @@ RUN \
         -DLOW_MEMORY_NODE=OFF \
         -DCLEAR_VOTES=ON \
         -DSKIP_BY_TX_ID=ON \
-        -DENABLE_SMT_SUPPORT=ON \
         -DSTEEM_STATIC_BUILD=${STEEM_STATIC_BUILD} \
         .. && \
     make -j$(nproc) chain_test test_fixed_string plugin_test && \

@@ -265,7 +265,6 @@ See [tests/README.md](tests/README.md) and [doc/testing.md](doc/testing.md) for 
 | `CLEAR_VOTES` | ON/OFF | Clear old votes from memory |
 | `SKIP_BY_TX_ID` | ON/OFF | Disable tx-by-id queries (~65% faster reindex) |
 | `ENABLE_COVERAGE_TESTING` | ON/OFF | Enable code coverage analysis |
-| `ENABLE_SMT_SUPPORT` | ON/OFF | Enable Smart Media Token support |
 
 ### Plugin Development
 

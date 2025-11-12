@@ -65,7 +65,7 @@ docker run -d \
   -e USE_NGINX_FRONTEND=true \
   -p 8090:8090 \
   -p 2001:2001 \
-  steemit/steem:latest
+  hanyeol/steem:latest
 ```
 
 **Behavior**:
@@ -94,7 +94,7 @@ version: '3.8'
 
 services:
   steemd:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-backend
     volumes:
       - steemd-data:/var/lib/steemd
@@ -194,7 +194,7 @@ version: '3.8'
 
 services:
   steemd-1:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-1
     volumes:
       - steemd-data-1:/var/lib/steemd
@@ -204,7 +204,7 @@ services:
       - steem-network
 
   steemd-2:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-2
     volumes:
       - steemd-data-2:/var/lib/steemd
@@ -214,7 +214,7 @@ services:
       - steem-network
 
   steemd-3:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-3
     volumes:
       - steemd-data-3:/var/lib/steemd
@@ -593,7 +593,7 @@ version: '3.8'
 
 services:
   steemd-1:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-1
     volumes:
       - steemd-data-1:/var/lib/steemd
@@ -603,7 +603,7 @@ services:
       - steem-network
 
   steemd-2:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-2
     volumes:
       - steemd-data-2:/var/lib/steemd
@@ -781,7 +781,7 @@ services:
       - steem-network
 
   steemd-1:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.steemd.rule=PathPrefix(`/`)"
@@ -793,7 +793,7 @@ services:
       - steem-network
 
   steemd-2:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.steemd.rule=PathPrefix(`/`)"
@@ -829,7 +829,7 @@ version: '3.8'
 
 services:
   steemd-1:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-1
     volumes:
       - steemd-data-1:/var/lib/steemd
@@ -839,7 +839,7 @@ services:
       - steem-network
 
   steemd-2:
-    image: steemit/steem:latest
+    image: hanyeol/steem:latest
     container_name: steemd-2
     volumes:
       - steemd-data-2:/var/lib/steemd
@@ -1199,7 +1199,7 @@ spec:
     spec:
       containers:
       - name: steemd
-        image: steemit/steem:latest
+        image: hanyeol/steem:latest
         ports:
         - containerPort: 8090
         livenessProbe:

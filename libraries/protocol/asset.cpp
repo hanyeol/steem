@@ -209,8 +209,7 @@ uint32_t asset_symbol_type::to_nai()const
          nai_data_digits = STEEM_NAI_VESTS;
          break;
       default:
-         FC_ASSERT( space() == smt_nai_space );
-         nai_data_digits = (asset_num >> 5);
+         FC_ASSERT( false, "Unknown asset symbol" );
    }
 
    uint32_t nai_check_digit = damm_checksum_8digit(nai_data_digits);
@@ -219,26 +218,15 @@ uint32_t asset_symbol_type::to_nai()const
 
 bool asset_symbol_type::is_vesting() const
 {
-   switch( space() )
+   switch( asset_num )
    {
-      case legacy_space:
-      {
-         switch( asset_num )
-         {
-            case STEEM_ASSET_NUM_STEEM:
-               return false;
-            case STEEM_ASSET_NUM_SBD:
-               // SBD is certainly liquid.
-               return false;
-            case STEEM_ASSET_NUM_VESTS:
-               return true;
-            default:
-               FC_ASSERT( false, "Unknown asset symbol" );
-         }
-      }
-      case smt_nai_space:
-         // 6th bit of asset_num is used as vesting/liquid variant indicator.
-         return asset_num & SMT_ASSET_NUM_VESTING_MASK;
+      case STEEM_ASSET_NUM_STEEM:
+         return false;
+      case STEEM_ASSET_NUM_SBD:
+         // SBD is certainly liquid.
+         return false;
+      case STEEM_ASSET_NUM_VESTS:
+         return true;
       default:
          FC_ASSERT( false, "Unknown asset symbol" );
    }
@@ -246,50 +234,20 @@ bool asset_symbol_type::is_vesting() const
 
 asset_symbol_type asset_symbol_type::get_paired_symbol() const
 {
-   switch( space() )
+   switch( asset_num )
    {
-      case legacy_space:
-      {
-         switch( asset_num )
-         {
-            case STEEM_ASSET_NUM_STEEM:
-               return from_asset_num( STEEM_ASSET_NUM_VESTS );
-            case STEEM_ASSET_NUM_SBD:
-               return *this;
-            case STEEM_ASSET_NUM_VESTS:
-               return from_asset_num( STEEM_ASSET_NUM_STEEM );
-            default:
-               FC_ASSERT( false, "Unknown asset symbol" );
-         }
-      }
-      case smt_nai_space:
-         {
-         // Toggle 6th bit of this asset_num.
-         auto paired_asset_num = asset_num ^ ( SMT_ASSET_NUM_VESTING_MASK );
-         return from_asset_num( paired_asset_num );
-         }
+      case STEEM_ASSET_NUM_STEEM:
+         return from_asset_num( STEEM_ASSET_NUM_VESTS );
+      case STEEM_ASSET_NUM_SBD:
+         return *this;
+      case STEEM_ASSET_NUM_VESTS:
+         return from_asset_num( STEEM_ASSET_NUM_STEEM );
       default:
          FC_ASSERT( false, "Unknown asset symbol" );
    }
 }
 
-asset_symbol_type::asset_symbol_space asset_symbol_type::space()const
-{
-   asset_symbol_type::asset_symbol_space s = legacy_space;
-   switch( asset_num )
-   {
-      case STEEM_ASSET_NUM_STEEM:
-      case STEEM_ASSET_NUM_SBD:
-      case STEEM_ASSET_NUM_VESTS:
-         s = legacy_space;
-         break;
-      default:
-         s = smt_nai_space;
-   }
-   return s;
-}
-
-void asset_symbol_type::validate()const
+void asset_symbol_type::validate() const
 {
    switch( asset_num )
    {
@@ -298,19 +256,8 @@ void asset_symbol_type::validate()const
       case STEEM_ASSET_NUM_VESTS:
          break;
       default:
-      {
-         uint32_t nai_data_digits = (asset_num >> 5);
-         uint32_t nai_1bit = (asset_num & 0x10);
-         uint32_t nai_decimal_places = (asset_num & 0x0F);
-         FC_ASSERT( (nai_data_digits >= SMT_MIN_NAI) &
-                    (nai_data_digits <= SMT_MAX_NAI) &
-                    (nai_1bit == 0x10) &
-                    (nai_decimal_places <= STEEM_ASSET_MAX_DECIMALS),
-                    "Cannot determine space for asset ${n}", ("n", asset_num) );
-      }
+         FC_ASSERT( false, "Unknown asset symbol" );
    }
-   // this assert is duplicated by above code in all cases
-   // FC_ASSERT( decimals() <= STEEM_ASSET_MAX_DECIMALS );
 }
 
 void asset::validate()const

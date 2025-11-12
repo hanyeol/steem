@@ -19,18 +19,57 @@ The `cli_wallet` is an interactive command-line interface for managing accounts,
 
 ### Node Requirements
 
-The `steemd` node you connect to must have:
-- `webserver` plugin enabled
-- `database_api` plugin enabled
-- `account_by_key_api` plugin enabled
-- WebSocket endpoint configured
+The `steemd` node you connect to must have the following plugins enabled. The wallet now uses **direct modular API calls** instead of the legacy `condenser_api`.
 
-Verify node config.ini has:
+**Required Plugins:**
+- `webserver` - WebSocket/HTTP server
+- `database_api` - Core blockchain state queries
+- `account_by_key_api` - Public key to account mapping
+- `network_broadcast_api` - Transaction broadcasting
+
+**Recommended Plugins** (for full functionality):
+- `block_api` - Block and header queries
+- `account_history_api` - Account transaction history
+- `tags_api` - Content and discussion queries
+- `follow_api` - Social graph and feeds
+- `reputation_api` - Reputation scores
+- `market_history_api` - Market data and trading history
+- `witness_api` - Witness and bandwidth data
+
+**Minimum Configuration** (basic wallet operations):
 ```ini
+# Core plugins
 plugin = webserver
 plugin = database_api
 plugin = account_by_key_api
+plugin = network_broadcast_api
 
+# Optional but recommended
+plugin = block_api
+plugin = account_history_api
+
+# WebSocket endpoint
+webserver-ws-endpoint = 0.0.0.0:8090
+```
+
+**Full Node Configuration** (all wallet features):
+```ini
+# Core plugins
+plugin = webserver
+plugin = database_api
+plugin = account_by_key_api
+plugin = network_broadcast_api
+
+# Optional plugins
+plugin = block_api
+plugin = account_history_api
+plugin = tags_api
+plugin = follow_api
+plugin = reputation_api
+plugin = market_history_api
+plugin = witness_api
+
+# WebSocket endpoint
 webserver-ws-endpoint = 0.0.0.0:8090
 ```
 
@@ -580,53 +619,6 @@ curl -s http://127.0.0.1:8090 -d '{"jsonrpc":"2.0","method":"database_api.get_co
 >>> vote mybot author "permlink" 100 true
 ```
 
-## Troubleshooting
-
-### "Could not connect to steemd"
-
-**Problem**: Can't connect to node
-
-**Solutions**:
-- Verify node is running: `curl http://127.0.0.1:8090`
-- Check WebSocket endpoint: `webserver-ws-endpoint` in config.ini
-- Try different port or address
-
-### "Missing Active Authority"
-
-**Problem**: Transaction requires active key but not imported
-
-**Solution**:
-```bash
->>> import_key YOUR_ACTIVE_PRIVATE_KEY
-```
-
-### "Wallet is locked"
-
-**Problem**: Need to unlock wallet
-
-**Solution**:
-```bash
->>> unlock YOUR_PASSWORD
-```
-
-### "Assert Exception: account_by_key_api plugin not enabled"
-
-**Problem**: Node missing required plugin
-
-**Solution**: Add to node's config.ini:
-```ini
-plugin = account_by_key_api
-```
-
-### "Invalid transaction signature"
-
-**Problem**: Wrong private key or chain ID
-
-**Solutions**:
-- Verify correct private key imported
-- Check chain ID matches node
-- Ensure wallet is unlocked
-
 ## Command Reference
 
 ### Wallet Management
@@ -673,13 +665,116 @@ plugin = account_by_key_api
 - `add_operation_to_builder_transaction` - Add operation
 - `sign_builder_transaction` - Sign and broadcast
 
+## Troubleshooting
+
+### Common Errors
+
+#### "Could not connect to steemd"
+**Problem**: Can't connect to node
+
+**Solutions**:
+- Verify node is running: `curl http://127.0.0.1:8090`
+- Check WebSocket endpoint: `webserver-ws-endpoint` in config.ini
+- Try different port or address
+
+#### "Missing Active Authority"
+**Problem**: Transaction requires active key but not imported
+
+**Solution**:
+```bash
+>>> import_key YOUR_ACTIVE_PRIVATE_KEY
+```
+
+#### "Wallet is locked"
+**Problem**: Need to unlock wallet
+
+**Solution**:
+```bash
+>>> unlock YOUR_PASSWORD
+```
+
+#### "Assert Exception: account_by_key_api plugin not enabled"
+**Problem**: Node missing required plugin
+
+**Solution**: Add to node's config.ini:
+```ini
+plugin = account_by_key_api
+```
+
+#### "Invalid transaction signature"
+**Problem**: Wrong private key or chain ID
+
+**Solutions**:
+- Verify correct private key imported
+- Check chain ID matches node
+- Ensure wallet is unlocked
+
+### Connection Issues
+
+**Problem:** `Server has disconnected us` or connection errors
+
+**Solution:**
+1. Verify `steemd` is running and WebSocket endpoint is accessible:
+   ```bash
+   curl -s --data '{"jsonrpc":"2.0","method":"database_api.get_config","params":{},"id":1}' http://127.0.0.1:8090
+   ```
+
+2. Check node logs for plugin initialization
+3. Ensure firewall allows WebSocket connections
+
+### Plugin Not Available Errors
+
+**Problem:** RPC errors mentioning missing plugins or APIs
+
+**Solution:**
+1. Check which plugins are loaded in node:
+   ```bash
+   # In steemd logs, look for "Registered plugin:" messages
+   grep "Registered plugin" witness_node_data_dir/logs/*.log
+   ```
+
+2. Add missing plugins to `config.ini`:
+   ```ini
+   plugin = database_api
+   plugin = account_history_api
+   plugin = block_api
+   # ... add other required plugins
+   ```
+
+3. Restart `steemd` node
+
+### Command Not Working
+
+**Problem:** Certain wallet commands return errors or empty results
+
+**Possible Causes:**
+- **get_account_votes()** - Currently returns empty vector (known limitation)
+- **broadcast_transaction_synchronous()** - Returns dummy result (known limitation)
+- Missing optional plugins on connected node
+
+**Solution:**
+- For account votes, use alternative APIs via custom queries
+- For synchronous broadcast, use regular `broadcast_transaction()` and poll for confirmation
+- Enable recommended plugins for full wallet functionality
+
+### Performance Issues
+
+**Problem:** Slow command responses
+
+**Solution:**
+1. Ensure node has sufficient resources (RAM, CPU, SSD)
+2. Use local node instead of remote for better latency
+3. Enable only required plugins to reduce node overhead
+4. Check node sync status with `get_dynamic_global_properties`
+
 ## Additional Resources
 
-- [Genesis Launch Guide](genesis-launch.md) - Setting up genesis node
+- [Genesis Launch Guide](../operations/genesis-launch.md) - Setting up genesis node
 - [Building Steem](building.md) - Build instructions
-- [API Documentation](api-notes.md) - API reference
-- [Protocol Operations](../libraries/protocol/include/steem/protocol/) - Operation definitions
+- [Node Types Guide](node-types-guide.md) - Different node configurations
+- [Wallet API Refactoring](../development/todo/wallet-api-refactoring.md) - Technical details of the modular API migration
+- [Protocol Operations](../../libraries/protocol/include/steem/protocol/) - Operation definitions
 
 ## License
 
-See [LICENSE.md](../LICENSE.md)
+See [LICENSE.md](../../LICENSE.md)
