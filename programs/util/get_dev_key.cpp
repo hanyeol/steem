@@ -29,7 +29,7 @@
 #include <fc/io/json.hpp>
 
 #include <steem/protocol/types.hpp>
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 #ifndef WIN32
 #include <csignal>

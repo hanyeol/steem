@@ -7,8 +7,8 @@
 
 #include <steem/plugins/chain/chain_plugin.hpp>
 
-#include <steem/utilities/benchmark_dumper.hpp>
-#include <steem/utilities/plugin_utilities.hpp>
+#include <steem/utils/benchmark_dumper.hpp>
+#include <steem/utils/plugin_utilities.hpp>
 
 #include <appbase/application.hpp>
 

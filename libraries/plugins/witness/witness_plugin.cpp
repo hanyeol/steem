@@ -12,8 +12,8 @@
 #include <steem/chain/index.hpp>
 #include <steem/chain/util/impacted.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
-#include <steem/utilities/plugin_utilities.hpp>
+#include <steem/utils/key_conversion.hpp>
+#include <steem/utils/plugin_utilities.hpp>
 
 #include <fc/io/json.hpp>
 #include <fc/macros.hpp>

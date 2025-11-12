@@ -8,7 +8,7 @@
 #include <fc/reflect/reflect.hpp>
 #include <fc/variant.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 #include <steem/protocol/types.hpp>
 #include <steem/protocol/authority.hpp>

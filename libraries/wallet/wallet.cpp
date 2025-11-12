@@ -1,6 +1,6 @@
-#include <steem/utilities/git_revision.hpp>
-#include <steem/utilities/key_conversion.hpp>
-#include <steem/utilities/words.hpp>
+#include <steem/utils/git_revision.hpp>
+#include <steem/utils/key_conversion.hpp>
+#include <steem/utils/words.hpp>
 
 #include <steem/protocol/base.hpp>
 #include <steem/wallet/wallet.hpp>

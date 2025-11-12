@@ -10,7 +10,7 @@
 #include <steem/chain/database.hpp>
 #include <steem/chain/witness_objects.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 namespace steem { namespace plugins { namespace debug_node {
 

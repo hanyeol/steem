@@ -32,7 +32,7 @@
 
 #include <steem/plugins/account_history/account_history_plugin.hpp>
 
-#include <steem/utilities/tempdir.hpp>
+#include <steem/utils/tempdir.hpp>
 
 #include <fc/crypto/digest.hpp>
 

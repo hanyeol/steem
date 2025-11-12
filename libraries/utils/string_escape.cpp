@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <steem/utilities/string_escape.hpp>
+#include <steem/utils/string_escape.hpp>
 #include <sstream>
 
 namespace steem { namespace utilities {

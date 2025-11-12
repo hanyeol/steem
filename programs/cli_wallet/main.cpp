@@ -36,7 +36,7 @@
 #include <fc/rpc/websocket_api.hpp>
 #include <fc/smart_ref_impl.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 #include <steem/protocol/protocol.hpp>
 #include <steem/wallet/remote_node_api.hpp>

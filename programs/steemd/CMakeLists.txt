@@ -18,7 +18,7 @@ if( STEEM_STATIC_BUILD )
    target_link_libraries( steemd PRIVATE
       "-static-libstdc++ -static-libgcc"
       appbase
-      steem_utilities
+      steem_utils
       steem_plugins
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}
@@ -27,7 +27,7 @@ if( STEEM_STATIC_BUILD )
 else( STEEM_STATIC_BUILD )
    target_link_libraries( steemd PRIVATE
       appbase
-      steem_utilities
+      steem_utils
       steem_plugins
       ${CMAKE_DL_LIBS}
       ${PLATFORM_SPECIFIC_LIBS}

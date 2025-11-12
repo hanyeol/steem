@@ -2,7 +2,7 @@
 
 #include <steem/wallet/remote_node_api.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 #include <fc/macros.hpp>
 #include <fc/real128.hpp>

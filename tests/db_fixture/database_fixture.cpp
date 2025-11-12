@@ -1,7 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/program_options.hpp>
 
-#include <steem/utilities/tempdir.hpp>
+#include <steem/utils/tempdir.hpp>
 
 #include <steem/chain/steem_objects.hpp>
 #include <steem/chain/history_object.hpp>

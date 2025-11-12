@@ -14,7 +14,7 @@ if( STEEM_STATIC_BUILD )
 endif( STEEM_STATIC_BUILD )
 
 target_link_libraries( cli_wallet PRIVATE
-                       graphene_net steem_chain steem_protocol steem_utilities steem_wallet
+                       graphene_net steem_chain steem_protocol steem_utils steem_wallet
                        account_by_key_api_plugin account_history_api_plugin database_api_plugin block_api_plugin
                        follow_api_plugin reputation_api_plugin market_history_api_plugin network_broadcast_api_plugin
                        tags_api_plugin witness_api_plugin

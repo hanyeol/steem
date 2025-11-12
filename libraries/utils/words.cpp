@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 #include <stdint.h>
-#include <steem/utilities/words.hpp>
+#include <steem/utils/words.hpp>
 
 namespace steem { namespace words {
 

@@ -4,9 +4,9 @@
 #include <steem/protocol/types.hpp>
 #include <steem/protocol/version.hpp>
 
-#include <steem/utilities/logging_config.hpp>
-#include <steem/utilities/key_conversion.hpp>
-#include <steem/utilities/git_revision.hpp>
+#include <steem/utils/logging_config.hpp>
+#include <steem/utils/key_conversion.hpp>
+#include <steem/utils/git_revision.hpp>
 
 #include <steem/plugins/account_by_key/account_by_key_plugin.hpp>
 #include <steem/plugins/account_by_key_api/account_by_key_api_plugin.hpp>

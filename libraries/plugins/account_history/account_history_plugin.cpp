@@ -7,7 +7,7 @@
 #include <steem/chain/operation_notification.hpp>
 #include <steem/chain/history_object.hpp>
 
-#include <steem/utilities/plugin_utilities.hpp>
+#include <steem/utils/plugin_utilities.hpp>
 
 #include <fc/io/json.hpp>
 #include <fc/smart_ref_impl.hpp>

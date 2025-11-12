@@ -31,7 +31,7 @@ target_link_libraries( steem_wallet PRIVATE
    graphene_net
    steem_chain
    steem_protocol
-   steem_utilities
+   steem_utils
    fc
    account_by_key_api_plugin
    account_history_api_plugin

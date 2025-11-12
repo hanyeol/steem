@@ -3,7 +3,7 @@
 #include <steem/plugins/chain/chain_plugin.hpp>
 #include <steem/plugins/statsd/utility.hpp>
 
-#include <steem/utilities/benchmark_dumper.hpp>
+#include <steem/utils/benchmark_dumper.hpp>
 
 #include <fc/string.hpp>
 

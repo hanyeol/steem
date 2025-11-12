@@ -7,7 +7,7 @@
 
 #include <steem/plugins/debug_node/debug_node_plugin.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 #include <steem/plugins/block_api/block_api_plugin.hpp>
 #include <steem/plugins/database_api/database_api_plugin.hpp>

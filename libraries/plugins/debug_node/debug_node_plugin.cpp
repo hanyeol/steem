@@ -10,7 +10,7 @@
 #include <fc/thread/mutex.hpp>
 #include <fc/thread/scoped_lock.hpp>
 
-#include <steem/utilities/key_conversion.hpp>
+#include <steem/utils/key_conversion.hpp>
 
 #include <sstream>
 #include <string>

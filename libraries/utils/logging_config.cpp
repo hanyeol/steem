@@ -1,4 +1,4 @@
-#include <steem/utilities/logging_config.hpp>
+#include <steem/utils/logging_config.hpp>
 
 #include <fc/exception/exception.hpp>
 
