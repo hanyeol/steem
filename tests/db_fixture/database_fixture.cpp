@@ -70,7 +70,7 @@ clean_database_fixture::clean_database_fixture()
 
    vest( "genesis", 10000 );
 
-   // Fill up the rest of the required miners
+   // Fill up the rest of the required witnesses
    for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
       account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
@@ -137,7 +137,7 @@ void clean_database_fixture::resize_shared_mem( uint64_t size )
 
    vest( "genesis", 10000 );
 
-   // Fill up the rest of the required miners
+   // Fill up the rest of the required witnesses
    for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
       account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
@@ -610,7 +610,7 @@ json_rpc_database_fixture::json_rpc_database_fixture()
 
    vest( "genesis", 10000 );
 
-   // Fill up the rest of the required miners
+   // Fill up the rest of the required witnesses
    for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
       account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
