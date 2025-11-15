@@ -436,7 +436,7 @@ namespace steem { namespace chain {
 
          /* For testing and debugging only. Given a hardfork
             with id N, applies all hardforks with id <= N */
-         void set_hardfork( uint32_t hardfork, bool process_now = true );
+         void set_hardfork( uint32_t hardfork, bool apply_now = true );
 
          void validate_invariants()const;
          /**
