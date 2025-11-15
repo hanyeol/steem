@@ -107,32 +107,32 @@ echo -e "\n${YELLOW}=== 4. ACCOUNT QUERY COMMANDS ===${NC}"
 test_command "Account Query" "list_my_accounts"
 test_command "Account Query" "list_accounts \"\" 10"
 test_command "Account Query" "list_accounts \"a\" 5"
-test_command "Account Query" "get_account \"initminer\""
+test_command "Account Query" "get_account \"genesis\""
 
 # Test with actual account if available
-test_command "Account Query" "get_account_history \"initminer\" -1 10"
-test_command "Account Query" "get_owner_history \"initminer\""
+test_command "Account Query" "get_account_history \"genesis\" -1 10"
+test_command "Account Query" "get_owner_history \"genesis\""
 
 # 5. Witness Commands
 echo -e "\n${YELLOW}=== 5. WITNESS COMMANDS ===${NC}"
 
 test_command "Witness" "list_witnesses \"\" 10"
-test_command "Witness" "get_witness \"initminer\""
+test_command "Witness" "get_witness \"genesis\""
 
 # 6. Market Commands
 echo -e "\n${YELLOW}=== 6. MARKET COMMANDS ===${NC}"
 
 test_command "Market" "get_order_book 10"
 test_command "Market" "get_order_book 100"
-test_command "Market" "get_open_orders \"initminer\""
-test_command "Market" "get_conversion_requests \"initminer\""
+test_command "Market" "get_open_orders \"genesis\""
+test_command "Market" "get_conversion_requests \"genesis\""
 
 # 7. Withdraw Routes
 echo -e "\n${YELLOW}=== 7. WITHDRAW ROUTES ===${NC}"
 
-test_command "Vesting" "get_withdraw_routes \"initminer\" \"all\""
-test_command "Vesting" "get_withdraw_routes \"initminer\" \"incoming\""
-test_command "Vesting" "get_withdraw_routes \"initminer\" \"outgoing\""
+test_command "Vesting" "get_withdraw_routes \"genesis\" \"all\""
+test_command "Vesting" "get_withdraw_routes \"genesis\" \"incoming\""
+test_command "Vesting" "get_withdraw_routes \"genesis\" \"outgoing\""
 
 # 8. Utility Commands
 echo -e "\n${YELLOW}=== 8. UTILITY COMMANDS ===${NC}"

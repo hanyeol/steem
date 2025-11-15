@@ -4,7 +4,7 @@
     "current_aslot": 0,
     "current_sbd_supply": "0.000 TBD",
     "current_supply": "0.000 TESTS",
-    "current_witness": "initminer",
+    "current_witness": "genesis",
     "head_block_id": "0000000000000000000000000000000000000000",
     "head_block_number": 0,
     "id": 0,

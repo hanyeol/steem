@@ -17,14 +17,11 @@
 #define VPRODUCER_OFF   5
 #define LIQUIDITY_OFF   6
 #define VLIQUIDITY_OFF  7
-#define POW_OFF         8
-#define VPOW_OFF        9
-#define REWARD_TYPES   10
+#define REWARD_TYPES    8
 
 using steem::protocol::asset;
 using steem::protocol::share_type;
 using steem::protocol::calc_percent_reward_per_block;
-using steem::protocol::calc_percent_reward_per_round;
 using steem::protocol::calc_percent_reward_per_hour;
 
 /*
@@ -42,8 +39,6 @@ rvec shows total number of STEEM satoshis created since genesis for:
 - Vesting rewards balancing producer rewards
 - Liquidity rewards
 - Vesting rewards balancing liquidity rewards
-- PoW rewards
-- Vesting rewards balancing PoW rewards
 
 b is block number
 s is total supply
@@ -52,7 +47,6 @@ s is total supply
 Some possible sources of inaccuracy, the direction and estimated relative sizes of these effects:
 
 - Missed blocks not modeled (lowers STEEM supply, small)
-- Miner queue length very approximately modeled (assumed to go to 100 during the first blocks and then stay there) (may lower or raise STEEM supply, very small)
 - Creation / destruction of STEEM used to back SBD not modeled (moves STEEM supply in direction opposite to changes in dollar value of 1 STEEM, large)
 - Interest paid to SBD not modeled (raises STEEM supply, medium)
 - Lost / forgotten private keys / wallets and deliberate burning of STEEM not modeled (lowers STEEM supply, unknown but likely small)
@@ -72,7 +66,6 @@ int main( int argc, char** argv, char** envp )
 */
 
    uint32_t liquidity_begin_block = (1467590400 - 1458835200) / 3;
-   uint32_t pow_deficit = 100;
 
    for( int i=0; i<REWARD_TYPES; i++ )
    {
@@ -101,23 +94,6 @@ int main( int argc, char** argv, char** envp )
       // supply for below reward types is basically a self-contained event which updates the supply immediately before the next reward type's computation.
 
       share_type liquidity_reward = 0;
-      share_type pow_reward = 0;
-
-      if( (block_num % STEEM_MAX_WITNESSES) == 0 )
-         ++pow_deficit;
-
-      if( pow_deficit > 0 )
-      {
-         pow_reward = calc_percent_reward_per_round< STEEM_POW_APR_PERCENT >( current_supply );
-         pow_reward = std::max( pow_reward, STEEM_MIN_POW_REWARD.amount );
-         if( block_num < STEEM_START_MINER_VOTING_BLOCK )
-            pow_reward *= STEEM_MAX_WITNESSES;
-         --pow_deficit;
-      }
-      reward_delta[ POW_OFF ] = pow_reward;
-      reward_delta[ VPOW_OFF ] = reward_delta[ POW_OFF ] * vesting_factor;
-
-      current_supply += reward_delta[ POW_OFF ] + reward_delta[ VPOW_OFF ];
 
       if( (block_num > liquidity_begin_block) && ((block_num % STEEM_LIQUIDITY_REWARD_BLOCKS) == 0) )
       {

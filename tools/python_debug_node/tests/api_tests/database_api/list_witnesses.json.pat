@@ -9,7 +9,7 @@
             "last_confirmed_block_num": 0,
             "last_sbd_exchange_update": "1970-01-01T00:00:00",
             "last_work": "0000000000000000000000000000000000000000000000000000000000000000",
-            "owner": "initminer",
+            "owner": "genesis",
             "pow_worker": 0,
             "props": {
                 "account_creation_fee": "0.000 TESTS",

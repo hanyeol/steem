@@ -68,14 +68,14 @@ clean_database_fixture::clean_database_fixture()
    db->set_hardfork( STEEM_BLOCKCHAIN_VERSION.minor() );
    generate_block();
 
-   vest( "initminer", 10000 );
+   vest( "genesis", 10000 );
 
    // Fill up the rest of the required miners
-   for( int i = STEEM_NUM_INIT_MINERS; i < STEEM_MAX_WITNESSES; i++ )
+   for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
-      account_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_pub_key );
-      fund( STEEM_INIT_MINER_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-      witness_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+      account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
+      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
+      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
    }
 
    validate_database();
@@ -135,14 +135,14 @@ void clean_database_fixture::resize_shared_mem( uint64_t size )
    db->set_hardfork( STEEM_BLOCKCHAIN_VERSION.minor() );
    generate_block();
 
-   vest( "initminer", 10000 );
+   vest( "genesis", 10000 );
 
    // Fill up the rest of the required miners
-   for( int i = STEEM_NUM_INIT_MINERS; i < STEEM_MAX_WITNESSES; i++ )
+   for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
-      account_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_pub_key );
-      fund( STEEM_INIT_MINER_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-      witness_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+      account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
+      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
+      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
    }
 
    validate_database();
@@ -298,7 +298,7 @@ const account_object& database_fixture::account_create(
    {
       return account_create(
          name,
-         STEEM_INIT_MINER_NAME,
+         STEEM_GENESIS_WITNESS_NAME,
          init_account_priv_key,
          std::max( db->get_witness_schedule_object().median_props.account_creation_fee.amount * STEEM_CREATE_ACCOUNT_WITH_STEEM_MODIFIER, share_type( 100 ) ),
          key,
@@ -351,7 +351,7 @@ void database_fixture::fund(
 {
    try
    {
-      transfer( STEEM_INIT_MINER_NAME, account_name, asset( amount, STEEM_SYMBOL ) );
+      transfer( STEEM_GENESIS_WITNESS_NAME, account_name, asset( amount, STEEM_SYMBOL ) );
 
    } FC_CAPTURE_AND_RETHROW( (account_name)(amount) )
 }
@@ -511,7 +511,7 @@ void database_fixture::set_witness_props( const flat_map< string, vector< char >
    for( size_t i = 1; i < 8; i++ )
    {
       witness_set_properties_operation op;
-      op.owner = STEEM_INIT_MINER_NAME + fc::to_string( i );
+      op.owner = STEEM_GENESIS_WITNESS_NAME + fc::to_string( i );
       op.props = props;
 
       if( op.props.find( "key" ) == op.props.end() )
@@ -608,14 +608,14 @@ json_rpc_database_fixture::json_rpc_database_fixture()
    db->set_hardfork( STEEM_BLOCKCHAIN_VERSION.minor() );
    generate_block();
 
-   vest( "initminer", 10000 );
+   vest( "genesis", 10000 );
 
    // Fill up the rest of the required miners
-   for( int i = STEEM_NUM_INIT_MINERS; i < STEEM_MAX_WITNESSES; i++ )
+   for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
-      account_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_pub_key );
-      fund( STEEM_INIT_MINER_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-      witness_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+      account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
+      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
+      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
    }
 
    validate_database();

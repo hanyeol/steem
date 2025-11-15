@@ -54,9 +54,8 @@ namespace steem { namespace chain {
       public:
          enum witness_schedule_type
          {
-            top19,
+            top20,
             timeshare,
-            miner,
             none
          };
 
@@ -167,18 +166,16 @@ namespace steem { namespace chain {
 
          fc::uint128                                                       current_virtual_time;
          uint32_t                                                          next_shuffle_block_num = 1;
-         fc::array< account_name_type, STEEM_MAX_WITNESSES >             current_shuffled_witnesses;
+         fc::array< account_name_type, STEEM_MAX_WITNESSES >               current_shuffled_witnesses;
          uint8_t                                                           num_scheduled_witnesses = 1;
-         uint8_t                                                           top19_weight = 1;
+         uint8_t                                                           top20_weight = 1;
          uint8_t                                                           timeshare_weight = 5;
-         uint8_t                                                           miner_weight = 1;
          uint32_t                                                          witness_pay_normalization_factor = 25;
          chain_properties                                                  median_props;
          version                                                           majority_version;
 
-         uint8_t max_voted_witnesses            = STEEM_MAX_VOTED_WITNESSES_HF0;
-         uint8_t max_miner_witnesses            = STEEM_MAX_MINER_WITNESSES_HF0;
-         uint8_t max_runner_witnesses           = STEEM_MAX_RUNNER_WITNESSES_HF0;
+         uint8_t max_voted_witnesses            = STEEM_MAX_VOTED_WITNESSES;
+         uint8_t max_runner_witnesses           = STEEM_MAX_RUNNER_WITNESSES;
          uint8_t hardfork_required_witnesses    = STEEM_HARDFORK_REQUIRED_WITNESSES;
    };
 
@@ -247,7 +244,7 @@ namespace steem { namespace chain {
 
 } }
 
-FC_REFLECT_ENUM( steem::chain::witness_object::witness_schedule_type, (top19)(timeshare)(miner)(none) )
+FC_REFLECT_ENUM( steem::chain::witness_object::witness_schedule_type, (top20)(timeshare)(none) )
 
 FC_REFLECT( steem::chain::chain_properties,
              (account_creation_fee)
@@ -275,10 +272,9 @@ CHAINBASE_SET_INDEX_TYPE( steem::chain::witness_vote_object, steem::chain::witne
 
 FC_REFLECT( steem::chain::witness_schedule_object,
              (id)(current_virtual_time)(next_shuffle_block_num)(current_shuffled_witnesses)(num_scheduled_witnesses)
-             (top19_weight)(timeshare_weight)(miner_weight)(witness_pay_normalization_factor)
+             (top20_weight)(timeshare_weight)(witness_pay_normalization_factor)
              (median_props)(majority_version)
              (max_voted_witnesses)
-             (max_miner_witnesses)
              (max_runner_witnesses)
              (hardfork_required_witnesses)
           )

@@ -1837,10 +1837,8 @@ void database::process_funds()
 
    if( cwit.schedule == witness_object::timeshare )
       witness_reward *= wso.timeshare_weight;
-   else if( cwit.schedule == witness_object::miner )
-      witness_reward *= wso.miner_weight;
-   else if( cwit.schedule == witness_object::top19 )
-      witness_reward *= wso.top19_weight;
+   else if( cwit.schedule == witness_object::top20 )
+      witness_reward *= wso.top20_weight;
    else
       wlog( "Encountered unknown witness type for witness: ${w}", ("w", cwit.owner) );
 
@@ -1910,18 +1908,8 @@ asset database::get_producer_reward()
    const auto& witness_account = get_account( props.current_witness );
 
    /// pay witness in vesting shares
-   if( props.head_block_number >= STEEM_START_MINER_VOTING_BLOCK || (witness_account.vesting_shares.amount.value == 0) ) {
-      // const auto& witness_obj = get_witness( props.current_witness );
-      const auto& producer_reward = create_vesting( witness_account, pay );
-      push_virtual_operation( producer_reward_operation( witness_account.name, producer_reward ) );
-   }
-   else
-   {
-      modify( get_account( witness_account.name), [&]( account_object& a )
-      {
-         a.balance += pay;
-      } );
-   }
+   const auto& producer_reward = create_vesting( witness_account, pay );
+   push_virtual_operation( producer_reward_operation( witness_account.name, producer_reward ) );
 
    return pay;
 }
@@ -2332,17 +2320,6 @@ void database::init_genesis( uint64_t init_supply )
 
       create< account_object >( [&]( account_object& a )
       {
-         a.name = STEEM_MINER_ACCOUNT;
-      } );
-      create< account_authority_object >( [&]( account_authority_object& auth )
-      {
-         auth.account = STEEM_MINER_ACCOUNT;
-         auth.owner.weight_threshold = 1;
-         auth.active.weight_threshold = 1;
-      });
-
-      create< account_object >( [&]( account_object& a )
-      {
          a.name = STEEM_NULL_ACCOUNT;
       } );
       create< account_authority_object >( [&]( account_authority_object& auth )
@@ -2363,18 +2340,18 @@ void database::init_genesis( uint64_t init_supply )
          auth.active.weight_threshold = 0;
       });
 
-      for( int i = 0; i < STEEM_NUM_INIT_MINERS; ++i )
+      for( int i = 0; i < STEEM_NUM_GENESIS_WITNESSES; ++i )
       {
          create< account_object >( [&]( account_object& a )
          {
-            a.name = STEEM_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
+            a.name = STEEM_GENESIS_WITNESS_NAME + ( i ? fc::to_string( i ) : std::string() );
             a.memo_key = init_public_key;
             a.balance  = asset( i ? 0 : init_supply, STEEM_SYMBOL );
          } );
 
          create< account_authority_object >( [&]( account_authority_object& auth )
          {
-            auth.account = STEEM_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
+            auth.account = STEEM_GENESIS_WITNESS_NAME + ( i ? fc::to_string( i ) : std::string() );
             auth.owner.add_authority( init_public_key, 1 );
             auth.owner.weight_threshold = 1;
             auth.active  = auth.owner;
@@ -2383,15 +2360,15 @@ void database::init_genesis( uint64_t init_supply )
 
          create< witness_object >( [&]( witness_object& w )
          {
-            w.owner        = STEEM_INIT_MINER_NAME + ( i ? fc::to_string(i) : std::string() );
+            w.owner        = STEEM_GENESIS_WITNESS_NAME + ( i ? fc::to_string(i) : std::string() );
             w.signing_key  = init_public_key;
-            w.schedule = witness_object::miner;
+            w.schedule = witness_object::none;
          } );
       }
 
       create< dynamic_global_property_object >( [&]( dynamic_global_property_object& p )
       {
-         p.current_witness = STEEM_INIT_MINER_NAME;
+         p.current_witness = STEEM_GENESIS_WITNESS_NAME;
          p.time = STEEM_GENESIS_TIME;
          p.recent_slots_filled = fc::uint128::max_value();
          p.participation_count = 128;
@@ -2412,7 +2389,7 @@ void database::init_genesis( uint64_t init_supply )
       // Create witness scheduler
       create< witness_schedule_object >( [&]( witness_schedule_object& wso )
       {
-         wso.current_shuffled_witnesses[0] = STEEM_INIT_MINER_NAME;
+         wso.current_shuffled_witnesses[0] = STEEM_GENESIS_WITNESS_NAME;
       } );
    }
    FC_CAPTURE_AND_RETHROW()
@@ -2664,8 +2641,8 @@ void database::_apply_block( const signed_block& next_block )
       );
    }
 
-   /// modify current witness so transaction evaluators can know who included the transaction,
-   /// this is mostly for POW operations which must pay the current_witness
+   /// modify current witness so we can track who produced this block
+   /// and pay witness rewards accordingly
    modify( gprops, [&]( dynamic_global_property_object& dgp ){
       dgp.current_witness = next_block.witness;
    });
@@ -3216,49 +3193,36 @@ void database::update_last_irreversible_block()
    auto old_last_irreversible = dpo.last_irreversible_block_num;
 
    /**
-    * Prior to voting taking over, we must be more conservative...
-    *
+    * Use witness voting to determine irreversibility
     */
-   if( head_block_num() < STEEM_START_MINER_VOTING_BLOCK )
+   const witness_schedule_object& wso = get_witness_schedule_object();
+   vector< const witness_object* > wit_objs;
+   wit_objs.reserve( wso.num_scheduled_witnesses );
+   for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
+      wit_objs.push_back( &get_witness( wso.current_shuffled_witnesses[i] ) );
+
+   static_assert( STEEM_IRREVERSIBLE_THRESHOLD > 0, "irreversible threshold must be nonzero" );
+
+   // 1 1 1 2 2 2 2 2 2 2 -> 2     .7*10 = 7
+   // 1 1 1 1 1 1 1 2 2 2 -> 1
+   // 3 3 3 3 3 3 3 3 3 3 -> 3
+
+   size_t offset = ((STEEM_100_PERCENT - STEEM_IRREVERSIBLE_THRESHOLD) * wit_objs.size() / STEEM_100_PERCENT);
+
+   std::nth_element( wit_objs.begin(), wit_objs.begin() + offset, wit_objs.end(),
+      []( const witness_object* a, const witness_object* b )
+      {
+         return a->last_confirmed_block_num < b->last_confirmed_block_num;
+      } );
+
+   uint32_t new_last_irreversible_block_num = wit_objs[offset]->last_confirmed_block_num;
+
+   if( new_last_irreversible_block_num > dpo.last_irreversible_block_num )
    {
       modify( dpo, [&]( dynamic_global_property_object& _dpo )
       {
-         if ( head_block_num() > STEEM_MAX_WITNESSES )
-            _dpo.last_irreversible_block_num = head_block_num() - STEEM_MAX_WITNESSES;
+         _dpo.last_irreversible_block_num = new_last_irreversible_block_num;
       } );
-   }
-   else
-   {
-      const witness_schedule_object& wso = get_witness_schedule_object();
-
-      vector< const witness_object* > wit_objs;
-      wit_objs.reserve( wso.num_scheduled_witnesses );
-      for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
-         wit_objs.push_back( &get_witness( wso.current_shuffled_witnesses[i] ) );
-
-      static_assert( STEEM_IRREVERSIBLE_THRESHOLD > 0, "irreversible threshold must be nonzero" );
-
-      // 1 1 1 2 2 2 2 2 2 2 -> 2     .7*10 = 7
-      // 1 1 1 1 1 1 1 2 2 2 -> 1
-      // 3 3 3 3 3 3 3 3 3 3 -> 3
-
-      size_t offset = ((STEEM_100_PERCENT - STEEM_IRREVERSIBLE_THRESHOLD) * wit_objs.size() / STEEM_100_PERCENT);
-
-      std::nth_element( wit_objs.begin(), wit_objs.begin() + offset, wit_objs.end(),
-         []( const witness_object* a, const witness_object* b )
-         {
-            return a->last_confirmed_block_num < b->last_confirmed_block_num;
-         } );
-
-      uint32_t new_last_irreversible_block_num = wit_objs[offset]->last_confirmed_block_num;
-
-      if( new_last_irreversible_block_num > dpo.last_irreversible_block_num )
-      {
-         modify( dpo, [&]( dynamic_global_property_object& _dpo )
-         {
-            _dpo.last_irreversible_block_num = new_last_irreversible_block_num;
-         } );
-      }
    }
 
    commit( dpo.last_irreversible_block_num );
@@ -3942,54 +3906,6 @@ void database::validate_invariants()const
       }
    }
    FC_CAPTURE_LOG_AND_RETHROW( (head_block_num()) );
-}
-
-void database::perform_vesting_share_split( uint32_t magnitude )
-{
-   try
-   {
-      modify( get_dynamic_global_properties(), [&]( dynamic_global_property_object& d )
-      {
-         d.total_vesting_shares.amount *= magnitude;
-         d.total_reward_shares2 = 0;
-      } );
-
-      // Need to update all VESTS in accounts and the total VESTS in the dgpo
-      for( const auto& account : get_index<account_index>().indices() )
-      {
-         modify( account, [&]( account_object& a )
-         {
-            a.vesting_shares.amount *= magnitude;
-            a.withdrawn             *= magnitude;
-            a.to_withdraw           *= magnitude;
-            a.vesting_withdraw_rate  = asset( a.to_withdraw / STEEM_VESTING_WITHDRAW_INTERVALS_PRE_HF_16, VESTS_SYMBOL );
-            if( a.vesting_withdraw_rate.amount == 0 )
-               a.vesting_withdraw_rate.amount = 1;
-
-            for( uint32_t i = 0; i < STEEM_MAX_PROXY_RECURSION_DEPTH; ++i )
-               a.proxied_vsf_votes[i] *= magnitude;
-         } );
-      }
-
-      const auto& comments = get_index< comment_index >().indices();
-      for( const auto& comment : comments )
-      {
-         modify( comment, [&]( comment_object& c )
-         {
-            c.net_rshares       *= magnitude;
-            c.abs_rshares       *= magnitude;
-            c.vote_rshares      *= magnitude;
-         } );
-      }
-
-      for( const auto& c : comments )
-      {
-         if( c.net_rshares.value > 0 )
-            adjust_rshares2( c, 0, util::evaluate_reward_curve( c.net_rshares.value ) );
-      }
-
-   }
-   FC_CAPTURE_AND_RETHROW()
 }
 
 void database::retally_comment_children()

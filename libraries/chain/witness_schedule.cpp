@@ -100,7 +100,7 @@ void update_witness_schedule4( database& db )
          continue;
       selected_voted.insert( itr->id );
       active_witnesses.push_back( itr->owner) ;
-      db.modify( *itr, [&]( witness_object& wo ) { wo.schedule = witness_object::top19; } );
+      db.modify( *itr, [&]( witness_object& wo ) { wo.schedule = witness_object::top20; } );
    }
 
    auto num_elected = active_witnesses.size();
@@ -241,7 +241,7 @@ void update_witness_schedule4( database& db )
 
       _wso.num_scheduled_witnesses = std::max< uint8_t >( active_witnesses.size(), 1 );
       _wso.witness_pay_normalization_factor =
-           _wso.top19_weight * num_elected
+           _wso.top20_weight * num_elected
          + _wso.timeshare_weight * num_timeshare;
 
       /// shuffle current shuffled witnesses

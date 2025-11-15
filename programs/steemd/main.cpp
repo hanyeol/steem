@@ -48,16 +48,16 @@ void info()
       std::cerr << "------------------------------------------------------\n\n";
       std::cerr << "            STARTING TEST NETWORK\n\n";
       std::cerr << "------------------------------------------------------\n";
-      auto initminer_private_key = steem::utilities::key_to_wif( STEEM_INIT_PRIVATE_KEY );
-      std::cerr << "initminer public key: " << STEEM_INIT_PUBLIC_KEY_STR << "\n";
-      std::cerr << "initminer private key: " << initminer_private_key << "\n";
+      auto genesis_private_key = steem::utilities::key_to_wif( STEEM_INIT_PRIVATE_KEY );
+      std::cerr << "genesis public key: " << STEEM_INIT_PUBLIC_KEY_STR << "\n";
+      std::cerr << "genesis private key: " << genesis_private_key << "\n";
       std::cerr << "blockchain version: " << fc::string( STEEM_BLOCKCHAIN_VERSION ) << "\n";
       std::cerr << "------------------------------------------------------\n";
 #else
       std::cerr << "------------------------------------------------------\n\n";
       std::cerr << "            STARTING STEEM NETWORK\n\n";
       std::cerr << "------------------------------------------------------\n";
-      std::cerr << "initminer public key: " << STEEM_INIT_PUBLIC_KEY_STR << "\n";
+      std::cerr << "genesis public key: " << STEEM_INIT_PUBLIC_KEY_STR << "\n";
       std::cerr << "chain id: " << std::string( STEEM_CHAIN_ID ) << "\n";
       std::cerr << "blockchain version: " << fc::string( STEEM_BLOCKCHAIN_VERSION ) << "\n";
       std::cerr << "------------------------------------------------------\n";

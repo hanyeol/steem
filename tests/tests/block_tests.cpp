@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE( switch_forks_undo_create )
       signed_transaction trx;
       account_create_operation cop;
       cop.new_account_name = "alice";
-      cop.creator = STEEM_INIT_MINER_NAME;
+      cop.creator = STEEM_GENESIS_WITNESS_NAME;
       cop.owner = authority(1, init_account_pub_key, 1);
       cop.active = cop.owner;
       trx.operations.push_back(cop);
@@ -322,7 +322,7 @@ BOOST_AUTO_TEST_CASE( duplicate_transactions )
       signed_transaction trx;
       account_create_operation cop;
       cop.new_account_name = "alice";
-      cop.creator = STEEM_INIT_MINER_NAME;
+      cop.creator = STEEM_GENESIS_WITNESS_NAME;
       cop.owner = authority(1, init_account_pub_key, 1);
       cop.active = cop.owner;
       trx.operations.push_back(cop);
@@ -332,7 +332,7 @@ BOOST_AUTO_TEST_CASE( duplicate_transactions )
 
       trx = decltype(trx)();
       transfer_operation t;
-      t.from = STEEM_INIT_MINER_NAME;
+      t.from = STEEM_GENESIS_WITNESS_NAME;
       t.to = "alice";
       t.amount = asset(500,STEEM_SYMBOL);
       trx.operations.push_back(t);
@@ -376,7 +376,7 @@ BOOST_AUTO_TEST_CASE( tapos )
 
       account_create_operation cop;
       cop.new_account_name = "alice";
-      cop.creator = STEEM_INIT_MINER_NAME;
+      cop.creator = STEEM_GENESIS_WITNESS_NAME;
       cop.owner = authority(1, init_account_pub_key, 1);
       cop.active = cop.owner;
       trx.operations.push_back(cop);
@@ -391,7 +391,7 @@ BOOST_AUTO_TEST_CASE( tapos )
       trx.clear();
 
       transfer_operation t;
-      t.from = STEEM_INIT_MINER_NAME;
+      t.from = STEEM_GENESIS_WITNESS_NAME;
       t.to = "alice";
       t.amount = asset(50,STEEM_SYMBOL);
       trx.operations.push_back(t);
@@ -414,14 +414,14 @@ BOOST_FIXTURE_TEST_CASE( optional_tapos, clean_database_fixture )
 {
    try
    {
-      idump((db->get_account("initminer")));
+      idump((db->get_account("genesis")));
       ACTORS( (alice)(bob) );
 
       generate_block();
 
       BOOST_TEST_MESSAGE( "Create transaction" );
 
-      transfer( STEEM_INIT_MINER_NAME, "alice", asset( 1000000, STEEM_SYMBOL ) );
+      transfer( STEEM_GENESIS_WITNESS_NAME, "alice", asset( 1000000, STEEM_SYMBOL ) );
       transfer_operation op;
       op.from = "alice";
       op.to = "bob";
@@ -486,7 +486,7 @@ BOOST_FIXTURE_TEST_CASE( double_sign_check, clean_database_fixture )
    share_type amount = 1000;
 
    transfer_operation t;
-   t.from = STEEM_INIT_MINER_NAME;
+   t.from = STEEM_GENESIS_WITNESS_NAME;
    t.to = "bob";
    t.amount = asset(amount,STEEM_SYMBOL);
    trx.operations.push_back(t);
@@ -497,7 +497,7 @@ BOOST_FIXTURE_TEST_CASE( double_sign_check, clean_database_fixture )
 
    trx.operations.clear();
    t.from = "bob";
-   t.to = STEEM_INIT_MINER_NAME;
+   t.to = STEEM_GENESIS_WITNESS_NAME;
    t.amount = asset(amount,STEEM_SYMBOL);
    trx.operations.push_back(t);
    trx.validate();
@@ -543,9 +543,9 @@ BOOST_FIXTURE_TEST_CASE( pop_block_twice, clean_database_fixture )
       transaction tx;
       signed_transaction ptx;
 
-      db->get_account( STEEM_INIT_MINER_NAME );
+      db->get_account( STEEM_GENESIS_WITNESS_NAME );
       // transfer from committee account to Sam account
-      transfer( STEEM_INIT_MINER_NAME, "sam", asset( 100000, STEEM_SYMBOL ) );
+      transfer( STEEM_GENESIS_WITNESS_NAME, "sam", asset( 100000, STEEM_SYMBOL ) );
 
       generate_block(skip_flags);
 
@@ -753,14 +753,14 @@ BOOST_FIXTURE_TEST_CASE( hardfork_test, database_fixture )
 
       generate_blocks( 2 );
 
-      vest( "initminer", 10000 );
+      vest( "genesis", 10000 );
 
       // Fill up the rest of the required miners
-      for( int i = STEEM_NUM_INIT_MINERS; i < STEEM_MAX_WITNESSES; i++ )
+      for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
       {
-         account_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_pub_key );
-         fund( STEEM_INIT_MINER_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-         witness_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+         account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
+         fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
+         witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
       }
 
       validate_database();
@@ -802,7 +802,7 @@ BOOST_FIXTURE_TEST_CASE( generate_block_size, clean_database_fixture )
       tx.set_expiration( db->head_block_time() + STEEM_MAX_TIME_UNTIL_EXPIRATION );
 
       transfer_operation op;
-      op.from = STEEM_INIT_MINER_NAME;
+      op.from = STEEM_GENESIS_WITNESS_NAME;
       op.to = STEEM_TEMP_ACCOUNT;
       op.amount = asset( 1000, STEEM_SYMBOL );
 

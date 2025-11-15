@@ -50,14 +50,14 @@ BOOST_AUTO_TEST_CASE( mh_test )
       db->set_hardfork( STEEM_NUM_HARDFORKS );
       generate_block();
 
-      vest( "initminer", 10000 );
+      vest( "genesis", 10000 );
 
       // Fill up the rest of the required miners
-      for( int i = STEEM_NUM_INIT_MINERS; i < STEEM_MAX_WITNESSES; i++ )
+      for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
       {
-         account_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_pub_key );
-         fund( STEEM_INIT_MINER_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-         witness_create( STEEM_INIT_MINER_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+         account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
+         fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
+         witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
       }
 
       validate_database();

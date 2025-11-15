@@ -421,14 +421,12 @@ struct api_witness_schedule_object
       current_virtual_time( wso.current_virtual_time ),
       next_shuffle_block_num( wso.next_shuffle_block_num ),
       num_scheduled_witnesses( wso.num_scheduled_witnesses ),
-      top19_weight( wso.top19_weight ),
+      top20_weight( wso.top20_weight ),
       timeshare_weight( wso.timeshare_weight ),
-      miner_weight( wso.miner_weight ),
       witness_pay_normalization_factor( wso.witness_pay_normalization_factor ),
       median_props( wso.median_props ),
       majority_version( wso.majority_version ),
       max_voted_witnesses( wso.max_voted_witnesses ),
-      max_miner_witnesses( wso.max_miner_witnesses ),
       max_runner_witnesses( wso.max_runner_witnesses ),
       hardfork_required_witnesses( wso.hardfork_required_witnesses )
    {
@@ -446,15 +444,13 @@ struct api_witness_schedule_object
    uint32_t                   next_shuffle_block_num;
    vector<string>             current_shuffled_witnesses;   // fc::array<account_name_type,...> -> vector<string>
    uint8_t                    num_scheduled_witnesses;
-   uint8_t                    top19_weight;
+   uint8_t                    top20_weight;
    uint8_t                    timeshare_weight;
-   uint8_t                    miner_weight;
    uint32_t                   witness_pay_normalization_factor;
    chain_properties           median_props;
    version                    majority_version;
 
    uint8_t                    max_voted_witnesses;
-   uint8_t                    max_miner_witnesses;
    uint8_t                    max_runner_witnesses;
    uint8_t                    hardfork_required_witnesses;
 };
@@ -604,14 +600,12 @@ FC_REFLECT( steem::plugins::database_api::api_witness_schedule_object,
              (next_shuffle_block_num)
              (current_shuffled_witnesses)
              (num_scheduled_witnesses)
-             (top19_weight)
+             (top20_weight)
              (timeshare_weight)
-             (miner_weight)
              (witness_pay_normalization_factor)
              (median_props)
              (majority_version)
              (max_voted_witnesses)
-             (max_miner_witnesses)
              (max_runner_witnesses)
              (hardfork_required_witnesses)
           )

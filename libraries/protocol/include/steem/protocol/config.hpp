@@ -74,27 +74,20 @@
 #define STEEM_BLOCKS_PER_YEAR                 (365*24*60*60/STEEM_BLOCK_INTERVAL)
 #define STEEM_BLOCKS_PER_DAY                  (24*60*60/STEEM_BLOCK_INTERVAL)
 #define STEEM_START_VESTING_BLOCK             (STEEM_BLOCKS_PER_DAY * 7)
-#define STEEM_START_MINER_VOTING_BLOCK        (STEEM_BLOCKS_PER_DAY * 30)
 
-#define STEEM_INIT_MINER_NAME                 "initminer"
-#define STEEM_NUM_INIT_MINERS                 1
+#define STEEM_GENESIS_WITNESS_NAME            "genesis"
+#define STEEM_NUM_GENESIS_WITNESSES           1
 #define STEEM_INIT_TIME                       (fc::time_point_sec());
 
 #define STEEM_MAX_WITNESSES                   21
 
-#define STEEM_MAX_VOTED_WITNESSES_HF0         19
-#define STEEM_MAX_MINER_WITNESSES_HF0         1
-#define STEEM_MAX_RUNNER_WITNESSES_HF0        1
-
-#define STEEM_MAX_VOTED_WITNESSES_HF17        20
-#define STEEM_MAX_MINER_WITNESSES_HF17        0
-#define STEEM_MAX_RUNNER_WITNESSES_HF17       1
+#define STEEM_MAX_VOTED_WITNESSES             20
+#define STEEM_MAX_RUNNER_WITNESSES            1
 
 #define STEEM_HARDFORK_REQUIRED_WITNESSES     17 // 17 of the 21 dpos witnesses (20 elected and 1 virtual time) required for hardfork. This guarantees 75% participation on all subsequent rounds.
 #define STEEM_MAX_TIME_UNTIL_EXPIRATION       (60*60) // seconds,  aka: 1 hour
 #define STEEM_MAX_MEMO_SIZE                   2048
 #define STEEM_MAX_PROXY_RECURSION_DEPTH       4
-#define STEEM_VESTING_WITHDRAW_INTERVALS_PRE_HF_16 104
 #define STEEM_VESTING_WITHDRAW_INTERVALS      13
 #define STEEM_VESTING_WITHDRAW_INTERVAL_SECONDS (60*60*24*7) /// 1 week per interval
 #define STEEM_MAX_WITHDRAW_ROUTES             10
@@ -123,12 +116,10 @@
 #define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) //75% of inflation, 7.125% inflation
 #define STEEM_VESTING_FUND_PERCENT            (15*STEEM_1_PERCENT) //15% of inflation, 1.425% inflation
 
-#define STEEM_MINER_PAY_PERCENT               (STEEM_1_PERCENT) // 1%
 #define STEEM_MAX_RATION_DECAY_RATE           (1000000)
 
 #define STEEM_BANDWIDTH_AVERAGE_WINDOW_SECONDS (60*60*24*7) ///< 1 week
 #define STEEM_BANDWIDTH_PRECISION             (uint64_t(1000000)) ///< 1 million
-#define STEEM_MAX_COMMENT_DEPTH_PRE_HF17      6
 #define STEEM_MAX_COMMENT_DEPTH               0xffff // 64k
 #define STEEM_SOFT_MAX_COMMENT_DEPTH          0xff // 255
 
@@ -138,16 +129,14 @@
 #define STEEM_CREATE_ACCOUNT_DELEGATION_RATIO    5
 #define STEEM_CREATE_ACCOUNT_DELEGATION_TIME     fc::days(30)
 
-#define STEEM_MINING_REWARD                   asset( 1000, STEEM_SYMBOL )
-
 #define STEEM_LIQUIDITY_TIMEOUT_SEC           (fc::seconds(60*60*24*7)) // After one week volume is set to 0
 #define STEEM_MIN_LIQUIDITY_REWARD_PERIOD_SEC (fc::seconds(60)) // 1 minute required on books to receive volume
 #define STEEM_LIQUIDITY_REWARD_PERIOD_SEC     (60*60)
 #define STEEM_LIQUIDITY_REWARD_BLOCKS         (STEEM_LIQUIDITY_REWARD_PERIOD_SEC/STEEM_BLOCK_INTERVAL)
 #define STEEM_MIN_LIQUIDITY_REWARD            (asset( 1000*STEEM_LIQUIDITY_REWARD_BLOCKS, STEEM_SYMBOL )) // Minumum reward to be paid out to liquidity providers
-#define STEEM_MIN_CONTENT_REWARD              STEEM_MINING_REWARD
-#define STEEM_MIN_CURATE_REWARD               STEEM_MINING_REWARD
-#define STEEM_MIN_PRODUCER_REWARD             STEEM_MINING_REWARD
+#define STEEM_MIN_CONTENT_REWARD              asset( 1000, STEEM_SYMBOL )
+#define STEEM_MIN_CURATE_REWARD               asset( 1000, STEEM_SYMBOL )
+#define STEEM_MIN_PRODUCER_REWARD             asset( 1000, STEEM_SYMBOL )
 
 #define STEEM_ACTIVE_CHALLENGE_FEE            asset( 2000, STEEM_SYMBOL )
 #define STEEM_OWNER_CHALLENGE_FEE             asset( 30000, STEEM_SYMBOL )
@@ -222,11 +211,9 @@
 #define STEEM_MIN_BLOCK_SIZE                  115
 #define STEEM_BLOCKS_PER_HOUR                 (60*60/STEEM_BLOCK_INTERVAL)
 #define STEEM_FEED_INTERVAL_BLOCKS            (STEEM_BLOCKS_PER_HOUR)
-#define STEEM_FEED_HISTORY_WINDOW_PRE_HF_16   (24*7) /// 7 days * 24 hours per day
 #define STEEM_FEED_HISTORY_WINDOW             (12*7) // 3.5 days
 #define STEEM_MAX_FEED_AGE_SECONDS            (60*60*24*7) // 7 days
 #define STEEM_MIN_FEEDS                       (STEEM_MAX_WITNESSES/3) /// protects the network from conversions before price has been established
-#define STEEM_CONVERSION_DELAY_PRE_HF_16      (fc::days(7))
 #define STEEM_CONVERSION_DELAY                (fc::hours(STEEM_FEED_HISTORY_WINDOW)) //3.5 day conversion
 
 #define STEEM_MIN_UNDO_HISTORY                10
@@ -251,8 +238,7 @@
 #define STEEM_REDUCED_VOTE_POWER_RATE (10)
 
 #define STEEM_MAX_LIMIT_ORDER_EXPIRATION     (60*60*24*28) // 28 days
-#define STEEM_DELEGATION_RETURN_PERIOD_HF0   (STEEM_CASHOUT_WINDOW_SECONDS)
-#define STEEM_DELEGATION_RETURN_PERIOD_HF20  (STEEM_VOTE_REGENERATION_SECONDS * 2)
+#define STEEM_DELEGATION_RETURN_PERIOD       (STEEM_VOTE_REGENERATION_SECONDS * 2)
 
 #define STEEM_CONTENT_CONSTANT               (uint128_t(uint64_t(2000000000000ll)))
 #define STEEM_MIN_REPLY_INTERVAL             (fc::seconds(3))
@@ -263,8 +249,6 @@
  *  Reserved Account IDs with special meaning
  */
 ///@{
-/// Represents the current witnesses
-#define STEEM_MINER_ACCOUNT                   "miners"
 /// Represents the canonical account with NO authority (nobody can access funds in null account)
 #define STEEM_NULL_ACCOUNT                    "null"
 /// Represents the canonical account with WILDCARD authority (anybody can access funds in temp account)
