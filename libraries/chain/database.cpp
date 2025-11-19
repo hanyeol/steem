@@ -2360,9 +2360,9 @@ void database::init_genesis( uint64_t init_supply )
 
          create< witness_object >( [&]( witness_object& w )
          {
-            w.owner        = STEEM_GENESIS_WITNESS_NAME + ( i ? fc::to_string(i) : std::string() );
-            w.signing_key  = init_public_key;
-            w.schedule = witness_object::none;
+            w.owner       = STEEM_GENESIS_WITNESS_NAME + ( i ? fc::to_string(i) : std::string() );
+            w.signing_key = init_public_key;
+            w.schedule    = witness_object::timeshare;
          } );
       }
 
@@ -3193,36 +3193,48 @@ void database::update_last_irreversible_block()
    auto old_last_irreversible = dpo.last_irreversible_block_num;
 
    /**
-    * Use witness voting to determine irreversibility
+    * Prior to witness voting taking over, we must be more conservative...
     */
-   const witness_schedule_object& wso = get_witness_schedule_object();
-   vector< const witness_object* > wit_objs;
-   wit_objs.reserve( wso.num_scheduled_witnesses );
-   for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
-      wit_objs.push_back( &get_witness( wso.current_shuffled_witnesses[i] ) );
-
-   static_assert( STEEM_IRREVERSIBLE_THRESHOLD > 0, "irreversible threshold must be nonzero" );
-
-   // 1 1 1 2 2 2 2 2 2 2 -> 2     .7*10 = 7
-   // 1 1 1 1 1 1 1 2 2 2 -> 1
-   // 3 3 3 3 3 3 3 3 3 3 -> 3
-
-   size_t offset = ((STEEM_100_PERCENT - STEEM_IRREVERSIBLE_THRESHOLD) * wit_objs.size() / STEEM_100_PERCENT);
-
-   std::nth_element( wit_objs.begin(), wit_objs.begin() + offset, wit_objs.end(),
-      []( const witness_object* a, const witness_object* b )
-      {
-         return a->last_confirmed_block_num < b->last_confirmed_block_num;
-      } );
-
-   uint32_t new_last_irreversible_block_num = wit_objs[offset]->last_confirmed_block_num;
-
-   if( new_last_irreversible_block_num > dpo.last_irreversible_block_num )
+   if( head_block_num() < STEEM_START_WITNESS_VOTING_BLOCK )
    {
       modify( dpo, [&]( dynamic_global_property_object& _dpo )
       {
-         _dpo.last_irreversible_block_num = new_last_irreversible_block_num;
+         if ( head_block_num() > STEEM_MAX_WITNESSES )
+            _dpo.last_irreversible_block_num = head_block_num() - STEEM_MAX_WITNESSES;
       } );
+   }
+   else
+   {
+      const witness_schedule_object& wso = get_witness_schedule_object();
+
+      vector< const witness_object* > wit_objs;
+      wit_objs.reserve( wso.num_scheduled_witnesses );
+      for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
+         wit_objs.push_back( &get_witness( wso.current_shuffled_witnesses[i] ) );
+
+      static_assert( STEEM_IRREVERSIBLE_THRESHOLD > 0, "irreversible threshold must be nonzero" );
+
+      // 1 1 1 2 2 2 2 2 2 2 -> 2     .7*10 = 7
+      // 1 1 1 1 1 1 1 2 2 2 -> 1
+      // 3 3 3 3 3 3 3 3 3 3 -> 3
+
+      size_t offset = ((STEEM_100_PERCENT - STEEM_IRREVERSIBLE_THRESHOLD) * wit_objs.size() / STEEM_100_PERCENT);
+
+      std::nth_element( wit_objs.begin(), wit_objs.begin() + offset, wit_objs.end(),
+         []( const witness_object* a, const witness_object* b )
+         {
+            return a->last_confirmed_block_num < b->last_confirmed_block_num;
+         } );
+
+      uint32_t new_last_irreversible_block_num = wit_objs[offset]->last_confirmed_block_num;
+
+      if( new_last_irreversible_block_num > dpo.last_irreversible_block_num )
+      {
+         modify( dpo, [&]( dynamic_global_property_object& _dpo )
+         {
+            _dpo.last_irreversible_block_num = new_last_irreversible_block_num;
+         } );
+      }
    }
 
    commit( dpo.last_irreversible_block_num );

@@ -6447,7 +6447,7 @@ BOOST_AUTO_TEST_CASE( delegate_vesting_shares_apply )
       auto end = db->get_index< vesting_delegation_expiration_index, by_id >().end();
       auto gpo = db->get_dynamic_global_properties();
 
-      BOOST_REQUIRE( gpo.delegation_return_period == STEEM_DELEGATION_RETURN_PERIOD_HF20 );
+      BOOST_REQUIRE( gpo.delegation_return_period == STEEM_DELEGATION_RETURN_PERIOD );
 
       BOOST_REQUIRE( exp_obj != end );
       BOOST_REQUIRE( exp_obj->delegator == "sam" );

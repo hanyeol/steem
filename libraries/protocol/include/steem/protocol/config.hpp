@@ -74,6 +74,7 @@
 #define STEEM_BLOCKS_PER_YEAR                 (365*24*60*60/STEEM_BLOCK_INTERVAL)
 #define STEEM_BLOCKS_PER_DAY                  (24*60*60/STEEM_BLOCK_INTERVAL)
 #define STEEM_START_VESTING_BLOCK             (STEEM_BLOCKS_PER_DAY * 7)
+#define STEEM_START_WITNESS_VOTING_BLOCK      (STEEM_BLOCKS_PER_DAY * 7)
 
 #define STEEM_GENESIS_WITNESS_NAME            "genesis"
 #define STEEM_NUM_GENESIS_WITNESSES           1
@@ -239,11 +240,6 @@
 
 #define STEEM_MAX_LIMIT_ORDER_EXPIRATION     (60*60*24*28) // 28 days
 #define STEEM_DELEGATION_RETURN_PERIOD       (STEEM_VOTE_REGENERATION_SECONDS * 2)
-
-#define STEEM_CONTENT_CONSTANT               (uint128_t(uint64_t(2000000000000ll)))
-#define STEEM_MIN_REPLY_INTERVAL             (fc::seconds(3))
-#define STEEM_REVERSE_AUCTION_TIME           (60*30) // 30 minutes in seconds
-#define STEEM_RECENT_RSHARES_DECAY_TIME      (fc::days(15))
 
 /**
  *  Reserved Account IDs with special meaning
