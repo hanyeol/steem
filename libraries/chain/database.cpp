@@ -1899,21 +1899,6 @@ asset database::get_curation_reward()const
    return std::max( percent, STEEM_MIN_CURATE_REWARD );
 }
 
-asset database::get_producer_reward()
-{
-   const auto& props = get_dynamic_global_properties();
-   static_assert( STEEM_BLOCK_INTERVAL == 3, "this code assumes a 3-second time interval" );
-   asset percent( protocol::calc_percent_reward_per_block< STEEM_PRODUCER_APR_PERCENT >( props.virtual_supply.amount ), STEEM_SYMBOL);
-   auto pay = std::max( percent, STEEM_MIN_PRODUCER_REWARD );
-   const auto& witness_account = get_account( props.current_witness );
-
-   /// pay witness in vesting shares
-   const auto& producer_reward = create_vesting( witness_account, pay );
-   push_virtual_operation( producer_reward_operation( witness_account.name, producer_reward ) );
-
-   return pay;
-}
-
 void database::pay_liquidity_reward()
 {
 #ifdef IS_TEST_NET
