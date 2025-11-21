@@ -644,6 +644,7 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       tx.operations.push_back( comment );
       tx.operations.push_back( vote );
       tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       db->push_transaction( tx, 0 );
 
@@ -654,6 +655,8 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       op.permlink = "test1";
       tx.clear();
       tx.operations.push_back( op );
+      tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       STEEM_REQUIRE_THROW( db->push_transaction( tx, 0 ), fc::assert_exception );
 
@@ -665,6 +668,8 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       tx.clear();
       tx.operations.push_back( vote );
       tx.operations.push_back( op );
+      tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       db->push_transaction( tx, 0 );
 
@@ -678,6 +683,7 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       tx.clear();
       tx.operations.push_back( comment );
       tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       db->push_transaction( tx, 0 );
 
@@ -687,6 +693,7 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       tx.clear();
       tx.operations.push_back( op );
       tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       STEEM_REQUIRE_THROW( db->push_transaction( tx, 0 ), fc::assert_exception );
 
@@ -699,6 +706,7 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       tx.clear();
       tx.operations.push_back( comment );
       tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       db->push_transaction( tx, 0 );
 
@@ -708,12 +716,15 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
       tx.clear();
       tx.operations.push_back( comment );
       tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       db->push_transaction( tx, 0 );
 
       op.permlink = "test2";
       tx.clear();
       tx.operations.push_back( op );
+      tx.set_expiration( db->head_block_time() + STEEM_MIN_TRANSACTION_EXPIRATION_LIMIT );
+      tx.set_reference_block( db->head_block_id() );
       tx.sign( alice_private_key, db->get_chain_id() );
       STEEM_REQUIRE_THROW( db->push_transaction( tx, 0 ), fc::assert_exception );
    }
