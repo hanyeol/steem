@@ -2312,6 +2312,8 @@ void database::init_genesis( uint64_t init_supply )
          auth.account = STEEM_NULL_ACCOUNT;
          auth.owner.weight_threshold = 1;
          auth.active.weight_threshold = 1;
+         auth.posting = authority();
+         auth.posting.weight_threshold = 1;
       });
 
       create< account_object >( [&]( account_object& a )
@@ -2323,6 +2325,8 @@ void database::init_genesis( uint64_t init_supply )
          auth.account = STEEM_TEMP_ACCOUNT;
          auth.owner.weight_threshold = 0;
          auth.active.weight_threshold = 0;
+         auth.posting = authority();
+         auth.posting.weight_threshold = 1;
       });
 
       for( int i = 0; i < STEEM_NUM_GENESIS_WITNESSES; ++i )
@@ -2360,6 +2364,8 @@ void database::init_genesis( uint64_t init_supply )
          p.current_supply = asset( init_supply, STEEM_SYMBOL );
          p.virtual_supply = p.current_supply;
          p.maximum_block_size = STEEM_MAX_BLOCK_SIZE;
+         p.vote_power_reserve_rate = STEEM_REDUCED_VOTE_POWER_RATE;
+         p.delegation_return_period = STEEM_DELEGATION_RETURN_PERIOD;
       } );
 
       // Nothing to do
@@ -2375,7 +2381,26 @@ void database::init_genesis( uint64_t init_supply )
       create< witness_schedule_object >( [&]( witness_schedule_object& wso )
       {
          wso.current_shuffled_witnesses[0] = STEEM_GENESIS_WITNESS_NAME;
+         wso.max_voted_witnesses = STEEM_MAX_VOTED_WITNESSES;
+         wso.max_runner_witnesses = STEEM_MAX_RUNNER_WITNESSES;
       } );
+
+      // Create reward fund for post rewards
+      auto post_rf = create< reward_fund_object >( [&]( reward_fund_object& rfo )
+      {
+         rfo.name = STEEM_POST_REWARD_FUND_NAME;
+         rfo.last_update = STEEM_GENESIS_TIME;
+         rfo.content_constant = STEEM_CONTENT_CONSTANT;
+         rfo.percent_curation_rewards = STEEM_1_PERCENT * 25;
+         rfo.percent_content_rewards = STEEM_100_PERCENT;
+         rfo.reward_balance = asset( 0, STEEM_SYMBOL );
+         rfo.recent_claims = 0;
+         rfo.author_reward_curve = curve_id::linear;
+         rfo.curation_reward_curve = curve_id::square_root;
+      });
+
+      // Reward fund must have id 0 for payout processing optimization
+      FC_ASSERT( post_rf.id._id == 0, "reward_fund_object must have id 0" );
    }
    FC_CAPTURE_AND_RETHROW()
 }

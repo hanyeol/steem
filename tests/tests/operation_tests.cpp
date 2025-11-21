@@ -1054,6 +1054,7 @@ BOOST_AUTO_TEST_CASE( vote_apply )
          tx.operations.clear();
          tx.signatures.clear();
          tx.operations.push_back( op );
+         tx.set_expiration( db->head_block_time() + STEEM_MAX_TIME_UNTIL_EXPIRATION );
          tx.sign( alice_private_key, db->get_chain_id() );
 
          STEEM_REQUIRE_THROW( db->push_transaction( tx, 0 ), fc::exception );
@@ -1065,6 +1066,7 @@ BOOST_AUTO_TEST_CASE( vote_apply )
          tx.operations.clear();
          tx.signatures.clear();
          tx.operations.push_back( op );
+         tx.set_expiration( db->head_block_time() + STEEM_MAX_TIME_UNTIL_EXPIRATION );
          tx.sign( alice_private_key, db->get_chain_id() );
          db->push_transaction( tx, 0 );
          validate_database();

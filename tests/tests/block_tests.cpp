@@ -806,14 +806,12 @@ BOOST_FIXTURE_TEST_CASE( generate_block_size, clean_database_fixture )
       op.to = STEEM_TEMP_ACCOUNT;
       op.amount = asset( 1000, STEEM_SYMBOL );
 
-      // tx minus op is 79 bytes
-      // op is 33 bytes (32 for op + 1 byte static variant tag)
-      // total is 65254
-      // Original generation logic only allowed 115 bytes for the header
-      // We are targetting a size (minus header) of 65421 which creates a block of "size" 65535
-      // This block will actually be larger because the header estimates is too small
+      // Current transfer op serializes to ~31 bytes (30 for the payload + 1-byte variant tag)
+      // TX overhead is roughly 7 bytes, so 2103 ops -> first tx size ~65,243 bytes
+      // With maximum_block_size set to the 64 KiB minimum, the header/tx vector overhead
+      // pushes the block over the limit so the second tx is postponed
 
-      for( size_t i = 0; i < 1975; i++ )
+      for( size_t i = 0; i < 2103; i++ )
       {
          tx.operations.push_back( op );
       }
@@ -821,8 +819,9 @@ BOOST_FIXTURE_TEST_CASE( generate_block_size, clean_database_fixture )
       sign( tx, init_account_priv_key );
       db->push_transaction( tx, 0 );
 
-      // Second transaction, tx minus op is 78 (one less byte for operation vector size)
-      // We need a 88 byte op. We need a 22 character memo (1 byte for length) 55 = 32 (old op) + 55 + 1
+      // Second transaction is much smaller (tx overhead is one byte less for the op vector)
+      // A 55-character memo makes the op ~86 bytes total so the whole tx is ~164 bytes,
+      // enough to overflow the 64 KiB block when added to the packed first tx
       op.memo = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123";
       tx.clear();
       tx.operations.push_back( op );
