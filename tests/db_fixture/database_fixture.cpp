@@ -227,7 +227,7 @@ void database_fixture::open_database()
       args.data_dir = data_dir->path();
       args.shared_mem_dir = args.data_dir;
       args.initial_supply = INITIAL_TEST_SUPPLY;
-      args.shared_file_size = 1024 * 1024 * 8;     // 8MB file for testing
+      args.shared_file_size = 1024 * 1024 * 64;    // 64MB file for testing (avoid OOM on long test runs)
       db->open(args);
    }
 }
