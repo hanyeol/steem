@@ -6295,7 +6295,8 @@ BOOST_AUTO_TEST_CASE( delegate_vesting_shares_apply )
       ACTORS( (alice)(bob) )
       generate_block();
 
-      vest( "alice", ASSET( "1000.000 TESTS" ) );
+      fund( "alice", ASSET( "40000000.000 TESTS" ) );
+      vest( "alice", ASSET( "40000000.000 TESTS" ) );
 
       generate_block();
 
@@ -6491,7 +6492,8 @@ BOOST_AUTO_TEST_CASE( issue_971_vesting_removal )
       ACTORS( (alice)(bob) )
       generate_block();
 
-      vest( "alice", ASSET( "1000.000 TESTS" ) );
+      fund( "alice", ASSET( "20000000.000 TESTS" ) );
+      vest( "alice", ASSET( "20000000.000 TESTS" ) );
 
       generate_block();
 
