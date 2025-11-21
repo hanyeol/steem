@@ -19,9 +19,9 @@
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1451606400))
 #define STEEM_MINING_TIME                     (fc::time_point_sec(1451606400))
-#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7) /// 7 days
-#define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*3) /// 3 days
-#define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24) /// 1 day
+#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7) // 7 days
+#define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*3) // 3 days
+#define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24) // 1 day
 #define STEEM_UPVOTE_LOCKOUT                  (fc::hours(12))
 
 
@@ -32,7 +32,7 @@
 #define STEEM_OWNER_UPDATE_LIMIT                          fc::seconds(0)
 #define STEEM_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM 1
 
-#define STEEM_INIT_SUPPLY                     (int64_t( 250 ) * int64_t( 1000000 ) * int64_t( 1000 ))
+#define STEEM_INIT_SUPPLY                     int64_t(0)
 
 /// Allows to limit number of total produced blocks.
 #define TESTNET_BLOCK_LIMIT                   (3000000)
@@ -48,9 +48,9 @@
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1458835200))
 #define STEEM_MINING_TIME                     (fc::time_point_sec(1458838800))
-#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7)  /// 7 days
-#define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*30) /// 30 days
-#define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24*14) /// 2 weeks
+#define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7)  // 7 days
+#define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*30) // 30 days
+#define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24*14) // 2 weeks
 #define STEEM_UPVOTE_LOCKOUT                  (fc::hours(12))
 
 #define STEEM_MIN_ACCOUNT_CREATION_FEE        1
@@ -90,7 +90,7 @@
 #define STEEM_MAX_MEMO_SIZE                   2048
 #define STEEM_MAX_PROXY_RECURSION_DEPTH       4
 #define STEEM_VESTING_WITHDRAW_INTERVALS      13
-#define STEEM_VESTING_WITHDRAW_INTERVAL_SECONDS (60*60*24*7) /// 1 week per interval
+#define STEEM_VESTING_WITHDRAW_INTERVAL_SECONDS (60*60*24*7) // 1 week per interval
 #define STEEM_MAX_WITHDRAW_ROUTES             10
 #define STEEM_SAVINGS_WITHDRAW_TIME           (fc::days(3))
 #define STEEM_SAVINGS_WITHDRAW_REQUEST_LIMIT  100
@@ -98,7 +98,7 @@
 #define STEEM_MAX_VOTE_CHANGES                5
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) /// 30 minutes
 #define STEEM_MIN_VOTE_INTERVAL_SEC           3
-#define STEEM_VOTE_DUST_THRESHOLD             (50000000)
+#define STEEM_VOTE_DUST_THRESHOLD             (5000)
 
 #define STEEM_MIN_ROOT_COMMENT_INTERVAL       (fc::seconds(60*5)) // 5 minutes
 #define STEEM_MIN_REPLY_INTERVAL              (fc::seconds(3)) // 3 seconds
@@ -109,18 +109,18 @@
 
 #define STEEM_100_PERCENT                     10000
 #define STEEM_1_PERCENT                       (STEEM_100_PERCENT/100)
-#define STEEM_DEFAULT_SBD_INTEREST_RATE       (10*STEEM_1_PERCENT) ///< 10% APR
+#define STEEM_DEFAULT_SBD_INTEREST_RATE       (10*STEEM_1_PERCENT) // < 10% APR
 
 #define STEEM_INFLATION_RATE_START_PERCENT    (978) // Fixes block 7,000,000 to 9.5%
 #define STEEM_INFLATION_RATE_STOP_PERCENT     (95) // 0.95%
 #define STEEM_INFLATION_NARROWING_PERIOD      (250000) // Narrow 0.01% every 250k blocks
-#define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) //75% of inflation, 7.125% inflation
-#define STEEM_VESTING_FUND_PERCENT            (15*STEEM_1_PERCENT) //15% of inflation, 1.425% inflation
+#define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) // 75% of inflation, 7.125% inflation
+#define STEEM_VESTING_FUND_PERCENT            (15*STEEM_1_PERCENT) // 15% of inflation, 1.425% inflation
 
 #define STEEM_MAX_RATION_DECAY_RATE           (1000000)
 
-#define STEEM_BANDWIDTH_AVERAGE_WINDOW_SECONDS (60*60*24*7) ///< 1 week
-#define STEEM_BANDWIDTH_PRECISION             (uint64_t(1000000)) ///< 1 million
+#define STEEM_BANDWIDTH_AVERAGE_WINDOW_SECONDS (60*60*24*7) // < 1 week
+#define STEEM_BANDWIDTH_PRECISION             (uint64_t(1000000)) // < 1 million
 #define STEEM_MAX_COMMENT_DEPTH               0xffff // 64k
 #define STEEM_SOFT_MAX_COMMENT_DEPTH          0xff // 255
 
@@ -214,8 +214,8 @@
 #define STEEM_FEED_INTERVAL_BLOCKS            (STEEM_BLOCKS_PER_HOUR)
 #define STEEM_FEED_HISTORY_WINDOW             (12*7) // 3.5 days
 #define STEEM_MAX_FEED_AGE_SECONDS            (60*60*24*7) // 7 days
-#define STEEM_MIN_FEEDS                       (STEEM_MAX_WITNESSES/3) /// protects the network from conversions before price has been established
-#define STEEM_CONVERSION_DELAY                (fc::hours(STEEM_FEED_HISTORY_WINDOW)) //3.5 day conversion
+#define STEEM_MIN_FEEDS                       (STEEM_MAX_WITNESSES/3) // protects the network from conversions before price has been established
+#define STEEM_CONVERSION_DELAY                (fc::hours(STEEM_FEED_HISTORY_WINDOW)) // 3.5 day conversion
 
 #define STEEM_MIN_UNDO_HISTORY                10
 #define STEEM_MAX_UNDO_HISTORY                10000
