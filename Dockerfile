@@ -62,7 +62,7 @@ RUN \
     make -j$(nproc) chain_test test_fixed_string plugin_test && \
     ./tests/chain_test && \
     ./tests/plugin_test && \
-    ./programs/util/test_fixed_string && \
+    ./programs/utils/test_fixed_string && \
     cd /usr/local/src/steem && \
     doxygen && \
     PYTHONPATH=programs/build_helpers \

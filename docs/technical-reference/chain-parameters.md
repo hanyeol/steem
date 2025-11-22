@@ -648,18 +648,16 @@ struct witness_schedule_object {
     uint8_t num_scheduled_witnesses = 1;                       // Number of active witnesses
 
     // Witness category weights (for selection algorithm)
-    uint8_t top19_weight = 1;
+    uint8_t top20_weight = 1;
     uint8_t timeshare_weight = 5;
-    uint8_t miner_weight = 1;
 
     uint32_t witness_pay_normalization_factor = 25;
 
     chain_properties median_props;                             // Median of witness proposals
     version majority_version;                                  // Consensus version
 
-    uint8_t max_voted_witnesses = STEEM_MAX_VOTED_WITNESSES_HF0;
-    uint8_t max_miner_witnesses = STEEM_MAX_MINER_WITNESSES_HF0;
-    uint8_t max_runner_witnesses = STEEM_MAX_RUNNER_WITNESSES_HF0;
+    uint8_t max_voted_witnesses = STEEM_MAX_VOTED_WITNESSES;
+    uint8_t max_runner_witnesses = STEEM_MAX_RUNNER_WITNESSES;
     uint8_t hardfork_required_witnesses = STEEM_HARDFORK_REQUIRED_WITNESSES;
 };
 ```
