@@ -1800,39 +1800,61 @@ void database::process_comment_cashout()
 }
 
 /**
- *  Overall the network has an inflation rate of 102% of virtual steem per year
- *  90% of inflation is directed to vesting shares
- *  10% of inflation is directed to subjective proof of work voting
- *  1% of inflation is directed to liquidity providers
- *  1% of inflation is directed to block producers
+ *  This method implements a two-phase inflation model:
  *
- *  This method pays out vesting and reward shares every block, and liquidity shares once per day.
- *  This method does not pay out witnesses.
+ *  Bootstrap Phase (until supply reaches STEEM_BOOTSTRAP_SUPPLY_THRESHOLD):
+ *    - Fixed block reward of STEEM_BOOTSTRAP_FIXED_BLOCK_REWARD per block
+ *    - Ensures predictable initial supply growth during chain launch
+ *
+ *  Normal Inflation Phase (after bootstrap threshold):
+ *    - Starts at 9.78% annual inflation, decreasing to 0.95% over ~20.5 years
+ *    - Rate decreases by 0.01% every 250k blocks
+ *
+ *  Reward distribution (both phases):
+ *    - 75% to content creators (subject to reward fund allocation)
+ *    - 15% to vesting fund (VESTS holders)
+ *    - 10% to block producers (witnesses)
+ *
+ *  Note: Vesting rewards only distributed when total_vesting_shares >= STEEM_MIN_REWARD_VESTING_SHARES
+ *        to prevent VESTS price volatility during initial bootstrap
  */
 void database::process_funds()
 {
    const auto& props = get_dynamic_global_properties();
    const auto& wso = get_witness_schedule_object();
 
-   /**
-    * At block 7,000,000 have a 9.5% instantaneous inflation rate, decreasing to 0.95% at a rate of 0.01%
-    * every 250k blocks. This narrowing will take approximately 20.5 years and will complete on block 220,750,000
-    */
-   int64_t start_inflation_rate = int64_t( STEEM_INFLATION_RATE_START_PERCENT );
-   int64_t inflation_rate_adjustment = int64_t( head_block_num() / STEEM_INFLATION_NARROWING_PERIOD );
-   int64_t inflation_rate_floor = int64_t( STEEM_INFLATION_RATE_STOP_PERCENT );
+   bool is_bootstrap_phase = props.current_supply.amount < STEEM_BOOTSTRAP_SUPPLY_THRESHOLD;
+   share_type new_steem = 0;
 
-   // below subtraction cannot underflow int64_t because inflation_rate_adjustment is <2^32
-   int64_t current_inflation_rate = std::max( start_inflation_rate - inflation_rate_adjustment, inflation_rate_floor );
+   if( is_bootstrap_phase )
+   {
+      // Bootstrap Phase: Fixed block reward
+      new_steem = STEEM_BOOTSTRAP_FIXED_BLOCK_REWARD;
+   }
+   else
+   {
+      // Normal Inflation Phase: Supply-proportional rewards
+      /**
+       * Starts at 9.78% instantaneous inflation rate (978 basis points), decreasing to 0.95% at a rate of 0.01%
+       * every 250k blocks. This narrowing will take approximately 20.5 years and will complete on block 220,750,000
+       */
+      int64_t start_inflation_rate = int64_t( STEEM_INFLATION_RATE_START_PERCENT );
+      int64_t inflation_rate_adjustment = int64_t( head_block_num() / STEEM_INFLATION_NARROWING_PERIOD );
+      int64_t inflation_rate_floor = int64_t( STEEM_INFLATION_RATE_STOP_PERCENT );
 
-   auto new_steem = ( props.virtual_supply.amount * current_inflation_rate ) / ( int64_t( STEEM_100_PERCENT ) * int64_t( STEEM_BLOCKS_PER_YEAR ) );
+      // below subtraction cannot underflow int64_t because inflation_rate_adjustment is <2^32
+      int64_t current_inflation_rate = std::max( start_inflation_rate - inflation_rate_adjustment, inflation_rate_floor );
+
+      new_steem = ( props.virtual_supply.amount * current_inflation_rate ) / ( int64_t( STEEM_100_PERCENT ) * int64_t( STEEM_BLOCKS_PER_YEAR ) );
+   }
+
    auto content_reward = ( new_steem * STEEM_CONTENT_REWARD_PERCENT ) / STEEM_100_PERCENT;
    content_reward = pay_reward_funds( content_reward ); /// 75% to content creator
    auto vesting_reward = ( new_steem * STEEM_VESTING_FUND_PERCENT ) / STEEM_100_PERCENT; /// 15% to vesting fund
 
    // Only distribute vesting rewards when total_vesting_shares reaches minimum threshold
    // This prevents VESTS price volatility during initial chain bootstrap
-   if( props.total_vesting_shares.amount < STEEM_MIN_VESTING_SHARES_FOR_REWARD )
+   if( props.total_vesting_shares.amount < STEEM_MIN_REWARD_VESTING_SHARES )
    {
       vesting_reward = 0;
    }
@@ -1840,16 +1862,21 @@ void database::process_funds()
    auto witness_reward = new_steem - content_reward - vesting_reward; /// Remaining 10% to witness pay
 
    const auto& cwit = get_witness( props.current_witness );
-   witness_reward *= STEEM_MAX_WITNESSES;
 
-   if( cwit.schedule == witness_object::timeshare )
-      witness_reward *= wso.timeshare_weight;
-   else if( cwit.schedule == witness_object::top20 )
-      witness_reward *= wso.top20_weight;
-   else
-      wlog( "Encountered unknown witness type for witness: ${w}", ("w", cwit.owner) );
+   // Apply witness pay weighting only after bootstrap phase
+   if( !is_bootstrap_phase )
+   {
+      witness_reward *= STEEM_MAX_WITNESSES;
 
-   witness_reward /= wso.witness_pay_normalization_factor;
+      if( cwit.schedule == witness_object::timeshare )
+         witness_reward *= wso.timeshare_weight;
+      else if( cwit.schedule == witness_object::top20 )
+         witness_reward *= wso.top20_weight;
+      else
+         wlog( "Encountered unknown witness type for witness: ${w}", ("w", cwit.owner) );
+
+      witness_reward /= wso.witness_pay_normalization_factor;
+   }
 
    new_steem = content_reward + vesting_reward + witness_reward;
 
