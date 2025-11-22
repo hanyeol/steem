@@ -117,6 +117,7 @@
 #define STEEM_INFLATION_NARROWING_PERIOD      (250000) // Narrow 0.01% every 250k blocks
 #define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) // 75% of inflation, 7.125% inflation
 #define STEEM_VESTING_FUND_PERCENT            (15*STEEM_1_PERCENT) // 15% of inflation, 1.425% inflation
+#define STEEM_MIN_VESTING_SHARES_FOR_REWARD   (1000000000000) // minimum VESTS to start distributing vesting rewards
 
 #define STEEM_MAX_RATION_DECAY_RATE           (1000000)
 

@@ -1829,6 +1829,14 @@ void database::process_funds()
    auto content_reward = ( new_steem * STEEM_CONTENT_REWARD_PERCENT ) / STEEM_100_PERCENT;
    content_reward = pay_reward_funds( content_reward ); /// 75% to content creator
    auto vesting_reward = ( new_steem * STEEM_VESTING_FUND_PERCENT ) / STEEM_100_PERCENT; /// 15% to vesting fund
+
+   // Only distribute vesting rewards when total_vesting_shares reaches minimum threshold
+   // This prevents VESTS price volatility during initial chain bootstrap
+   if( props.total_vesting_shares.amount < STEEM_MIN_VESTING_SHARES_FOR_REWARD )
+   {
+      vesting_reward = 0;
+   }
+
    auto witness_reward = new_steem - content_reward - vesting_reward; /// Remaining 10% to witness pay
 
    const auto& cwit = get_witness( props.current_witness );
