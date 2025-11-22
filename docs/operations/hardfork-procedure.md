@@ -423,7 +423,7 @@ make -j$(nproc) steemd cli_wallet chain_test
 
 # Witness configuration
 plugin = witness
-witness = "initminer"
+witness = "genesis"
 private-key = 5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n
 
 # Enable stale production for testing

@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 **Features**:
 - Fresh database instance per test
-- Genesis block with `initminer` account
+- Genesis block with `genesis` account
 - Hardfork set to latest version
 - Initial witnesses created and funded
 - Database validated after setup
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_SUITE_END()
 3. Opens clean database
 4. Generates genesis block
 5. Sets hardfork to current version
-6. Vests 10,000 TESTS to initminer
+6. Vests 10,000 TESTS to genesis
 7. Creates and funds additional witnesses
 
 ### live_database_fixture
@@ -275,7 +275,7 @@ The `database_fixture` class provides many helper functions for test setup.
 // Create account with specific parameters
 const account_object& alice = account_create(
     "alice",                          // name
-    "initminer",                      // creator
+    "genesis",                      // creator
     init_account_priv_key,           // creator key
     ASSET("0.100 TESTS").amount,     // fee
     alice_public_key,                // owner/active key

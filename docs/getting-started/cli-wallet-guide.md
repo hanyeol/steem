@@ -220,17 +220,17 @@ true
 
 ### Create Account
 
-On a testnet or genesis chain where you control initminer:
+On a testnet or genesis chain where you control genesis:
 
 ```bash
-# Import initminer key first
+# Import genesis key first
 >>> import_key 5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n
 
 # Create new account (free on testnet)
->>> create_account initminer alice "" true
+>>> create_account genesis alice "" true
 
 # Arguments:
-# - creator: initminer
+# - creator: genesis
 # - new_account_name: alice
 # - json_meta: "" (empty)
 # - broadcast: true (send to blockchain)
@@ -244,7 +244,7 @@ On a testnet or genesis chain where you control initminer:
 # Save the output!
 
 # Create account with specific keys
->>> create_account_with_keys initminer alice "" "OWNER_KEY" "ACTIVE_KEY" "POSTING_KEY" "MEMO_KEY" true
+>>> create_account_with_keys genesis alice "" "OWNER_KEY" "ACTIVE_KEY" "POSTING_KEY" "MEMO_KEY" true
 ```
 
 ### Update Account Keys
@@ -579,16 +579,16 @@ curl -s http://127.0.0.1:8090 -d '{"jsonrpc":"2.0","method":"database_api.get_co
 >>> set_password mypassword
 >>> unlock mypassword
 
-# Import initminer key (testnet)
+# Import genesis key (testnet)
 >>> import_key 5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n
 
 # Create accounts
->>> create_account initminer alice "" true
->>> create_account initminer bob "" true
+>>> create_account genesis alice "" true
+>>> create_account genesis bob "" true
 
 # Fund accounts
->>> transfer initminer alice "1000.000 STEEM" "Initial funding" true
->>> transfer initminer bob "1000.000 STEEM" "Initial funding" true
+>>> transfer genesis alice "1000.000 STEEM" "Initial funding" true
+>>> transfer genesis bob "1000.000 STEEM" "Initial funding" true
 ```
 
 ### Witness Setup

@@ -69,7 +69,7 @@ When building with `BUILD_STEEM_TESTNET=ON`:
 - **Address Prefix**: "TST"
 - **Genesis Time**: 2016-01-01 00:00:00 UTC
 - **Initial Supply**: 250,000,000 STEEM
-- **Initial Miner**: "initminer"
+- **Initial Account**: "genesis"
 - **Private Key**: Auto-generated from "init_key" seed
   - WIF: `5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n`
   - Public Key: `TST6LLegbAgLAy28EHrffBVuANFWcFgmqRMW13wBmTExqFE9SCkg4`
@@ -81,7 +81,7 @@ For mainnet builds (`BUILD_STEEM_TESTNET=OFF`, default):
 - **Chain ID**: "" (empty)
 - **Address Prefix**: "STM"
 - **Genesis Time**: 2016-03-24 16:00:00 UTC
-- **Initial Supply**: 0 STEEM (mining-based)
+- **Initial Supply**: 0 STEEM
 - **Initial Public Key**: `STM8GC13uCZbP44HzMLV6zPZGwVQ8Nt4Kji8PapsPiNq1BK153XTX`
 
 **Important for Custom Chains**:
@@ -93,9 +93,9 @@ For mainnet builds (`BUILD_STEEM_TESTNET=OFF`, default):
 
 When `steemd` starts with an empty database, it automatically creates the genesis state with:
 
-- **System Accounts**: `miners` (rewards), `null` (burn), `temp` (temporary operations)
-- **Initial Miner Account**: `initminer` receives all initial supply (250M STEEM for testnet)
-- **Initial Witness**: `initminer` configured for block production
+- **System Accounts**: `null` (burn), `temp` (temporary operations)
+- **Initial Account**: `genesis` receives all initial supply (250M STEEM for testnet)
+- **Initial Witness**: `genesis` configured for block production
 - **Global Properties**: Initial blockchain state and parameters
 - **Hardfork State**: Genesis hardfork timestamp
 - **Reward Funds**: Post and curation reward pools
@@ -125,14 +125,14 @@ webserver-ws-endpoint = 0.0.0.0:8090
 # Witness configuration
 enable-stale-production = true
 required-participation = 0
-witness = "initminer"
+witness = "genesis"
 
-# Private key for testnet initminer
+# Private key for testnet genesis
 # Generated from sha256("init_key")
 private-key = 5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n
 ```
 
-**Note**: For testnet, the initminer private key is always `5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n`
+**Note**: For testnet, the genesis private key is always `5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n`
 
 ### Step 2: Launch Genesis Node
 
@@ -157,7 +157,7 @@ Check the logs for genesis initialization:
 info  database: Open database in /path/to/witness_node_data_dir/blockchain
 info  database: Creating genesis state
 info  database: Genesis state created successfully
-info  witness: Witness initminer starting block production
+info  witness: Witness genesis starting block production
 info  witness: Generated block #1 with timestamp 2016-01-01T00:00:03
 ```
 
@@ -169,11 +169,11 @@ Using `cli_wallet` or API calls:
 # Connect to node
 ./programs/cli_wallet/cli_wallet -s ws://127.0.0.1:8090
 
-# Check initminer account
->>> get_account initminer
+# Check genesis account
+>>> get_account genesis
 
 # Check witness
->>> get_witness initminer
+>>> get_witness genesis
 
 # Check blockchain info
 >>> info
@@ -186,7 +186,7 @@ Expected output:
   "head_block_num": 1,
   "head_block_id": "0000000109b3667c257e7171da61984da0d3279f",
   "time": "2016-01-01T00:00:03",
-  "current_witness": "initminer",
+  "current_witness": "genesis",
   "total_supply": "250000000.000 STEEM",
   "current_supply": "250000000.000 STEEM"
 }
@@ -198,10 +198,10 @@ Expected output:
 
 ```bash
 # In cli_wallet
->>> create_account initminer "witness1" "" true
+>>> create_account genesis "witness1" "" true
 
 # Fund the account
->>> transfer initminer witness1 "1000.000 STEEM" "Initial funding" true
+>>> transfer genesis witness1 "1000.000 STEEM" "Initial funding" true
 
 # Generate witness keys
 >>> suggest_brain_key
@@ -217,8 +217,8 @@ Expected output:
 ### Vote for Witness
 
 ```bash
-# Vote with initminer account
->>> vote_for_witness initminer witness1 true true
+# Vote with genesis account
+>>> vote_for_witness genesis witness1 true true
 ```
 
 ### Add to Config
@@ -226,7 +226,7 @@ Expected output:
 Add witness to `config.ini`:
 
 ```ini
-witness = "initminer"
+witness = "genesis"
 witness = "witness1"
 
 # Add private key for witness1
@@ -276,10 +276,10 @@ Node 2 will sync from genesis node and replay all blocks.
 ### Network Topology
 
 ```
-Genesis Node (initminer)
+Genesis Node (genesis)
     ├── Port 2001: P2P
     ├── Port 8090: API
-    └── Witness: initminer
+    └── Witness: genesis
 
 Peer Node 2
     ├── Port 2001: P2P (connects to genesis)
@@ -307,15 +307,14 @@ Witness Node 3
 | Parameter | Testnet | Mainnet | Description |
 |-----------|---------|---------|-------------|
 | `STEEM_INIT_SUPPLY` | 250,000,000 STEEM | 0 STEEM | Initial token supply |
-| Initial distribution | initminer | Mining-based | How tokens enter circulation |
 
 ### Witness Parameters
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
 | `STEEM_MAX_WITNESSES` | 21 | Maximum active witnesses |
-| `STEEM_MAX_VOTED_WITNESSES_HF17` | 20 | Elected witnesses post-HF17 |
-| `STEEM_MAX_RUNNER_WITNESSES_HF17` | 1 | Backup witnesses post-HF17 |
+| `STEEM_MAX_VOTED_WITNESSES` | 20 | Elected witnesses |
+| `STEEM_MAX_RUNNER_WITNESSES` | 1 | Backup witnesses |
 | `STEEM_HARDFORK_REQUIRED_WITNESSES` | 17 | Witnesses needed for hardfork |
 
 ## Troubleshooting
@@ -336,8 +335,8 @@ rm -rf witness_node_data_dir/blockchain
 **Error**: Node starts but doesn't produce blocks
 
 **Check**:
-1. `witness = "initminer"` in config
-2. `private-key` matches initminer's key
+1. `witness = "genesis"` in config
+2. `private-key` matches genesis's key
 3. `enable-stale-production = true` is set
 4. System time is correct
 
@@ -720,9 +719,9 @@ To change the initial token supply, modify `STEEM_INIT_SUPPLY` in `libraries/pro
 
 Example: For 1 billion initial supply instead of 250 million, change the value accordingly and run `make -j$(nproc) steemd`.
 
-### Multiple Init Miners
+### Multiple Genesis Witnesses
 
-To create multiple initial witnesses, increase `STEEM_NUM_INIT_MINERS` in `config.hpp`. This will create accounts: `initminer`, `initminer1`, `initminer2`, etc.
+To create multiple initial witnesses, increase `STEEM_NUM_GENESIS_WITNESSES` in `config.hpp`. This will create accounts: `genesis`, `genesis1`, `genesis2`, etc.
 
 ### Custom Genesis Time
 
