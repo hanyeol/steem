@@ -18,7 +18,6 @@
 #define STEEM_ADDRESS_PREFIX                  "TST"
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1451606400))
-#define STEEM_MINING_TIME                     (fc::time_point_sec(1451606400))
 #define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7) // 7 days
 #define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*3) // 3 days
 #define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24) // 1 day
@@ -47,7 +46,6 @@
 #define STEEM_ADDRESS_PREFIX                  "STM"
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1458835200))
-#define STEEM_MINING_TIME                     (fc::time_point_sec(1458838800))
 #define STEEM_CASHOUT_WINDOW_SECONDS          (60*60*24*7)  // 7 days
 #define STEEM_SECOND_CASHOUT_WINDOW           (60*60*24*30) // 30 days
 #define STEEM_MAX_CASHOUT_WINDOW_SECONDS      (60*60*24*14) // 2 weeks
