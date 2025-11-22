@@ -6245,7 +6245,8 @@ BOOST_AUTO_TEST_CASE( delegate_vesting_shares_authorities )
       BOOST_TEST_MESSAGE( "Testing: delegate_vesting_shares_authorities" );
       signed_transaction tx;
       ACTORS( (alice)(bob) )
-      vest( "alice", 10000 );
+      fund( "alice", 500000 );
+      vest( "alice", 500000 );
 
       delegate_vesting_shares_operation op;
       op.vesting_shares = ASSET( "300.000000 VESTS");
@@ -6627,6 +6628,8 @@ BOOST_AUTO_TEST_CASE( comment_beneficiaries_apply )
    {
       BOOST_TEST_MESSAGE( "Test Comment Beneficiaries" );
       ACTORS( (alice)(bob)(sam)(dave) )
+      fund( "bob", 10000 );
+      vest( "bob", 10000 );
       generate_block();
 
       set_price_feed( price( ASSET( "1.000 TBD" ), ASSET( "1.000 TESTS" ) ) );
@@ -6682,6 +6685,11 @@ BOOST_AUTO_TEST_CASE( comment_beneficiaries_apply )
       vote.permlink = "test";
       vote.voter = "bob";
       vote.weight = STEEM_100_PERCENT;
+
+      const auto& bob_account = db->get_account( "bob" );
+      idump( (bob_account.vesting_shares) );
+      idump( (bob_account.reward_vesting_steem) );
+      idump( (bob_account.reward_vesting_balance) );
 
       b.beneficiaries.clear();
       b.beneficiaries.push_back( beneficiary_route_type( account_name_type( "bob" ), 25 * STEEM_1_PERCENT ) );

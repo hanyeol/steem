@@ -74,8 +74,8 @@ clean_database_fixture::clean_database_fixture()
    for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
       account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
-      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), 10000 );
+      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, 0 );
    }
 
    validate_database();
@@ -141,8 +141,8 @@ void clean_database_fixture::resize_shared_mem( uint64_t size )
    for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
       account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
-      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), 10000 );
+      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, 0 );
    }
 
    validate_database();
@@ -614,8 +614,8 @@ json_rpc_database_fixture::json_rpc_database_fixture()
    for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
    {
       account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
-      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+      fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), 10000 );
+      witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, 0 );
    }
 
    validate_database();

@@ -325,7 +325,6 @@ namespace steem { namespace chain {
          asset create_vesting( const account_object& to_account, asset steem, bool to_reward_balance=false );
          void adjust_total_payout( const comment_object& a, const asset& sbd, const asset& curator_sbd_value, const asset& beneficiary_value );
 
-         void        adjust_liquidity_reward( const account_object& owner, const asset& volume, bool is_bid );
          void        adjust_balance( const account_object& a, const asset& delta );
          void        adjust_balance( const account_name_type& name, const asset& delta );
          void        adjust_savings_balance( const account_object& a, const asset& delta );
@@ -372,16 +371,9 @@ namespace steem { namespace chain {
          void process_decline_voting_rights();
          void update_median_feed();
 
-         asset get_liquidity_reward()const;
-         asset get_content_reward()const;
-         asset get_producer_reward();
-         asset get_curation_reward()const;
-
          uint16_t get_curation_rewards_percent( const comment_object& c ) const;
 
          share_type pay_reward_funds( share_type reward );
-
-         void  pay_liquidity_reward();
 
          /**
           * Helper method to return the current sbd value of a given amount of
@@ -427,7 +419,6 @@ namespace steem { namespace chain {
          void retally_comment_children();
          void retally_witness_votes();
          void retally_witness_vote_counts( bool force = false );
-         void retally_liquidity_weight();
          void update_virtual_supply();
 
          bool has_hardfork( uint32_t hardfork )const;
@@ -449,7 +440,6 @@ namespace steem { namespace chain {
          void check_free_memory( bool force_print, uint32_t current_block_num );
 
 #ifdef IS_TEST_NET
-         bool liquidity_rewards_enabled = true;
          bool skip_price_feed_limit_check = true;
          bool skip_transaction_delta_check = true;
          bool disable_low_mem_warning = true;

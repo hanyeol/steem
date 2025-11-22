@@ -56,8 +56,8 @@ BOOST_AUTO_TEST_CASE( mh_test )
       for( int i = STEEM_NUM_GENESIS_WITNESSES; i < STEEM_MAX_WITNESSES; i++ )
       {
          account_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_pub_key );
-         fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), STEEM_MIN_PRODUCER_REWARD.amount.value );
-         witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, STEEM_MIN_PRODUCER_REWARD.amount );
+         fund( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), 10000 );
+         witness_create( STEEM_GENESIS_WITNESS_NAME + fc::to_string( i ), init_account_priv_key, "foo.bar", init_account_pub_key, 0 );
       }
 
       validate_database();

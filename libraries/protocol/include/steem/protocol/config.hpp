@@ -98,7 +98,8 @@
 #define STEEM_MAX_VOTE_CHANGES                5
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) // 30 minutes
 #define STEEM_MIN_VOTE_INTERVAL_SEC           3
-#define STEEM_VOTE_DUST_THRESHOLD             (5000)
+#define STEEM_MIN_VOTE_VESTING_SHARES         (1000000)
+#define STEEM_VOTE_DUST_THRESHOLD             (1000)
 
 #define STEEM_MIN_ROOT_COMMENT_INTERVAL       (fc::seconds(60*5)) // 5 minutes
 #define STEEM_MIN_REPLY_INTERVAL              (fc::seconds(3)) // 3 seconds
@@ -130,15 +131,6 @@
 #define STEEM_CREATE_ACCOUNT_DELEGATION_RATIO    5
 #define STEEM_CREATE_ACCOUNT_DELEGATION_TIME     fc::days(30)
 
-#define STEEM_LIQUIDITY_TIMEOUT_SEC           (fc::seconds(60*60*24*7)) // After one week volume is set to 0
-#define STEEM_MIN_LIQUIDITY_REWARD_PERIOD_SEC (fc::seconds(60)) // 1 minute required on books to receive volume
-#define STEEM_LIQUIDITY_REWARD_PERIOD_SEC     (60*60)
-#define STEEM_LIQUIDITY_REWARD_BLOCKS         (STEEM_LIQUIDITY_REWARD_PERIOD_SEC/STEEM_BLOCK_INTERVAL)
-#define STEEM_MIN_LIQUIDITY_REWARD            (asset( 1000*STEEM_LIQUIDITY_REWARD_BLOCKS, STEEM_SYMBOL )) // Minumum reward to be paid out to liquidity providers
-#define STEEM_MIN_CONTENT_REWARD              asset( 1000, STEEM_SYMBOL )
-#define STEEM_MIN_CURATE_REWARD               asset( 1000, STEEM_SYMBOL )
-#define STEEM_MIN_PRODUCER_REWARD             asset( 1000, STEEM_SYMBOL )
-
 #define STEEM_ACTIVE_CHALLENGE_FEE            asset( 2000, STEEM_SYMBOL )
 #define STEEM_OWNER_CHALLENGE_FEE             asset( 30000, STEEM_SYMBOL )
 #define STEEM_ACTIVE_CHALLENGE_COOLDOWN       fc::days(1)
@@ -148,41 +140,6 @@
 #define STEEM_COMMENT_REWARD_FUND_NAME        ("comment")
 #define STEEM_RECENT_RSHARES_DECAY_TIME       (fc::days(15))
 #define STEEM_CONTENT_CONSTANT                (uint128_t(uint64_t(2000000000000ll)))
-// note, if redefining these constants make sure calculate_claims doesn't overflow
-
-// 5ccc e802 de5f
-// int(expm1( log1p( 1 ) / BLOCKS_PER_YEAR ) * 2**STEEM_APR_PERCENT_SHIFT_PER_BLOCK / 100000 + 0.5)
-// we use 100000 here instead of 10000 because we end up creating an additional 9x for vesting
-#define STEEM_APR_PERCENT_MULTIPLY_PER_BLOCK          ( (uint64_t( 0x5ccc ) << 0x20) \
-                                                        | (uint64_t( 0xe802 ) << 0x10) \
-                                                        | (uint64_t( 0xde5f )        ) \
-                                                        )
-// chosen to be the maximal value such that STEEM_APR_PERCENT_MULTIPLY_PER_BLOCK * 2**64 * 100000 < 2**128
-#define STEEM_APR_PERCENT_SHIFT_PER_BLOCK             87
-
-#define STEEM_APR_PERCENT_MULTIPLY_PER_ROUND          ( (uint64_t( 0x79cc ) << 0x20 ) \
-                                                        | (uint64_t( 0xf5c7 ) << 0x10 ) \
-                                                        | (uint64_t( 0x3480 )         ) \
-                                                        )
-
-#define STEEM_APR_PERCENT_SHIFT_PER_ROUND             83
-
-// We have different constants for hourly rewards
-// i.e. hex(int(math.expm1( math.log1p( 1 ) / HOURS_PER_YEAR ) * 2**STEEM_APR_PERCENT_SHIFT_PER_HOUR / 100000 + 0.5))
-#define STEEM_APR_PERCENT_MULTIPLY_PER_HOUR           ( (uint64_t( 0x6cc1 ) << 0x20) \
-                                                        | (uint64_t( 0x39a1 ) << 0x10) \
-                                                        | (uint64_t( 0x5cbd )        ) \
-                                                        )
-
-// chosen to be the maximal value such that STEEM_APR_PERCENT_MULTIPLY_PER_HOUR * 2**64 * 100000 < 2**128
-#define STEEM_APR_PERCENT_SHIFT_PER_HOUR              77
-
-// These constants add up to GRAPHENE_100_PERCENT.  Each GRAPHENE_1_PERCENT is equivalent to 1% per year APY
-// *including the corresponding 9x vesting rewards*
-#define STEEM_CURATE_APR_PERCENT              3875
-#define STEEM_CONTENT_APR_PERCENT             3875
-#define STEEM_LIQUIDITY_APR_PERCENT            750
-#define STEEM_PRODUCER_APR_PERCENT             750
 
 #define STEEM_MIN_PAYOUT_SBD                  (asset(20,SBD_SYMBOL))
 

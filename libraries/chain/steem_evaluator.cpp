@@ -1133,7 +1133,8 @@ void vote_evaluator::do_apply( const vote_operation& o )
 
    FC_ASSERT( voter.can_vote, "Voter has declined their voting rights." );
 
-   if( o.weight > 0 ) FC_ASSERT( comment.allow_votes, "Votes are not allowed on the comment." );
+   if( o.weight > 0 )
+      FC_ASSERT( comment.allow_votes, "Votes are not allowed on the comment." );
 
    if( _db.calculate_discussion_payout_time( comment ) == fc::time_point_sec::maximum() )
    {
@@ -1159,6 +1160,9 @@ void vote_evaluator::do_apply( const vote_operation& o )
       return;
    }
 
+   auto effective_vesting = _db.get_effective_vesting_shares( voter, VESTS_SYMBOL ).amount.value;
+   FC_ASSERT( effective_vesting > STEEM_MIN_VOTE_VESTING_SHARES, "Voter does not have enough effective vesting shares." );
+
    const auto& comment_vote_idx = _db.get_index< comment_vote_index >().indices().get< by_comment_voter >();
    auto itr = comment_vote_idx.find( std::make_tuple( comment.id, voter.id ) );
 
@@ -1181,7 +1185,6 @@ void vote_evaluator::do_apply( const vote_operation& o )
    used_power = (used_power + max_vote_denom - 1) / max_vote_denom;
    FC_ASSERT( used_power <= current_power, "Account does not have enough power to vote." );
 
-   auto effective_vesting = _db.get_effective_vesting_shares( voter, VESTS_SYMBOL ).amount.value;
    int64_t abs_rshares = ((uint128_t( effective_vesting ) * used_power) / (STEEM_100_PERCENT)).to_uint64();
 
    abs_rshares -= STEEM_VOTE_DUST_THRESHOLD;
