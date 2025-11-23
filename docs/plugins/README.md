@@ -255,7 +255,7 @@ sudo systemctl restart steemd
 
 For creating custom plugins, see:
 - [Plugin Development Guide](../development/plugin.md) - How to create plugins
-- [newplugin.py](../../programs/util/newplugin.py) - Auto-generate plugin skeleton
+- [newplugin.py](../../programs/utils/newplugin.py) - Auto-generate plugin skeleton
 - [example_api_plugin](../../example_plugins/example_api_plugin/) - Example implementation
 
 ## Additional Resources

@@ -270,7 +270,7 @@ See [tests/README.md](tests/README.md) and [doc/testing.md](doc/testing.md) for 
 
 ```bash
 # Generate new plugin skeleton
-./programs/util/newplugin.py
+./programs/utils/newplugin.py
 ```
 
 See [doc/plugin.md](doc/plugin.md) for plugin development guide.

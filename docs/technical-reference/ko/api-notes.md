@@ -112,7 +112,7 @@ public-api = database_api login_api
 api-user = {"username" : "bytemaster", "password_hash_b64" : "T2k/wMBB9BKyv7X+ngghL+MaoubEuFb6GWvF3qQ9NU0=", "password_salt_b64" : "HqK9mAQCkWU=", "allowed_apis" : ["hello_api_api"]}
 ```
 
-`password_hash_b64`와 `password_salt_b64`의 값은 `programs/util/saltpass.py`를 실행하고 원하는 비밀번호를 입력하여 생성됩니다.
+`password_hash_b64`와 `password_salt_b64`의 값은 `programs/utils/saltpass.py`를 실행하고 원하는 비밀번호를 입력하여 생성됩니다.
 
 ### 인증 테스트
 

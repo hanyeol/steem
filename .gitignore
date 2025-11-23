@@ -26,8 +26,8 @@ programs/steemd/test
 programs/delayed_node
 programs/build_helpers/cat-parts
 programs/size_checker/size_checker
-programs/util/get_dev_key
-programs/util/inflation_model
+programs/utils/get_dev_key
+programs/utils/inflation_model
 
 tests/app_test
 tests/chain_bench
