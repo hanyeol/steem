@@ -5,7 +5,7 @@
 #include <steem/chain/witness_objects.hpp>
 #include <steem/chain/block_summary_object.hpp>
 
-#include <steem/chain/util/reward.hpp>
+#include <steem/chain/utils/reward.hpp>
 
 #include <fc/macros.hpp>
 

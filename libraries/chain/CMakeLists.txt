@@ -1,4 +1,4 @@
-file(GLOB HEADERS "include/steem/chain/*.hpp" "include/steem/chain/util/*.hpp")
+file(GLOB HEADERS "include/steem/chain/*.hpp" "include/steem/chain/utils/*.hpp")
 
 ## SORT .cpp by most likely to change / break compile
 add_library( steem_chain
@@ -17,9 +17,9 @@ add_library( steem_chain
 
              generic_custom_operation_interpreter.cpp
 
-             util/reward.cpp
-             util/impacted.cpp
-             util/advanced_benchmark_dumper.cpp
+             utils/reward.cpp
+             utils/impacted.cpp
+             utils/advanced_benchmark_dumper.cpp
 
              ${HEADERS}
            )

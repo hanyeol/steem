@@ -11,8 +11,8 @@
 #include <steem/chain/operation_notification.hpp>
 #include <steem/chain/transaction_notification.hpp>
 
-#include <steem/chain/util/advanced_benchmark_dumper.hpp>
-#include <steem/chain/util/signal.hpp>
+#include <steem/chain/utils/advanced_benchmark_dumper.hpp>
+#include <steem/chain/utils/signal.hpp>
 
 #include <steem/protocol/protocol.hpp>
 #include <steem/protocol/hardfork.hpp>

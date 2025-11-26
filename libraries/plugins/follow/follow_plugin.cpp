@@ -3,7 +3,7 @@
 #include <steem/plugins/follow/follow_operations.hpp>
 #include <steem/plugins/follow/inc_performance.hpp>
 
-#include <steem/chain/util/impacted.hpp>
+#include <steem/chain/utils/impacted.hpp>
 
 #include <steem/protocol/config.hpp>
 

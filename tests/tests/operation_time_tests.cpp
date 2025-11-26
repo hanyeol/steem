@@ -9,7 +9,7 @@
 #include <steem/chain/history_object.hpp>
 #include <steem/chain/steem_objects.hpp>
 
-#include <steem/chain/util/reward.hpp>
+#include <steem/chain/utils/reward.hpp>
 
 #include <steem/plugins/debug_node/debug_node_plugin.hpp>
 

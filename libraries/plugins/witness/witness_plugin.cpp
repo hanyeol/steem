@@ -10,7 +10,7 @@
 #include <steem/chain/comment_object.hpp>
 #include <steem/chain/witness_objects.hpp>
 #include <steem/chain/index.hpp>
-#include <steem/chain/util/impacted.hpp>
+#include <steem/chain/utils/impacted.hpp>
 
 #include <steem/utils/key_conversion.hpp>
 #include <steem/utils/plugin_utilities.hpp>

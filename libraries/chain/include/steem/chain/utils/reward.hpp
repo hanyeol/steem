@@ -1,6 +1,6 @@
 #pragma once
 
-#include <steem/chain/util/asset.hpp>
+#include <steem/chain/utils/asset.hpp>
 #include <steem/chain/steem_objects.hpp>
 
 #include <steem/protocol/asset.hpp>

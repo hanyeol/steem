@@ -5,8 +5,8 @@
 #include <steem/plugins/follow_api/follow_api.hpp>
 
 #include <steem/chain/steem_object_types.hpp>
-#include <steem/chain/util/reward.hpp>
-#include <steem/chain/util/uint256.hpp>
+#include <steem/chain/utils/reward.hpp>
+#include <steem/chain/utils/uint256.hpp>
 
 namespace steem { namespace plugins { namespace tags {
 

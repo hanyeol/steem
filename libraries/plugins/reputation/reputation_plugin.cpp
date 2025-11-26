@@ -1,7 +1,7 @@
 #include <steem/plugins/reputation/reputation_plugin.hpp>
 #include <steem/plugins/reputation/reputation_objects.hpp>
 
-#include <steem/chain/util/impacted.hpp>
+#include <steem/chain/utils/impacted.hpp>
 
 #include <steem/protocol/config.hpp>
 

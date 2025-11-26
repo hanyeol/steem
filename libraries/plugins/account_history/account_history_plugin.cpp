@@ -1,6 +1,6 @@
 #include <steem/plugins/account_history/account_history_plugin.hpp>
 
-#include <steem/chain/util/impacted.hpp>
+#include <steem/chain/utils/impacted.hpp>
 
 #include <steem/protocol/config.hpp>
 

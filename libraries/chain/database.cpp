@@ -16,10 +16,10 @@
 #include <steem/chain/operation_notification.hpp>
 #include <steem/chain/witness_schedule.hpp>
 
-#include <steem/chain/util/asset.hpp>
-#include <steem/chain/util/reward.hpp>
-#include <steem/chain/util/uint256.hpp>
-#include <steem/chain/util/reward.hpp>
+#include <steem/chain/utils/asset.hpp>
+#include <steem/chain/utils/reward.hpp>
+#include <steem/chain/utils/uint256.hpp>
+#include <steem/chain/utils/reward.hpp>
 
 #include <fc/smart_ref_impl.hpp>
 #include <fc/uint128.hpp>

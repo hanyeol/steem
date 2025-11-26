@@ -8,7 +8,7 @@
 #include <steem/chain/database_exceptions.hpp>
 #include <steem/chain/steem_objects.hpp>
 
-#include <steem/chain/util/reward.hpp>
+#include <steem/chain/utils/reward.hpp>
 
 #include <steem/plugins/witness/witness_objects.hpp>
 

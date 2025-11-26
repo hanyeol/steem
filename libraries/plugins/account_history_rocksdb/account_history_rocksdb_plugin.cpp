@@ -3,7 +3,7 @@
 #include <steem/chain/database.hpp>
 #include <steem/chain/history_object.hpp>
 #include <steem/chain/index.hpp>
-#include <steem/chain/util/impacted.hpp>
+#include <steem/chain/utils/impacted.hpp>
 
 #include <steem/plugins/chain/chain_plugin.hpp>
 

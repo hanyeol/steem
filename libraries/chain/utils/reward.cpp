@@ -1,6 +1,6 @@
 
-#include <steem/chain/util/reward.hpp>
-#include <steem/chain/util/uint256.hpp>
+#include <steem/chain/utils/reward.hpp>
+#include <steem/chain/utils/uint256.hpp>
 
 namespace steem { namespace chain { namespace util {
 
