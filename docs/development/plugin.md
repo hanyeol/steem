@@ -38,7 +38,7 @@ A skeleton structure containing much of the boilerplate of creating a new plugin
 - `get_plugin` will fail and `find_plugin` will return a nullptr if the plugin is not registered or has not been initialized
 - These methods guarantee you are accessing initialized data
 - Because of the initialization order, it is safe to call get/find_plugin on dependencies in initialization, startup, and shutdown
-- It is only safe to call get/find_plugin on an optional dependency in startup. An optional dependency is not explicitly specified. It is simply some optional behavior if a plugin is enabled. See `condenser_api` for an example of optional dependencies
+- It is only safe to call get/find_plugin on an optional dependency in startup. An optional dependency is not explicitly specified. It is simply some optional behavior if a plugin is enabled
 
 ## Asynchronous APIs
 

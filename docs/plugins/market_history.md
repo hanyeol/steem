@@ -487,7 +487,7 @@ Order history not growing
    ```bash
    # Query order book - if empty, no trades happening
    curl -s http://localhost:8090 \
-     -d '{"jsonrpc":"2.0","id":1,"method":"condenser_api.get_order_book","params":[10]}'
+     -d '{"jsonrpc":"2.0","id":1,"method":"market_history_api.get_order_book","params":[10]}'
    ```
 
 2. Verify plugin running:
@@ -610,7 +610,6 @@ Low-volume markets:
 
 - [market_history_api Plugin](market_history_api.md) - RPC API for market data
 - [Witness Guide](../operations/node-types-guide.md) - Witness node configuration
-- [condenser_api](condenser_api.md) - Order book queries
 - [chain Plugin](chain.md) - Blockchain database
 
 ## Source Code

@@ -413,7 +413,7 @@ Query via database API (requires database_api plugin):
 ```bash
 # Get follow counts
 curl -s http://localhost:8090 \
-  -d '{"jsonrpc":"2.0","id":1,"method":"condenser_api.get_follow_count","params":["alice"]}'
+  -d '{"jsonrpc":"2.0","id":1,"method":"follow_api.get_follow_count","params":["alice"]}'
 
 # Response
 {
@@ -614,7 +614,7 @@ Minimal resource usage:
 
 ```ini
 # Don't use follow plugin
-# Use condenser_api for basic queries
+# Use for basic queries
 # Rely on external services for social features
 ```
 
@@ -706,7 +706,6 @@ All follow operations validated:
 
 - [follow_api Plugin](follow_api.md) - RPC API for follow data
 - [reputation Plugin](reputation.md) - Standalone reputation tracking
-- [condenser_api Plugin](condenser_api.md) - Legacy API compatibility
 - [chain Plugin](chain.md) - Blockchain database
 
 ## Source Code

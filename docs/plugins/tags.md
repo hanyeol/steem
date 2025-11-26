@@ -238,7 +238,7 @@ Use: Author's most-used tags
 # Required plugins
 plugin = chain p2p webserver
 plugin = tags
-plugin = database_api condenser_api
+plugin = database_api
 
 # Tags plugin enables:
 # - Tag browsing
@@ -253,7 +253,7 @@ plugin = database_api condenser_api
 
 ```ini
 plugin = chain p2p tags
-plugin = database_api condenser_api follow
+plugin = database_api follow
 
 # Enables queries:
 # - get_discussions_by_trending
@@ -509,7 +509,6 @@ steemd --replay-blockchain
 
 ## Related Documentation
 
-- [condenser_api](condenser_api.md) - Tag query API
 - [database_api](database_api.md) - Database queries
 - [follow Plugin](follow.md) - Social following
 - [Plugin Development](../development/plugin.md) - Creating plugins

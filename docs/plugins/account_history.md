@@ -305,7 +305,7 @@ Access history through `account_history_api` plugin:
 ```json
 {
   "jsonrpc": "2.0",
-  "method": "condenser_api.get_account_history",
+  "method": "account_history_api.get_account_history",
   "params": ["alice", -1, 10],
   "id": 1
 }

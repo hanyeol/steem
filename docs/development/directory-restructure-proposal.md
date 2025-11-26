@@ -11,7 +11,7 @@ This document proposes a comprehensive restructuring of the Steem codebase direc
 - No clear separation between blockchain-specific and general-purpose code
 
 **Proposed Solution:**
-Reorganize into a clear hierarchical structure with `src/` containing `core/` (blockchain-specific), `base/` (general-purpose frameworks), `plugins/`, `wallet/`, and `vendor/`.
+Reorganize into a clear hierarchical structure with `src/` containing `core/` (blockchain-specific), `base/` (general-purpose frameworks), `plugins/`, `wallet/`, and `vendor/`, plus `extensions/` for user customizations.
 
 ## Current Structure
 
@@ -25,7 +25,6 @@ steem/
 │   ├── appbase/           # Application framework
 │   ├── net/               # Networking
 │   ├── utils/             # Utilities
-│   ├── jsonball/          # JSON processing
 │   ├── manifest/          # Manifest
 │   ├── schema/            # Schema
 │   ├── plugins/           # 20+ plugins (why under "libraries"?)
@@ -47,7 +46,7 @@ steem/
 2. **"external_plugins" is misleading**
    - Name suggests code from external sources
    - Actually compiled into the binary via CMake
-   - Users add custom plugins here, so "custom_plugins" would be clearer
+   - Users add extensions here, so "extensions" would be clearer
 
 3. **No clear hierarchy**
    - Everything under `libraries/` appears equal in importance
@@ -73,7 +72,6 @@ steem/
 │   │   ├── appbase/       # Application framework
 │   │   ├── net/           # P2P networking
 │   │   ├── utils/         # Common utilities
-│   │   ├── jsonball/      # JSON processing
 │   │   ├── manifest/      # Manifest system
 │   │   └── schema/        # Schema definitions
 │   ├── plugins/           # Plugin extensions
@@ -82,14 +80,13 @@ steem/
 │   │   ├── account_history/
 │   │   ├── apis/
 │   │   │   ├── database_api/
-│   │   │   ├── condenser_api/
 │   │   │   └── ...
 │   │   └── ...
 │   ├── wallet/            # Wallet functionality
 │   └── vendor/            # Third-party dependencies
 │       └── rocksdb/
-├── custom_plugins/        # User-added custom plugins
-├── example_plugins/       # Example plugins for learning
+├── extensions/            # User extensions
+│   └── examples/          # Example extensions
 ├── programs/              # Executable programs
 │   ├── steemd/           # Main daemon
 │   ├── cli_wallet/       # Command-line wallet
@@ -125,10 +122,11 @@ steem/
 - External dependencies
 - Clearly marked as not our code
 
-**custom_plugins/** - User Extensions
-- Custom plugins added by users
+**extensions/** - User Extensions
+- User-added extension functionality
 - Name clearly indicates purpose
 - Relationship to src/plugins/ is obvious
+- Contains examples/ subdirectory for learning
 
 ### 2. Dependency Hierarchy
 
@@ -257,7 +255,6 @@ git mv libraries/fc src/base/fc
 git mv libraries/appbase src/base/appbase
 git mv libraries/net src/base/net
 git mv libraries/utilities src/base/utilities
-git mv libraries/jsonball src/base/jsonball
 git mv libraries/manifest src/base/manifest
 git mv libraries/schema src/base/schema
 ```
@@ -269,10 +266,16 @@ git mv libraries/wallet src/wallet
 git mv libraries/vendor src/vendor
 ```
 
+**Extensions and Examples:**
+```bash
+mkdir -p extensions
+git mv example_plugins extensions/examples
+git mv external_plugins extensions/
+```
+
 **Clean Up:**
 ```bash
 rmdir libraries
-git mv external_plugins custom_plugins
 ```
 
 ### Phase 4: Build System Updates (Week 5)
@@ -284,7 +287,7 @@ git mv external_plugins custom_plugins
    add_subdirectory( libraries )
 
    # New
-   add_subdirectory( custom_plugins )
+   add_subdirectory( extensions )
    add_subdirectory( src )
    ```
 
@@ -302,7 +305,6 @@ git mv external_plugins custom_plugins
    ```cmake
    add_subdirectory( fc )
    add_subdirectory( schema )
-   add_subdirectory( jsonball )
    add_subdirectory( appbase )
    add_subdirectory( net )
    add_subdirectory( utilities )
@@ -550,7 +552,7 @@ A: For one release cycle, we'll provide symlinks for backward compatibility. How
 
 ### Q: What about my custom plugins?
 
-A: Custom plugins in `external_plugins/` should be moved to `custom_plugins/`. The build system will automatically detect them in the new location. We'll provide a migration script.
+A: Custom plugins in `external_plugins/` should be moved to `extensions/`. The build system will automatically detect them in the new location. We'll provide a migration script.
 
 ### Q: When will this happen?
 
@@ -572,7 +574,6 @@ A: Proposed for the next major version release (v1.0 or v2.0). This allows prope
 | libraries/appbase/ | src/base/appbase/ | Plugin framework |
 | libraries/net/ | src/base/net/ | Networking stack |
 | libraries/utilities/ | src/base/utilities/ | Common utilities |
-| libraries/jsonball/ | src/base/jsonball/ | JSON processing |
 | libraries/manifest/ | src/base/manifest/ | Manifest system |
 | libraries/schema/ | src/base/schema/ | Schema definitions |
 
@@ -582,7 +583,8 @@ A: Proposed for the next major version release (v1.0 or v2.0). This allows prope
 | libraries/plugins/ | src/plugins/ | Plugin modules |
 | libraries/wallet/ | src/wallet/ | Wallet functionality |
 | libraries/vendor/ | src/vendor/ | Third-party code |
-| external_plugins/ | custom_plugins/ | User custom plugins |
+| external_plugins/ | extensions/ | User extensions |
+| example_plugins/ | extensions/examples/ | Example extensions |
 
 ## Conclusion
 

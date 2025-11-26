@@ -54,8 +54,7 @@ appbase::app().set_app_name( "steemd" );
 appbase::app().set_default_plugins<
    steem::plugins::witness::witness_plugin,
    steem::plugins::account_by_key::account_by_key_plugin,
-   steem::plugins::account_by_key::account_by_key_api_plugin,
-   steem::plugins::condenser_api::condenser_api_plugin >();
+   steem::plugins::account_by_key::account_by_key_api_plugin >();
 ```
 
 - Specifies plugins that will be enabled by default even if not mentioned in the configuration file.
@@ -416,7 +415,7 @@ Auto-generated on first run with the following key sections:
 
 ### Plugin Configuration
 ```ini
-plugin = witness account_by_key account_by_key_api condenser_api
+plugin = witness account_by_key account_by_key_api
 ```
 
 ### chain_plugin Configuration

@@ -392,13 +392,13 @@ The content constant adjusts the reward curve shape, affecting how rshares trans
 
 ### API Queries
 
-Check reward fund state via `condenser_api`:
+Check reward fund state via API:
 
 ```json
 {
   "jsonrpc": "2.0",
-  "method": "condenser_api.get_reward_fund",
-  "params": ["post"],
+  "method": "database_api.get_reward_fund",
+  "params": {"name": "post"},
   "id": 1
 }
 ```

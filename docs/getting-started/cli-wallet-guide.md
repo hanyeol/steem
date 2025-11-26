@@ -19,7 +19,7 @@ The `cli_wallet` is an interactive command-line interface for managing accounts,
 
 ### Node Requirements
 
-The `steemd` node you connect to must have the following plugins enabled. The wallet now uses **direct modular API calls** instead of the legacy `condenser_api`.
+The `steemd` node you connect to must have the following plugins enabled. The wallet uses **direct modular API calls**.
 
 **Required Plugins:**
 - `webserver` - WebSocket/HTTP server

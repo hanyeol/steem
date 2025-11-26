@@ -283,7 +283,7 @@ statsd-whitelist = witness chain.blocks p2p
 **Purpose**: Monitor API response times and load
 
 ```ini
-plugin = chain p2p webserver database_api condenser_api statsd
+plugin = chain p2p webserver database_api statsd
 
 statsd-endpoint = monitoring.local:8125
 statsd-batchsize = 10

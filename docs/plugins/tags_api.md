@@ -818,7 +818,6 @@ Comments have limited fields (no title, etc.)
 - [follow_api](follow_api.md) - User feeds and blogs
 - [reputation_api](reputation_api.md) - Author reputation
 - [database_api](database_api.md) - Core blockchain queries
-- [condenser_api](condenser_api.md) - Legacy compatibility API
 
 ## Source Code
 

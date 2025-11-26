@@ -383,11 +383,11 @@ plugin = test_api
 | Complexity | Minimal | Complex |
 | Production | No | Yes |
 
-### vs. condenser_api
+### vs. Production APIs
 
-| Feature | test_api | condenser_api |
+| Feature | test_api | database_api |
 |---------|----------|---------------|
-| Purpose | Testing | Legacy compatibility |
+| Purpose | Testing | Blockchain queries |
 | Dependencies | json_rpc only | Multiple plugins |
 | Methods | 2 test methods | 50+ production methods |
 | Use case | Development | Production apps |

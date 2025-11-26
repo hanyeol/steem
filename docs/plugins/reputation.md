@@ -373,7 +373,7 @@ curl -s http://localhost:8090 \
   -d '{
     "jsonrpc":"2.0",
     "id":1,
-    "method":"condenser_api.get_accounts",
+    "method":"database_api.find_accounts",
     "params":[["alice"]]
   }' | jq -r '.[0].reputation'
 
@@ -575,7 +575,7 @@ plugin = follow follow_api
 **Common APIs**:
 - `reputation_api.get_account_reputations` - Batch reputation query
 - `follow_api.get_account_reputations` - Same (if using follow plugin)
-- `condenser_api.get_accounts` - Includes reputation in account data
+- `database_api.find_accounts` - Includes reputation in account data
 
 See API documentation for detailed usage.
 

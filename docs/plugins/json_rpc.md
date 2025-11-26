@@ -55,7 +55,7 @@ steemd \
 {
   "jsonrpc": "2.0",
   "id": 1,
-  "method": "condenser_api.get_dynamic_global_properties",
+  "method": "database_api.get_dynamic_global_properties",
   "params": {}
 }
 ```
@@ -66,14 +66,14 @@ steemd \
   {
     "jsonrpc": "2.0",
     "id": 1,
-    "method": "condenser_api.get_block",
-    "params": [12345]
+    "method": "block_api.get_block",
+    "params": {"block_num": 12345}
   },
   {
     "jsonrpc": "2.0",
     "id": 2,
-    "method": "condenser_api.get_accounts",
-    "params": [["alice", "bob"]]
+    "method": "database_api.find_accounts",
+    "params": {"accounts": ["alice", "bob"]}
   }
 ]
 ```
@@ -204,7 +204,6 @@ Methods follow the pattern: `api_name.method_name`
 
 **Examples**:
 ```
-condenser_api.get_block
 database_api.find_accounts
 account_history_api.get_account_history
 block_api.get_block_header
@@ -256,8 +255,6 @@ List all available API methods:
 {
   "jsonrpc": "2.0",
   "result": [
-    "condenser_api.get_block",
-    "condenser_api.get_accounts",
     "database_api.find_accounts",
     "database_api.get_dynamic_global_properties",
     "block_api.get_block_header",
@@ -279,7 +276,7 @@ Get method signature (argument and return types):
   "id": 1,
   "method": "jsonrpc.get_signature",
   "params": {
-    "method": "condenser_api.get_block"
+    "method": "block_api.get_block"
   }
 }
 ```
@@ -440,8 +437,8 @@ Creates directory structure:
 {
   "jsonrpc": "2.0",
   "id": 1,
-  "method": "condenser_api.get_block",
-  "params": [12345]
+  "method": "block_api.get_block",
+  "params": {"block_num": 12345}
 }
 ```
 
@@ -615,7 +612,7 @@ tail -f witness_node_data_dir/logs/stderr.txt | \
 2. Get method signature:
    ```bash
    curl -s http://localhost:8090 \
-     -d '{"jsonrpc":"2.0","id":1,"method":"jsonrpc.get_signature","params":{"method":"condenser_api.get_block"}}'
+     -d '{"jsonrpc":"2.0","id":1,"method":"jsonrpc.get_signature","params":{"method":"block_api.get_block"}}'
    ```
 
 3. Verify parameter types:
@@ -668,7 +665,7 @@ Full RPC API access:
 
 ```ini
 plugin = chain p2p webserver json_rpc
-plugin = database_api condenser_api block_api
+plugin = database_api block_api
 
 webserver-http-endpoint = 0.0.0.0:8090
 webserver-ws-endpoint = 0.0.0.0:8091
@@ -680,7 +677,7 @@ With request logging:
 
 ```ini
 plugin = chain p2p webserver json_rpc
-plugin = database_api condenser_api
+plugin = database_api
 
 log-json-rpc = /tmp/jsonrpc-tests
 
@@ -693,7 +690,7 @@ Minimal configuration:
 
 ```ini
 plugin = chain p2p webserver json_rpc
-plugin = condenser_api
+plugin = database_api
 
 # No logging (performance)
 ```
@@ -739,14 +736,14 @@ Error messages can reveal information:
 ```javascript
 // Good
 {
-  "method": "condenser_api.get_block",
-  "params": [12345]
+  "method": "block_api.get_block",
+  "params": {"block_num": 12345}
 }
 
 // Avoid (legacy)
 {
   "method": "call",
-  "params": ["condenser_api", "get_block", [12345]]
+  "params": ["block_api", "get_block", [{"block_num": 12345}]]
 }
 ```
 
@@ -784,7 +781,7 @@ if (response.error) {
 **1. Enable only needed APIs**:
 ```ini
 # Only enable required plugins
-plugin = condenser_api  # Not all APIs
+plugin =  # Not all APIs
 ```
 
 **2. Use reverse proxy**:
@@ -808,7 +805,6 @@ log-json-rpc = /var/log/jsonrpc
 
 - [webserver Plugin](webserver.md) - HTTP/WebSocket transport
 - [database_api Plugin](database_api.md) - Blockchain query API
-- [condenser_api Plugin](condenser_api.md) - Legacy API
 - [Reverse Proxy Guide](../operations/reverse-proxy-guide.md) - Production deployment
 
 ## Source Code

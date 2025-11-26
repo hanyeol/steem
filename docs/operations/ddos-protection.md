@@ -71,7 +71,7 @@ flowchart TD
 - **Impact:** CPU/memory exhaustion, slow responses
 
 #### Expensive Query Attacks
-- **Target:** database_api, condenser_api
+- **Target:** database_api
 - **Method:** Computationally expensive queries (large history ranges, deep blockchain queries)
 - **Impact:** Database locks, slow response times, memory exhaustion
 
@@ -1461,7 +1461,7 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 
 # Full plugin set
 plugin = chain p2p webserver
-plugin = database_api condenser_api block_api
+plugin = database_api block_api
 plugin = account_history_rocksdb account_history_api
 plugin = follow follow_api
 plugin = market_history market_history_api

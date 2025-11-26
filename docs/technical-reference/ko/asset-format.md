@@ -272,12 +272,12 @@ asset steem = asset(10000, STEEM_SYMBOL);  // 10.000 STEEM
 
 Asset은 컨텍스트에 따라 다르게 직렬화됩니다:
 
-**레거시 API (condenser_api):**
+**문자열 형식:**
 ```json
 "balance": "1.000 STEEM"
 ```
 
-**최신 API (database_api):**
+**객체 형식 (database_api):**
 ```json
 "balance": {
   "amount": "1000",

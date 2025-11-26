@@ -385,7 +385,7 @@ Access through same API as memory-based plugin:
 ```json
 {
   "jsonrpc": "2.0",
-  "method": "condenser_api.get_account_history",
+  "method": "account_history_api.get_account_history",
   "params": ["alice", -1, 100],
   "id": 1
 }

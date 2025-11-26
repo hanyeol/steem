@@ -434,7 +434,7 @@ Build a Twitter/Facebook-like feed:
 plugin = follow
 plugin = follow_api
 plugin = database_api
-plugin = condenser_api
+plugin = database_api
 ```
 
 **Features enabled**:
@@ -552,7 +552,6 @@ Then replay the blockchain.
 - [follow Plugin](follow.md) - State plugin that tracks social graph
 - [reputation Plugin](reputation.md) - Reputation calculation plugin
 - [database_api](database_api.md) - Core blockchain data queries
-- [condenser_api](condenser_api.md) - Legacy API compatibility
 
 ## Source Code
 

@@ -183,7 +183,7 @@ plugin = account_by_key tags follow market_history
 # 모든 API 플러그인
 plugin = database_api account_by_key_api network_broadcast_api
 plugin = tags_api follow_api market_history_api witness_api
-plugin = condenser_api block_api
+plugin = block_api
 
 # 저장소 - 대용량
 shared-file-size = 260G
@@ -221,7 +221,6 @@ market-history-buckets-per-size = 5760
 - `follow_api` - 팔로우 관계 및 피드
 - `market_history_api` - 내부 시장 OHLCV 데이터
 - `witness_api` - 증인 정보
-- `condenser_api` - 레거시 API (하위 호환성)
 - `block_api` - 블록 데이터 쿼리
 - `account_history_api` - 계정 거래 기록
 
@@ -276,7 +275,7 @@ log-logger = {"name":"default","level":"debug","appender":"stderr"}
 
 # 플러그인 - 계정 기록 중심
 plugin = webserver p2p json_rpc account_history_rocksdb
-plugin = database_api account_history_api condenser_api
+plugin = database_api account_history_api
 
 # 저장소
 shared-file-size = 70G
@@ -404,7 +403,7 @@ log-logger = {"name":"default","level":"debug","appender":"stderr"}
 
 # 전체 플러그인 세트
 plugin = webserver p2p json_rpc witness account_by_key tags follow market_history account_history
-plugin = database_api account_by_key_api network_broadcast_api tags_api follow_api market_history_api witness_api condenser_api account_history_api
+plugin = database_api account_by_key_api network_broadcast_api tags_api follow_api market_history_api witness_api account_history_api
 
 # 저장소
 shared-file-size = 30G
@@ -455,7 +454,7 @@ make -j$(nproc) steemd
 ```ini
 # 플러그인 - 전송 및 계정 기록 중심
 plugin = webserver p2p json_rpc account_history_rocksdb
-plugin = database_api account_history_api network_broadcast_api condenser_api
+plugin = database_api account_history_api network_broadcast_api
 
 # 거래소 계정만 추적
 account-history-track-account-range = ["exchange-deposit", "exchange-deposit"]
@@ -484,7 +483,7 @@ shared-file-size = 70G
 # 플러그인 - 콘텐츠 및 소셜 기능 중심
 plugin = webserver p2p json_rpc
 plugin = tags follow account_by_key
-plugin = database_api tags_api follow_api account_by_key_api network_broadcast_api condenser_api
+plugin = database_api tags_api follow_api account_by_key_api network_broadcast_api
 
 # 팔로우 플러그인 설정
 follow-max-feed-size = 500

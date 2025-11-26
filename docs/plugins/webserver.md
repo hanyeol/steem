@@ -150,7 +150,7 @@ webserver_plugin (port 8090/8091)
         ↓
 json_rpc_plugin (parse & route)
         ↓
-API Plugin (database_api, condenser_api, etc.)
+API Plugin (database_api, etc.)
         ↓
 chain_plugin (blockchain data)
         ↓
@@ -185,7 +185,7 @@ boost::thread_group thread_pool;             // Worker threads
 **Configuration**:
 ```ini
 plugin = webserver p2p json_rpc
-plugin = database_api condenser_api network_broadcast_api
+plugin = database_api network_broadcast_api
 
 webserver-http-endpoint = 0.0.0.0:8090
 webserver-ws-endpoint = 0.0.0.0:8091
@@ -454,7 +454,6 @@ webserver-http-endpoint = 127.0.0.1:8090
 
 **Available APIs**:
 - [database_api](database_api.md) - Core blockchain queries
-- [condenser_api](condenser_api.md) - Legacy API
 - [account_history_api](account_history_api.md) - Transaction history
 - [network_broadcast_api](network_broadcast_api.md) - Transaction broadcasting
 - [tags_api](tags_api.md) - Content and tags
@@ -480,7 +479,7 @@ webserver-thread-pool-size = 4
 ```ini
 # config.ini
 plugin = webserver json_rpc
-plugin = database_api condenser_api network_broadcast_api
+plugin = database_api network_broadcast_api
 
 # Bind to internal IP (reverse proxy handles public)
 webserver-http-endpoint = 127.0.0.1:8090

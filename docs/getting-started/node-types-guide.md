@@ -183,7 +183,7 @@ plugin = account_by_key tags follow market_history
 # All API plugins
 plugin = database_api account_by_key_api network_broadcast_api
 plugin = tags_api follow_api market_history_api witness_api
-plugin = condenser_api block_api
+plugin = block_api
 
 # Storage - large
 shared-file-size = 260G
@@ -221,7 +221,6 @@ market-history-buckets-per-size = 5760
 - `follow_api` - Follow relationships and feeds
 - `market_history_api` - Internal market OHLCV data
 - `witness_api` - Witness information
-- `condenser_api` - Legacy API (backward compatibility)
 - `block_api` - Block data queries
 - `account_history_api` - Account transaction history
 
@@ -276,7 +275,7 @@ log-logger = {"name":"default","level":"debug","appender":"stderr"}
 
 # Plugins - account history focused
 plugin = webserver p2p json_rpc account_history_rocksdb
-plugin = database_api account_history_api condenser_api
+plugin = database_api account_history_api
 
 # Storage
 shared-file-size = 70G
@@ -404,7 +403,7 @@ log-logger = {"name":"default","level":"debug","appender":"stderr"}
 
 # Full plugin set
 plugin = webserver p2p json_rpc witness account_by_key tags follow market_history account_history
-plugin = database_api account_by_key_api network_broadcast_api tags_api follow_api market_history_api witness_api condenser_api account_history_api
+plugin = database_api account_by_key_api network_broadcast_api tags_api follow_api market_history_api witness_api account_history_api
 
 # Storage
 shared-file-size = 30G
@@ -455,7 +454,7 @@ Optimized for cryptocurrency exchange operations.
 ```ini
 # Plugins - focused on transfers and account history
 plugin = webserver p2p json_rpc account_history_rocksdb
-plugin = database_api account_history_api network_broadcast_api condenser_api
+plugin = database_api account_history_api network_broadcast_api
 
 # Track only exchange accounts
 account-history-track-account-range = ["exchange-deposit", "exchange-deposit"]
@@ -484,7 +483,7 @@ Optimized for social media applications.
 # Plugins - focused on content and social features
 plugin = webserver p2p json_rpc
 plugin = tags follow account_by_key
-plugin = database_api tags_api follow_api account_by_key_api network_broadcast_api condenser_api
+plugin = database_api tags_api follow_api account_by_key_api network_broadcast_api
 
 # Follow plugin settings
 follow-max-feed-size = 500

@@ -118,7 +118,7 @@ graph TB
 **목적:** API 요청 처리, 애플리케이션에 블록체인 데이터 제공
 
 **필수 구성요소:**
-- API plugin(`database_api`, `condenser_api`, `account_history_api`, `follow_api` 등)이 포함된 `steemd`
+- API plugin(`database_api`, `account_history_api`, `follow_api` 등)이 포함된 `steemd`
 - HTTP/WebSocket endpoint를 위한 `webserver` plugin
 - 선택사항: 로드 밸런싱을 위한 NGINX reverse proxy
 
@@ -164,7 +164,7 @@ graph TB
 **목적:** 입출금 모니터링, 계정 잔액 추적
 
 **필수 구성요소:**
-- `account_by_key_api`, `condenser_api`, `database_api`가 포함된 `steemd`
+- `account_by_key_api`, `database_api`가 포함된 `steemd`
 - 효율적인 계정 히스토리 쿼리를 위한 `account_history_rocksdb` plugin
 - 트랜잭션 서명을 위한 `cli_wallet`
 
@@ -321,7 +321,6 @@ flowchart TD
     WEB --> API_LAYER
 
     API_LAYER --> DBA[database_api<br/>Core blockchain queries]
-    API_LAYER --> CA[condenser_api<br/>Legacy API compatibility]
     API_LAYER --> BA[block_api<br/>Block data access]
 
     AH --> AHA[account_history_api]
@@ -633,7 +632,7 @@ webserver-ws-endpoint = 0.0.0.0:8090
 
 # Enable plugins
 plugin = chain p2p webserver
-plugin = database_api condenser_api block_api
+plugin = database_api block_api
 plugin = account_history_rocksdb account_history_api
 plugin = follow follow_api
 plugin = market_history market_history_api

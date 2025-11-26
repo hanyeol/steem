@@ -272,12 +272,12 @@ asset steem = asset(10000, STEEM_SYMBOL);  // 10.000 STEEM
 
 Assets are serialized differently depending on the context:
 
-**Legacy API (condenser_api):**
+**String format:**
 ```json
 "balance": "1.000 STEEM"
 ```
 
-**Modern API (database_api):**
+**Object format (database_api):**
 ```json
 "balance": {
   "amount": "1000",

@@ -145,7 +145,7 @@ plugin = account_by_key tags follow market_history account_history_rocksdb
 # API plugins
 plugin = database_api account_by_key_api network_broadcast_api
 plugin = tags_api follow_api market_history_api witness_api
-plugin = condenser_api block_api account_history_api
+plugin = block_api account_history_api
 ```
 
 **Memory**: ~260GB+
@@ -156,7 +156,7 @@ plugin = condenser_api block_api account_history_api
 
 ```ini
 plugin = webserver p2p json_rpc account_history_rocksdb
-plugin = database_api account_history_api network_broadcast_api condenser_api
+plugin = database_api account_history_api network_broadcast_api
 ```
 
 **Memory**: ~70GB
@@ -177,7 +177,7 @@ plugin = chain p2p
 
 ```ini
 plugin = webserver p2p json_rpc tags follow account_by_key
-plugin = database_api tags_api follow_api account_by_key_api network_broadcast_api condenser_api
+plugin = database_api tags_api follow_api account_by_key_api network_broadcast_api
 ```
 
 **Memory**: ~200GB

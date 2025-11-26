@@ -54,8 +54,7 @@ appbase::app().set_app_name( "steemd" );
 appbase::app().set_default_plugins<
    steem::plugins::witness::witness_plugin,
    steem::plugins::account_by_key::account_by_key_plugin,
-   steem::plugins::account_by_key::account_by_key_api_plugin,
-   steem::plugins::condenser_api::condenser_api_plugin >();
+   steem::plugins::account_by_key::account_by_key_api_plugin >();
 ```
 
 - 설정 파일에 명시하지 않아도 기본적으로 활성화될 플러그인들을 지정합니다.
@@ -416,7 +415,7 @@ void application::shutdown() {
 
 ### 플러그인 설정
 ```ini
-plugin = witness account_by_key account_by_key_api condenser_api
+plugin = witness account_by_key account_by_key_api
 ```
 
 ### chain_plugin 설정

@@ -823,7 +823,6 @@ while True:
 ## Related Documentation
 
 - [chain Plugin](chain.md) - Blockchain database
-- [condenser_api](condenser_api.md) - Legacy API format
 - [block_api](block_api.md) - Block data queries
 
 ## Source Code

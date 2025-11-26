@@ -118,7 +118,7 @@ Provides comprehensive API access for applications.
 **Purpose:** Serve API requests, provide blockchain data to applications
 
 **Required Components:**
-- `steemd` with API plugins (`database_api`, `condenser_api`, `account_history_api`, `follow_api`, etc.)
+- `steemd` with API plugins (`database_api`, `account_history_api`, `follow_api`, etc.)
 - `webserver` plugin for HTTP/WebSocket endpoints
 - Optional: NGINX reverse proxy for load balancing
 
@@ -164,7 +164,7 @@ Specialized node for cryptocurrency exchanges.
 **Purpose:** Monitor deposits/withdrawals, track account balances
 
 **Required Components:**
-- `steemd` with `account_by_key_api`, `condenser_api`, `database_api`
+- `steemd` with `account_by_key_api`, `database_api`
 - `account_history_rocksdb` plugin for efficient account history queries
 - `cli_wallet` for transaction signing
 
@@ -321,7 +321,6 @@ flowchart TD
     WEB --> API_LAYER
 
     API_LAYER --> DBA[database_api<br/>Core blockchain queries]
-    API_LAYER --> CA[condenser_api<br/>Legacy API compatibility]
     API_LAYER --> BA[block_api<br/>Block data access]
 
     AH --> AHA[account_history_api]
@@ -633,7 +632,7 @@ webserver-ws-endpoint = 0.0.0.0:8090
 
 # Enable plugins
 plugin = chain p2p webserver
-plugin = database_api condenser_api block_api
+plugin = database_api block_api
 plugin = account_history_rocksdb account_history_api
 plugin = follow follow_api
 plugin = market_history market_history_api
