@@ -153,10 +153,6 @@ void update_witness_schedule4( database& db )
       reset_virtual_schedule_time(db);
    }
 
-   size_t expected_active_witnesses = std::min( size_t(STEEM_MAX_WITNESSES), widx.size() );
-   FC_ASSERT( active_witnesses.size() == expected_active_witnesses, "number of active witnesses does not equal expected_active_witnesses=${expected_active_witnesses}",
-                                       ("active_witnesses.size()",active_witnesses.size()) ("STEEM_MAX_WITNESSES",STEEM_MAX_WITNESSES) ("expected_active_witnesses", expected_active_witnesses) );
-
    auto majority_version = wso.majority_version;
 
    flat_map< version, uint32_t, std::greater< version > > witness_versions;

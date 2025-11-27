@@ -276,21 +276,28 @@ curl -s -X POST http://localhost:8090 \
 
 ### 서명키 생성
 
+**중요**: 증인 서명키는 **계정 키(owner/active/posting)와 완전히 별개**입니다. 이 키는 블록 서명 전용입니다.
+
+**왜 별도로 관리하나요?**
+- 계정 Active 키: 증인 등록 및 설정 변경용 (가능한 오프라인 보관)
+- 서명키: 24/7 블록 서명용 (config.ini에 저장, 서버에 보관)
+- 보안: 서명키가 유출되어도 계정 자금은 안전함
+
 아직 서명키가 없는 경우:
 
 ```bash
 # cli_wallet 사용
 ./programs/cli_wallet/cli_wallet --server-rpc-endpoint=ws://localhost:8090
 
-# cli_wallet 프롬프트에서:
+# cli_wallet 프롬프트에서 - 새 서명키 생성 (계정 키가 아님!)
 >>> suggest_brain_key
 {
   "brain_priv_key": "긴 브레인 키 구문...",
-  "wif_priv_key": "5K...",  # 서명키로 사용
-  "pub_key": "STM..."       # 등록에 사용
+  "wif_priv_key": "5K...",  # ← config.ini의 private-key에 입력
+  "pub_key": "STM..."       # ← update_witness 호출 시 사용
 }
 
-# 두 키를 모두 안전하게 저장
+# 두 키를 모두 안전하게 저장 (계정 키와 분리하여 보관!)
 # cli_wallet 종료
 >>> exit
 ```
@@ -307,10 +314,12 @@ curl -s -X POST http://localhost:8090 \
 >>> set_password "your-wallet-password"
 >>> unlock "your-wallet-password"
 
-# 증인 계정 활성키 가져오기
+# 증인 계정의 ACTIVE 키 가져오기 (서명키가 아님!)
+# update_witness 작업을 승인하기 위해 필요
 >>> import_key your-witness-account 5K...active-private-key...
 
 # 증인 등록 (또는 기존 증인 업데이트)
+# 주의: "STM...public-signing-key..."는 위에서 suggest_brain_key로 생성한 공개키
 >>> update_witness "your-witness-account" "https://yourwebsite.com" "STM...public-signing-key..." {"account_creation_fee":"3.000 STEEM","maximum_block_size":65536,"sbd_interest_rate":1000} true
 
 # 등록 확인

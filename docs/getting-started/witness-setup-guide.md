@@ -276,21 +276,28 @@ Before registering:
 
 ### Generate Signing Key
 
+**IMPORTANT**: The witness signing key is **separate from your account keys** (owner/active/posting). This key is dedicated solely to signing blocks.
+
+**Why separate?**
+- Account active key: Used for witness registration and settings (keep offline when possible)
+- Signing key: Used 24/7 for block signing (stored in config.ini on the server)
+- Security: If signing key is compromised, account funds are safe
+
 If you don't have a signing key yet:
 
 ```bash
 # Using cli_wallet
 ./programs/cli_wallet/cli_wallet --server-rpc-endpoint=ws://localhost:8090
 
-# In cli_wallet prompt:
+# In cli_wallet prompt - Generate NEW signing key (NOT your account key!)
 >>> suggest_brain_key
 {
   "brain_priv_key": "SOME LONG BRAIN KEY PHRASE...",
-  "wif_priv_key": "5K...",  # Use this as signing key
-  "pub_key": "STM..."       # Use this for registration
+  "wif_priv_key": "5K...",  # ← This goes in config.ini (private-key)
+  "pub_key": "STM..."       # ← This goes in update_witness call
 }
 
-# Save both keys securely
+# Save both keys securely (SEPARATE from your account keys!)
 # Exit cli_wallet
 >>> exit
 ```
@@ -307,10 +314,12 @@ Use `cli_wallet` to broadcast witness registration:
 >>> set_password "your-wallet-password"
 >>> unlock "your-wallet-password"
 
-# Import your witness account active key
+# Import your witness account ACTIVE key (NOT the signing key!)
+# This is needed to authorize the update_witness operation
 >>> import_key your-witness-account 5K...active-private-key...
 
 # Register witness (or update existing witness)
+# Note: "STM...public-signing-key..." is the PUBLIC key from suggest_brain_key above
 >>> update_witness "your-witness-account" "https://yourwebsite.com" "STM...public-signing-key..." {"account_creation_fee":"3.000 STEEM","maximum_block_size":65536,"sbd_interest_rate":1000} true
 
 # Verify registration
