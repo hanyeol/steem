@@ -88,32 +88,32 @@ static void run_test( const fc::string& key, const fc::string& data, const fc::s
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( hmac_test_1 )
+BOOST_AUTO_TEST_CASE( hmac_test_case_1 )
 {
     run_test<20,8>( TEST1_KEY, TEST1_DATA, TEST1_224, TEST1_256, TEST1_512 );
 }
 
-BOOST_AUTO_TEST_CASE( hmac_test_2 )
+BOOST_AUTO_TEST_CASE( hmac_test_case_2 )
 {
     run_test<4,28>( TEST2_KEY, TEST2_DATA, TEST2_224, TEST2_256, TEST2_512 );
 }
 
-BOOST_AUTO_TEST_CASE( hmac_test_3 )
+BOOST_AUTO_TEST_CASE( hmac_test_case_3 )
 {
     run_test<20,50>( TEST3_KEY, TEST3_DATA, TEST3_224, TEST3_256, TEST3_512 );
 }
 
-BOOST_AUTO_TEST_CASE( hmac_test_4 )
+BOOST_AUTO_TEST_CASE( hmac_test_case_4 )
 {
     run_test<25,50>( TEST4_KEY, TEST4_DATA, TEST4_224, TEST4_256, TEST4_512 );
 }
 
-BOOST_AUTO_TEST_CASE( hmac_test_6 )
+BOOST_AUTO_TEST_CASE( hmac_test_case_6 )
 {
     run_test<131,54>( TEST6_KEY, TEST6_DATA, TEST6_224, TEST6_256, TEST6_512 );
 }
 
-BOOST_AUTO_TEST_CASE( hmac_test_7 )
+BOOST_AUTO_TEST_CASE( hmac_test_case_7 )
 {
     run_test<131,152>( TEST7_KEY, TEST7_DATA, TEST7_224, TEST7_256, TEST7_512 );
 }

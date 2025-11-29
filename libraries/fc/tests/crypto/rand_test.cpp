@@ -35,7 +35,7 @@ static void check_randomness( const char* buffer, size_t len, double sigma_multi
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( rand_test )
+BOOST_AUTO_TEST_CASE( secure_random_generation )
 {
     char buffer[128];
     bool ok = false;
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE( rand_test )
     BOOST_CHECK( ok );
 }
 
-BOOST_AUTO_TEST_CASE( pseudo_rand_test )
+BOOST_AUTO_TEST_CASE( pseudo_random_generation )
 {
     char buffer[10013];
     fc::rand_pseudo_bytes( buffer, sizeof(buffer) );

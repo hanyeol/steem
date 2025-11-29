@@ -11,7 +11,7 @@
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( aes_test )
+BOOST_AUTO_TEST_CASE( aes_encrypt_decrypt_roundtrip )
 {
     const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
 

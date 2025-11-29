@@ -81,7 +81,7 @@ const std::string chain_test_cfb = "E73214A2822139CAF26ECF6D2EB9E76E3DA3DE04D151
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( blowfish_ecb_test )
+BOOST_AUTO_TEST_CASE( blowfish_ecb_mode )
 {
     for ( int i = 0; i < 34; i++ ) {
         unsigned char key[8], plain[8], cipher[8], out[8];
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE( blowfish_ecb_test )
     }
 }
 
-BOOST_AUTO_TEST_CASE( blowfish_key_test )
+BOOST_AUTO_TEST_CASE( blowfish_variable_key_lengths )
 {
     unsigned char key[24], plain[8], cipher[8], out[8];
     BOOST_CHECK_EQUAL( 24, fc::from_hex( key_test_key.c_str(), (char*) key, sizeof(key) ) );
@@ -130,7 +130,7 @@ static unsigned int from_bytes( const unsigned char* p ) {
            |  ((unsigned int) p[3]);
 }
 
-BOOST_AUTO_TEST_CASE( blowfish_chain_test )
+BOOST_AUTO_TEST_CASE( blowfish_cbc_mode )
 {
     unsigned char key[16], iv[8], cipher[32], out[32];
     BOOST_CHECK_EQUAL( 16, fc::from_hex( chain_test_key.c_str(), (char*) key, sizeof(key) ) );

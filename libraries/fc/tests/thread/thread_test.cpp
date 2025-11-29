@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE( executes_task )
     BOOST_CHECK(called);
 }
 
-BOOST_AUTO_TEST_CASE(returns_value_from_function)
+BOOST_AUTO_TEST_CASE( return_value_from_task )
 {
     fc::thread thread("my");
     BOOST_CHECK_EQUAL(10, thread.async([]{return 10;}).wait());

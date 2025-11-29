@@ -21,7 +21,7 @@ static const std::string TEST_INVALID_12("\340\214\200\001");
 
 BOOST_AUTO_TEST_SUITE( fc_utf8 )
 
-BOOST_AUTO_TEST_CASE( utf8_test )
+BOOST_AUTO_TEST_CASE( encoding_and_validation )
 {
     std::wstring test(L"\0\001\002");
     test.reserve(65536);

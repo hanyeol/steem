@@ -36,12 +36,11 @@ static bloom_parameters setup_parameters()
    return parameters;
 }
 
-BOOST_AUTO_TEST_SUITE( fc_crypto )
+BOOST_AUTO_TEST_SUITE( fc_bloom )
 
-BOOST_AUTO_TEST_CASE( bloom_test_1 )
+BOOST_AUTO_TEST_CASE( insert_and_query_from_file )
 {
    try {
-
       //Instantiate Bloom Filter
       bloom_filter filter(setup_parameters());
 
@@ -77,7 +76,7 @@ BOOST_AUTO_TEST_CASE( bloom_test_1 )
    }
 }
 
-BOOST_AUTO_TEST_CASE( bloom_test_2 )
+BOOST_AUTO_TEST_CASE( insert_and_query_basic_types )
 {
    try {
       //Instantiate Bloom Filter

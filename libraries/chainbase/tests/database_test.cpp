@@ -38,7 +38,7 @@ CHAINBASE_SET_INDEX_TYPE( book, book_index )
 
 BOOST_AUTO_TEST_SUITE( chainbase_database )
 
-BOOST_AUTO_TEST_CASE( open_and_create )
+BOOST_AUTO_TEST_CASE( database_open_create_and_undo )
 {
    boost::filesystem::path temp = boost::filesystem::unique_path();
    BOOST_TEST_MESSAGE( temp.native() );

@@ -9,7 +9,7 @@
 
 BOOST_AUTO_TEST_SUITE( fc_compress )
 
-BOOST_AUTO_TEST_CASE( smaz_test )
+BOOST_AUTO_TEST_CASE( smaz_compression )
 {
     const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
 
@@ -65,7 +65,7 @@ static std::string zlib_decompress( const std::string compressed )
     return result;
 }
 
-BOOST_AUTO_TEST_CASE( zlib_test )
+BOOST_AUTO_TEST_CASE( zlib_compression )
 {
     const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
 

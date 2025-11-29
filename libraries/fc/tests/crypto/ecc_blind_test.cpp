@@ -8,7 +8,7 @@
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( blind_test )
+BOOST_AUTO_TEST_CASE( ecc_blind_signature )
 {
    try {
       auto InB1 = fc::sha256::hash("InB1");

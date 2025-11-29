@@ -5,7 +5,7 @@
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( dh_test )
+BOOST_AUTO_TEST_CASE( diffie_hellman_key_exchange )
 {
     fc::diffie_hellman alice;
     BOOST_CHECK( alice.generate_params( 128, 5 ) );

@@ -34,7 +34,7 @@ static void test_16( const std::string& test, const std::string& expected )
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( hex_test )
+BOOST_AUTO_TEST_CASE( hex_encoding )
 {
     test_16( TEST1, "" );
     test_16( TEST2, "00013031" );
@@ -57,7 +57,7 @@ static void test_32( const std::string& test, const std::string& expected )
     BOOST_CHECK( !memcmp( vec.data(), dec.data(), vec.size() ) );
 }
 
-BOOST_AUTO_TEST_CASE(base32_test)
+BOOST_AUTO_TEST_CASE( base32_encoding )
 {
     test_32( TEST1, "" );
     test_32( TEST2, "AAATAMI=" );
@@ -80,7 +80,7 @@ static void test_36( const std::string& test, const std::string& expected )
     BOOST_CHECK( !memcmp( vec.data(), dec.data(), vec.size() ) );
 }
 
-BOOST_AUTO_TEST_CASE( base36_test )
+BOOST_AUTO_TEST_CASE( base36_encoding )
 {
     test_36( TEST1, "" );
     test_36( TEST2, "01o35" );
@@ -115,7 +115,7 @@ static void test_58( const std::string& test, const std::string& expected )
 
 }
 
-BOOST_AUTO_TEST_CASE( base58_test )
+BOOST_AUTO_TEST_CASE( base58_encoding )
 {
     test_58( TEST1, "" );
     test_58( TEST2, "1Q9e" );
@@ -137,7 +137,7 @@ static void test_64( const std::string& test, const std::string& expected )
     BOOST_CHECK_EQUAL( test, dec );
 }
 
-BOOST_AUTO_TEST_CASE( base64_test )
+BOOST_AUTO_TEST_CASE( base64_encoding )
 {
     test_64( TEST1, "" );
     test_64( TEST2, "AAEwMQ==" );

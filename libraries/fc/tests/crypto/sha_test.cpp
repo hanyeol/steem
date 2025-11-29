@@ -96,7 +96,7 @@ template void test_stream<fc::sha512>();
 
 BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE( ripemd160_test )
+BOOST_AUTO_TEST_CASE( ripemd160_hashing )
 {
     init_5();
     test<fc::ripemd160>( TEST1, "8eb208f7e05d987a9b044a8e98c6b087f15a0bfc" );
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE( ripemd160_test )
     test_stream<fc::ripemd160>();
 }
 
-BOOST_AUTO_TEST_CASE( sha1_test )
+BOOST_AUTO_TEST_CASE( sha1_hashing )
 {
     init_5();
     test<fc::sha1>( TEST1, "a9993e364706816aba3e25717850c26c9cd0d89d" );
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE( sha1_test )
     test_big<fc::sha1>( "7789f0c9ef7bfc40d93311143dfbe69e2017f592" );
 }
 
-BOOST_AUTO_TEST_CASE( sha224_test )
+BOOST_AUTO_TEST_CASE( sha224_hashing )
 {
     init_5();
     test<fc::sha224>( TEST1, "23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7" );
@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE( sha224_test )
     test_big<fc::sha224>( "b5989713ca4fe47a009f8621980b34e6d63ed3063b2a0a2c867d8a85" );
 }
 
-BOOST_AUTO_TEST_CASE( sha256_test )
+BOOST_AUTO_TEST_CASE( sha256_hashing )
 {
     init_5();
     test<fc::sha256>( TEST1, "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad" );
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_CASE( sha256_test )
     BOOST_CHECK_EQUAL( "d61967f63c7dd183914a4ae452c9f6ad5d462ce3d277798075b107615c1a8a30", (std::string) fc::sha256::hash(fourth) );
 }
 
-BOOST_AUTO_TEST_CASE( sha512_test )
+BOOST_AUTO_TEST_CASE( sha512_hashing )
 {
     init_5();
     test<fc::sha512>( TEST1, "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a"

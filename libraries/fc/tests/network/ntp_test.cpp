@@ -6,7 +6,7 @@
 
 BOOST_AUTO_TEST_SUITE( fc_network )
 
-BOOST_AUTO_TEST_CASE( ntp_test )
+BOOST_AUTO_TEST_CASE( query_time_server )
 {
    /*
    fc::ntp ntp_service;
