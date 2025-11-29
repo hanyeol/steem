@@ -4,9 +4,9 @@
 
 #include <iostream>
 
-BOOST_AUTO_TEST_SUITE(fc_network)
+BOOST_AUTO_TEST_SUITE( fc_network )
 
-BOOST_AUTO_TEST_CASE(websocket_test)
+BOOST_AUTO_TEST_CASE( websocket_test )
 { 
     fc::http::websocket_client client;
     fc::http::websocket_connection_ptr s_conn, c_conn;

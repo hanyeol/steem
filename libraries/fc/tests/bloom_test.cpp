@@ -9,6 +9,7 @@
 #include <fstream>
 #include <fc/io/json.hpp>
 #include <fc/crypto/base64.hpp>
+#include <fc/filesystem.hpp>
 
 using namespace fc;
 
@@ -35,9 +36,9 @@ static bloom_parameters setup_parameters()
    return parameters;
 }
 
-BOOST_AUTO_TEST_SUITE(fc_crypto)
+BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE(bloom_test_1)
+BOOST_AUTO_TEST_CASE( bloom_test_1 )
 {
    try {
 
@@ -46,7 +47,8 @@ BOOST_AUTO_TEST_CASE(bloom_test_1)
 
       uint32_t count = 0;
       std::string line;
-      std::ifstream in("README.md");
+      const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
+      std::ifstream in( readme.string() );
       std::ofstream words("words.txt");
       while( !in.eof() && count < 100000 )
       {
@@ -75,7 +77,7 @@ BOOST_AUTO_TEST_CASE(bloom_test_1)
    }
 }
 
-BOOST_AUTO_TEST_CASE(bloom_test_2)
+BOOST_AUTO_TEST_CASE( bloom_test_2 )
 {
    try {
       //Instantiate Bloom Filter

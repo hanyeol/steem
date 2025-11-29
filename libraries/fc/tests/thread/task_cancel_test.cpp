@@ -7,7 +7,7 @@
 #include <fc/exception/exception.hpp>
 #include <fc/thread/non_preemptable_scope_check.hpp>
 
-BOOST_AUTO_TEST_SUITE(fc_thread)
+BOOST_AUTO_TEST_SUITE( fc_thread )
 
 BOOST_AUTO_TEST_CASE( leave_mutex_locked )
 {
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE( cancel_task_blocked_on_mutex)
 }
 
 
-BOOST_AUTO_TEST_CASE( test_non_preemptable_assertion )
+BOOST_AUTO_TEST_CASE( non_preemptable_assertion_test )
 {
   return; // this isn't a real test, because the thing it tries to test works by asserting, not by throwing
   fc::usleep(fc::milliseconds(10)); // this should not assert

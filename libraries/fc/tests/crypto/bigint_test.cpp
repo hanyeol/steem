@@ -3,9 +3,9 @@
 #include <fc/variant.hpp>
 #include <fc/crypto/bigint.hpp>
 
-BOOST_AUTO_TEST_SUITE(fc_crypto)
+BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE(bigint_test_1)
+BOOST_AUTO_TEST_CASE( bigint_test_1 )
 {
     int64_t counter = 0, accu = 0, c_sq;
     fc::bigint bi_accu(accu);
@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE(bigint_test_1)
     BOOST_CHECK( other == bi_accu );
 }
 
-BOOST_AUTO_TEST_CASE(bigint_test_2)
+BOOST_AUTO_TEST_CASE( bigint_test_2 )
 {
     const fc::bigint bi_1(1), bi_3(3), bi_17(17), bi_65537(65537);
     fc::bigint bi_accu(bi_1);

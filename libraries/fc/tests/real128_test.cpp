@@ -2,12 +2,12 @@
 #include <boost/test/unit_test.hpp>
 #include <fc/log/logger.hpp>
 
-BOOST_AUTO_TEST_SUITE(fc)
-
 using fc::real128;
 using std::string;
 
-BOOST_AUTO_TEST_CASE(real128_test)
+BOOST_AUTO_TEST_SUITE( fc_real128 )
+
+BOOST_AUTO_TEST_CASE( real128_test )
 {
    BOOST_CHECK_EQUAL(string(real128()), string("0."));
    BOOST_CHECK_EQUAL(string(real128(0)), string("0."));

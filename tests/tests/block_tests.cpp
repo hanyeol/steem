@@ -44,7 +44,7 @@ using namespace steem::protocol;
 
 #define TEST_SHARED_MEM_SIZE (1024 * 1024 * 8)
 
-BOOST_AUTO_TEST_SUITE(block_tests)
+BOOST_AUTO_TEST_SUITE( block_tests )
 
 void open_test_database( database& db, const fc::path& dir )
 {

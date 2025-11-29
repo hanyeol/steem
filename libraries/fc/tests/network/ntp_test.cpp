@@ -4,13 +4,10 @@
 #include <fc/log/logger.hpp>
 #include <fc/thread/thread.hpp>
 
-BOOST_AUTO_TEST_SUITE(fc_network)
+BOOST_AUTO_TEST_SUITE( fc_network )
 
 BOOST_AUTO_TEST_CASE( ntp_test )
 {
-   ilog("start ntp test");
-   fc::usleep( fc::seconds(1) );
-   ilog("done ntp test");
    /*
    fc::ntp ntp_service;
    ntp_service.set_request_interval(5);

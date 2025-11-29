@@ -4,9 +4,9 @@
 
 using namespace fc;
 
-BOOST_AUTO_TEST_SUITE(thread_tests)
+BOOST_AUTO_TEST_SUITE( fc_thread )
 
-BOOST_AUTO_TEST_CASE(executes_task)
+BOOST_AUTO_TEST_CASE( executes_task )
 {
     bool called = false;
     fc::thread thread("my");
@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(returns_value_from_function)
     BOOST_CHECK_EQUAL(10, thread.async([]{return 10;}).wait());
 }
 
-BOOST_AUTO_TEST_CASE(executes_multiple_tasks)
+BOOST_AUTO_TEST_CASE( executes_multiple_tasks )
 {
     bool called1 = false;
     bool called2 = false;
@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(executes_multiple_tasks)
     BOOST_CHECK(called2);
 }
 
-BOOST_AUTO_TEST_CASE(calls_tasks_in_order)
+BOOST_AUTO_TEST_CASE( calls_tasks_in_order )
 {
     std::string result;
 
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(calls_tasks_in_order)
     BOOST_CHECK_EQUAL("hello world", result);
 }
 
-BOOST_AUTO_TEST_CASE(yields_execution)
+BOOST_AUTO_TEST_CASE( yields_execution )
 {
     std::string result;
 
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(yields_execution)
     BOOST_CHECK_EQUAL("hello world", result);
 }
 
-BOOST_AUTO_TEST_CASE(quits_infinite_loop)
+BOOST_AUTO_TEST_CASE( quits_infinite_loop )
 {
     fc::thread thread("my");
     auto f = thread.async([]{while (true) fc::yield();});
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(quits_infinite_loop)
     BOOST_CHECK_THROW(f.wait(), fc::canceled_exception);
 }
 
-BOOST_AUTO_TEST_CASE(reschedules_yielded_task)
+BOOST_AUTO_TEST_CASE( reschedules_yielded_task )
 {
     int reschedule_count = 0;
 

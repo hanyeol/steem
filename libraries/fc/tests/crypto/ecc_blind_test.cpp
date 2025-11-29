@@ -6,9 +6,9 @@
 #include <fc/variant.hpp>
 #include <fc/reflect/variant.hpp>
 
-BOOST_AUTO_TEST_SUITE(fc_crypto)
+BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE(blind_test)
+BOOST_AUTO_TEST_CASE( blind_test )
 {
    try {
       auto InB1 = fc::sha256::hash("InB1");

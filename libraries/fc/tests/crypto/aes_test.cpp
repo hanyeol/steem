@@ -5,15 +5,18 @@
 #include <fc/crypto/aes.hpp>
 #include <fc/crypto/city.hpp>
 #include <fc/exception/exception.hpp>
+#include <fc/filesystem.hpp>
 
 #include <fc/variant.hpp>
 
-BOOST_AUTO_TEST_SUITE(fc_crypto)
+BOOST_AUTO_TEST_SUITE( fc_crypto )
 
-BOOST_AUTO_TEST_CASE(aes_test)
+BOOST_AUTO_TEST_CASE( aes_test )
 {
+    const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
+
     std::ifstream testfile;
-    testfile.open("README.md");
+    testfile.open( readme.string() );
 
     auto key = fc::sha512::hash( "hello", 5 );
     std::stringstream buffer;

@@ -1,4 +1,3 @@
-#define BOOST_TEST_MODULE HmacTest
 #include <boost/test/unit_test.hpp>
 #include <fc/array.hpp>
 #include <fc/crypto/hex.hpp>
@@ -33,7 +32,7 @@ static const fc::string TEST3_512 = "fa73b0089d56a284efb0f0756c890be9b1b5dbdd8ee
 
 static const fc::string TEST4_KEY  = "0102030405060708090a0b0c0d0e0f10111213141516171819";
 static const fc::string TEST4_DATA = "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
-                                     "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd";
+                                     "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd";
 static const fc::string TEST4_224 = "6c11506874013cac6a2abc1bb382627cec6a90d86efc012de7afec5a";
 static const fc::string TEST4_256 = "82558a389a443c0ea4cc819899f2083a85f0faa3e578f8077a2e3ff46729665b";
 static const fc::string TEST4_512 = "b0ba465637458c6990e5a8c5f61d4af7e576d97ff94b872de76f8050361ee3db"
@@ -87,32 +86,36 @@ static void run_test( const fc::string& key, const fc::string& data, const fc::s
     BOOST_CHECK_EQUAL( mac_512.digest( key_arr.begin(), N, data_arr.begin(), M ).str(), expect_512 );
 }
 
-BOOST_AUTO_TEST_CASE(hmac_test_1)
+BOOST_AUTO_TEST_SUITE( fc_crypto )
+
+BOOST_AUTO_TEST_CASE( hmac_test_1 )
 {
     run_test<20,8>( TEST1_KEY, TEST1_DATA, TEST1_224, TEST1_256, TEST1_512 );
 }
 
-BOOST_AUTO_TEST_CASE(hmac_test_2)
+BOOST_AUTO_TEST_CASE( hmac_test_2 )
 {
     run_test<4,28>( TEST2_KEY, TEST2_DATA, TEST2_224, TEST2_256, TEST2_512 );
 }
 
-BOOST_AUTO_TEST_CASE(hmac_test_3)
+BOOST_AUTO_TEST_CASE( hmac_test_3 )
 {
     run_test<20,50>( TEST3_KEY, TEST3_DATA, TEST3_224, TEST3_256, TEST3_512 );
 }
 
-BOOST_AUTO_TEST_CASE(hmac_test_4)
+BOOST_AUTO_TEST_CASE( hmac_test_4 )
 {
     run_test<25,50>( TEST4_KEY, TEST4_DATA, TEST4_224, TEST4_256, TEST4_512 );
 }
 
-BOOST_AUTO_TEST_CASE(hmac_test_6)
+BOOST_AUTO_TEST_CASE( hmac_test_6 )
 {
     run_test<131,54>( TEST6_KEY, TEST6_DATA, TEST6_224, TEST6_256, TEST6_512 );
 }
 
-BOOST_AUTO_TEST_CASE(hmac_test_7)
+BOOST_AUTO_TEST_CASE( hmac_test_7 )
 {
     run_test<131,152>( TEST7_KEY, TEST7_DATA, TEST7_224, TEST7_256, TEST7_512 );
 }
+
+BOOST_AUTO_TEST_SUITE_END()

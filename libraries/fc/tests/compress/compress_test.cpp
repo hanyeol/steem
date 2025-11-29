@@ -5,13 +5,16 @@
 #include <fc/compress/smaz.hpp>
 #include <fc/compress/zlib.hpp>
 #include <fc/exception/exception.hpp>
+#include <fc/filesystem.hpp>
 
-BOOST_AUTO_TEST_SUITE(compress)
+BOOST_AUTO_TEST_SUITE( fc_compress )
 
-BOOST_AUTO_TEST_CASE(smaz_test)
+BOOST_AUTO_TEST_CASE( smaz_test )
 {
+    const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
+
     std::ifstream testfile;
-    testfile.open("README.md");
+    testfile.open( readme.string() );
 
     std::stringstream buffer;
     std::string line;
@@ -26,7 +29,7 @@ BOOST_AUTO_TEST_CASE(smaz_test)
         }
         catch ( fc::exception& e )
         {
-           std::cout<<e.to_detail_string()<<"\n";
+           /* suppress noisy output; test assertions will fail if needed */
         }
 
         std::getline( testfile, line );
@@ -62,10 +65,12 @@ static std::string zlib_decompress( const std::string compressed )
     return result;
 }
 
-BOOST_AUTO_TEST_CASE(zlib_test)
+BOOST_AUTO_TEST_CASE( zlib_test )
 {
+    const fc::path readme = fc::path( FC_TEST_ROOT_DIR ) / "README.md";
+
     std::ifstream testfile;
-    testfile.open("README.md");
+    testfile.open( readme.string() );
 
     std::stringstream buffer;
     std::string line;

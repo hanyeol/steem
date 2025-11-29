@@ -384,9 +384,9 @@ void misc_test3( const std::vector< uint64_t >& v )
    BOOST_REQUIRE( another_cfound == another_composite_ordered_idx.end() );
 }
 
-BOOST_AUTO_TEST_SUITE(bmic_tests)
+BOOST_AUTO_TEST_SUITE( bmic_tests )
 
-BOOST_AUTO_TEST_CASE(basic_tests)
+BOOST_AUTO_TEST_CASE( basic_tests )
 {
    auto c1 = []( bmic::test_object& obj ) { obj.name = "_name"; };
    auto c1b = []( bmic::test_object2& obj ) {};
@@ -397,7 +397,7 @@ BOOST_AUTO_TEST_CASE(basic_tests)
    basic_test< bmic::test_object_index3, bmic::test_object3 >( { 0, 1, 2, 3, 4 }, c1c );
 }
 
-BOOST_AUTO_TEST_CASE(insert_remove_tests)
+BOOST_AUTO_TEST_CASE( insert_remove_tests )
 {
    auto c1 = []( bmic::test_object& obj ) { obj.name = "_name"; };
    auto c1b = []( bmic::test_object2& obj ) {};
@@ -408,7 +408,7 @@ BOOST_AUTO_TEST_CASE(insert_remove_tests)
    insert_remove_test< bmic::test_object_index3, bmic::test_object3 >( { 0, 1, 2, 3 }, c1c );
 }
 
-BOOST_AUTO_TEST_CASE(insert_remove_collision_tests)
+BOOST_AUTO_TEST_CASE( insert_remove_collision_tests )
 {
    auto c1 = []( bmic::test_object& obj ) { obj.id = 0; obj.name = "_name7"; obj.val = 7; };
    auto c2 = []( bmic::test_object& obj ) { obj.id = 0; obj.name = "_name8"; obj.val = 8; };
@@ -430,7 +430,7 @@ BOOST_AUTO_TEST_CASE(insert_remove_collision_tests)
    insert_remove_collision_test< bmic::test_object_index3, bmic::test_object3 >( {}, c1c, c2c, c3c, c4c );
 }
 
-BOOST_AUTO_TEST_CASE(modify_tests)
+BOOST_AUTO_TEST_CASE( modify_tests )
 {
    auto c1 = []( bmic::test_object& obj ) { obj.name = "_name"; };
    auto c2 = []( bmic::test_object& obj ){ obj.name = "new_name"; };
@@ -448,12 +448,12 @@ BOOST_AUTO_TEST_CASE(modify_tests)
    modify_test< bmic::test_object_index2, bmic::test_object2 >( { 0, 1, 2, 3, 4, 5 }, c1b, c2b, c3b, c4b, c5b );
 }
 
-BOOST_AUTO_TEST_CASE(misc_tests)
+BOOST_AUTO_TEST_CASE( misc_tests )
 {
    misc_test< bmic::test_object_index, bmic::test_object, bmic::OrderedIndex, bmic::CompositeOrderedIndex >( { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 } );
 }
 
-BOOST_AUTO_TEST_CASE(misc_tests3)
+BOOST_AUTO_TEST_CASE( misc_tests3 )
 {
   misc_test3< bmic::test_object_index3, bmic::test_object3, bmic::OrderedIndex3, bmic::CompositeOrderedIndex3a, bmic::CompositeOrderedIndex3b >( { 0, 1, 2 } );
 }
