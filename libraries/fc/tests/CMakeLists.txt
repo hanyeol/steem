@@ -1,7 +1,7 @@
 add_definitions( -DFC_TEST_ROOT_DIR="${CMAKE_SOURCE_DIR}" )
 
-add_executable( fc_tests
-   fc_tests.cpp
+add_executable( fc_test
+   main.cpp
    compress/compress_test.cpp
    crypto/aes_test.cpp
    crypto/base_n_test.cpp
@@ -20,7 +20,7 @@ add_executable( fc_tests
    saturation_test.cpp
    utf8_test.cpp
 )
-target_link_libraries( fc_tests fc )
+target_link_libraries( fc_test fc )
 
 # Manual testing tools
 add_subdirectory( tools )
