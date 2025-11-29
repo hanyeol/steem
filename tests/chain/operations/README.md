@@ -4,15 +4,15 @@ This directory contains unit tests for blockchain operations, organized by domai
 
 ## Test Files
 
-- **account_test.cpp** - Account operations (create, update, witness vote, post rate limit, clear null account)
-- **comment_test.cpp** - Comment operations (comment, delete, vote, options, payout, nested comments, freeze)
-- **vesting_test.cpp** - Vesting operations (transfer to vesting, withdraw vesting, vesting withdrawals, withdraw routes)
-- **transfer_test.cpp** - Transfer operations
-- **witness_test.cpp** - Witness operations (update, set properties, feed publish)
-- **market_test.cpp** - Market operations (limit orders, convert, SBD interest, price feeds)
-- **reward_test.cpp** - Reward operations (reward funds, claims decay)
-- **escrow_test.cpp** - Escrow operations (transfer, approve, dispute, release)
-- **proposal_test.cpp** - Proposal operations (create, update, delete)
+- **account_test.cpp** - Account lifecycle and recovery (create/update, witness vote/proxy, post rate limit, clear null account, account recovery/change recovery, account bandwidth, claim account, create claimed account)
+- **comment_test.cpp** - Comment operations (comment, delete, vote, options, payout, nested comments, freeze, beneficiaries validation/apply)
+- **vesting_test.cpp** - Vesting flows (transfer to vesting, withdraw vesting, withdraw routes, delegate vesting shares, issue 971 regression)
+- **transfer_test.cpp** - Transfers, savings, decline voting rights, and escrow (transfer, savings in/out, escrow transfer/approve/dispute/release)
+- **witness_test.cpp** - Witness operations (update, set properties, feed publish, feed publish mean)
+- **market_test.cpp** - Market operations (convert, limit orders, SBD interest/stability/price feed, convert delay)
+- **reward_test.cpp** - Reward operations (claim reward balance, reward funds, recent claims decay)
+- **custom_test.cpp** - Custom/custom_json/custom_binary authorities
+- **pow_test.cpp** - POW validation/authority/apply stubs (kept for suite parity)
 
 ## Test Suite
 
@@ -24,9 +24,9 @@ All tests in this directory use the `operation_tests` test suite for backward co
 # Run all operation tests
 ./tests/chain_test --run_test=operation_tests
 
-# Run specific test file (by test case name)
-./tests/chain_test -t operation_tests/account_create_validate
-./tests/chain_test -t operation_tests/vesting_withdrawals
+# Run specific test case
+./tests/chain_test --run_test=operation_tests/account_create_validate
+./tests/chain_test --run_test=operation_tests/vesting_withdrawals
 ```
 
 ## Adding New Tests

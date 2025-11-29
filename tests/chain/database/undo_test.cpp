@@ -27,7 +27,7 @@ using namespace steem::chain;
 using namespace steem::protocol;
 using fc::string;
 
-BOOST_FIXTURE_TEST_SUITE( undo_tests, clean_database_fixture )
+BOOST_FIXTURE_TEST_SUITE( database_tests, clean_database_fixture )
 
 BOOST_AUTO_TEST_CASE( undo_basic )
 {

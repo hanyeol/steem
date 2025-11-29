@@ -26,8 +26,8 @@ set( CHAIN_TEST_SOURCES
     chain/operations/account_test.cpp
     chain/operations/comment_test.cpp
     chain/operations/custom_test.cpp
+    chain/operations/pow_test.cpp
     chain/operations/market_test.cpp
-    chain/operations/other_test.cpp
     chain/operations/reward_test.cpp
     chain/operations/transfer_test.cpp
     chain/operations/vesting_test.cpp
