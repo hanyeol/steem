@@ -721,7 +721,7 @@ BOOST_FIXTURE_TEST_CASE( skip_block, clean_database_fixture )
    FC_LOG_AND_RETHROW();
 }
 
-BOOST_FIXTURE_TEST_CASE( hardfork_test, database_fixture )
+BOOST_FIXTURE_TEST_CASE( apply_hardforks_at_genesis, database_fixture )
 {
    try
    {

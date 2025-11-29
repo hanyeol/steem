@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( witness_update_validate )
+BOOST_AUTO_TEST_CASE( validate_witness_update )
 {
    try
    {
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE( witness_update_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( witness_update_authorities )
+BOOST_AUTO_TEST_CASE( check_witness_update_authorities )
 {
    try
    {
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE( witness_update_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( witness_update_apply )
+BOOST_AUTO_TEST_CASE( apply_witness_update )
 {
    try
    {
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE( witness_update_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( feed_publish_validate )
+BOOST_AUTO_TEST_CASE( validate_feed_publish )
 {
    try
    {
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE( feed_publish_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( feed_publish_authorities )
+BOOST_AUTO_TEST_CASE( check_feed_publish_authorities )
 {
    try
    {
@@ -236,7 +236,7 @@ BOOST_AUTO_TEST_CASE( feed_publish_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( feed_publish_apply )
+BOOST_AUTO_TEST_CASE( apply_feed_publish )
 {
    try
    {
@@ -303,7 +303,7 @@ BOOST_AUTO_TEST_CASE( feed_publish_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( witness_set_properties_validate )
+BOOST_AUTO_TEST_CASE( validate_witness_set_properties )
 {
    try
    {
@@ -372,7 +372,7 @@ BOOST_AUTO_TEST_CASE( witness_set_properties_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( witness_set_properties_authorities )
+BOOST_AUTO_TEST_CASE( check_witness_set_properties_authorities )
 {
    try
    {
@@ -421,7 +421,7 @@ BOOST_AUTO_TEST_CASE( witness_set_properties_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( witness_set_properties_apply )
+BOOST_AUTO_TEST_CASE( apply_witness_set_properties )
 {
    try
    {
@@ -542,7 +542,7 @@ BOOST_AUTO_TEST_CASE( witness_set_properties_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( feed_publish_mean )
+BOOST_AUTO_TEST_CASE( calculate_feed_publish_mean )
 {
    try
    {

@@ -29,11 +29,11 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( database_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( undo_basic )
+BOOST_AUTO_TEST_CASE( undo_database_operations )
 {
    try
    {
-      BOOST_TEST_MESSAGE( "--- Testing: undo_basic" );
+      BOOST_TEST_MESSAGE( "--- Testing: undo_database_operations" );
 
       undo_db udb( *db );
       undo_scenario< account_object > ao( *db );
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE( undo_basic )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( undo_object_disapear )
+BOOST_AUTO_TEST_CASE( undo_when_object_disappears )
 {
    try
    {
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE( undo_object_disapear )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( undo_key_collision )
+BOOST_AUTO_TEST_CASE( undo_with_index_key_collision )
 {
    try
    {
@@ -249,7 +249,7 @@ BOOST_AUTO_TEST_CASE( undo_key_collision )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( undo_different_indexes )
+BOOST_AUTO_TEST_CASE( undo_with_multiple_indexes )
 {
    try
    {
@@ -380,7 +380,7 @@ BOOST_AUTO_TEST_CASE( undo_different_indexes )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( undo_generate_blocks )
+BOOST_AUTO_TEST_CASE( undo_generated_blocks )
 {
    try
    {

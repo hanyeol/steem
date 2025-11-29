@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( claim_reward_balance_validate )
+BOOST_AUTO_TEST_CASE( validate_reward_balance_claim )
 {
    try
    {
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE( claim_reward_balance_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( claim_reward_balance_authorities )
+BOOST_AUTO_TEST_CASE( check_reward_balance_claim_authorities )
 {
    try
    {
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE( claim_reward_balance_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( claim_reward_balance_apply )
+BOOST_AUTO_TEST_CASE( apply_reward_balance_claim )
 {
    try
    {
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_CASE( claim_reward_balance_apply )
 }
 
 /*
-BOOST_AUTO_TEST_CASE( reward_funds )
+BOOST_AUTO_TEST_CASE( distribute_reward_funds )
 {
    try
    {
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE( reward_funds )
 }
 */
 
-BOOST_AUTO_TEST_CASE( recent_claims_decay )
+BOOST_AUTO_TEST_CASE( process_recent_claims_decay )
 {
    try
    {

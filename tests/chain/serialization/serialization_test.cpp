@@ -41,33 +41,7 @@ using namespace steem::protocol;
 
 BOOST_FIXTURE_TEST_SUITE( serialization_tests, clean_database_fixture )
 
-   /*
-BOOST_AUTO_TEST_CASE( account_name_type_test )
-{
-
-   auto test = []( const string& data ) {
-      fixed_string<> a(data);
-      std::string    b(data);
-
-      auto ap = fc::raw::pack( empty );
-      auto bp = fc::raw::pack( emptystr );
-      FC_ASSERT( ap.size() == bp.size() );
-      FC_ASSERT( std::equal( ap.begin(), ap.end(), bp.begin() ) );
-
-      auto sfa = fc::raw::unpack<std::string>( ap );
-      auto afs = fc::raw::unpack<fixed_string<>>( bp );
-   }
-   test( std::string() );
-   test( "helloworld" );
-   test( "1234567890123456" );
-
-   auto packed_long_string = fc::raw::pack( std::string( "12345678901234567890" ) );
-   auto unpacked = fc::raw::unpack<fixed_string<>>( packed_long_string );
-   idump( (unpacked) );
-}
-*/
-
-BOOST_AUTO_TEST_CASE( serialization_raw_test )
+BOOST_AUTO_TEST_CASE( serialize_and_deserialize_raw_operations )
 {
    try {
       ACTORS( (alice)(bob) )
@@ -87,7 +61,7 @@ BOOST_AUTO_TEST_CASE( serialization_raw_test )
    }
 }
 
-BOOST_AUTO_TEST_CASE( serialization_json_test )
+BOOST_AUTO_TEST_CASE( serialize_and_deserialize_json_operations )
 {
    try {
       ACTORS( (alice)(bob) )
@@ -111,7 +85,7 @@ BOOST_AUTO_TEST_CASE( serialization_json_test )
    }
 }
 
-BOOST_AUTO_TEST_CASE( asset_test )
+BOOST_AUTO_TEST_CASE( handle_asset_operations )
 {
    try
    {
@@ -255,7 +229,7 @@ std::string old_json_asset( const asset& a )
    return result;
 }
 
-BOOST_AUTO_TEST_CASE( asset_raw_test )
+BOOST_AUTO_TEST_CASE( serialize_and_deserialize_raw_assets )
 {
    try
    {
@@ -324,7 +298,7 @@ BOOST_AUTO_TEST_CASE( asset_raw_test )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( json_tests )
+BOOST_AUTO_TEST_CASE( convert_to_and_from_json )
 {
    try {
    auto var = fc::json::variants_from_string( "10.6 " );
@@ -336,7 +310,7 @@ BOOST_AUTO_TEST_CASE( json_tests )
    }
 }
 
-BOOST_AUTO_TEST_CASE( extended_private_key_type_test )
+BOOST_AUTO_TEST_CASE( serialize_extended_private_keys )
 {
    try
    {
@@ -354,7 +328,7 @@ BOOST_AUTO_TEST_CASE( extended_private_key_type_test )
    }
 }
 
-BOOST_AUTO_TEST_CASE( extended_public_key_type_test )
+BOOST_AUTO_TEST_CASE( serialize_extended_public_keys )
 {
    try
    {
@@ -372,7 +346,7 @@ BOOST_AUTO_TEST_CASE( extended_public_key_type_test )
    }
 }
 
-BOOST_AUTO_TEST_CASE( version_test )
+BOOST_AUTO_TEST_CASE( compare_versions )
 {
    try
    {
@@ -417,7 +391,7 @@ BOOST_AUTO_TEST_CASE( version_test )
    FC_LOG_AND_RETHROW();
 }
 
-BOOST_AUTO_TEST_CASE( hardfork_version_test )
+BOOST_AUTO_TEST_CASE( compare_hardfork_versions )
 {
    try
    {
@@ -463,7 +437,7 @@ BOOST_AUTO_TEST_CASE( hardfork_version_test )
    FC_LOG_AND_RETHROW();
 }
 
-BOOST_AUTO_TEST_CASE( min_block_size )
+BOOST_AUTO_TEST_CASE( validate_minimum_block_size )
 {
    signed_block b;
    while( b.witness.length() < STEEM_MIN_ACCOUNT_NAME_LENGTH )
@@ -472,7 +446,7 @@ BOOST_AUTO_TEST_CASE( min_block_size )
    BOOST_CHECK( min_size == STEEM_MIN_BLOCK_SIZE );
 }
 
-BOOST_AUTO_TEST_CASE( static_variant_json_test )
+BOOST_AUTO_TEST_CASE( serialize_static_variant_to_json )
 {
    try
    {

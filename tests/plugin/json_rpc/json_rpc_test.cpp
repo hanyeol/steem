@@ -13,7 +13,7 @@ using namespace steem::protocol;
 
 BOOST_FIXTURE_TEST_SUITE( json_rpc, json_rpc_database_fixture )
 
-BOOST_AUTO_TEST_CASE( basic_validation )
+BOOST_AUTO_TEST_CASE( validate_basic_json_rpc_requests )
 {
    try
    {
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE( basic_validation )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( syntax_validation )
+BOOST_AUTO_TEST_CASE( validate_json_rpc_syntax )
 {
    try
    {
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_CASE( syntax_validation )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( misc_validation )
+BOOST_AUTO_TEST_CASE( validate_miscellaneous_json_rpc_cases )
 {
    try
    {
@@ -225,7 +225,7 @@ BOOST_AUTO_TEST_CASE( misc_validation )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( positive_validation )
+BOOST_AUTO_TEST_CASE( validate_successful_json_rpc_requests )
 {
    try
    {
@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_CASE( positive_validation )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( semantics_validation )
+BOOST_AUTO_TEST_CASE( validate_json_rpc_semantics )
 {
    try
    {

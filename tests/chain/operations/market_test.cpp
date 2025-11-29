@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( convert_validate )
+BOOST_AUTO_TEST_CASE( validate_convert )
 {
    try
    {
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE( convert_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( convert_authorities )
+BOOST_AUTO_TEST_CASE( check_convert_authorities )
 {
    try
    {
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE( convert_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( convert_apply )
+BOOST_AUTO_TEST_CASE( apply_convert )
 {
    try
    {
@@ -191,7 +191,7 @@ BOOST_AUTO_TEST_CASE( convert_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( fixture_convert_checks_balance )
+BOOST_AUTO_TEST_CASE( check_convert_balance_in_fixture )
 {
    // This actually tests the convert() method of the database fixture can't result in negative
    //   balances, see issue #1825
@@ -207,7 +207,7 @@ BOOST_AUTO_TEST_CASE( fixture_convert_checks_balance )
 
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_create_validate )
+BOOST_AUTO_TEST_CASE( validate_limit_order_creation )
 {
    try
    {
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE( limit_order_create_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_create_authorities )
+BOOST_AUTO_TEST_CASE( check_limit_order_creation_authorities )
 {
    try
    {
@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE( limit_order_create_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_create_apply )
+BOOST_AUTO_TEST_CASE( apply_limit_order_creation )
 {
    try
    {
@@ -561,7 +561,7 @@ BOOST_AUTO_TEST_CASE( limit_order_create_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_create2_authorities )
+BOOST_AUTO_TEST_CASE( check_limit_order_creation2_authorities )
 {
    try
    {
@@ -607,7 +607,7 @@ BOOST_AUTO_TEST_CASE( limit_order_create2_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_create2_apply )
+BOOST_AUTO_TEST_CASE( apply_limit_order_creation2 )
 {
    try
    {
@@ -1003,7 +1003,7 @@ BOOST_AUTO_TEST_CASE( limit_order_create2_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_cancel_validate )
+BOOST_AUTO_TEST_CASE( validate_limit_order_cancel )
 {
    try
    {
@@ -1012,7 +1012,7 @@ BOOST_AUTO_TEST_CASE( limit_order_cancel_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_cancel_authorities )
+BOOST_AUTO_TEST_CASE( check_limit_order_cancel_authorities )
 {
    try
    {
@@ -1069,7 +1069,7 @@ BOOST_AUTO_TEST_CASE( limit_order_cancel_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( limit_order_cancel_apply )
+BOOST_AUTO_TEST_CASE( apply_limit_order_cancel )
 {
    try
    {
@@ -1121,7 +1121,7 @@ BOOST_AUTO_TEST_CASE( limit_order_cancel_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( convert_delay )
+BOOST_AUTO_TEST_CASE( process_convert_delay )
 {
    try
    {
@@ -1181,7 +1181,7 @@ BOOST_AUTO_TEST_CASE( convert_delay )
    FC_LOG_AND_RETHROW();
 }
 
-BOOST_AUTO_TEST_CASE( sbd_interest )
+BOOST_AUTO_TEST_CASE( calculate_sbd_interest )
 {
    try
    {
@@ -1264,7 +1264,7 @@ BOOST_AUTO_TEST_CASE( sbd_interest )
 
 #ifndef DEBUG
 
-BOOST_AUTO_TEST_CASE( sbd_stability )
+BOOST_AUTO_TEST_CASE( maintain_sbd_stability )
 {
    try
    {
@@ -1403,7 +1403,7 @@ BOOST_AUTO_TEST_CASE( sbd_stability )
 
 #endif
 
-BOOST_AUTO_TEST_CASE( sbd_price_feed_limit )
+BOOST_AUTO_TEST_CASE( enforce_sbd_price_feed_limit )
 {
    try
    {

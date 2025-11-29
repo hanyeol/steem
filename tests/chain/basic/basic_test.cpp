@@ -42,7 +42,7 @@ using namespace steem::protocol;
 
 BOOST_FIXTURE_TEST_SUITE( basic_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( parse_size_test )
+BOOST_AUTO_TEST_CASE( parse_size_strings )
 {
    BOOST_CHECK_THROW( fc::parse_size( "" ), fc::parse_error_exception );
    BOOST_CHECK_THROW( fc::parse_size( "k" ), fc::parse_error_exception );
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE( parse_size_test )
  * Verify that names are RFC-1035 compliant https://tools.ietf.org/html/rfc1035
  * https://github.com/cryptonomex/graphene/issues/15
  */
-BOOST_AUTO_TEST_CASE( valid_name_test )
+BOOST_AUTO_TEST_CASE( validate_account_names )
 {
    BOOST_CHECK( !is_valid_account_name( "a" ) );
    BOOST_CHECK( !is_valid_account_name( "A" ) );
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE( valid_name_test )
    BOOST_CHECK( !is_valid_account_name( "none.of.these.labels.has.more.than-63.chars--but.still.not.valid" ) );
 }
 
-BOOST_AUTO_TEST_CASE( merkle_root )
+BOOST_AUTO_TEST_CASE( calculate_merkle_root )
 {
    signed_block block;
    vector<signed_transaction> tx;

@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( custom_authorities )
+BOOST_AUTO_TEST_CASE( check_custom_authorities )
 {
    custom_operation op;
    op.required_auths.insert( "alice" );
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE( custom_authorities )
    BOOST_REQUIRE( auths == expected );
 }
 
-BOOST_AUTO_TEST_CASE( custom_json_authorities )
+BOOST_AUTO_TEST_CASE( check_custom_json_authorities )
 {
    custom_json_operation op;
    op.required_auths.insert( "alice" );
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE( custom_json_authorities )
    BOOST_REQUIRE( auths == expected );
 }
 
-BOOST_AUTO_TEST_CASE( custom_binary_authorities )
+BOOST_AUTO_TEST_CASE( check_custom_binary_authorities )
 {
    ACTORS( (alice) )
 

@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( account_create_validate )
+BOOST_AUTO_TEST_CASE( validate_account_creation )
 {
    try
    {
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE( account_create_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_create_authorities )
+BOOST_AUTO_TEST_CASE( check_account_creation_authorities )
 {
    try
    {
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE( account_create_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_create_apply )
+BOOST_AUTO_TEST_CASE( apply_account_creation )
 {
    try
    {
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE( account_create_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_update_validate )
+BOOST_AUTO_TEST_CASE( validate_account_update )
 {
    try
    {
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_CASE( account_update_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_update_authorities )
+BOOST_AUTO_TEST_CASE( check_account_update_authorities )
 {
    try
    {
@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_CASE( account_update_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_update_apply )
+BOOST_AUTO_TEST_CASE( apply_account_update )
 {
    try
    {
@@ -373,7 +373,7 @@ BOOST_AUTO_TEST_CASE( account_update_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_witness_vote_validate )
+BOOST_AUTO_TEST_CASE( validate_account_witness_vote )
 {
    try
    {
@@ -384,7 +384,7 @@ BOOST_AUTO_TEST_CASE( account_witness_vote_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_witness_vote_authorities )
+BOOST_AUTO_TEST_CASE( check_account_witness_vote_authorities )
 {
    try
    {
@@ -439,7 +439,7 @@ BOOST_AUTO_TEST_CASE( account_witness_vote_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_witness_vote_apply )
+BOOST_AUTO_TEST_CASE( apply_account_witness_vote )
 {
    try
    {
@@ -555,7 +555,7 @@ BOOST_AUTO_TEST_CASE( account_witness_vote_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_witness_proxy_validate )
+BOOST_AUTO_TEST_CASE( validate_account_witness_proxy )
 {
    try
    {
@@ -566,7 +566,7 @@ BOOST_AUTO_TEST_CASE( account_witness_proxy_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_witness_proxy_authorities )
+BOOST_AUTO_TEST_CASE( check_account_witness_proxy_authorities )
 {
    try
    {
@@ -616,7 +616,7 @@ BOOST_AUTO_TEST_CASE( account_witness_proxy_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_witness_proxy_apply )
+BOOST_AUTO_TEST_CASE( apply_account_witness_proxy )
 {
    try
    {
@@ -784,7 +784,7 @@ BOOST_AUTO_TEST_CASE( account_witness_proxy_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_create_with_delegation_authorities )
+BOOST_AUTO_TEST_CASE( check_account_creation_with_delegation_authorities )
 {
    try
    {
@@ -812,7 +812,7 @@ BOOST_AUTO_TEST_CASE( account_create_with_delegation_authorities )
 
 }
 
-BOOST_AUTO_TEST_CASE( account_create_with_delegation_apply )
+BOOST_AUTO_TEST_CASE( apply_account_creation_with_delegation )
 {
    try
    {
@@ -858,7 +858,7 @@ BOOST_AUTO_TEST_CASE( account_create_with_delegation_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( post_rate_limit )
+BOOST_AUTO_TEST_CASE( enforce_post_rate_limit )
 {
    try
    {
@@ -1043,7 +1043,7 @@ BOOST_AUTO_TEST_CASE( clear_null_account )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_recovery )
+BOOST_AUTO_TEST_CASE( recover_account )
 {
    try
    {
@@ -1291,7 +1291,7 @@ BOOST_AUTO_TEST_CASE( account_recovery )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( change_recovery_account )
+BOOST_AUTO_TEST_CASE( change_account_recovery )
 {
    try
    {
@@ -1388,7 +1388,7 @@ BOOST_AUTO_TEST_CASE( change_recovery_account )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( account_bandwidth )
+BOOST_AUTO_TEST_CASE( track_account_bandwidth )
 {
    try
    {
@@ -1441,7 +1441,7 @@ BOOST_AUTO_TEST_CASE( account_bandwidth )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( claim_account_validate )
+BOOST_AUTO_TEST_CASE( validate_account_claim )
 {
    try
    {
@@ -1476,7 +1476,7 @@ BOOST_AUTO_TEST_CASE( claim_account_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( claim_account_authorities )
+BOOST_AUTO_TEST_CASE( check_account_claim_authorities )
 {
    try
    {
@@ -1503,7 +1503,7 @@ BOOST_AUTO_TEST_CASE( claim_account_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( claim_account_apply )
+BOOST_AUTO_TEST_CASE( apply_account_claim )
 {
    try
    {
@@ -1612,7 +1612,7 @@ BOOST_AUTO_TEST_CASE( claim_account_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( create_claimed_account_validate )
+BOOST_AUTO_TEST_CASE( validate_claimed_account_creation )
 {
    try
    {
@@ -1673,7 +1673,7 @@ BOOST_AUTO_TEST_CASE( create_claimed_account_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( create_claimed_account_authorities )
+BOOST_AUTO_TEST_CASE( check_claimed_account_creation_authorities )
 {
    try
    {
@@ -1700,7 +1700,7 @@ BOOST_AUTO_TEST_CASE( create_claimed_account_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( create_claimed_account_apply )
+BOOST_AUTO_TEST_CASE( apply_claimed_account_creation )
 {
    try
    {

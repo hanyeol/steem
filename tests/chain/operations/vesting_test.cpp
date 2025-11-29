@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( transfer_to_vesting_validate )
+BOOST_AUTO_TEST_CASE( validate_transfer_to_vesting )
 {
    try
    {
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE( transfer_to_vesting_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_to_vesting_authorities )
+BOOST_AUTO_TEST_CASE( check_transfer_to_vesting_authorities )
 {
    try
    {
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE( transfer_to_vesting_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_to_vesting_apply )
+BOOST_AUTO_TEST_CASE( apply_transfer_to_vesting )
 {
    try
    {
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE( transfer_to_vesting_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( withdraw_vesting_validate )
+BOOST_AUTO_TEST_CASE( validate_vesting_withdrawal )
 {
    try
    {
@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE( withdraw_vesting_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( withdraw_vesting_authorities )
+BOOST_AUTO_TEST_CASE( check_vesting_withdrawal_authorities )
 {
    try
    {
@@ -220,7 +220,7 @@ BOOST_AUTO_TEST_CASE( withdraw_vesting_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( withdraw_vesting_apply )
+BOOST_AUTO_TEST_CASE( apply_vesting_withdrawal )
 {
    try
    {
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_CASE( withdraw_vesting_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( vesting_withdrawals )
+BOOST_AUTO_TEST_CASE( process_vesting_withdrawals )
 {
    try
    {
@@ -484,7 +484,7 @@ BOOST_AUTO_TEST_CASE( vesting_withdrawals )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( vesting_withdraw_route )
+BOOST_AUTO_TEST_CASE( set_vesting_withdraw_route )
 {
    try
    {
@@ -598,7 +598,7 @@ BOOST_AUTO_TEST_CASE( vesting_withdraw_route )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( delegate_vesting_shares_validate )
+BOOST_AUTO_TEST_CASE( validate_vesting_shares_delegation )
 {
    try
    {
@@ -612,7 +612,7 @@ BOOST_AUTO_TEST_CASE( delegate_vesting_shares_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( delegate_vesting_shares_authorities )
+BOOST_AUTO_TEST_CASE( check_vesting_shares_delegation_authorities )
 {
    try
    {
@@ -661,7 +661,7 @@ BOOST_AUTO_TEST_CASE( delegate_vesting_shares_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( delegate_vesting_shares_apply )
+BOOST_AUTO_TEST_CASE( apply_vesting_shares_delegation )
 {
    try
    {
@@ -858,7 +858,7 @@ BOOST_AUTO_TEST_CASE( delegate_vesting_shares_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( issue_971_vesting_removal )
+BOOST_AUTO_TEST_CASE( fix_issue_971_vesting_removal )
 {
    // This is a regression test specifically for issue #971
    try

@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( transfer_validate )
+BOOST_AUTO_TEST_CASE( validate_transfer )
 {
    try
    {
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE( transfer_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_authorities )
+BOOST_AUTO_TEST_CASE( check_transfer_authorities )
 {
    try
    {
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE( transfer_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( signature_stripping )
+BOOST_AUTO_TEST_CASE( strip_signatures )
 {
    try
    {
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE( signature_stripping )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_apply )
+BOOST_AUTO_TEST_CASE( apply_transfer )
 {
    try
    {
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_CASE( transfer_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_transfer_validate )
+BOOST_AUTO_TEST_CASE( validate_escrow_transfer )
 {
    try
    {
@@ -279,7 +279,7 @@ BOOST_AUTO_TEST_CASE( escrow_transfer_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_transfer_authorities )
+BOOST_AUTO_TEST_CASE( check_escrow_transfer_authorities )
 {
    try
    {
@@ -313,7 +313,7 @@ BOOST_AUTO_TEST_CASE( escrow_transfer_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_transfer_apply )
+BOOST_AUTO_TEST_CASE( apply_escrow_transfer )
 {
    try
    {
@@ -411,7 +411,7 @@ BOOST_AUTO_TEST_CASE( escrow_transfer_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_approve_validate )
+BOOST_AUTO_TEST_CASE( validate_escrow_approve )
 {
    try
    {
@@ -441,7 +441,7 @@ BOOST_AUTO_TEST_CASE( escrow_approve_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_approve_authorities )
+BOOST_AUTO_TEST_CASE( check_escrow_approve_authorities )
 {
    try
    {
@@ -480,7 +480,7 @@ BOOST_AUTO_TEST_CASE( escrow_approve_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_approve_apply )
+BOOST_AUTO_TEST_CASE( apply_escrow_approve )
 {
    try
    {
@@ -740,7 +740,7 @@ BOOST_AUTO_TEST_CASE( escrow_approve_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_dispute_validate )
+BOOST_AUTO_TEST_CASE( validate_escrow_dispute )
 {
    try
    {
@@ -765,7 +765,7 @@ BOOST_AUTO_TEST_CASE( escrow_dispute_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_dispute_authorities )
+BOOST_AUTO_TEST_CASE( check_escrow_dispute_authorities )
 {
    try
    {
@@ -798,7 +798,7 @@ BOOST_AUTO_TEST_CASE( escrow_dispute_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_dispute_apply )
+BOOST_AUTO_TEST_CASE( apply_escrow_dispute )
 {
    try
    {
@@ -1004,7 +1004,7 @@ BOOST_AUTO_TEST_CASE( escrow_dispute_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_release_validate )
+BOOST_AUTO_TEST_CASE( validate_escrow_release )
 {
    try
    {
@@ -1051,7 +1051,7 @@ BOOST_AUTO_TEST_CASE( escrow_release_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_release_authorities )
+BOOST_AUTO_TEST_CASE( check_escrow_release_authorities )
 {
    try
    {
@@ -1091,7 +1091,7 @@ BOOST_AUTO_TEST_CASE( escrow_release_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( escrow_release_apply )
+BOOST_AUTO_TEST_CASE( apply_escrow_release )
 {
    try
    {
@@ -1552,7 +1552,7 @@ BOOST_AUTO_TEST_CASE( escrow_release_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_to_savings_validate )
+BOOST_AUTO_TEST_CASE( validate_transfer_to_savings )
 {
    try
    {
@@ -1598,7 +1598,7 @@ BOOST_AUTO_TEST_CASE( transfer_to_savings_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_to_savings_authorities )
+BOOST_AUTO_TEST_CASE( check_transfer_to_savings_authorities )
 {
    try
    {
@@ -1632,7 +1632,7 @@ BOOST_AUTO_TEST_CASE( transfer_to_savings_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_to_savings_apply )
+BOOST_AUTO_TEST_CASE( apply_transfer_to_savings )
 {
    try
    {
@@ -1728,7 +1728,7 @@ BOOST_AUTO_TEST_CASE( transfer_to_savings_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_from_savings_validate )
+BOOST_AUTO_TEST_CASE( validate_transfer_from_savings )
 {
    try
    {
@@ -1775,7 +1775,7 @@ BOOST_AUTO_TEST_CASE( transfer_from_savings_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_from_savings_authorities )
+BOOST_AUTO_TEST_CASE( check_transfer_from_savings_authorities )
 {
    try
    {
@@ -1809,7 +1809,7 @@ BOOST_AUTO_TEST_CASE( transfer_from_savings_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( transfer_from_savings_apply )
+BOOST_AUTO_TEST_CASE( apply_transfer_from_savings )
 {
    try
    {
@@ -2001,7 +2001,7 @@ BOOST_AUTO_TEST_CASE( transfer_from_savings_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_validate )
+BOOST_AUTO_TEST_CASE( validate_cancel_transfer_from_savings )
 {
    try
    {
@@ -2024,7 +2024,7 @@ BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_authorities )
+BOOST_AUTO_TEST_CASE( check_cancel_transfer_from_savings_authorities )
 {
    try
    {
@@ -2056,7 +2056,7 @@ BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_apply )
+BOOST_AUTO_TEST_CASE( apply_cancel_transfer_from_savings )
 {
    try
    {
@@ -2124,7 +2124,7 @@ BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( decline_voting_rights_authorities )
+BOOST_AUTO_TEST_CASE( check_decline_voting_rights_authorities )
 {
    try
    {
@@ -2149,7 +2149,7 @@ BOOST_AUTO_TEST_CASE( decline_voting_rights_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( decline_voting_rights_apply )
+BOOST_AUTO_TEST_CASE( apply_decline_voting_rights )
 {
    try
    {

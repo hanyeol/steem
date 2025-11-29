@@ -31,7 +31,7 @@ using fc::string;
 
 BOOST_FIXTURE_TEST_SUITE( operation_tests, clean_database_fixture )
 
-BOOST_AUTO_TEST_CASE( comment_validate )
+BOOST_AUTO_TEST_CASE( validate_comment )
 {
    try
    {
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE( comment_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_authorities )
+BOOST_AUTO_TEST_CASE( check_comment_authorities )
 {
    try
    {
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE( comment_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_apply )
+BOOST_AUTO_TEST_CASE( apply_comment )
 {
    try
    {
@@ -275,7 +275,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_delete_apply )
+BOOST_AUTO_TEST_CASE( apply_comment_delete )
 {
    try
    {
@@ -392,7 +392,7 @@ BOOST_AUTO_TEST_CASE( comment_delete_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( vote_validate )
+BOOST_AUTO_TEST_CASE( validate_vote )
 {
    try
    {
@@ -403,7 +403,7 @@ BOOST_AUTO_TEST_CASE( vote_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( vote_authorities )
+BOOST_AUTO_TEST_CASE( check_vote_authorities )
 {
    try
    {
@@ -414,7 +414,7 @@ BOOST_AUTO_TEST_CASE( vote_authorities )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( vote_apply )
+BOOST_AUTO_TEST_CASE( apply_vote )
 {
    try
    {
@@ -758,7 +758,7 @@ BOOST_AUTO_TEST_CASE( vote_apply )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_payout_equalize )
+BOOST_AUTO_TEST_CASE( equalize_comment_payout )
 {
    try
    {
@@ -885,7 +885,7 @@ BOOST_AUTO_TEST_CASE( comment_payout_equalize )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_payout_dust )
+BOOST_AUTO_TEST_CASE( handle_comment_payout_dust )
 {
    try
    {
@@ -962,7 +962,7 @@ BOOST_AUTO_TEST_CASE( comment_payout_dust )
    FC_LOG_AND_RETHROW()
 }
 
-/*BOOST_AUTO_TEST_CASE( comment_payout )
+/*BOOST_AUTO_TEST_CASE( process_comment_payout )
 {
    try
    {
@@ -1130,7 +1130,7 @@ BOOST_AUTO_TEST_CASE( comment_payout_dust )
 }*/
 
 /*
-BOOST_AUTO_TEST_CASE( comment_payout )
+BOOST_AUTO_TEST_CASE( process_comment_payout )
 {
    try
    {
@@ -1443,7 +1443,7 @@ BOOST_AUTO_TEST_CASE( comment_payout )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( nested_comments )
+BOOST_AUTO_TEST_CASE( handle_nested_comments )
 {
    try
    {
@@ -1763,7 +1763,7 @@ BOOST_AUTO_TEST_CASE( nested_comments )
 }
 */
 
-BOOST_AUTO_TEST_CASE( comment_freeze )
+BOOST_AUTO_TEST_CASE( freeze_comment )
 {
    try
    {
@@ -1882,7 +1882,7 @@ BOOST_AUTO_TEST_CASE( comment_freeze )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_beneficiaries_validate )
+BOOST_AUTO_TEST_CASE( validate_comment_beneficiaries )
 {
    try
    {
@@ -1953,7 +1953,7 @@ BOOST_AUTO_TEST_CASE( comment_beneficiaries_validate )
    FC_LOG_AND_RETHROW()
 }
 
-BOOST_AUTO_TEST_CASE( comment_beneficiaries_apply )
+BOOST_AUTO_TEST_CASE( apply_comment_beneficiaries )
 {
    try
    {

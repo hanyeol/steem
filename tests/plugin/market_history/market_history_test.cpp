@@ -14,7 +14,7 @@ using namespace steem::protocol;
 
 BOOST_FIXTURE_TEST_SUITE( market_history, database_fixture )
 
-BOOST_AUTO_TEST_CASE( mh_test )
+BOOST_AUTO_TEST_CASE( track_market_history_and_buckets )
 {
    using namespace steem::plugins::market_history;
 
@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_CASE( mh_test )
       BOOST_REQUIRE( bucket->steem.high == ASSET( "0.450 TESTS " ).amount );
       BOOST_REQUIRE( bucket->steem.low == ASSET( "1.500 TESTS" ).amount );
       BOOST_REQUIRE( bucket->steem.open == ASSET( "1.500 TESTS" ).amount );
-      BOOST_REQUIRE( bucket->steem.close == ASSET( "0.450 TESTS").amount );
+      BOOST_REQUIRE( bucket->steem.close == ASSET( "0.450 TESTS" ).amount );
       BOOST_REQUIRE( bucket->steem.volume == ASSET( "2.950 TESTS" ).amount );
       BOOST_REQUIRE( bucket->non_steem.high == ASSET( "0.250 TBD" ).amount );
       BOOST_REQUIRE( bucket->non_steem.low == ASSET( "0.750 TBD" ).amount );
