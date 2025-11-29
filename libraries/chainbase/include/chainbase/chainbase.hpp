@@ -21,7 +21,7 @@
 #include <boost/throw_exception.hpp>
 
 #include <chainbase/allocators.hpp>
-#include <chainbase/util/object_id.hpp>
+#include <chainbase/utils/object_id.hpp>
 
 #include <array>
 #include <atomic>

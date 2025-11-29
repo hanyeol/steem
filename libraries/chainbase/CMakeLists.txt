@@ -62,7 +62,7 @@ endif()
 
 
 file(GLOB HEADERS "include/*.hpp")
-add_library( chainbase src/chainbase.cpp ${HEADERS} )
+add_library( chainbase chainbase.cpp ${HEADERS} )
 target_link_libraries( chainbase  ${Boost_LIBRARIES} )
 target_include_directories( chainbase PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include"  ${Boost_INCLUDE_DIR} )
 
@@ -73,7 +73,7 @@ if( CLANG_TIDY_EXE )
    )
 endif( CLANG_TIDY_EXE )
 
-add_subdirectory( test )
+add_subdirectory( tests )
 
 install( TARGETS
    chainbase

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/multi_index/composite_key.hpp>
-#include <chainbase/util/object_id.hpp>
+#include <chainbase/utils/object_id.hpp>
 
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/hashed_index.hpp>
