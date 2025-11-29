@@ -18,5 +18,3 @@ target_link_libraries( plugin_test db_fixture steem_chain steem_protocol account
 if(MSVC)
   set_source_files_properties( tests/serialization_tests.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )
 endif(MSVC)
-
-#add_subdirectory( generate_empty_blocks )

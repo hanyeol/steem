@@ -7,7 +7,6 @@ db_fixture
 tests
 plugin_tests
 undo_data
-generate_empty_blocks
 *.cpp
 *.hpp
 __pycache__
