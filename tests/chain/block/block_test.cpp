@@ -36,7 +36,7 @@
 
 #include <fc/crypto/digest.hpp>
 
-#include "../db_fixture/database_fixture.hpp"
+#include "../../fixtures/database_fixture.hpp"
 
 using namespace steem;
 using namespace steem::chain;

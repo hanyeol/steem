@@ -4,6 +4,6 @@ if( GPERFTOOLS_FOUND )
     list( APPEND PLATFORM_SPECIFIC_LIBS tcmalloc )
 endif()
 
-add_library(bmic_manager_tests INTERFACE )
+add_library(bmic_helpers INTERFACE )
 
-target_include_directories( bmic_manager_tests INTERFACE ./ )
+target_include_directories( bmic_helpers INTERFACE ./ )

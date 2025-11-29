@@ -7,11 +7,11 @@ if( GPERFTOOLS_FOUND )
     list( APPEND PLATFORM_SPECIFIC_LIBS tcmalloc )
 endif()
 
-add_library(db_fixture
+add_library(fixtures
             ${SOURCES}
             ${HEADERS})
 
-target_link_libraries(db_fixture
+target_link_libraries(fixtures
                       steem_chain
                       steem_protocol
                       account_history_plugin

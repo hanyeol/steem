@@ -1,6 +1,6 @@
 #include <boost/test/unit_test.hpp>
 
-#include "../bmic_objects/bmic_manager_tests.hpp"
+#include "../../helpers/bmic/bmic.hpp"
 
 template < typename Container, typename Object, typename Call >
 void basic_test( const std::vector< uint64_t >& v, Call&& call )

@@ -6,7 +6,7 @@
 #include <steem/protocol/steem_operations.hpp>
 #include <steem/plugins/json_rpc/json_rpc_plugin.hpp>
 
-#include "../db_fixture/database_fixture.hpp"
+#include "../../fixtures/database_fixture.hpp"
 
 using namespace steem::chain;
 using namespace steem::protocol;

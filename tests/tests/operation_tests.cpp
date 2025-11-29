@@ -15,7 +15,7 @@
 #include <fc/macros.hpp>
 #include <fc/crypto/digest.hpp>
 
-#include "../db_fixture/database_fixture.hpp"
+#include "../fixtures/database_fixture.hpp"
 
 #include <cmath>
 #include <iostream>

@@ -1,6 +1,75 @@
-# Automated Testing Documentation
+# Steem Test Suite
 
-## To Create Test Environment Container
+## Directory Structure
+
+```
+tests/
+├── chain/              # Core blockchain tests → chain_test executable
+│   ├── basic/          # Basic functionality tests
+│   ├── block/          # Block validation tests
+│   ├── operations/     # Operation tests (account, comment, vesting, etc.)
+│   ├── serialization/  # Serialization tests
+│   ├── database/       # Database and state management tests
+│   ├── bmic/           # BMIC tests
+│   └── live/           # Live chain tests (hardforks, mainnet data)
+│
+├── plugin/             # Plugin tests → plugin_test executable
+│   ├── json_rpc/       # JSON-RPC plugin tests
+│   └── market_history/ # Market history plugin tests
+│
+├── fixtures/           # Test fixtures (database_fixture, etc.)
+├── helpers/            # Test helper utilities
+│   ├── bmic/           # BMIC test helpers
+│   └── undo/           # Undo test utilities
+│
+├── integration/        # Integration tests
+│   ├── smoke/          # Node upgrade regression tests
+│   └── api/            # API response validation tests
+│
+├── tools/              # Manual testing tools
+└── scripts/            # Test scripts
+```
+
+## Running Tests Locally
+
+### Build Tests
+
+```bash
+cd build
+cmake -DBUILD_STEEM_TESTNET=ON -DCMAKE_BUILD_TYPE=Debug ..
+make -j$(nproc) chain_test plugin_test
+```
+
+### Run All Tests
+
+```bash
+# Run all chain tests
+./tests/chain_test
+
+# Run all plugin tests
+./tests/plugin_test
+```
+
+### Run Specific Test Suites
+
+```bash
+# Run specific test suite
+./tests/chain_test --run_test=operation_tests
+./tests/chain_test --run_test=block_tests
+
+# Run specific test case
+./tests/chain_test -t operation_tests/account_create_validate
+
+# Verbose output
+./tests/chain_test --log_level=all
+
+# List all tests
+./tests/chain_test --list_content
+```
+
+## Running Tests with Docker
+
+### To Create Test Environment Container
 
 From the root of the repository:
 

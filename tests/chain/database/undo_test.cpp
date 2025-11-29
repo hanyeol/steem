@@ -15,8 +15,8 @@
 #include <fc/macros.hpp>
 #include <fc/crypto/digest.hpp>
 
-#include "../db_fixture/database_fixture.hpp"
-#include "../undo_data/undo.hpp"
+#include "../../fixtures/database_fixture.hpp"
+#include "../../helpers/undo/undo.hpp"
 
 #include <cmath>
 #include <iostream>

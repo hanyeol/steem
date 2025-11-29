@@ -7,7 +7,7 @@
 
 #include <steem/plugins/market_history/market_history_plugin.hpp>
 
-#include "../db_fixture/database_fixture.hpp"
+#include "../../fixtures/database_fixture.hpp"
 
 using namespace steem::chain;
 using namespace steem::protocol;
