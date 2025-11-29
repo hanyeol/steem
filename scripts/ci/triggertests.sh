@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-if /bin/bash $WORKSPACE/ciscripts/buildtests.sh; then
+if /bin/bash $WORKSPACE/scripts/ci/buildtests.sh; then
   echo BUILD SUCCESS
 else
   echo BUILD FAILURE
