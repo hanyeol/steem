@@ -22,9 +22,16 @@ set( CHAIN_TEST_SOURCES
     # Block validation tests
     chain/block/block_test.cpp
 
-    # Operation tests (will be split later)
-    tests/operation_tests.cpp
-    tests/operation_time_tests.cpp
+    # Operation tests
+    chain/operations/account_test.cpp
+    chain/operations/comment_test.cpp
+    chain/operations/custom_test.cpp
+    chain/operations/market_test.cpp
+    chain/operations/other_test.cpp
+    chain/operations/reward_test.cpp
+    chain/operations/transfer_test.cpp
+    chain/operations/vesting_test.cpp
+    chain/operations/witness_test.cpp
 
     # Serialization tests
     chain/serialization/serialization_test.cpp
