@@ -26,7 +26,6 @@ tests/
 │   ├── smoke/          # Node upgrade regression tests
 │   └── api/            # API response validation tests
 │
-├── tools/              # Manual testing tools
 └── scripts/            # Test scripts
 ```
 
@@ -53,11 +52,11 @@ make -j$(nproc) chain_test plugin_test
 ### Run Specific Test Suites
 
 ```bash
-# Run specific test suite
-./tests/chain_test --run_test=operation_tests
-./tests/chain_test --run_test=block_tests
+# Run specific test suite (either form works)
+./tests/chain_test -t operation_tests
+./tests/chain_test -t block_tests
 
-# Run specific test case
+# Run specific test case (either form works)
 ./tests/chain_test -t operation_tests/account_create_validate
 
 # Verbose output
@@ -65,6 +64,9 @@ make -j$(nproc) chain_test plugin_test
 
 # List all tests
 ./tests/chain_test --list_content
+
+# Pass custom application args (after --), e.g. data-dir override
+./tests/chain_test -t operation_tests -- --data-dir=/tmp/steem-test-data
 ```
 
 ## Running Tests with Docker
