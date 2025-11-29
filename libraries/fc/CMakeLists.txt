@@ -37,13 +37,13 @@ LIST(APPEND BOOST_COMPONENTS thread date_time filesystem program_options seriali
 SET( Boost_USE_STATIC_LIBS ON CACHE STRING "ON or OFF" )
 
 IF( ECC_IMPL STREQUAL openssl )
-  SET( ECC_REST src/crypto/elliptic_impl_pub.cpp )
+  SET( ECC_REST crypto/elliptic_impl_pub.cpp )
 ELSE( ECC_IMPL STREQUAL openssl )
   SET( ECC_LIB secp256k1 )
   IF( ECC_IMPL STREQUAL mixed )
-    SET( ECC_REST src/crypto/elliptic_impl_priv.cpp src/crypto/elliptic_impl_pub.cpp )
+    SET( ECC_REST crypto/elliptic_impl_priv.cpp crypto/elliptic_impl_pub.cpp )
   ELSE( ECC_IMPL STREQUAL mixed )
-    SET( ECC_REST src/crypto/elliptic_impl_priv.cpp )
+    SET( ECC_REST crypto/elliptic_impl_priv.cpp )
   ENDIF( ECC_IMPL STREQUAL mixed )
 ENDIF( ECC_IMPL STREQUAL openssl )
 
@@ -157,87 +157,87 @@ set( CMAKE_FIND_LIBRARY_SUFFIXES ${ORIGINAL_LIB_SUFFIXES} )
 option( UNITY_BUILD OFF )
 
 set( fc_sources
-     src/uint128.cpp
-     src/real128.cpp
-     src/variant.cpp
-     src/exception.cpp
-     src/variant_object.cpp
-     src/thread/thread.cpp
-     src/thread/thread_specific.cpp
-     src/thread/future.cpp
-     src/thread/task.cpp
-     src/thread/spin_lock.cpp
-     src/thread/spin_yield_lock.cpp
-     src/thread/mutex.cpp
-     src/thread/non_preemptable_scope_check.cpp
-     src/asio.cpp
-     src/stacktrace.cpp
-     src/string.cpp
-     src/shared_ptr.cpp
-     src/time.cpp
-     src/utf8.cpp
-     src/io/iostream.cpp
-     src/io/datastream.cpp
-     src/io/buffered_iostream.cpp
-     src/io/fstream.cpp
-     src/io/sstream.cpp
-     src/io/json.cpp
-     src/io/varint.cpp
-     src/io/console.cpp
-     src/filesystem.cpp
-     src/interprocess/signals.cpp
-     src/interprocess/file_mapping.cpp
-     src/interprocess/mmap_struct.cpp
-     src/interprocess/file_mutex.cpp
-     src/rpc/cli.cpp
-     src/rpc/http_api.cpp
-     src/rpc/json_connection.cpp
-     src/rpc/state.cpp
-     src/rpc/bstate.cpp
-     src/rpc/websocket_api.cpp
-     src/log/log_message.cpp
-     src/log/logger.cpp
-     src/log/appender.cpp
-     src/log/console_appender.cpp
-     src/log/file_appender.cpp
-     src/log/gelf_appender.cpp
-     src/log/logger_config.cpp
-     src/crypto/_digest_common.cpp
-     src/crypto/openssl.cpp
-     src/crypto/aes.cpp
-     src/crypto/crc.cpp
-     src/crypto/city.cpp
-     src/crypto/base32.cpp
-     src/crypto/base36.cpp
-     src/crypto/base58.cpp
-     src/crypto/base64.cpp
-     src/crypto/bigint.cpp
-     src/crypto/hex.cpp
-     src/crypto/sha1.cpp
-     src/crypto/ripemd160.cpp
-     src/crypto/sha256.cpp
-     src/crypto/sha224.cpp
-     src/crypto/sha512.cpp
-     src/crypto/blowfish.cpp
-     src/crypto/elliptic_common.cpp
-     src/crypto/restartable_sha256.cpp
+     uint128.cpp
+     real128.cpp
+     variant.cpp
+     exception.cpp
+     variant_object.cpp
+     thread/thread.cpp
+     thread/thread_specific.cpp
+     thread/future.cpp
+     thread/task.cpp
+     thread/spin_lock.cpp
+     thread/spin_yield_lock.cpp
+     thread/mutex.cpp
+     thread/non_preemptable_scope_check.cpp
+     asio.cpp
+     stacktrace.cpp
+     string.cpp
+     shared_ptr.cpp
+     time.cpp
+     utf8.cpp
+     io/iostream.cpp
+     io/datastream.cpp
+     io/buffered_iostream.cpp
+     io/fstream.cpp
+     io/sstream.cpp
+     io/json.cpp
+     io/varint.cpp
+     io/console.cpp
+     filesystem.cpp
+     interprocess/signals.cpp
+     interprocess/file_mapping.cpp
+     interprocess/mmap_struct.cpp
+     interprocess/file_mutex.cpp
+     rpc/cli.cpp
+     rpc/http_api.cpp
+     rpc/json_connection.cpp
+     rpc/state.cpp
+     rpc/bstate.cpp
+     rpc/websocket_api.cpp
+     log/log_message.cpp
+     log/logger.cpp
+     log/appender.cpp
+     log/console_appender.cpp
+     log/file_appender.cpp
+     log/gelf_appender.cpp
+     log/logger_config.cpp
+     crypto/_digest_common.cpp
+     crypto/openssl.cpp
+     crypto/aes.cpp
+     crypto/crc.cpp
+     crypto/city.cpp
+     crypto/base32.cpp
+     crypto/base36.cpp
+     crypto/base58.cpp
+     crypto/base64.cpp
+     crypto/bigint.cpp
+     crypto/hex.cpp
+     crypto/sha1.cpp
+     crypto/ripemd160.cpp
+     crypto/sha256.cpp
+     crypto/sha224.cpp
+     crypto/sha512.cpp
+     crypto/blowfish.cpp
+     crypto/elliptic_common.cpp
+     crypto/restartable_sha256.cpp
      ${ECC_REST}
-     src/crypto/elliptic_${ECC_IMPL}.cpp
-     src/crypto/rand.cpp
-     src/network/tcp_socket.cpp
-     src/network/udp_socket.cpp
-     src/network/http/http_connection.cpp
-     src/network/http/http_server.cpp
-     src/network/http/websocket.cpp
-     src/network/ntp.cpp
-     src/network/ip.cpp
-     src/network/rate_limiting.cpp
-     src/network/resolve.cpp
-     src/network/url.cpp
-     src/network/gntp.cpp
-     src/compress/smaz.cpp
-     src/compress/zlib.cpp
-     src/reflect/typename.cpp
+     crypto/elliptic_${ECC_IMPL}.cpp
+     crypto/rand.cpp
+     network/tcp_socket.cpp
+     network/udp_socket.cpp
+     network/http/http_connection.cpp
+     network/http/http_server.cpp
+     network/http/websocket.cpp
+     network/ntp.cpp
+     network/ip.cpp
+     network/rate_limiting.cpp
+     network/resolve.cpp
+     network/url.cpp
+     network/gntp.cpp
+     compress/smaz.cpp
+     compress/zlib.cpp
+     reflect/typename.cpp
      vendor/cyoencode-1.0.2/src/CyoDecode.c
      vendor/cyoencode-1.0.2/src/CyoEncode.c
      )
@@ -248,7 +248,7 @@ set( sources
   ${fc_sources}
 )
 
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/git_revision.cpp.in" "${CMAKE_CURRENT_BINARY_DIR}/git_revision.cpp" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/git_revision.cpp.in" "${CMAKE_CURRENT_BINARY_DIR}/git_revision.cpp" @ONLY)
 list(APPEND sources "${CMAKE_CURRENT_BINARY_DIR}/git_revision.cpp")
 list(APPEND sources ${fc_headers})
 
@@ -383,7 +383,7 @@ ENDIF()
 target_link_libraries( fc PUBLIC ${LINK_USR_LOCAL_LIB} ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES} ${ZLIB_LIBRARIES} ${BZIP2_LIBRARIES} ${PLATFORM_SPECIFIC_LIBS} ${RPCRT4} ${CMAKE_DL_LIBS} ${rt_library} ${readline_libraries} ${ECC_LIB} )
 
 if(MSVC)
-  set_source_files_properties( src/network/http/websocket.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )
+  set_source_files_properties( network/http/websocket.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )
 endif(MSVC)
 
 
