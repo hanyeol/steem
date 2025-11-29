@@ -64,9 +64,6 @@ make -j$(nproc) chain_test plugin_test
 
 # List all tests
 ./tests/chain_test --list_content
-
-# Pass custom application args (after --), e.g. data-dir override
-./tests/chain_test -t operation_tests -- --data-dir=/tmp/steem-test-data
 ```
 
 ## Running Tests with Docker
