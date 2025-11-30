@@ -26,8 +26,8 @@ if [[ ! -z "$STEEMD_SEED_NODES" ]]; then
 fi
 
 NOW=`date +%s`
-STEEMD_FEED_START_TIME=`expr $NOW - 1209600`
 
+STEEMD_FEED_START_TIME=`expr $NOW - 1209600`
 ARGS+=" --follow-start-feeds=$STEEMD_FEED_START_TIME"
 
 STEEMD_PROMOTED_START_TIME=`expr $NOW - 604800`
@@ -39,9 +39,9 @@ fi
 
 # overwrite local config with image one
 if [[ "$IS_BROADCAST_NODE" ]]; then
-  cp /etc/steemd/config-for-broadcaster.ini $HOME/config.ini
+  cp /etc/steemd/broadcaster.config.ini $HOME/config.ini
 elif [[ "$IS_AH_NODE" ]]; then
-  cp /etc/steemd/config-for-ahnode.ini $HOME/config.ini
+  cp /etc/steemd/ahnode.config.ini $HOME/config.ini
 elif [[ "$IS_OPSWHITELIST_NODE" ]]; then
   cp /etc/steemd/fullnode.opswhitelist.config.ini $HOME/config.ini
 else
