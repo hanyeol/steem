@@ -693,9 +693,9 @@ Write failed: ...
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/account_history_rocksdb/account_history_rocksdb_plugin.cpp](../../libraries/plugins/account_history_rocksdb/account_history_rocksdb_plugin.cpp)
-- **Objects**: [libraries/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_objects.hpp](../../libraries/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_objects.hpp)
-- **Plugin Header**: [libraries/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_plugin.hpp](../../libraries/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_plugin.hpp)
+- **Implementation**: [src/plugins/account_history_rocksdb/account_history_rocksdb_plugin.cpp](../../src/plugins/account_history_rocksdb/account_history_rocksdb_plugin.cpp)
+- **Objects**: [src/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_objects.hpp](../../src/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_objects.hpp)
+- **Plugin Header**: [src/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_plugin.hpp](../../src/plugins/account_history_rocksdb/include/steem/plugins/account_history_rocksdb/account_history_rocksdb_plugin.hpp)
 
 ## License
 

@@ -9,7 +9,7 @@ An API is a set of related methods, accessible over WebSocket / HTTP and provide
 We will use the `hello_api` example plugin. To follow along with the examples, you may enable the `hello_api` example plugin by running the following command and recompiling:
 
 ```bash
-ln -s ../example_plugins/hello_api external_plugins/hello_api
+ln -s extensions/examples/hello_api extensions/hello_api
 ```
 
 ## Publicly Available APIs

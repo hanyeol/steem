@@ -409,8 +409,8 @@ async function getAccountsByKey(publicKey: string): Promise<string[]> {
 
 ## Source Code
 
-- **API Definition**: [libraries/plugins/apis/account_by_key_api/include/steem/plugins/account_by_key_api/account_by_key_api.hpp](../../libraries/plugins/apis/account_by_key_api/include/steem/plugins/account_by_key_api/account_by_key_api.hpp)
-- **Implementation**: [libraries/plugins/apis/account_by_key_api/account_by_key_api_plugin.cpp](../../libraries/plugins/apis/account_by_key_api/account_by_key_api_plugin.cpp)
+- **API Definition**: [src/plugins/apis/account_by_key_api/include/steem/plugins/account_by_key_api/account_by_key_api.hpp](../../src/plugins/apis/account_by_key_api/include/steem/plugins/account_by_key_api/account_by_key_api.hpp)
+- **Implementation**: [src/plugins/apis/account_by_key_api/account_by_key_api_plugin.cpp](../../src/plugins/apis/account_by_key_api/account_by_key_api_plugin.cpp)
 
 ## License
 

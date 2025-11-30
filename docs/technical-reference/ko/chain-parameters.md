@@ -15,7 +15,7 @@ Witness는 거버넌스 파라미터에 대한 값을 제안하고, 모든 활�
 
 ### 개요
 
-`dynamic_global_property_object`는 실시간 블록체인 상태를 저장합니다 ([global_property_object.hpp:22](../libraries/chain/include/steem/chain/global_property_object.hpp#L22)).
+`dynamic_global_property_object`는 실시간 블록체인 상태를 저장합니다 ([global_property_object.hpp:22](../src/core/chain/include/steem/chain/global_property_object.hpp#L22)).
 
 이러한 값은 블록 처리 중에 **자동으로 계산**되며 witness가 직접 수정할 수 없습니다.
 
@@ -138,7 +138,7 @@ uint32_t num_pow_witnesses = 0;              // 현재 PoW witness (사용 중�
 
 ### Chain Properties 구조
 
-Witness는 `chain_properties`를 통해 블록체인 파라미터를 제안합니다 ([witness_objects.hpp:25](../libraries/chain/include/steem/chain/witness_objects.hpp#L25)):
+Witness는 `chain_properties`를 통해 블록체인 파라미터를 제안합니다 ([witness_objects.hpp:25](../src/core/chain/include/steem/chain/witness_objects.hpp#L25)):
 
 ```cpp
 struct chain_properties {
@@ -186,7 +186,7 @@ uint32_t maximum_block_size = STEEM_MIN_BLOCK_SIZE_LIMIT * 2;  // 기본값: 128
 - 최소: `STEEM_MIN_BLOCK_SIZE_LIMIT` (64 KB)
 - 최대: `STEEM_SOFT_MAX_BLOCK_SIZE` (2 MB)
 
-**검증 ([steem_evaluator.cpp:100](../libraries/chain/steem_evaluator.cpp#L100)):**
+**검증 ([steem_evaluator.cpp:100](../src/core/chain/steem_evaluator.cpp#L100)):**
 ```cpp
 FC_ASSERT(o.props.maximum_block_size <= STEEM_SOFT_MAX_BLOCK_SIZE,
           "Max block size cannot be more than 2MiB");
@@ -232,7 +232,7 @@ uint32_t account_subsidy_limit = 0;
 
 ### 중앙값 계산 프로세스
 
-블록체인은 모든 활성 witness 제안의 **중앙값**을 사용합니다 ([witness_schedule.cpp:30](../libraries/chain/witness_schedule.cpp#L30)):
+블록체인은 모든 활성 witness 제안의 **중앙값**을 사용합니다 ([witness_schedule.cpp:30](../src/core/chain/witness_schedule.cpp#L30)):
 
 ```cpp
 void update_median_witness_props(database& db) {
@@ -459,7 +459,7 @@ struct witness_update_operation {
 };
 ```
 
-**구현 ([steem_evaluator.cpp:83](../libraries/chain/steem_evaluator.cpp#L83)):**
+**구현 ([steem_evaluator.cpp:83](../src/core/chain/steem_evaluator.cpp#L83)):**
 ```cpp
 void witness_update_evaluator::do_apply(const witness_update_operation& o) {
     _db.get_account(o.owner);  // 소유자 존재 확인
@@ -496,7 +496,7 @@ void witness_update_evaluator::do_apply(const witness_update_operation& o) {
 
 ### 방법 2: witness_set_properties_operation (HF20+)
 
-**현대적이고 유연한 operation** ([steem_evaluator.cpp:131](../libraries/chain/steem_evaluator.cpp#L131)):
+**현대적이고 유연한 operation** ([steem_evaluator.cpp:131](../src/core/chain/steem_evaluator.cpp#L131)):
 
 ```cpp
 struct witness_set_properties_operation {
@@ -572,7 +572,7 @@ Witness는 다음을 위해 **STEEM/SBD price feed**를 게시합니다:
 
 ### Feed 게시
 
-**Operation: feed_publish_operation** ([steem_evaluator.cpp:1931](../libraries/chain/steem_evaluator.cpp#L1931))
+**Operation: feed_publish_operation** ([steem_evaluator.cpp:1931](../src/core/chain/steem_evaluator.cpp#L1931))
 
 ```cpp
 struct feed_publish_operation {
@@ -635,7 +635,7 @@ price median_price = fhistory.current_median_history;
 
 ### 구조
 
-`witness_schedule_object`는 witness 스케줄링 상태를 유지합니다 ([witness_objects.hpp:163](../libraries/chain/include/steem/chain/witness_objects.hpp#L163)):
+`witness_schedule_object`는 witness 스케줄링 상태를 유지합니다 ([witness_objects.hpp:163](../src/core/chain/include/steem/chain/witness_objects.hpp#L163)):
 
 ```cpp
 struct witness_schedule_object {

@@ -22,7 +22,7 @@ Steem 블록체인은 새로운 계정을 생성하기 위한 두 가지 메커�
 
 ### 1.1 기본 계정 생성
 
-**파일:** [libraries/protocol/include/steem/protocol/steem_operations.hpp:12-25](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp#L12-L25)
+**파일:** [src/core/protocol/include/steem/protocol/steem_operations.hpp:12-25](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp#L12-L25)
 
 ```cpp
 struct account_create_operation : public base_operation
@@ -49,7 +49,7 @@ struct account_create_operation : public base_operation
 
 ### 1.2 위임을 포함한 계정 생성
 
-**파일:** [libraries/protocol/include/steem/protocol/steem_operations.hpp:28-44](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp#L28-L44)
+**파일:** [src/core/protocol/include/steem/protocol/steem_operations.hpp:28-44](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp#L28-L44)
 
 ```cpp
 struct account_create_with_delegation_operation : public base_operation
@@ -85,7 +85,7 @@ struct account_create_with_delegation_operation : public base_operation
 
 기본 계정 생성 수수료는 **활성화된 21명의 witness 제안의 중앙값**으로 결정됩니다.
 
-**파일:** [libraries/chain/include/steem/chain/witness_objects.hpp:34](../../../libraries/chain/include/steem/chain/witness_objects.hpp#L34)
+**파일:** [src/core/chain/include/steem/chain/witness_objects.hpp:34](../../../src/core/chain/include/steem/chain/witness_objects.hpp#L34)
 
 ```cpp
 struct chain_properties {
@@ -101,7 +101,7 @@ struct chain_properties {
 
 ### 2.2 수수료 수정자 상수
 
-**파일:** [libraries/protocol/include/steem/protocol/config.hpp:132-134](../../../libraries/protocol/include/steem/protocol/config.hpp#L132-L134)
+**파일:** [src/core/protocol/include/steem/protocol/config.hpp:132-134](../../../src/core/protocol/include/steem/protocol/config.hpp#L132-L134)
 
 ```cpp
 #define STEEM_CREATE_ACCOUNT_WITH_STEEM_MODIFIER 30
@@ -134,7 +134,7 @@ struct chain_properties {
 
 ### 3.1 목표 Delegation 공식
 
-**파일:** [libraries/chain/steem_evaluator.cpp:320](../../../libraries/chain/steem_evaluator.cpp#L320)
+**파일:** [src/core/chain/steem_evaluator.cpp:320](../../../src/core/chain/steem_evaluator.cpp#L320)
 
 ```cpp
 auto target_delegation = asset(
@@ -153,7 +153,7 @@ target_delegation = account_creation_fee × 30 × 5 × vesting_price
 
 ### 3.2 현재 Delegation 공식
 
-**파일:** [libraries/chain/steem_evaluator.cpp:322](../../../libraries/chain/steem_evaluator.cpp#L322)
+**파일:** [src/core/chain/steem_evaluator.cpp:322](../../../src/core/chain/steem_evaluator.cpp#L322)
 
 ```cpp
 auto current_delegation = asset(
@@ -169,7 +169,7 @@ current_delegation = (fee × 5 × vesting_price) + delegation
 
 ### 3.3 검증 로직
 
-**파일:** [libraries/chain/steem_evaluator.cpp:324-329](../../../libraries/chain/steem_evaluator.cpp#L324-L329)
+**파일:** [src/core/chain/steem_evaluator.cpp:324-329](../../../src/core/chain/steem_evaluator.cpp#L324-L329)
 
 ```cpp
 FC_ASSERT( current_delegation >= target_delegation,
@@ -224,7 +224,7 @@ FC_ASSERT( current_delegation >= target_delegation,
 
 ### 5.1 기본 계정 생성 평가자
 
-**파일:** [libraries/chain/steem_evaluator.cpp:256-304](../../../libraries/chain/steem_evaluator.cpp#L256-L304)
+**파일:** [src/core/chain/steem_evaluator.cpp:256-304](../../../src/core/chain/steem_evaluator.cpp#L256-L304)
 
 ```cpp
 void account_create_evaluator::do_apply( const account_create_operation& o )
@@ -298,7 +298,7 @@ void account_create_evaluator::do_apply( const account_create_operation& o )
 
 ### 5.2 Delegation 기반 생성 평가자
 
-**파일:** [libraries/chain/steem_evaluator.cpp:306-396](../../../libraries/chain/steem_evaluator.cpp#L306-L396)
+**파일:** [src/core/chain/steem_evaluator.cpp:306-396](../../../src/core/chain/steem_evaluator.cpp#L306-L396)
 
 ```cpp
 void account_create_with_delegation_evaluator::do_apply(
@@ -425,7 +425,7 @@ void account_create_with_delegation_evaluator::do_apply(
 
 ### 6.1 프로토콜 상수
 
-**파일:** [libraries/protocol/include/steem/protocol/config.hpp](../../../libraries/protocol/include/steem/protocol/config.hpp)
+**파일:** [src/core/protocol/include/steem/protocol/config.hpp](../../../src/core/protocol/include/steem/protocol/config.hpp)
 
 #### 테스트넷 설정 (Line 27)
 ```cpp
@@ -446,7 +446,7 @@ void account_create_with_delegation_evaluator::do_apply(
 
 ### 6.2 동적 매개변수 (Witness 제어)
 
-**파일:** [libraries/protocol/include/steem/protocol/steem_operations.hpp:375](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp#L375)
+**파일:** [src/core/protocol/include/steem/protocol/steem_operations.hpp:375](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp#L375)
 
 ```cpp
 struct chain_properties
@@ -490,7 +490,7 @@ struct chain_properties
 - `cli_wallet`을 사용하여 계정 생성
 - Witness 중앙값 `account_creation_fee` = 3 STEEM
 
-**파일:** [libraries/wallet/wallet.cpp:1196](../../../libraries/wallet/wallet.cpp#L1196)
+**파일:** [src/wallet/wallet.cpp:1196](../../../src/wallet/wallet.cpp#L1196)
 
 ```cpp
 op.fee = my->_remote_api.get_chain_properties().account_creation_fee
@@ -609,10 +609,10 @@ return account_create(
 
 ### 소스 파일
 
-- **Operations:** [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- **Evaluators:** [libraries/chain/steem_evaluator.cpp](../../../libraries/chain/steem_evaluator.cpp)
-- **Configuration:** [libraries/protocol/include/steem/protocol/config.hpp](../../../libraries/protocol/include/steem/protocol/config.hpp)
-- **Wallet Implementation:** [libraries/wallet/wallet.cpp](../../../libraries/wallet/wallet.cpp)
+- **Operations:** [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- **Evaluators:** [src/core/chain/steem_evaluator.cpp](../../../src/core/chain/steem_evaluator.cpp)
+- **Configuration:** [src/core/protocol/include/steem/protocol/config.hpp](../../../src/core/protocol/include/steem/protocol/config.hpp)
+- **Wallet Implementation:** [src/wallet/wallet.cpp](../../../src/wallet/wallet.cpp)
 - **Test Fixture:** [tests/db_fixture/database_fixture.cpp](../../../tests/db_fixture/database_fixture.cpp)
 
 ### 관련 문서

@@ -628,9 +628,9 @@ chown steem:steem /path/to/export.jsonl
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/block_data_export/block_data_export_plugin.cpp](../../libraries/plugins/block_data_export/block_data_export_plugin.cpp)
-- **Plugin Header**: [libraries/plugins/block_data_export/include/steem/plugins/block_data_export/block_data_export_plugin.hpp](../../libraries/plugins/block_data_export/include/steem/plugins/block_data_export/block_data_export_plugin.hpp)
-- **Exportable Data**: [libraries/plugins/block_data_export/include/steem/plugins/block_data_export/exportable_block_data.hpp](../../libraries/plugins/block_data_export/include/steem/plugins/block_data_export/exportable_block_data.hpp)
+- **Implementation**: [src/plugins/block_data_export/block_data_export_plugin.cpp](../../src/plugins/block_data_export/block_data_export_plugin.cpp)
+- **Plugin Header**: [src/plugins/block_data_export/include/steem/plugins/block_data_export/block_data_export_plugin.hpp](../../src/plugins/block_data_export/include/steem/plugins/block_data_export/block_data_export_plugin.hpp)
+- **Exportable Data**: [src/plugins/block_data_export/include/steem/plugins/block_data_export/exportable_block_data.hpp](../../src/plugins/block_data_export/include/steem/plugins/block_data_export/exportable_block_data.hpp)
 
 ## License
 

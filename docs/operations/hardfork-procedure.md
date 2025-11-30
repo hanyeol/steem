@@ -176,14 +176,14 @@ Related Issues: #XXX, #YYY
 Future hardforks will follow this structure:
 
 ```
-libraries/protocol/
+src/core/protocol/
 └── include/steem/protocol/
     ├── config.hpp           # Protocol constants
     ├── hardfork.hpp         # Hardfork version tracking
     ├── operations.hpp       # Operation definitions
     └── version.hpp          # Version information
 
-libraries/chain/
+src/core/chain/
 ├── database.cpp             # Core database logic
 ├── evaluators/              # Operation evaluators
 │   └── new_evaluator.cpp    # New operation evaluators
@@ -196,7 +196,7 @@ libraries/chain/
 **Step 1: Update hardfork.hpp**
 
 ```cpp
-// File: libraries/protocol/include/steem/protocol/hardfork.hpp
+// File: src/core/protocol/include/steem/protocol/hardfork.hpp
 
 #ifdef IS_TEST_NET
 #define STEEM_NUM_HARDFORKS 1    // Testnet may have more
@@ -215,7 +215,7 @@ libraries/chain/
 **Step 2: Update database initialization**
 
 ```cpp
-// File: libraries/chain/database.cpp
+// File: src/core/chain/database.cpp
 
 void database::init_hardforks()
 {
@@ -267,7 +267,7 @@ void database::perform_hf1_initialization()
 **Define the operation:**
 
 ```cpp
-// File: libraries/protocol/include/steem/protocol/new_operations.hpp
+// File: src/core/protocol/include/steem/protocol/new_operations.hpp
 
 struct new_feature_operation
 {
@@ -286,7 +286,7 @@ FC_REFLECT( new_feature_operation, (account)(amount)(memo) )
 **Implement validation:**
 
 ```cpp
-// File: libraries/protocol/new_operations.cpp
+// File: src/core/protocol/new_operations.cpp
 
 void new_feature_operation::validate() const
 {
@@ -300,7 +300,7 @@ void new_feature_operation::validate() const
 **Implement evaluator:**
 
 ```cpp
-// File: libraries/chain/new_evaluator.cpp
+// File: src/core/chain/new_evaluator.cpp
 
 void new_feature_evaluator::do_apply( const new_feature_operation& op )
 {
@@ -323,7 +323,7 @@ void new_feature_evaluator::do_apply( const new_feature_operation& op )
 **Add to operation list:**
 
 ```cpp
-// File: libraries/protocol/include/steem/protocol/operations.hpp
+// File: src/core/protocol/include/steem/protocol/operations.hpp
 
 typedef fc::static_variant<
    // Existing operations...

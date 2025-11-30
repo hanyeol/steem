@@ -46,7 +46,7 @@ public-api = database_api login_api debug_node_api
 
 The APIs configured with `public-api` are assigned numbers starting at zero. So the `debug_node_api` is callable by API number 2.
 
-The API provides the following methods (see `libraries/plugins/debug_node/include/steem/plugins/debug_node/debug_node_api.hpp` for these definitions):
+The API provides the following methods (see `src/plugins/debug_node/include/steem/plugins/debug_node/debug_node_api.hpp` for these definitions):
 
 ```cpp
 void debug_push_blocks( std::string src_filename, uint32_t count );

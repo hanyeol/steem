@@ -113,7 +113,7 @@ Steem 블록체인에 ERC-4337 스타일의 Bundler 기능을 추가하여, 여�
 #### 1.1 플러그인 스켈레톤 생성
 ```bash
 # 디렉토리 구조
-libraries/plugins/bundler/
+src/plugins/bundler/
 ├── include/steem/plugins/bundler/
 │   ├── bundler_plugin.hpp
 │   ├── bundler_objects.hpp
@@ -121,7 +121,7 @@ libraries/plugins/bundler/
 ├── bundler_plugin.cpp
 └── CMakeLists.txt
 
-libraries/plugins/apis/bundler_api/
+src/plugins/apis/bundler_api/
 ├── include/steem/plugins/bundler_api/
 │   ├── bundler_api_plugin.hpp
 │   └── bundler_api.hpp

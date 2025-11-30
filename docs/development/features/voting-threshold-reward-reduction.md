@@ -108,11 +108,11 @@ A new chain parameter is introduced to control the threshold:
 
 The implementation involves modifications to several core components:
 
-1. **Protocol Layer** (`libraries/protocol/`)
+1. **Protocol Layer** (`src/core/protocol/`)
    - Add chain parameter definition
    - Update reward calculation structures
 
-2. **Chain Layer** (`libraries/chain/database.cpp`)
+2. **Chain Layer** (`src/core/chain/database.cpp`)
    - Modify reward distribution logic in `process_funds()`
    - Calculate total voting power and participation ratio
    - Apply reduction factor to content rewards

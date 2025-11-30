@@ -22,7 +22,7 @@ This document explains the account creation fee structure, delegation-based cost
 
 ### 1.1 Basic Account Creation
 
-**File:** [libraries/protocol/include/steem/protocol/steem_operations.hpp:12-25](../../libraries/protocol/include/steem/protocol/steem_operations.hpp#L12-L25)
+**File:** [src/core/protocol/include/steem/protocol/steem_operations.hpp:12-25](../../src/core/protocol/include/steem/protocol/steem_operations.hpp#L12-L25)
 
 ```cpp
 struct account_create_operation : public base_operation
@@ -49,7 +49,7 @@ struct account_create_operation : public base_operation
 
 ### 1.2 Account Creation with Delegation
 
-**File:** [libraries/protocol/include/steem/protocol/steem_operations.hpp:28-44](../../libraries/protocol/include/steem/protocol/steem_operations.hpp#L28-L44)
+**File:** [src/core/protocol/include/steem/protocol/steem_operations.hpp:28-44](../../src/core/protocol/include/steem/protocol/steem_operations.hpp#L28-L44)
 
 ```cpp
 struct account_create_with_delegation_operation : public base_operation
@@ -85,7 +85,7 @@ struct account_create_with_delegation_operation : public base_operation
 
 The base account creation fee is determined by the **median of all 21 active witnesses' proposals**.
 
-**File:** [libraries/chain/include/steem/chain/witness_objects.hpp:34](../../libraries/chain/include/steem/chain/witness_objects.hpp#L34)
+**File:** [src/core/chain/include/steem/chain/witness_objects.hpp:34](../../src/core/chain/include/steem/chain/witness_objects.hpp#L34)
 
 ```cpp
 struct chain_properties {
@@ -101,7 +101,7 @@ struct chain_properties {
 
 ### 2.2 Fee Modifier Constants
 
-**File:** [libraries/protocol/include/steem/protocol/config.hpp:132-134](../../libraries/protocol/include/steem/protocol/config.hpp#L132-L134)
+**File:** [src/core/protocol/include/steem/protocol/config.hpp:132-134](../../src/core/protocol/include/steem/protocol/config.hpp#L132-L134)
 
 ```cpp
 #define STEEM_CREATE_ACCOUNT_WITH_STEEM_MODIFIER 30
@@ -134,7 +134,7 @@ The `STEEM_CREATE_ACCOUNT_WITH_STEEM_MODIFIER` serves two critical purposes:
 
 ### 3.1 Target Delegation Formula
 
-**File:** [libraries/chain/steem_evaluator.cpp:320](../../libraries/chain/steem_evaluator.cpp#L320)
+**File:** [src/core/chain/steem_evaluator.cpp:320](../../src/core/chain/steem_evaluator.cpp#L320)
 
 ```cpp
 auto target_delegation = asset(
@@ -153,7 +153,7 @@ target_delegation = account_creation_fee × 30 × 5 × vesting_price
 
 ### 3.2 Current Delegation Formula
 
-**File:** [libraries/chain/steem_evaluator.cpp:322](../../libraries/chain/steem_evaluator.cpp#L322)
+**File:** [src/core/chain/steem_evaluator.cpp:322](../../src/core/chain/steem_evaluator.cpp#L322)
 
 ```cpp
 auto current_delegation = asset(
@@ -169,7 +169,7 @@ current_delegation = (fee × 5 × vesting_price) + delegation
 
 ### 3.3 Validation Logic
 
-**File:** [libraries/chain/steem_evaluator.cpp:324-329](../../libraries/chain/steem_evaluator.cpp#L324-L329)
+**File:** [src/core/chain/steem_evaluator.cpp:324-329](../../src/core/chain/steem_evaluator.cpp#L324-L329)
 
 ```cpp
 FC_ASSERT( current_delegation >= target_delegation,
@@ -224,7 +224,7 @@ Assume:
 
 ### 5.1 Basic Account Creation Evaluator
 
-**File:** [libraries/chain/steem_evaluator.cpp:256-304](../../libraries/chain/steem_evaluator.cpp#L256-L304)
+**File:** [src/core/chain/steem_evaluator.cpp:256-304](../../src/core/chain/steem_evaluator.cpp#L256-L304)
 
 ```cpp
 void account_create_evaluator::do_apply( const account_create_operation& o )
@@ -298,7 +298,7 @@ void account_create_evaluator::do_apply( const account_create_operation& o )
 
 ### 5.2 Delegation-Based Creation Evaluator
 
-**File:** [libraries/chain/steem_evaluator.cpp:306-396](../../libraries/chain/steem_evaluator.cpp#L306-L396)
+**File:** [src/core/chain/steem_evaluator.cpp:306-396](../../src/core/chain/steem_evaluator.cpp#L306-L396)
 
 ```cpp
 void account_create_with_delegation_evaluator::do_apply(
@@ -425,7 +425,7 @@ void account_create_with_delegation_evaluator::do_apply(
 
 ### 6.1 Protocol Constants
 
-**File:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
+**File:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
 
 #### Testnet Configuration (Line 27)
 ```cpp
@@ -446,7 +446,7 @@ void account_create_with_delegation_evaluator::do_apply(
 
 ### 6.2 Dynamic Parameters (Witness-Controlled)
 
-**File:** [libraries/protocol/include/steem/protocol/steem_operations.hpp:375](../../libraries/protocol/include/steem/protocol/steem_operations.hpp#L375)
+**File:** [src/core/protocol/include/steem/protocol/steem_operations.hpp:375](../../src/core/protocol/include/steem/protocol/steem_operations.hpp#L375)
 
 ```cpp
 struct chain_properties
@@ -490,7 +490,7 @@ New account receives: 3 STEEM worth of vesting shares (SP)
 - Using `cli_wallet` to create account
 - Witness median `account_creation_fee` = 3 STEEM
 
-**File:** [libraries/wallet/wallet.cpp:1196](../../libraries/wallet/wallet.cpp#L1196)
+**File:** [src/wallet/wallet.cpp:1196](../../src/wallet/wallet.cpp#L1196)
 
 ```cpp
 op.fee = my->_remote_api.get_chain_properties().account_creation_fee
@@ -609,10 +609,10 @@ return account_create(
 
 ### Source Files
 
-- **Operations:** [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- **Evaluators:** [libraries/chain/steem_evaluator.cpp](../../libraries/chain/steem_evaluator.cpp)
-- **Configuration:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
-- **Wallet Implementation:** [libraries/wallet/wallet.cpp](../../libraries/wallet/wallet.cpp)
+- **Operations:** [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- **Evaluators:** [src/core/chain/steem_evaluator.cpp](../../src/core/chain/steem_evaluator.cpp)
+- **Configuration:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
+- **Wallet Implementation:** [src/wallet/wallet.cpp](../../src/wallet/wallet.cpp)
 - **Test Fixture:** [tests/db_fixture/database_fixture.cpp](../../tests/db_fixture/database_fixture.cpp)
 
 ### Related Documentation

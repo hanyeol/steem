@@ -534,9 +534,9 @@ statsd-endpoint = 127.0.0.1:8125
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/statsd/statsd_plugin.cpp](../../libraries/plugins/statsd/statsd_plugin.cpp)
-- **Header**: [libraries/plugins/statsd/include/steem/plugins/statsd/statsd_plugin.hpp](../../libraries/plugins/statsd/include/steem/plugins/statsd/statsd_plugin.hpp)
-- **StatsD Client**: [libraries/plugins/statsd/StatsdClient.hpp](../../libraries/plugins/statsd/StatsdClient.hpp)
+- **Implementation**: [src/plugins/statsd/statsd_plugin.cpp](../../src/plugins/statsd/statsd_plugin.cpp)
+- **Header**: [src/plugins/statsd/include/steem/plugins/statsd/statsd_plugin.hpp](../../src/plugins/statsd/include/steem/plugins/statsd/statsd_plugin.hpp)
+- **StatsD Client**: [src/plugins/statsd/StatsdClient.hpp](../../src/plugins/statsd/StatsdClient.hpp)
 
 ## License
 

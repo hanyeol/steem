@@ -18,7 +18,7 @@ When creating a post, the author can specify one of three comment permission mod
 
 #### New Operation Field
 
-Add a new optional field to the `comment_operation` structure in [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp):
+Add a new optional field to the `comment_operation` structure in [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp):
 
 ```cpp
 struct comment_operation : public base_operation
@@ -68,7 +68,7 @@ void comment_operation::validate() const
 
 #### Database Object
 
-Add a new field to `comment_object` in [libraries/chain/include/steem/chain/comment_object.hpp](../../../libraries/chain/include/steem/chain/comment_object.hpp):
+Add a new field to `comment_object` in [src/core/chain/include/steem/chain/comment_object.hpp](../../../src/core/chain/include/steem/chain/comment_object.hpp):
 
 ```cpp
 class comment_object : public object< comment_object_type, comment_object >
@@ -102,7 +102,7 @@ FC_REFLECT( steem::chain::comment_object,
 
 #### Comment Evaluator
 
-Modify `comment_evaluator` in [libraries/chain/steem_evaluator.cpp](../../../libraries/chain/steem_evaluator.cpp):
+Modify `comment_evaluator` in [src/core/chain/steem_evaluator.cpp](../../../src/core/chain/steem_evaluator.cpp):
 
 ```cpp
 void comment_evaluator::do_apply( const comment_operation& o )
@@ -164,7 +164,7 @@ void comment_evaluator::do_apply( const comment_operation& o )
 
 #### Database API
 
-Add a method to `database_api` to query comment permissions in [libraries/plugins/apis/database_api/database_api.cpp](../../../libraries/plugins/apis/database_api/database_api.cpp):
+Add a method to `database_api` to query comment permissions in [src/plugins/apis/database_api/database_api.cpp](../../../src/plugins/apis/database_api/database_api.cpp):
 
 ```cpp
 struct get_comment_permissions_return
@@ -440,7 +440,7 @@ Potential improvements for future hardforks:
 
 ## References
 
-- **Protocol Operations**: [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- **Chain Objects**: [libraries/chain/include/steem/chain/comment_object.hpp](../../../libraries/chain/include/steem/chain/comment_object.hpp)
-- **Evaluators**: [libraries/chain/steem_evaluator.cpp](../../../libraries/chain/steem_evaluator.cpp)
+- **Protocol Operations**: [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- **Chain Objects**: [src/core/chain/include/steem/chain/comment_object.hpp](../../../src/core/chain/include/steem/chain/comment_object.hpp)
+- **Evaluators**: [src/core/chain/steem_evaluator.cpp](../../../src/core/chain/steem_evaluator.cpp)
 - **Operation Tests**: [tests/tests/operation_tests.cpp](../../../tests/tests/operation_tests.cpp)

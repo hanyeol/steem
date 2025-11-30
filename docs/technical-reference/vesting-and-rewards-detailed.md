@@ -42,7 +42,7 @@ The vesting system achieves the following objectives:
 vesting_share_price = total_vesting_shares / total_vesting_fund_steem
 ```
 
-Code implementation ([global_property_object.hpp:53-59](libraries/chain/include/steem/chain/global_property_object.hpp#L53-L59)):
+Code implementation ([global_property_object.hpp:53-59](src/core/chain/include/steem/chain/global_property_object.hpp#L53-L59)):
 
 ```cpp
 price get_vesting_share_price() const
@@ -56,7 +56,7 @@ price get_vesting_share_price() const
 
 #### Initial Values
 
-Network initial state ([config.hpp:35,63](libraries/protocol/include/steem/protocol/config.hpp#L35)):
+Network initial state ([config.hpp:35,63](src/core/protocol/include/steem/protocol/config.hpp#L35)):
 
 **Display values**:
 - `1 STEEM = 1,000 VESTS` (base ratio)
@@ -80,7 +80,7 @@ virtual_supply.amount = 0                  // 0.000 STEEM
 current_sbd_supply.amount = 0              // 0.000 SBD
 ```
 
-Until the first vesting occurs, the default ratio applies ([global_property_object.hpp:55-56](libraries/chain/include/steem/chain/global_property_object.hpp#L55-L56)):
+Until the first vesting occurs, the default ratio applies ([global_property_object.hpp:55-56](src/core/chain/include/steem/chain/global_property_object.hpp#L55-L56)):
 ```cpp
 if ( total_vesting_fund_steem.amount == 0 || total_vesting_shares.amount == 0 )
    return price( asset( 1000, STEEM_SYMBOL ), asset( 1000000, VESTS_SYMBOL ) );
@@ -91,7 +91,7 @@ if ( total_vesting_fund_steem.amount == 0 || total_vesting_shares.amount == 0 )
 
 #### Satoshi Unit Representation
 
-Precision of STEEM and VESTS ([asset_symbol.hpp:13-15](libraries/protocol/include/steem/protocol/asset_symbol.hpp#L13-L15)):
+Precision of STEEM and VESTS ([asset_symbol.hpp:13-15](src/core/protocol/include/steem/protocol/asset_symbol.hpp#L13-L15)):
 - **STEEM precision**: 3 (= 10³ = 1,000)
   - 1 STEEM = 1,000 satoshi (minimum unit = 0.001 STEEM)
 - **VESTS precision**: 6 (= 10⁶ = 1,000,000)
@@ -127,7 +127,7 @@ Vesting price changes due to:
 
 ### 3. STEEM Power Creation Process
 
-When a user converts STEEM to STEEM Power ([database.cpp:1111-1130](libraries/chain/database.cpp#L1111-L1130)):
+When a user converts STEEM to STEEM Power ([database.cpp:1111-1130](src/core/chain/database.cpp#L1111-L1130)):
 
 ```cpp
 asset database::create_vesting( const account_object& to_account, asset liquid, bool to_reward_balance )
@@ -168,7 +168,7 @@ User powers up 100 STEEM:
 
 ### 4. Reward Vesting Price
 
-Price calculation considering future rewards ([global_property_object.hpp:61-65](libraries/chain/include/steem/chain/global_property_object.hpp#L61-L65)):
+Price calculation considering future rewards ([global_property_object.hpp:61-65](src/core/chain/include/steem/chain/global_property_object.hpp#L61-L65)):
 
 ```cpp
 price get_reward_vesting_share_price() const
@@ -189,7 +189,7 @@ Process of converting STEEM Power back to liquid STEEM:
 - **Method**: Converts 1/13 to STEEM each week
 - **Cancellable**: Can be cancelled anytime during power down
 
-Configuration constants ([config.hpp:92-93](libraries/protocol/include/steem/protocol/config.hpp#L92-L93)):
+Configuration constants ([config.hpp:92-93](src/core/protocol/include/steem/protocol/config.hpp#L92-L93)):
 
 ```cpp
 #define STEEM_VESTING_WITHDRAW_INTERVALS      13
@@ -202,7 +202,7 @@ Configuration constants ([config.hpp:92-93](libraries/protocol/include/steem/pro
 
 ### 1. Reward Pool Structure
 
-STEEM's reward system is managed through `reward_fund_object` ([steem_objects.hpp:257-276](libraries/chain/include/steem/chain/steem_objects.hpp#L257-L276)):
+STEEM's reward system is managed through `reward_fund_object` ([steem_objects.hpp:257-276](src/core/chain/include/steem/chain/steem_objects.hpp#L257-L276)):
 
 ```cpp
 class reward_fund_object : public object< reward_fund_object_type, reward_fund_object >
@@ -236,7 +236,7 @@ Reward pools are funded through inflation:
 - **Content reward percentage**: 75% of inflation (STEEM_CONTENT_REWARD_PERCENT = 7,500)
 - **Vesting fund percentage**: 15% of inflation (STEEM_VESTING_FUND_PERCENT = 1,500)
 
-Configuration constants ([config.hpp:117-118](libraries/protocol/include/steem/protocol/config.hpp#L117-L118)):
+Configuration constants ([config.hpp:117-118](src/core/protocol/include/steem/protocol/config.hpp#L117-L118)):
 
 ```cpp
 #define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) // 75% of inflation
@@ -249,7 +249,7 @@ Configuration constants ([config.hpp:117-118](libraries/protocol/include/steem/p
 
 Decay period: 15 days (STEEM_RECENT_RSHARES_DECAY_TIME)
 
-Code implementation ([database.cpp:1715-1734](libraries/chain/database.cpp#L1715-L1734)):
+Code implementation ([database.cpp:1715-1734](src/core/chain/database.cpp#L1715-L1734)):
 
 ```cpp
 void database::process_comment_cashout()
@@ -296,7 +296,7 @@ Votes are converted to `rshares` (reward shares):
 
 #### Curve Types
 
-STEEM supports 4 reward curves ([reward.cpp:68-95](libraries/chain/util/reward.cpp#L68-L95)):
+STEEM supports 4 reward curves ([reward.cpp:68-95](src/core/chain/util/reward.cpp#L68-L95)):
 
 ```cpp
 uint128_t evaluate_reward_curve( const uint128_t& rshares,
@@ -419,7 +419,7 @@ The "2" in the variable name is for historical reasons:
 
 ### 4. Actual Reward Calculation
 
-When content rewards are paid ([reward.cpp:38-66](libraries/chain/util/reward.cpp#L38-L66)):
+When content rewards are paid ([reward.cpp:38-66](src/core/chain/util/reward.cpp#L38-L66)):
 
 ```cpp
 uint64_t get_rshare_reward( const comment_reward_context& ctx )
@@ -494,7 +494,7 @@ Votes during the first 30 minutes have some curator rewards returned to the auth
 - **Period**: 30 minutes (STEEM_REVERSE_AUCTION_WINDOW_SECONDS = 1,800 seconds)
 - **Mechanism**: Earlier votes return more rewards to the author
 
-Configuration constant ([config.hpp:99](libraries/protocol/include/steem/protocol/config.hpp#L99)):
+Configuration constant ([config.hpp:99](src/core/protocol/include/steem/protocol/config.hpp#L99)):
 
 ```cpp
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) // 30 minutes
@@ -621,28 +621,28 @@ User account: +50,000 VESTS
 
 #### 1. Data Structures
 
-- **[global_property_object.hpp](libraries/chain/include/steem/chain/global_property_object.hpp)**
+- **[global_property_object.hpp](src/core/chain/include/steem/chain/global_property_object.hpp)**
   - `dynamic_global_property_object` definition
   - Vesting price calculation functions
 
-- **[steem_objects.hpp](libraries/chain/include/steem/chain/steem_objects.hpp)**
+- **[steem_objects.hpp](src/core/chain/include/steem/chain/steem_objects.hpp)**
   - `reward_fund_object` definition
   - Reward pool-related objects
 
 #### 2. Reward Calculation
 
-- **[util/reward.hpp](libraries/chain/include/steem/chain/util/reward.hpp)**
+- **[util/reward.hpp](src/core/chain/include/steem/chain/util/reward.hpp)**
   - `comment_reward_context` structure
   - Reward calculation function declarations
 
-- **[util/reward.cpp](libraries/chain/util/reward.cpp)**
+- **[util/reward.cpp](src/core/chain/util/reward.cpp)**
   - `evaluate_reward_curve()` implementation
   - `get_rshare_reward()` implementation
   - Square root approximation function
 
 #### 3. Database Operations
 
-- **[database.cpp](libraries/chain/database.cpp)**
+- **[database.cpp](src/core/chain/database.cpp)**
   - `create_vesting()` - VESTS creation
   - `process_comment_cashout()` - Reward payout processing
   - `adjust_total_payout()` - Payout record update
@@ -650,7 +650,7 @@ User account: +50,000 VESTS
 
 #### 4. Configuration Constants
 
-- **[protocol/config.hpp](libraries/protocol/include/steem/protocol/config.hpp)**
+- **[protocol/config.hpp](src/core/protocol/include/steem/protocol/config.hpp)**
   - All system constant definitions
   - Inflation, rewards, timing-related settings
 

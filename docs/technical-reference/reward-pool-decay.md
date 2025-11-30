@@ -4,7 +4,7 @@
 
 The **reward pool decay mechanism** is a critical component of Steem's reward distribution system that ensures fair and sustainable reward calculations. It implements a time-based decay of voting influence to prevent historical votes from perpetually affecting current reward distributions.
 
-**Location:** [libraries/chain/database.cpp:1720-1759](../../libraries/chain/database.cpp#L1720-L1759)
+**Location:** [src/core/chain/database.cpp:1720-1759](../../src/core/chain/database.cpp#L1720-L1759)
 
 ## Purpose
 
@@ -19,7 +19,7 @@ The reward pool decay mechanism serves several key purposes:
 
 ### Reward Fund Object
 
-Each reward fund tracks the following key properties ([steem_objects.hpp:257-276](../../libraries/chain/include/steem/chain/steem_objects.hpp#L257-L276)):
+Each reward fund tracks the following key properties ([steem_objects.hpp:257-276](../../src/core/chain/include/steem/chain/steem_objects.hpp#L257-L276)):
 
 ```cpp
 class reward_fund_object : public object<reward_fund_object_type, reward_fund_object>
@@ -61,7 +61,7 @@ Where:
 
 ### Implementation
 
-From [database.cpp:1728-1734](../../libraries/chain/database.cpp#L1728-L1734):
+From [database.cpp:1728-1734](../../src/core/chain/database.cpp#L1728-L1734):
 
 ```cpp
 modify(*itr, [&](reward_fund_object& rfo)
@@ -236,7 +236,7 @@ The system reaches equilibrium when **decay rate equals new claim rate**.
 
 ## Configuration Constants
 
-From [config.hpp:149](../../libraries/protocol/include/steem/protocol/config.hpp#L149):
+From [config.hpp:149](../../src/core/protocol/include/steem/protocol/config.hpp#L149):
 
 ```cpp
 #define STEEM_RECENT_RSHARES_DECAY_TIME  (fc::days(15))  // 15-day decay period
@@ -363,7 +363,7 @@ This applies a non-linear curve to:
 
 ### Content Constant
 
-From [config.hpp:150](../../libraries/protocol/include/steem/protocol/config.hpp#L150):
+From [config.hpp:150](../../src/core/protocol/include/steem/protocol/config.hpp#L150):
 
 ```cpp
 #define STEEM_CONTENT_CONSTANT  (uint128_t(uint64_t(2000000000000ll)))

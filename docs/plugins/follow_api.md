@@ -555,9 +555,9 @@ Then replay the blockchain.
 
 ## Source Code
 
-- **API Implementation**: [libraries/plugins/apis/follow_api/follow_api.cpp](../../libraries/plugins/apis/follow_api/follow_api.cpp)
-- **API Header**: [libraries/plugins/apis/follow_api/include/steem/plugins/follow_api/follow_api.hpp](../../libraries/plugins/apis/follow_api/include/steem/plugins/follow_api/follow_api.hpp)
-- **State Plugin**: [libraries/plugins/follow/follow_plugin.cpp](../../libraries/plugins/follow/follow_plugin.cpp)
+- **API Implementation**: [src/plugins/apis/follow_api/follow_api.cpp](../../src/plugins/apis/follow_api/follow_api.cpp)
+- **API Header**: [src/plugins/apis/follow_api/include/steem/plugins/follow_api/follow_api.hpp](../../src/plugins/apis/follow_api/include/steem/plugins/follow_api/follow_api.hpp)
+- **State Plugin**: [src/plugins/follow/follow_plugin.cpp](../../src/plugins/follow/follow_plugin.cpp)
 
 ## License
 

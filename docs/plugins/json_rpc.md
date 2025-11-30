@@ -809,9 +809,9 @@ log-json-rpc = /var/log/jsonrpc
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/json_rpc/json_rpc_plugin.cpp](../../libraries/plugins/json_rpc/json_rpc_plugin.cpp)
-- **Header**: [libraries/plugins/json_rpc/include/steem/plugins/json_rpc/json_rpc_plugin.hpp](../../libraries/plugins/json_rpc/include/steem/plugins/json_rpc/json_rpc_plugin.hpp)
-- **Utilities**: [libraries/plugins/json_rpc/include/steem/plugins/json_rpc/utility.hpp](../../libraries/plugins/json_rpc/include/steem/plugins/json_rpc/utility.hpp)
+- **Implementation**: [src/plugins/json_rpc/json_rpc_plugin.cpp](../../src/plugins/json_rpc/json_rpc_plugin.cpp)
+- **Header**: [src/plugins/json_rpc/include/steem/plugins/json_rpc/json_rpc_plugin.hpp](../../src/plugins/json_rpc/include/steem/plugins/json_rpc/json_rpc_plugin.hpp)
+- **Utilities**: [src/plugins/json_rpc/include/steem/plugins/json_rpc/utility.hpp](../../src/plugins/json_rpc/include/steem/plugins/json_rpc/utility.hpp)
 
 ## License
 

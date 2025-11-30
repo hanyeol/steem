@@ -15,7 +15,7 @@ Witnesses propose values for governance parameters, and the **median value** fro
 
 ### Overview
 
-The `dynamic_global_property_object` stores real-time blockchain state ([global_property_object.hpp:22](../libraries/chain/include/steem/chain/global_property_object.hpp#L22)).
+The `dynamic_global_property_object` stores real-time blockchain state ([global_property_object.hpp:22](../src/core/chain/include/steem/chain/global_property_object.hpp#L22)).
 
 These values are **automatically calculated** during block processing and cannot be directly modified by witnesses.
 
@@ -138,7 +138,7 @@ uint32_t num_pow_witnesses = 0;              // Current PoW witnesses (deprecate
 
 ### Chain Properties Structure
 
-Witnesses propose blockchain parameters via `chain_properties` ([witness_objects.hpp:25](../libraries/chain/include/steem/chain/witness_objects.hpp#L25)):
+Witnesses propose blockchain parameters via `chain_properties` ([witness_objects.hpp:25](../src/core/chain/include/steem/chain/witness_objects.hpp#L25)):
 
 ```cpp
 struct chain_properties {
@@ -186,7 +186,7 @@ uint32_t maximum_block_size = STEEM_MIN_BLOCK_SIZE_LIMIT * 2;  // Default: 128 K
 - Minimum: `STEEM_MIN_BLOCK_SIZE_LIMIT` (64 KB)
 - Maximum: `STEEM_SOFT_MAX_BLOCK_SIZE` (2 MB)
 
-**Validation ([steem_evaluator.cpp:100](../libraries/chain/steem_evaluator.cpp#L100)):**
+**Validation ([steem_evaluator.cpp:100](../src/core/chain/steem_evaluator.cpp#L100)):**
 ```cpp
 FC_ASSERT(o.props.maximum_block_size <= STEEM_SOFT_MAX_BLOCK_SIZE,
           "Max block size cannot be more than 2MiB");
@@ -232,7 +232,7 @@ uint32_t account_subsidy_limit = 0;
 
 ### Median Calculation Process
 
-The blockchain uses the **median** of all active witness proposals ([witness_schedule.cpp:30](../libraries/chain/witness_schedule.cpp#L30)):
+The blockchain uses the **median** of all active witness proposals ([witness_schedule.cpp:30](../src/core/chain/witness_schedule.cpp#L30)):
 
 ```cpp
 void update_median_witness_props(database& db) {
@@ -459,7 +459,7 @@ struct witness_update_operation {
 };
 ```
 
-**Implementation ([steem_evaluator.cpp:83](../libraries/chain/steem_evaluator.cpp#L83)):**
+**Implementation ([steem_evaluator.cpp:83](../src/core/chain/steem_evaluator.cpp#L83)):**
 ```cpp
 void witness_update_evaluator::do_apply(const witness_update_operation& o) {
     _db.get_account(o.owner);  // Verify owner exists
@@ -496,7 +496,7 @@ void witness_update_evaluator::do_apply(const witness_update_operation& o) {
 
 ### Method 2: witness_set_properties_operation (HF20+)
 
-**Modern flexible operation** ([steem_evaluator.cpp:131](../libraries/chain/steem_evaluator.cpp#L131)):
+**Modern flexible operation** ([steem_evaluator.cpp:131](../src/core/chain/steem_evaluator.cpp#L131)):
 
 ```cpp
 struct witness_set_properties_operation {
@@ -572,7 +572,7 @@ Witnesses publish **STEEM/SBD price feeds** to establish exchange rates for:
 
 ### Feed Publishing
 
-**Operation: feed_publish_operation** ([steem_evaluator.cpp:1931](../libraries/chain/steem_evaluator.cpp#L1931))
+**Operation: feed_publish_operation** ([steem_evaluator.cpp:1931](../src/core/chain/steem_evaluator.cpp#L1931))
 
 ```cpp
 struct feed_publish_operation {
@@ -635,7 +635,7 @@ price median_price = fhistory.current_median_history;
 
 ### Structure
 
-The `witness_schedule_object` maintains witness scheduling state ([witness_objects.hpp:163](../libraries/chain/include/steem/chain/witness_objects.hpp#L163)):
+The `witness_schedule_object` maintains witness scheduling state ([witness_objects.hpp:163](../src/core/chain/include/steem/chain/witness_objects.hpp#L163)):
 
 ```cpp
 struct witness_schedule_object {

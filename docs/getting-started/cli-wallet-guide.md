@@ -773,7 +773,7 @@ plugin = account_by_key_api
 - [Building Steem](building.md) - Build instructions
 - [Node Types Guide](node-types-guide.md) - Different node configurations
 - [Wallet API Refactoring](../development/todo/wallet-api-refactoring.md) - Technical details of the modular API migration
-- [Protocol Operations](../../libraries/protocol/include/steem/protocol/) - Operation definitions
+- [Protocol Operations](../../src/core/protocol/include/steem/protocol/) - Operation definitions
 
 ## License
 

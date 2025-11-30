@@ -595,10 +595,10 @@ done
 
 ## Source Code
 
-- **API Implementation**: [libraries/plugins/apis/witness_api/witness_api.cpp](../../libraries/plugins/apis/witness_api/witness_api.cpp)
-- **API Header**: [libraries/plugins/apis/witness_api/include/steem/plugins/witness_api/witness_api.hpp](../../libraries/plugins/apis/witness_api/include/steem/plugins/witness_api/witness_api.hpp)
-- **State Plugin**: [libraries/plugins/witness/witness_plugin.cpp](../../libraries/plugins/witness/witness_plugin.cpp)
-- **Objects**: [libraries/plugins/witness/include/steem/plugins/witness/witness_objects.hpp](../../libraries/plugins/witness/include/steem/plugins/witness/witness_objects.hpp)
+- **API Implementation**: [src/plugins/apis/witness_api/witness_api.cpp](../../src/plugins/apis/witness_api/witness_api.cpp)
+- **API Header**: [src/plugins/apis/witness_api/include/steem/plugins/witness_api/witness_api.hpp](../../src/plugins/apis/witness_api/include/steem/plugins/witness_api/witness_api.hpp)
+- **State Plugin**: [src/plugins/witness/witness_plugin.cpp](../../src/plugins/witness/witness_plugin.cpp)
+- **Objects**: [src/plugins/witness/include/steem/plugins/witness/witness_objects.hpp](../../src/plugins/witness/include/steem/plugins/witness/witness_objects.hpp)
 
 ## License
 

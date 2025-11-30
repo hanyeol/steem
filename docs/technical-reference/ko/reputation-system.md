@@ -14,7 +14,7 @@ Steem은 커뮤니티 내에서 사용자의 신뢰성과 영향력을 측정하
 
 ### Reputation Object
 
-Reputation plugin은 핵심 체인 상태와 별도로 평판 데이터를 저장합니다 ([reputation_objects.hpp:23](../libraries/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L23)):
+Reputation plugin은 핵심 체인 상태와 별도로 평판 데이터를 저장합니다 ([reputation_objects.hpp:23](../src/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L23)):
 
 ```cpp
 class reputation_object {
@@ -42,7 +42,7 @@ class reputation_object {
 
 ### 기본 공식
 
-평판은 투표에서 받은 **rshares** (보상 shares)에서 파생됩니다 ([reputation_plugin.cpp:68](../libraries/plugins/reputation/reputation_plugin.cpp#L68)):
+평판은 투표에서 받은 **rshares** (보상 shares)에서 파생됩니다 ([reputation_plugin.cpp:68](../src/plugins/reputation/reputation_plugin.cpp#L68)):
 
 ```cpp
 // 투표로부터의 원시 평판 델타
@@ -56,7 +56,7 @@ rep_delta = cv->rshares >> 6;  // 6만큼 오른쪽 시프트 (64로 나누기)
 
 ### Rshares 계산
 
-사용자가 투표할 때 rshares는 다음을 기반으로 계산됩니다 ([steem_evaluator.cpp:1345](../libraries/chain/steem_evaluator.cpp#L1345)):
+사용자가 투표할 때 rshares는 다음을 기반으로 계산됩니다 ([steem_evaluator.cpp:1345](../src/core/chain/steem_evaluator.cpp#L1345)):
 
 **공식:**
 ```cpp
@@ -84,7 +84,7 @@ rshares = (vote_weight < 0) ? -abs_rshares : abs_rshares;
 
 평판 업데이트는 두 단계로 발생합니다:
 
-**1단계: Pre-Operation (이전 투표 취소)** ([reputation_plugin.cpp:54](../libraries/plugins/reputation/reputation_plugin.cpp#L54))
+**1단계: Pre-Operation (이전 투표 취소)** ([reputation_plugin.cpp:54](../src/plugins/reputation/reputation_plugin.cpp#L54))
 ```cpp
 void pre_operation(const vote_operation& op) {
     // 재투표하는 경우 이전 투표의 평판 효과 제거
@@ -95,7 +95,7 @@ void pre_operation(const vote_operation& op) {
 }
 ```
 
-**2단계: Post-Operation (새 투표 적용)** ([reputation_plugin.cpp:112](../libraries/plugins/reputation/reputation_plugin.cpp#L112))
+**2단계: Post-Operation (새 투표 적용)** ([reputation_plugin.cpp:112](../src/plugins/reputation/reputation_plugin.cpp#L112))
 ```cpp
 void post_operation(const vote_operation& op) {
     // 새 투표의 평판 효과 적용
@@ -106,7 +106,7 @@ void post_operation(const vote_operation& op) {
 
 ## 평판 규칙
 
-평판 시스템은 남용을 방지하기 위해 두 가지 주요 규칙을 시행합니다 ([reputation_plugin.cpp:76](../libraries/plugins/reputation/reputation_plugin.cpp#L76)):
+평판 시스템은 남용을 방지하기 위해 두 가지 주요 규칙을 시행합니다 ([reputation_plugin.cpp:76](../src/plugins/reputation/reputation_plugin.cpp#L76)):
 
 ### 규칙 #1: 음수 평판은 다른 사람에게 영향을 줄 수 없음
 
@@ -195,7 +195,7 @@ def reputation_to_display(raw_reputation):
 
 ### 평판 조회
 
-**reputation_api를 통해** ([reputation_api.hpp:27](../libraries/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp#L27)):
+**reputation_api를 통해** ([reputation_api.hpp:27](../src/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp#L27)):
 
 ```json
 // 요청
@@ -309,7 +309,7 @@ def reputation_to_display(raw_reputation):
 
 ### Plugin 아키텍처
 
-**초기화** ([reputation_plugin.cpp:196](../libraries/plugins/reputation/reputation_plugin.cpp#L196)):
+**초기화** ([reputation_plugin.cpp:196](../src/plugins/reputation/reputation_plugin.cpp#L196)):
 ```cpp
 void plugin_initialize(const variables_map& options) {
     // Operation 핸들러 등록
@@ -353,7 +353,7 @@ struct post_operation_visitor {
 
 ### Database 인덱스
 
-**Reputation 인덱스** ([reputation_objects.hpp:46](../libraries/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L46)):
+**Reputation 인덱스** ([reputation_objects.hpp:46](../src/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L46)):
 ```cpp
 typedef multi_index_container<
     reputation_object,

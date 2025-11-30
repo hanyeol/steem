@@ -721,9 +721,9 @@ Every 20 blocks:
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/witness/witness_plugin.cpp](../../libraries/plugins/witness/witness_plugin.cpp)
-- **Header**: [libraries/plugins/witness/include/steem/plugins/witness/witness_plugin.hpp](../../libraries/plugins/witness/include/steem/plugins/witness/witness_plugin.hpp)
-- **Objects**: [libraries/plugins/witness/include/steem/plugins/witness/witness_objects.hpp](../../libraries/plugins/witness/include/steem/plugins/witness/witness_objects.hpp)
+- **Implementation**: [src/plugins/witness/witness_plugin.cpp](../../src/plugins/witness/witness_plugin.cpp)
+- **Header**: [src/plugins/witness/include/steem/plugins/witness/witness_plugin.hpp](../../src/plugins/witness/include/steem/plugins/witness/witness_plugin.hpp)
+- **Objects**: [src/plugins/witness/include/steem/plugins/witness/witness_objects.hpp](../../src/plugins/witness/include/steem/plugins/witness/witness_objects.hpp)
 
 ## License
 

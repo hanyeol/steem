@@ -586,8 +586,8 @@ class SteemChainAPI:
 
 ## Source Code
 
-- **API Definition**: [libraries/plugins/apis/chain_api/include/steem/plugins/chain_api/chain_api.hpp](../../libraries/plugins/apis/chain_api/include/steem/plugins/chain_api/chain_api.hpp)
-- **Implementation**: [libraries/plugins/apis/chain_api/chain_api_plugin.cpp](../../libraries/plugins/apis/chain_api/chain_api_plugin.cpp)
+- **API Definition**: [src/plugins/apis/chain_api/include/steem/plugins/chain_api/chain_api.hpp](../../src/plugins/apis/chain_api/include/steem/plugins/chain_api/chain_api.hpp)
+- **Implementation**: [src/plugins/apis/chain_api/chain_api_plugin.cpp](../../src/plugins/apis/chain_api/chain_api_plugin.cpp)
 
 ## License
 

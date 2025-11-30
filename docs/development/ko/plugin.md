@@ -2,9 +2,9 @@
 
 ## 플러그인 작동 방식
 
-`libraries/plugins` 디렉토리의 모든 플러그인은 `CMakeLists.txt`에 의해 반복됩니다. manifest 디렉토리는 모든 플러그인을 반복하여 `steem_plugins` 빌드 대상에 추가합니다. 빌드 시 사용 가능한 모든 플러그인에 액세스하려는 다른 빌드 대상은 이 대상에 링크해야 합니다.
+`src/plugins` 디렉토리의 모든 플러그인은 `CMakeLists.txt`에 의해 반복됩니다. manifest 디렉토리는 모든 플러그인을 반복하여 `steem_plugins` 빌드 대상에 추가합니다. 빌드 시 사용 가능한 모든 플러그인에 액세스하려는 다른 빌드 대상은 이 대상에 링크해야 합니다.
 
-`example_plugins`에 `example_api_plugin`이라는 플러그인이 있으며, 이는 커스텀 API 호출을 추가하는 작동 예제입니다.
+`extensions/examples`에 `example_api_plugin`이라는 플러그인이 있으며, 이는 커스텀 API 호출을 추가하는 작동 예제입니다.
 
 ## 플러그인 등록
 

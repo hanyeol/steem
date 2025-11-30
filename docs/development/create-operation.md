@@ -96,7 +96,7 @@ access to the database in the `_db` class member.
 
 - (5c) All new operations, and all new operation functionality, must be gated
 by checking `_db.has_hardfork( ... )` for feature constants defined in
-`libraries/chain/hardfork.d`.
+`src/core/chain/hardfork.d`.
 
 - (5d) For this example, we will add a boolean field to the `account_object`,
 later we will see how to adapt this field to different objects.
@@ -104,7 +104,7 @@ later we will see how to adapt this field to different objects.
 - (5e) Methods which get objects from the database return `const` references.
 The most general way to retrieve chain state is with
 `get< type, index >( index_value )`, for example see the
-[implementation](https://github.com/steemit/steem/blob/a0a69b10189d93a9be4da7e7fd9d5358af956e34/libraries/chain/database.cpp#L364)
+[implementation](https://github.com/steemit/steem/blob/a0a69b10189d93a9be4da7e7fd9d5358af956e34/src/core/chain/database.cpp#L364)
 of `get_account(name)`.
 
 - (5f) To modify an object on the database, you must issue `db.modify()`,
@@ -144,7 +144,7 @@ bugfix code, and pass with the bugfix code.
 
 ## Step 8
 
-- (8a) Objects in libraries/chain are part of blockchain core, what's used for consensus
+- (8a) Objects in src/core/chain are part of blockchain core, what's used for consensus
 - (8b) When adding fields to blockchain core object, should add the same field to RPC objects
 to make it available to JSON clients
 - (8c) Add field definition and reflection

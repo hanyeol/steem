@@ -121,7 +121,7 @@ SBD는 **콘텐츠 보상 분배 시에만** 생성됩니다. 다음을 통해�
 
 발행되는 SBD 양은 `sbd_print_rate`에 따라 달라집니다:
 
-**코드 구현** ([database.cpp:1075](libraries/chain/database.cpp#L1075)):
+**코드 구현** ([database.cpp:1075](src/core/chain/database.cpp#L1075)):
 
 ```cpp
 const auto& median_price = get_feed_history().current_median_history;
@@ -212,7 +212,7 @@ STEEM 시가총액: 400,000,000 STEEM × $0.50 = $200,000,000
 
 블록체인은 부채 비율에 따라 `sbd_print_rate`를 자동으로 조정합니다:
 
-**상수** ([config.hpp:189-190](libraries/protocol/include/steem/protocol/config.hpp#L189-L190)):
+**상수** ([config.hpp:189-190](src/core/protocol/include/steem/protocol/config.hpp#L189-L190)):
 ```cpp
 #define STEEM_SBD_STOP_PERCENT    (5 * STEEM_1_PERCENT)  // 5%
 #define STEEM_SBD_START_PERCENT   (2 * STEEM_1_PERCENT) // 2%
@@ -261,7 +261,7 @@ sbd_print_rate = ((5% - 부채 비율) / (5% - 2%)) × 100%
 
 **결과**:
 - `dynamic_global_property_object.sbd_print_rate`가 매 블록마다 업데이트됨
-- 이 값은 보상 분배에 사용됨 ([database.cpp:1075](libraries/chain/database.cpp#L1075))
+- 이 값은 보상 분배에 사용됨 ([database.cpp:1075](src/core/chain/database.cpp#L1075))
 
 ---
 
@@ -273,7 +273,7 @@ sbd_print_rate = ((5% - 부채 비율) / (5% - 2%)) × 100%
 
 사용자는 **중앙값 가격 피드** 기준으로 SBD를 STEEM으로 전환할 수 있습니다.
 
-**오퍼레이션** ([steem_operations.hpp:590-595](libraries/protocol/include/steem/protocol/steem_operations.hpp#L590-L595)):
+**오퍼레이션** ([steem_operations.hpp:590-595](src/core/protocol/include/steem/protocol/steem_operations.hpp#L590-L595)):
 ```cpp
 struct convert_operation : public base_operation {
    account_name_type owner;
@@ -310,7 +310,7 @@ STEEM을 SBD로 전환하는 **직접 오퍼레이션은 없습니다**. 사용�
 
 ### 전환 지연
 
-**상수** ([config.hpp:146](libraries/protocol/include/steem/protocol/config.hpp#L146)):
+**상수** ([config.hpp:146](src/core/protocol/include/steem/protocol/config.hpp#L146)):
 ```cpp
 #define STEEM_CONVERSION_DELAY  (fc::days(3.5))
 ```
@@ -414,7 +414,7 @@ sbd_interest_rate = 1500  → 연 15%
 
 ### 가격 피드 구조
 
-**오퍼레이션** ([steem_operations.hpp:668-672](libraries/protocol/include/steem/protocol/steem_operations.hpp#L668-L672)):
+**오퍼레이션** ([steem_operations.hpp:668-672](src/core/protocol/include/steem/protocol/steem_operations.hpp#L668-L672)):
 ```cpp
 struct feed_publish_operation : public base_operation {
    account_name_type publisher;    // 증인 계정
@@ -523,7 +523,7 @@ debt_ratio = current_sbd_supply / virtual_supply
 ```
 
 **2. 인플레이션 계산**:
-인플레이션 보상은 가상 공급량을 기반으로 함 ([database.cpp:1829](libraries/chain/database.cpp#L1829)):
+인플레이션 보상은 가상 공급량을 기반으로 함 ([database.cpp:1829](src/core/chain/database.cpp#L1829)):
 ```cpp
 auto new_steem = (props.virtual_supply.amount × current_inflation_rate)
                  / (STEEM_100_PERCENT × STEEM_BLOCKS_PER_YEAR);
@@ -541,7 +541,7 @@ auto new_steem = (props.virtual_supply.amount × current_inflation_rate)
 - SBD 공급 변경 (생성/소멸)
 - 전환 발생 (SBD ↔ STEEM)
 
-**코드** ([database.cpp:2002-2003](libraries/chain/database.cpp#L2002-L2003)):
+**코드** ([database.cpp:2002-2003](src/core/chain/database.cpp#L2002-L2003)):
 ```cpp
 modify(props, [&](dynamic_global_property_object& p) {
    p.current_supply += net_steem;
@@ -586,7 +586,7 @@ struct account_object {
 
 #### convert_operation
 
-**파일**: [libraries/protocol/include/steem/protocol/steem_operations.hpp:590](libraries/protocol/include/steem/protocol/steem_operations.hpp#L590)
+**파일**: [src/core/protocol/include/steem/protocol/steem_operations.hpp:590](src/core/protocol/include/steem/protocol/steem_operations.hpp#L590)
 
 ```cpp
 struct convert_operation : public base_operation {
@@ -603,11 +603,11 @@ struct convert_operation : public base_operation {
 - `amount`는 > 0이어야 함
 - `requestid`는 계정당 고유해야 함
 
-**평가자**: [libraries/chain/steem_evaluator.cpp](libraries/chain/steem_evaluator.cpp)
+**평가자**: [src/core/chain/steem_evaluator.cpp](src/core/chain/steem_evaluator.cpp)
 
 #### feed_publish_operation
 
-**파일**: [libraries/protocol/include/steem/protocol/steem_operations.hpp:668](libraries/protocol/include/steem/protocol/steem_operations.hpp#L668)
+**파일**: [src/core/protocol/include/steem/protocol/steem_operations.hpp:668](src/core/protocol/include/steem/protocol/steem_operations.hpp#L668)
 
 ```cpp
 struct feed_publish_operation : public base_operation {
@@ -627,7 +627,7 @@ struct feed_publish_operation : public base_operation {
 
 #### SBD를 사용한 보상 분배
 
-**파일**: [libraries/chain/database.cpp:1070-1090](libraries/chain/database.cpp#L1070-L1090)
+**파일**: [src/core/chain/database.cpp:1070-1090](src/core/chain/database.cpp#L1070-L1090)
 
 ```cpp
 void database::cashout_comment_helper(const comment_object& comment) {
@@ -653,7 +653,7 @@ void database::cashout_comment_helper(const comment_object& comment) {
 
 #### 전환 처리
 
-**파일**: [libraries/chain/database.cpp:1984-2005](libraries/chain/database.cpp#L1984-L2005)
+**파일**: [src/core/chain/database.cpp:1984-2005](src/core/chain/database.cpp#L1984-L2005)
 
 ```cpp
 void database::process_conversions() {
@@ -686,7 +686,7 @@ void database::process_conversions() {
 
 ### 상수 참조
 
-**파일**: [libraries/protocol/include/steem/protocol/config.hpp](libraries/protocol/include/steem/protocol/config.hpp)
+**파일**: [src/core/protocol/include/steem/protocol/config.hpp](src/core/protocol/include/steem/protocol/config.hpp)
 
 ```cpp
 // SBD 상수

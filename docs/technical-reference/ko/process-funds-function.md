@@ -4,7 +4,7 @@
 
 `process_funds()` 함수는 매 블록마다 호출되어 Steem 인플레이션 메커니즘을 관리하고 새로 생성된 토큰을 다양한 이해관계자에게 분배하는 핵심 블록체인 유지보수 함수입니다. 블록체인의 통화 정책을 구현하여 인플레이션 보상을 계산하고 분배합니다.
 
-**위치:** [libraries/chain/database.cpp:1813](../../libraries/chain/database.cpp#L1813)
+**위치:** [src/core/chain/database.cpp:1813](../../src/core/chain/database.cpp#L1813)
 
 ## 목적
 
@@ -146,7 +146,7 @@ witness_reward /= wso.witness_pay_normalization_factor;  // 기본값: 25
 
 ### 기본 가중치 구성
 
-[witness_objects.hpp:171-173](../../libraries/chain/include/steem/chain/witness_objects.hpp#L171-L173)에서:
+[witness_objects.hpp:171-173](../../src/core/chain/include/steem/chain/witness_objects.hpp#L171-L173)에서:
 
 ```cpp
 uint8_t  top20_weight = 1;
@@ -270,10 +270,10 @@ virtual_supply           += 8.92 STEEM
 
 ## 관련 함수
 
-- [`pay_reward_funds()`](../../libraries/chain/database.cpp#L1955) - 콘텐츠 보상을 보상 펀드에 분배
-- [`create_vesting()`](../../libraries/chain/database.cpp) - STEEM을 STEEM Power로 변환
-- [`process_conversions()`](../../libraries/chain/database.cpp#L1984) - SBD 전환 처리
-- [`process_savings_withdraws()`](../../libraries/chain/database.cpp#L1860) - 세이빙스 출금 처리
+- [`pay_reward_funds()`](../../src/core/chain/database.cpp#L1955) - 콘텐츠 보상을 보상 펀드에 분배
+- [`create_vesting()`](../../src/core/chain/database.cpp) - STEEM을 STEEM Power로 변환
+- [`process_conversions()`](../../src/core/chain/database.cpp#L1984) - SBD 전환 처리
+- [`process_savings_withdraws()`](../../src/core/chain/database.cpp#L1860) - 세이빙스 출금 처리
 
 ## 역사적 참고사항
 
@@ -296,7 +296,7 @@ virtual_supply           += 8.92 STEEM
 
 ### 코드 위치
 
-**파일:** [libraries/protocol/include/steem/protocol/config.hpp:113-115](../../libraries/protocol/include/steem/protocol/config.hpp#L113-L115)
+**파일:** [src/core/protocol/include/steem/protocol/config.hpp:113-115](../../src/core/protocol/include/steem/protocol/config.hpp#L113-L115)
 
 ```cpp
 #define STEEM_INFLATION_RATE_START_PERCENT    (978) // Fixes block 7,000,000 to 9.5%

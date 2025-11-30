@@ -294,7 +294,7 @@ price database::get_conversion_price() const
 
 #### 4.1 process_collateralized_conversions 함수
 
-**파일**: `libraries/chain/database.cpp`
+**파일**: `src/core/chain/database.cpp`
 
 ```cpp
 /**
@@ -400,7 +400,7 @@ void database::process_collateralized_conversions()
 
 #### 4.2 apply_block에 통합
 
-**파일**: `libraries/chain/database.cpp`의 `apply_block` 함수
+**파일**: `src/core/chain/database.cpp`의 `apply_block` 함수
 
 ```cpp
 // 기존 코드
@@ -414,7 +414,7 @@ process_collateralized_conversions();     // STEEM → SBD 담보 전환 처리
 
 ### 5. 상수 정의
 
-**파일**: `libraries/protocol/include/steem/protocol/config.hpp`
+**파일**: `src/core/protocol/include/steem/protocol/config.hpp`
 
 ```cpp
 // 담보 전환 수수료 (5%)
@@ -430,7 +430,7 @@ process_collateralized_conversions();     // STEEM → SBD 담보 전환 처리
 
 #### 6.1 Database API
 
-**파일**: `libraries/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp`
+**파일**: `src/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp`
 
 ```cpp
 // 담보 전환 요청 목록 조회
@@ -446,7 +446,7 @@ DECLARE_API_METHOD( find_collateralized_conversion_requests,
 
 #### 6.2 API Arguments
 
-**파일**: `libraries/plugins/apis/database_api/include/steem/plugins/database_api/database_api_args.hpp`
+**파일**: `src/plugins/apis/database_api/include/steem/plugins/database_api/database_api_args.hpp`
 
 ```cpp
 struct api_collateralized_convert_request_object
@@ -498,30 +498,30 @@ typedef list_collateralized_conversion_requests_return
 ### Phase 1: Protocol Layer (새로운 operations)
 
 #### 1.1 Operations 정의
-- **파일**: `libraries/protocol/include/steem/protocol/steem_operations.hpp`
+- **파일**: `src/core/protocol/include/steem/protocol/steem_operations.hpp`
 - **작업**:
   - [ ] `collateralized_convert_operation` 구조체 추가
   - [ ] `FC_REFLECT` 매크로 추가
 
 #### 1.2 Virtual Operations 정의
-- **파일**: `libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp`
+- **파일**: `src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp`
 - **작업**:
   - [ ] `fill_collateralized_convert_request_operation` 구조체 추가
   - [ ] `FC_REFLECT` 매크로 추가
 
 #### 1.3 Operations Validation
-- **파일**: `libraries/protocol/steem_operations.cpp`
+- **파일**: `src/core/protocol/steem_operations.cpp`
 - **작업**:
   - [ ] `collateralized_convert_operation::validate()` 구현
 
 #### 1.4 Operations 목록에 추가
-- **파일**: `libraries/protocol/include/steem/protocol/operations.hpp`
+- **파일**: `src/core/protocol/include/steem/protocol/operations.hpp`
 - **작업**:
   - [ ] `operation` typedef에 `collateralized_convert_operation` 추가 (끝에)
   - [ ] Virtual operation variant에 `fill_collateralized_convert_request_operation` 추가
 
 #### 1.5 상수 추가
-- **파일**: `libraries/protocol/include/steem/protocol/config.hpp`
+- **파일**: `src/core/protocol/include/steem/protocol/config.hpp`
 - **작업**:
   - [ ] `STEEM_COLLATERALIZED_CONVERSION_FEE_PERCENT` 정의
   - [ ] `STEEM_COLLATERALIZED_CONVERSION_DELAY` 정의
@@ -531,37 +531,37 @@ typedef list_collateralized_conversion_requests_return
 ### Phase 2: Chain Layer (데이터베이스 및 로직)
 
 #### 2.1 데이터베이스 객체
-- **파일**: `libraries/chain/include/steem/chain/steem_objects.hpp`
+- **파일**: `src/core/chain/include/steem/chain/steem_objects.hpp`
 - **작업**:
   - [ ] `collateralized_convert_request_object` 클래스 추가
   - [ ] `collateralized_convert_request_index` typedef 추가
   - [ ] `FC_REFLECT` 및 `CHAINBASE_SET_INDEX_TYPE` 추가
 
 #### 2.2 Object Types
-- **파일**: `libraries/chain/include/steem/chain/steem_object_types.hpp`
+- **파일**: `src/core/chain/include/steem/chain/steem_object_types.hpp`
 - **작업**:
   - [ ] `collateralized_convert_request_object_type` enum 추가
   - [ ] `collateralized_convert_request_id_type` typedef 추가
 
 #### 2.3 Evaluator 정의
-- **파일**: `libraries/chain/include/steem/chain/steem_evaluator.hpp`
+- **파일**: `src/core/chain/include/steem/chain/steem_evaluator.hpp`
 - **작업**:
   - [ ] `STEEM_DEFINE_EVALUATOR( collateralized_convert )` 추가
 
 #### 2.4 Evaluator 구현
-- **파일**: `libraries/chain/steem_evaluator.cpp`
+- **파일**: `src/core/chain/steem_evaluator.cpp`
 - **작업**:
   - [ ] `collateralized_convert_evaluator::do_apply()` 구현
 
 #### 2.5 Database 처리 로직
-- **파일**: `libraries/chain/database.cpp`
+- **파일**: `src/core/chain/database.cpp`
 - **작업**:
   - [ ] `process_collateralized_conversions()` 함수 추가
   - [ ] `get_conversion_price()` 헬퍼 함수 추가
   - [ ] `apply_block()`에 `process_collateralized_conversions()` 호출 추가
 
 #### 2.6 Database Header
-- **파일**: `libraries/chain/include/steem/chain/database.hpp`
+- **파일**: `src/core/chain/include/steem/chain/database.hpp`
 - **작업**:
   - [ ] `process_collateralized_conversions()` 함수 선언 추가
   - [ ] `get_conversion_price()` 함수 선언 추가
@@ -571,13 +571,13 @@ typedef list_collateralized_conversion_requests_return
 ### Phase 3: API Layer
 
 #### 3.1 Database API - Header
-- **파일**: `libraries/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp`
+- **파일**: `src/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp`
 - **작업**:
   - [ ] `list_collateralized_conversion_requests` API 선언
   - [ ] `find_collateralized_conversion_requests` API 선언
 
 #### 3.2 Database API - Arguments
-- **파일**: `libraries/plugins/apis/database_api/include/steem/plugins/database_api/database_api_args.hpp`
+- **파일**: `src/plugins/apis/database_api/include/steem/plugins/database_api/database_api_args.hpp`
 - **작업**:
   - [ ] `api_collateralized_convert_request_object` 추가
   - [ ] `list_collateralized_conversion_requests_args` 추가
@@ -586,7 +586,7 @@ typedef list_collateralized_conversion_requests_return
   - [ ] `FC_REFLECT` 매크로 추가
 
 #### 3.3 Database API - Implementation
-- **파일**: `libraries/plugins/apis/database_api/database_api.cpp`
+- **파일**: `src/plugins/apis/database_api/database_api.cpp`
 - **작업**:
   - [ ] `list_collateralized_conversion_requests` 구현
   - [ ] `find_collateralized_conversion_requests` 구현

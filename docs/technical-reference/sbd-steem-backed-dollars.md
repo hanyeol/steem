@@ -121,7 +121,7 @@ When a post/comment receives rewards after the 7-day payout period, the total re
 
 The amount of SBD printed depends on `sbd_print_rate`:
 
-**Code Implementation** ([database.cpp:1075](libraries/chain/database.cpp#L1075)):
+**Code Implementation** ([database.cpp:1075](src/core/chain/database.cpp#L1075)):
 
 ```cpp
 const auto& median_price = get_feed_history().current_median_history;
@@ -212,7 +212,7 @@ Debt Ratio = $15,000,000 / $200,000,000 = 7.5%
 
 The blockchain automatically adjusts `sbd_print_rate` based on debt ratio:
 
-**Constants** ([config.hpp:189-190](libraries/protocol/include/steem/protocol/config.hpp#L189-L190)):
+**Constants** ([config.hpp:189-190](src/core/protocol/include/steem/protocol/config.hpp#L189-L190)):
 ```cpp
 #define STEEM_SBD_STOP_PERCENT    (5 * STEEM_1_PERCENT)  // 5%
 #define STEEM_SBD_START_PERCENT   (2 * STEEM_1_PERCENT) // 2%
@@ -261,7 +261,7 @@ The print rate is updated during block processing based on current debt ratio. T
 
 **Result**:
 - `dynamic_global_property_object.sbd_print_rate` is updated each block
-- This value is used in reward distribution ([database.cpp:1075](libraries/chain/database.cpp#L1075))
+- This value is used in reward distribution ([database.cpp:1075](src/core/chain/database.cpp#L1075))
 
 ---
 
@@ -273,7 +273,7 @@ The print rate is updated during block processing based on current debt ratio. T
 
 Users can convert SBD to STEEM at the **median price feed**.
 
-**Operation** ([steem_operations.hpp:590-595](libraries/protocol/include/steem/protocol/steem_operations.hpp#L590-L595)):
+**Operation** ([steem_operations.hpp:590-595](src/core/protocol/include/steem/protocol/steem_operations.hpp#L590-L595)):
 ```cpp
 struct convert_operation : public base_operation {
    account_name_type owner;
@@ -310,7 +310,7 @@ There is **no direct operation** to convert STEEM to SBD. Users must:
 
 ### Conversion Delay
 
-**Constant** ([config.hpp:146](libraries/protocol/include/steem/protocol/config.hpp#L146)):
+**Constant** ([config.hpp:146](src/core/protocol/include/steem/protocol/config.hpp#L146)):
 ```cpp
 #define STEEM_CONVERSION_DELAY  (fc::days(3.5))
 ```
@@ -414,7 +414,7 @@ Witnesses publish **price feeds** to establish the STEEM/SBD exchange rate used 
 
 ### Price Feed Structure
 
-**Operation** ([steem_operations.hpp:668-672](libraries/protocol/include/steem/protocol/steem_operations.hpp#L668-L672)):
+**Operation** ([steem_operations.hpp:668-672](src/core/protocol/include/steem/protocol/steem_operations.hpp#L668-L672)):
 ```cpp
 struct feed_publish_operation : public base_operation {
    account_name_type publisher;    // Witness account
@@ -522,7 +522,7 @@ debt_ratio = current_sbd_supply / virtual_supply
 ```
 
 **2. Inflation Calculation**:
-Inflation rewards are based on virtual supply ([database.cpp:1829](libraries/chain/database.cpp#L1829)):
+Inflation rewards are based on virtual supply ([database.cpp:1829](src/core/chain/database.cpp#L1829)):
 ```cpp
 auto new_steem = (props.virtual_supply.amount × current_inflation_rate)
                  / (STEEM_100_PERCENT × STEEM_BLOCKS_PER_YEAR);
@@ -540,7 +540,7 @@ Virtual supply is updated when:
 - SBD supply changes (creation/destruction)
 - Conversions occur (SBD ↔ STEEM)
 
-**Code** ([database.cpp:2002-2003](libraries/chain/database.cpp#L2002-L2003)):
+**Code** ([database.cpp:2002-2003](src/core/chain/database.cpp#L2002-L2003)):
 ```cpp
 modify(props, [&](dynamic_global_property_object& p) {
    p.current_supply += net_steem;
@@ -585,7 +585,7 @@ struct account_object {
 
 #### convert_operation
 
-**File**: [libraries/protocol/include/steem/protocol/steem_operations.hpp:590](libraries/protocol/include/steem/protocol/steem_operations.hpp#L590)
+**File**: [src/core/protocol/include/steem/protocol/steem_operations.hpp:590](src/core/protocol/include/steem/protocol/steem_operations.hpp#L590)
 
 ```cpp
 struct convert_operation : public base_operation {
@@ -602,11 +602,11 @@ struct convert_operation : public base_operation {
 - `amount` must be > 0
 - `requestid` must be unique per account
 
-**Evaluator**: [libraries/chain/steem_evaluator.cpp](libraries/chain/steem_evaluator.cpp)
+**Evaluator**: [src/core/chain/steem_evaluator.cpp](src/core/chain/steem_evaluator.cpp)
 
 #### feed_publish_operation
 
-**File**: [libraries/protocol/include/steem/protocol/steem_operations.hpp:668](libraries/protocol/include/steem/protocol/steem_operations.hpp#L668)
+**File**: [src/core/protocol/include/steem/protocol/steem_operations.hpp:668](src/core/protocol/include/steem/protocol/steem_operations.hpp#L668)
 
 ```cpp
 struct feed_publish_operation : public base_operation {
@@ -626,7 +626,7 @@ struct feed_publish_operation : public base_operation {
 
 #### Reward Distribution with SBD
 
-**File**: [libraries/chain/database.cpp:1070-1090](libraries/chain/database.cpp#L1070-L1090)
+**File**: [src/core/chain/database.cpp:1070-1090](src/core/chain/database.cpp#L1070-L1090)
 
 ```cpp
 void database::cashout_comment_helper(const comment_object& comment) {
@@ -652,7 +652,7 @@ void database::cashout_comment_helper(const comment_object& comment) {
 
 #### Conversion Processing
 
-**File**: [libraries/chain/database.cpp:1984-2005](libraries/chain/database.cpp#L1984-L2005)
+**File**: [src/core/chain/database.cpp:1984-2005](src/core/chain/database.cpp#L1984-L2005)
 
 ```cpp
 void database::process_conversions() {
@@ -685,7 +685,7 @@ void database::process_conversions() {
 
 ### Constants Reference
 
-**File**: [libraries/protocol/include/steem/protocol/config.hpp](libraries/protocol/include/steem/protocol/config.hpp)
+**File**: [src/core/protocol/include/steem/protocol/config.hpp](src/core/protocol/include/steem/protocol/config.hpp)
 
 ```cpp
 // SBD Constants

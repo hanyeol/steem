@@ -21,7 +21,7 @@ This document explains how the vesting pool operates, VESTS pricing calculations
 
 ### 1.1 Core Components
 
-**File:** [libraries/chain/include/steem/chain/global_property_object.hpp:46-47](../libraries/chain/include/steem/chain/global_property_object.hpp#L46-L47)
+**File:** [src/core/chain/include/steem/chain/global_property_object.hpp:46-47](../src/core/chain/include/steem/chain/global_property_object.hpp#L46-L47)
 
 ```cpp
 struct dynamic_global_property_object
@@ -47,7 +47,7 @@ struct dynamic_global_property_object
 
 ### 1.3 Genesis Initial State
 
-**File:** [libraries/chain/database.cpp:2369-2378](../libraries/chain/database.cpp#L2369-L2378)
+**File:** [src/core/chain/database.cpp:2369-2378](../src/core/chain/database.cpp#L2369-L2378)
 
 ```cpp
 void database::init_genesis( uint64_t init_supply )
@@ -78,7 +78,7 @@ void database::init_genesis( uint64_t init_supply )
 
 ### 2.1 Price Calculation Function
 
-**File:** [libraries/chain/include/steem/chain/global_property_object.hpp:53-59](../libraries/chain/include/steem/chain/global_property_object.hpp#L53-L59)
+**File:** [src/core/chain/include/steem/chain/global_property_object.hpp:53-59](../src/core/chain/include/steem/chain/global_property_object.hpp#L53-L59)
 
 ```cpp
 price get_vesting_share_price() const
@@ -113,7 +113,7 @@ total_vesting_shares = 1,000,000,000 VESTS
 
 ### 2.3 Reward VESTS Price
 
-**File:** [libraries/chain/include/steem/chain/global_property_object.hpp:61-65](../libraries/chain/include/steem/chain/global_property_object.hpp#L61-L65)
+**File:** [src/core/chain/include/steem/chain/global_property_object.hpp:61-65](../src/core/chain/include/steem/chain/global_property_object.hpp#L61-L65)
 
 ```cpp
 price get_reward_vesting_share_price() const
@@ -131,7 +131,7 @@ When distributing rewards, the price is calculated including pending rewards.
 
 ### 3.1 Power Up Process
 
-**File:** [libraries/chain/database.cpp:1134-1165](../libraries/chain/database.cpp#L1134-L1165)
+**File:** [src/core/chain/database.cpp:1134-1165](../src/core/chain/database.cpp#L1134-L1165)
 
 ```cpp
 asset database::create_vesting( const account_object& to_account, asset liquid, bool to_reward_balance )
@@ -204,7 +204,7 @@ In Steem, power down proceeds in **13 equal weekly installments**.
 
 ### 4.2 Power Down Execution Code
 
-**File:** [libraries/chain/database.cpp:1482-1510](../libraries/chain/database.cpp#L1482-L1510)
+**File:** [src/core/chain/database.cpp:1482-1510](../src/core/chain/database.cpp#L1482-L1510)
 
 ```cpp
 void database::process_vesting_withdrawals()
@@ -283,7 +283,7 @@ After (13 weeks later):
 
 ### 5.1 Block Inflation Distribution
 
-**File:** [libraries/chain/database.cpp:1830-1854](../libraries/chain/database.cpp#L1830-L1854)
+**File:** [src/core/chain/database.cpp:1830-1854](../src/core/chain/database.cpp#L1830-L1854)
 
 ```cpp
 void database::process_funds()
@@ -316,7 +316,7 @@ void database::process_funds()
 
 ### 5.2 Inflation Constants
 
-**File:** [libraries/protocol/include/steem/protocol/config.hpp](../libraries/protocol/include/steem/protocol/config.hpp)
+**File:** [src/core/protocol/include/steem/protocol/config.hpp](../src/core/protocol/include/steem/protocol/config.hpp)
 
 | Constant | Value | Description |
 |----------|-------|-------------|
@@ -486,11 +486,11 @@ APR ≈ 15% (only vesting pool increases, total VESTS unchanged)
 
 ### Code Location References
 
-- **Vesting Pool Definition:** [libraries/chain/include/steem/chain/global_property_object.hpp:46-47](../libraries/chain/include/steem/chain/global_property_object.hpp#L46-L47)
-- **VESTS Price Calculation:** [libraries/chain/include/steem/chain/global_property_object.hpp:53-59](../libraries/chain/include/steem/chain/global_property_object.hpp#L53-L59)
-- **Power Up Logic:** [libraries/chain/database.cpp:1134-1165](../libraries/chain/database.cpp#L1134-L1165)
-- **Power Down Logic:** [libraries/chain/database.cpp:1482-1510](../libraries/chain/database.cpp#L1482-L1510)
-- **Inflation Distribution:** [libraries/chain/database.cpp:1830-1854](../libraries/chain/database.cpp#L1830-L1854)
-- **Constant Definitions:** [libraries/protocol/include/steem/protocol/config.hpp](../libraries/protocol/include/steem/protocol/config.hpp)
+- **Vesting Pool Definition:** [src/core/chain/include/steem/chain/global_property_object.hpp:46-47](../src/core/chain/include/steem/chain/global_property_object.hpp#L46-L47)
+- **VESTS Price Calculation:** [src/core/chain/include/steem/chain/global_property_object.hpp:53-59](../src/core/chain/include/steem/chain/global_property_object.hpp#L53-L59)
+- **Power Up Logic:** [src/core/chain/database.cpp:1134-1165](../src/core/chain/database.cpp#L1134-L1165)
+- **Power Down Logic:** [src/core/chain/database.cpp:1482-1510](../src/core/chain/database.cpp#L1482-L1510)
+- **Inflation Distribution:** [src/core/chain/database.cpp:1830-1854](../src/core/chain/database.cpp#L1830-L1854)
+- **Constant Definitions:** [src/core/protocol/include/steem/protocol/config.hpp](../src/core/protocol/include/steem/protocol/config.hpp)
 
 This design implements a **"Staking as Earning"** mechanism where the Steem blockchain provides automatic interest to token holders while encouraging long-term participation.

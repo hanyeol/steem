@@ -23,7 +23,7 @@
 
 보상 레벨은 블록체인 상태의 계정 객체에 저장됩니다.
 
-**위치**: `libraries/chain/include/steem/chain/account_object.hpp`
+**위치**: `src/core/chain/include/steem/chain/account_object.hpp`
 
 ```cpp
 // account_object 클래스에 추가
@@ -34,7 +34,7 @@ uint8_t reward_level = 0; // 기본값 레벨 0
 
 증인이 보상 레벨 변경을 제안하며, 합의 승인이 필요합니다.
 
-**위치**: `libraries/protocol/include/steem/protocol/steem_operations.hpp`
+**위치**: `src/core/protocol/include/steem/protocol/steem_operations.hpp`
 
 ```cpp
 struct reward_level_proposal_operation
@@ -68,7 +68,7 @@ void reward_level_proposal_operation::validate() const
 
 보류 중인 제안과 증인 승인을 추적합니다.
 
-**위치**: `libraries/chain/include/steem/chain/reward_level_objects.hpp`
+**위치**: `src/core/chain/include/steem/chain/reward_level_objects.hpp`
 
 ```cpp
 class reward_level_proposal_object : public object< reward_level_proposal_object_type, reward_level_proposal_object >
@@ -131,7 +131,7 @@ struct reward_level_approval_operation
 
 **제안 평가자** - 새로운 제안을 생성합니다:
 
-**위치**: `libraries/chain/steem_evaluator.cpp`
+**위치**: `src/core/chain/steem_evaluator.cpp`
 
 ```cpp
 void reward_level_proposal_evaluator::do_apply( const reward_level_proposal_operation& o )
@@ -216,7 +216,7 @@ void reward_level_approval_evaluator::do_apply( const reward_level_approval_oper
 각 레벨은 보상 분배에 영향을 미치는 연관된 배율을 가집니다:
 
 ```cpp
-// libraries/chain/database.cpp 또는 적절한 보상 계산 위치
+// src/core/chain/database.cpp 또는 적절한 보상 계산 위치
 static const std::array<uint16_t, 4> REWARD_LEVEL_MULTIPLIERS = {
    10000,  // 레벨 0: 100% (1.00배)
    12500,  // 레벨 1: 125% (1.25배)

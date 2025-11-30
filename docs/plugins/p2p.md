@@ -522,8 +522,8 @@ p2p-seed-node = 10.0.1.102:2001
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/p2p/p2p_plugin.cpp](../../libraries/plugins/p2p/p2p_plugin.cpp)
-- **Network Layer**: [libraries/fc/src/network/](../../libraries/fc/src/network/)
+- **Implementation**: [src/plugins/p2p/p2p_plugin.cpp](../../src/plugins/p2p/p2p_plugin.cpp)
+- **Network Layer**: [src/base/fc/src/network/](../../src/base/fc/src/network/)
 
 ## License
 

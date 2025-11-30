@@ -654,9 +654,9 @@ Creating multiple accounts provides limited benefit:
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/reputation/reputation_plugin.cpp](../../libraries/plugins/reputation/reputation_plugin.cpp)
-- **Header**: [libraries/plugins/reputation/include/steem/plugins/reputation/reputation_plugin.hpp](../../libraries/plugins/reputation/include/steem/plugins/reputation/reputation_plugin.hpp)
-- **Objects**: [libraries/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp](../../libraries/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp)
+- **Implementation**: [src/plugins/reputation/reputation_plugin.cpp](../../src/plugins/reputation/reputation_plugin.cpp)
+- **Header**: [src/plugins/reputation/include/steem/plugins/reputation/reputation_plugin.hpp](../../src/plugins/reputation/include/steem/plugins/reputation/reputation_plugin.hpp)
+- **Objects**: [src/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp](../../src/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp)
 
 ## License
 

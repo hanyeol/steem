@@ -609,9 +609,9 @@ Note: Steem also has direct SBD conversion mechanism (separate from market):
 
 ## Source Code
 
-- **API Implementation**: [libraries/plugins/apis/market_history_api/market_history_api.cpp](../../libraries/plugins/apis/market_history_api/market_history_api.cpp)
-- **API Header**: [libraries/plugins/apis/market_history_api/include/steem/plugins/market_history_api/market_history_api.hpp](../../libraries/plugins/apis/market_history_api/include/steem/plugins/market_history_api/market_history_api.hpp)
-- **State Plugin**: [libraries/plugins/market_history/market_history_plugin.cpp](../../libraries/plugins/market_history/market_history_plugin.cpp)
+- **API Implementation**: [src/plugins/apis/market_history_api/market_history_api.cpp](../../src/plugins/apis/market_history_api/market_history_api.cpp)
+- **API Header**: [src/plugins/apis/market_history_api/include/steem/plugins/market_history_api/market_history_api.hpp](../../src/plugins/apis/market_history_api/include/steem/plugins/market_history_api/market_history_api.hpp)
+- **State Plugin**: [src/plugins/market_history/market_history_plugin.cpp](../../src/plugins/market_history/market_history_plugin.cpp)
 
 ## License
 

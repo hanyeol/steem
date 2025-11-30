@@ -486,8 +486,8 @@ BOOST_AUTO_TEST_SUITE_END()
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/debug_node/debug_node_plugin.cpp](../../libraries/plugins/debug_node/debug_node_plugin.cpp)
-- **Header**: [libraries/plugins/debug_node/include/steem/plugins/debug_node/debug_node_plugin.hpp](../../libraries/plugins/debug_node/include/steem/plugins/debug_node/debug_node_plugin.hpp)
+- **Implementation**: [src/plugins/debug_node/debug_node_plugin.cpp](../../src/plugins/debug_node/debug_node_plugin.cpp)
+- **Header**: [src/plugins/debug_node/include/steem/plugins/debug_node/debug_node_plugin.hpp](../../src/plugins/debug_node/include/steem/plugins/debug_node/debug_node_plugin.hpp)
 
 ## License
 

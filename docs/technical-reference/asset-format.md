@@ -227,7 +227,7 @@ display_amount = amount / (10 ^ precision)
 
 ### C++ Asset Class
 
-**File:** `libraries/protocol/include/steem/protocol/asset.hpp`
+**File:** `src/core/protocol/include/steem/protocol/asset.hpp`
 
 ```cpp
 // Create an asset
@@ -444,10 +444,10 @@ SMT assets are created through special operations and registered on-chain. Each 
 
 ## Related Files
 
-- **Asset Definition:** `libraries/protocol/include/steem/protocol/asset.hpp`
-- **Asset Implementation:** `libraries/protocol/asset.cpp`
-- **Asset Symbol:** `libraries/protocol/include/steem/protocol/asset_symbol.hpp`
-- **Serialization:** `libraries/protocol/include/steem/protocol/types.hpp`
+- **Asset Definition:** `src/core/protocol/include/steem/protocol/asset.hpp`
+- **Asset Implementation:** `src/core/protocol/asset.cpp`
+- **Asset Symbol:** `src/core/protocol/include/steem/protocol/asset_symbol.hpp`
+- **Serialization:** `src/core/protocol/include/steem/protocol/types.hpp`
 
 ## Additional Resources
 

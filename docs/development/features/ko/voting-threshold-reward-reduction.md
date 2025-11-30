@@ -108,11 +108,11 @@
 
 구현은 여러 핵심 컴포넌트의 수정을 포함합니다:
 
-1. **프로토콜 레이어** (`libraries/protocol/`)
+1. **프로토콜 레이어** (`src/core/protocol/`)
    - 체인 파라미터 정의 추가
    - 보상 계산 구조체 업데이트
 
-2. **체인 레이어** (`libraries/chain/database.cpp`)
+2. **체인 레이어** (`src/core/chain/database.cpp`)
    - `process_funds()`의 보상 배분 로직 수정
    - 총 보팅 파워 및 참여 비율 계산
    - 컨텐츠 보상에 감액 계수 적용

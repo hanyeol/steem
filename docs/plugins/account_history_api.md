@@ -613,8 +613,8 @@ async function getAccountHistory(
 
 ## Source Code
 
-- **API Definition**: [libraries/plugins/apis/account_history_api/include/steem/plugins/account_history_api/account_history_api.hpp](../../libraries/plugins/apis/account_history_api/include/steem/plugins/account_history_api/account_history_api.hpp)
-- **Implementation**: [libraries/plugins/apis/account_history_api/account_history_api_plugin.cpp](../../libraries/plugins/apis/account_history_api/account_history_api_plugin.cpp)
+- **API Definition**: [src/plugins/apis/account_history_api/include/steem/plugins/account_history_api/account_history_api.hpp](../../src/plugins/apis/account_history_api/include/steem/plugins/account_history_api/account_history_api.hpp)
+- **Implementation**: [src/plugins/apis/account_history_api/account_history_api_plugin.cpp](../../src/plugins/apis/account_history_api/account_history_api_plugin.cpp)
 
 ## License
 

@@ -616,9 +616,9 @@ struct block_log_pending_message_object {
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/block_log_info/block_log_info_plugin.cpp](../../libraries/plugins/block_log_info/block_log_info_plugin.cpp)
-- **Objects**: [libraries/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_objects.hpp](../../libraries/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_objects.hpp)
-- **Plugin Header**: [libraries/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_plugin.hpp](../../libraries/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_plugin.hpp)
+- **Implementation**: [src/plugins/block_log_info/block_log_info_plugin.cpp](../../src/plugins/block_log_info/block_log_info_plugin.cpp)
+- **Objects**: [src/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_objects.hpp](../../src/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_objects.hpp)
+- **Plugin Header**: [src/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_plugin.hpp](../../src/plugins/block_log_info/include/steem/plugins/block_log_info/block_log_info_plugin.hpp)
 
 ## License
 

@@ -212,21 +212,18 @@ echo 30000 | sudo tee /proc/sys/vm/dirty_writeback_centisecs
 
 ```
 steem/
-├── libraries/              # Core libraries
-│   ├── chain/             # Blockchain logic and consensus
-│   ├── protocol/          # Protocol definitions and operations
+├── src/
+│   ├── core/              # Blockchain-specific components (protocol, chain, chainbase)
+│   ├── base/              # Reusable frameworks (fc, appbase, net, utils, manifest, schema)
 │   ├── plugins/           # Plugin implementations
-│   ├── fc/                # Foundational C++ utilities
-│   ├── chainbase/         # Memory-mapped database
-│   └── appbase/           # Application plugin framework
-├── programs/              # Executable programs
-│   ├── steemd/            # Main blockchain node daemon
-│   ├── cli_wallet/        # Command-line wallet
-│   └── util/              # Utility programs
+│   ├── wallet/            # Wallet module
+│   └── vendor/            # Third-party dependencies
+├── extensions/            # User extensions
+│   └── examples/          # Example extensions
+├── programs/              # Executable programs (steemd, cli_wallet, utilities)
 ├── tests/                 # Test suite
 ├── contrib/               # Configuration examples and scripts
-├── docs/                   # Documentation
-└── example_plugins/       # Example plugin implementations
+└── docs/                  # Documentation
 ```
 
 ## Development

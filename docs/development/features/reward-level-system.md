@@ -23,7 +23,7 @@ The system defines four distinct reward levels:
 
 The reward level is stored as part of the account object in the blockchain state.
 
-**Location**: `libraries/chain/include/steem/chain/account_object.hpp`
+**Location**: `src/core/chain/include/steem/chain/account_object.hpp`
 
 ```cpp
 // Add to account_object class
@@ -34,7 +34,7 @@ uint8_t reward_level = 0; // Default level 0
 
 Witnesses propose reward level changes, which require consensus approval.
 
-**Location**: `libraries/protocol/include/steem/protocol/steem_operations.hpp`
+**Location**: `src/core/protocol/include/steem/protocol/steem_operations.hpp`
 
 ```cpp
 struct reward_level_proposal_operation
@@ -68,7 +68,7 @@ void reward_level_proposal_operation::validate() const
 
 Track pending proposals and witness approvals.
 
-**Location**: `libraries/chain/include/steem/chain/reward_level_objects.hpp`
+**Location**: `src/core/chain/include/steem/chain/reward_level_objects.hpp`
 
 ```cpp
 class reward_level_proposal_object : public object< reward_level_proposal_object_type, reward_level_proposal_object >
@@ -131,7 +131,7 @@ struct reward_level_approval_operation
 
 **Proposal Evaluator** - Creates new proposals:
 
-**Location**: `libraries/chain/steem_evaluator.cpp`
+**Location**: `src/core/chain/steem_evaluator.cpp`
 
 ```cpp
 void reward_level_proposal_evaluator::do_apply( const reward_level_proposal_operation& o )
@@ -215,7 +215,7 @@ void reward_level_approval_evaluator::do_apply( const reward_level_approval_oper
 
 Store current multiplier values in a global property object managed by witness consensus.
 
-**Location**: `libraries/chain/include/steem/chain/global_property_object.hpp`
+**Location**: `src/core/chain/include/steem/chain/global_property_object.hpp`
 
 ```cpp
 // Add to global_property_object or create separate reward_multiplier_object

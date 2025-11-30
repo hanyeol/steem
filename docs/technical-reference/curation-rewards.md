@@ -16,7 +16,7 @@ Total Rewards = Author Rewards + Curation Rewards
 
 The curation reward percentage is stored in the `percent_curation_rewards` field of the `reward_fund_object`, typically set to a certain percentage of total rewards (e.g., 25%).
 
-**Code Reference**: [database.cpp:1671](../libraries/chain/database.cpp#L1671)
+**Code Reference**: [database.cpp:1671](../src/core/chain/database.cpp#L1671)
 
 ```cpp
 share_type curation_tokens = ( ( reward_tokens * get_curation_rewards_percent( comment ) ) / STEEM_100_PERCENT ).to_uint64();
@@ -40,7 +40,7 @@ Where:
 - `R_N` = Cumulative vote_rshares up to current vote
 - `R_N-1` = Cumulative vote_rshares before current vote
 
-**Code Reference**: [steem_evaluator.cpp:1304-1306](../libraries/chain/steem_evaluator.cpp#L1304-L1306)
+**Code Reference**: [steem_evaluator.cpp:1304-1306](../src/core/chain/steem_evaluator.cpp#L1304-L1306)
 
 ```cpp
 uint64_t old_weight = util::evaluate_reward_curve( old_vote_rshares.value, curve, reward_fund.content_constant ).to_uint64();
@@ -56,12 +56,12 @@ During the initial 30 minutes after content creation, a Reverse Auction Window i
 Adjusted Weight = Base Weight × (Elapsed Time / 30 minutes)
 ```
 
-**Constant Definition**: [config.hpp:105](../libraries/protocol/include/steem/protocol/config.hpp#L105)
+**Constant Definition**: [config.hpp:105](../src/core/protocol/include/steem/protocol/config.hpp#L105)
 ```cpp
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) /// 30 minutes
 ```
 
-**Code Reference**: [steem_evaluator.cpp:1310-1316](../libraries/chain/steem_evaluator.cpp#L1310-L1316)
+**Code Reference**: [steem_evaluator.cpp:1310-1316](../src/core/chain/steem_evaluator.cpp#L1310-L1316)
 
 ```cpp
 uint128_t w(max_vote_weight);
@@ -93,7 +93,7 @@ W(R) = R² / (2α + R)
 
 Where `α` (alpha) is the `content_constant`.
 
-**Code Reference**: [reward.cpp:80-84](../libraries/chain/util/reward.cpp#L80-L84)
+**Code Reference**: [reward.cpp:80-84](../src/core/chain/util/reward.cpp#L80-L84)
 
 ```cpp
 case protocol::quadratic_curation:
@@ -110,7 +110,7 @@ break;
 - **Quadratic**: `W(R) = (R + S)² - S²` (mainly used for author rewards)
 - **Square Root**: `W(R) = √R`
 
-**Full Implementation**: [reward.cpp:68-95](../libraries/chain/util/reward.cpp#L68-L95)
+**Full Implementation**: [reward.cpp:68-95](../src/core/chain/util/reward.cpp#L68-L95)
 
 ### 4. Individual Curator Reward Distribution
 
@@ -120,7 +120,7 @@ Each curator receives rewards proportional to their weight relative to the total
 Curator Reward = (Curator Weight / Total Weight) × Total Curation Rewards
 ```
 
-**Code Reference**: [database.cpp:1618-1628](../libraries/chain/database.cpp#L1618-L1628)
+**Code Reference**: [database.cpp:1618-1628](../src/core/chain/database.cpp#L1618-L1628)
 
 ```cpp
 for( auto& item : proxy_set )
@@ -145,7 +145,7 @@ for( auto& item : proxy_set )
 
 When voting, rshares are calculated based on the user's voting power and vesting shares:
 
-**Code Reference**: [steem_evaluator.cpp:1190-1210](../libraries/chain/steem_evaluator.cpp#L1190-L1210)
+**Code Reference**: [steem_evaluator.cpp:1190-1210](../src/core/chain/steem_evaluator.cpp#L1190-L1210)
 
 ```cpp
 int64_t regenerated_power = (STEEM_100_PERCENT * elapsed_seconds) / STEEM_VOTE_REGENERATION_SECONDS;
@@ -165,7 +165,7 @@ abs_rshares = std::max( int64_t(0), abs_rshares );
 
 When a vote is processed, the `comment_object` is updated:
 
-**Code Reference**: [steem_evaluator.cpp:1245-1254](../libraries/chain/steem_evaluator.cpp#L1245-L1254)
+**Code Reference**: [steem_evaluator.cpp:1245-1254](../src/core/chain/steem_evaluator.cpp#L1245-L1254)
 
 ```cpp
 _db.modify( comment, [&]( comment_object& c ){
@@ -184,7 +184,7 @@ _db.modify( comment, [&]( comment_object& c ){
 
 Each vote is stored as a `comment_vote_object`:
 
-**Database Object**: [comment_object.hpp:141-159](../libraries/chain/include/steem/chain/comment_object.hpp#L141-L159)
+**Database Object**: [comment_object.hpp:141-159](../src/core/chain/include/steem/chain/comment_object.hpp#L141-L159)
 
 ```cpp
 class comment_vote_object : public object< comment_vote_object_type, comment_vote_object>
@@ -206,7 +206,7 @@ class comment_vote_object : public object< comment_vote_object_type, comment_vot
 
 Content is automatically paid out after a certain time. When `cashout_time` reaches the current block time, the payout is processed.
 
-**Code Reference**: [database.cpp:1826-1836](../libraries/chain/database.cpp#L1826-L1836)
+**Code Reference**: [database.cpp:1826-1836](../src/core/chain/database.cpp#L1826-L1836)
 
 ```cpp
 while( current != cidx.end() && current->cashout_time <= head_block_time() )
@@ -227,7 +227,7 @@ while( current != cidx.end() && current->cashout_time <= head_block_time() )
 
 The `cashout_comment_helper` function calculates total rewards and distributes them to curators and the author:
 
-**Full Process**: [database.cpp:1652-1763](../libraries/chain/database.cpp#L1652-L1763)
+**Full Process**: [database.cpp:1652-1763](../src/core/chain/database.cpp#L1652-L1763)
 
 1. **Calculate Total Rewards**: Calculate rewards from the reward fund based on rshares
 2. **Separate Curation Rewards**: Allocate a percentage of total rewards as curation tokens
@@ -239,7 +239,7 @@ The `cashout_comment_helper` function calculates total rewards and distributes t
 
 During payout, a `curation_reward_operation` virtual operation is generated:
 
-**Protocol Definition**: [steem_virtual_operations.hpp:23-33](../libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23-L33)
+**Protocol Definition**: [steem_virtual_operations.hpp:23-33](../src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23-L33)
 
 ```cpp
 struct curation_reward_operation : public virtual_operation
@@ -255,7 +255,7 @@ struct curation_reward_operation : public virtual_operation
 
 To receive curation rewards, all of the following conditions must be met:
 
-**Code Reference**: [steem_evaluator.cpp:1294-1297](../libraries/chain/steem_evaluator.cpp#L1294-L1297)
+**Code Reference**: [steem_evaluator.cpp:1294-1297](../src/core/chain/steem_evaluator.cpp#L1294-L1297)
 
 ```cpp
 bool curation_reward_eligible = rshares > 0 &&
@@ -277,7 +277,7 @@ if( curation_reward_eligible )
 
 Authors can disable curation rewards through `comment_options_operation`:
 
-**Comment Object Field**: [comment_object.hpp:106](../libraries/chain/include/steem/chain/comment_object.hpp#L106)
+**Comment Object Field**: [comment_object.hpp:106](../src/core/chain/include/steem/chain/comment_object.hpp#L106)
 
 ```cpp
 bool allow_curation_rewards = true;
@@ -285,7 +285,7 @@ bool allow_curation_rewards = true;
 
 When curation is disabled, all rewards go to the author:
 
-**Code Reference**: [database.cpp:1601-1605](../libraries/chain/database.cpp#L1601-L1605)
+**Code Reference**: [database.cpp:1601-1605](../src/core/chain/database.cpp#L1601-L1605)
 
 ```cpp
 if( !c.allow_curation_rewards )
@@ -299,7 +299,7 @@ if( !c.allow_curation_rewards )
 
 When vote weight is very small and rewards become 0 in satoshi units, those rewards remain as unclaimed rewards:
 
-**Code Reference**: [database.cpp:1620-1624](../libraries/chain/database.cpp#L1620-L1624)
+**Code Reference**: [database.cpp:1620-1624](../src/core/chain/database.cpp#L1620-L1624)
 
 ```cpp
 auto claim = ( ( max_rewards.value * weight ) / total_weight ).to_uint64();
@@ -318,7 +318,7 @@ Handling of unclaimed rewards is determined by the `forward_curation_remainder` 
 
 Users can change their vote up to 5 times:
 
-**Constant Definition**: [config.hpp:104](../libraries/protocol/include/steem/protocol/config.hpp#L104)
+**Constant Definition**: [config.hpp:104](../src/core/protocol/include/steem/protocol/config.hpp#L104)
 ```cpp
 #define STEEM_MAX_VOTE_CHANGES  5
 ```
@@ -329,7 +329,7 @@ When votes are changed, curation weight is recalculated and previous weight is s
 
 After content receives its first payout, votes are recorded but weight is 0:
 
-**Code Reference**: [steem_evaluator.cpp:1160-1182](../libraries/chain/steem_evaluator.cpp#L1160-L1182)
+**Code Reference**: [steem_evaluator.cpp:1160-1182](../src/core/chain/steem_evaluator.cpp#L1160-L1182)
 
 ```cpp
 if( _db.calculate_discussion_payout_time( comment ) == fc::time_point_sec::maximum() )
@@ -352,7 +352,7 @@ if( _db.calculate_discussion_payout_time( comment ) == fc::time_point_sec::maxim
 
 Curation-related statistics are stored in `comment_object`:
 
-**Data Fields**: [comment_object.hpp:80-94](../libraries/chain/include/steem/chain/comment_object.hpp#L80-L94)
+**Data Fields**: [comment_object.hpp:80-94](../src/core/chain/include/steem/chain/comment_object.hpp#L80-L94)
 
 ```cpp
 share_type        net_rshares;           // Net rshares (upvotes - downvotes)
@@ -366,7 +366,7 @@ asset             curator_payout_value;  // Total curation rewards paid (in SBD)
 
 Individual account curation reward statistics:
 
-**Data Fields**: [account_object.hpp](../libraries/chain/include/steem/chain/account_object.hpp)
+**Data Fields**: [account_object.hpp](../src/core/chain/include/steem/chain/account_object.hpp)
 
 ```cpp
 share_type        curation_rewards;  // Cumulative curation rewards (when not in LOW_MEM mode)
@@ -376,23 +376,23 @@ share_type        curation_rewards;  // Cumulative curation rewards (when not in
 
 ### Core Files
 
-1. **Vote Processing**: [libraries/chain/steem_evaluator.cpp:1150-1400](../libraries/chain/steem_evaluator.cpp#L1150)
+1. **Vote Processing**: [src/core/chain/steem_evaluator.cpp:1150-1400](../src/core/chain/steem_evaluator.cpp#L1150)
    - `vote_evaluator::do_apply()` - Vote operation processing
 
-2. **Curator Payout**: [libraries/chain/database.cpp:1582-1643](../libraries/chain/database.cpp#L1582)
+2. **Curator Payout**: [src/core/chain/database.cpp:1582-1643](../src/core/chain/database.cpp#L1582)
    - `database::pay_curators()` - Distribute rewards to curators
 
-3. **Payout Processing**: [libraries/chain/database.cpp:1652-1851](../libraries/chain/database.cpp#L1652)
+3. **Payout Processing**: [src/core/chain/database.cpp:1652-1851](../src/core/chain/database.cpp#L1652)
    - `database::cashout_comment_helper()` - Calculate and distribute total rewards
    - `database::process_comment_cashout()` - Process all content ready for payout
 
-4. **Reward Calculation**: [libraries/chain/util/reward.cpp](../libraries/chain/util/reward.cpp)
+4. **Reward Calculation**: [src/core/chain/util/reward.cpp](../src/core/chain/util/reward.cpp)
    - `evaluate_reward_curve()` - Calculate reward curve
    - `get_rshare_reward()` - Convert rshares to rewards
 
 5. **Protocol Definitions**:
-   - [libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp:23-33](../libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23) - `curation_reward_operation`
-   - [libraries/chain/include/steem/chain/comment_object.hpp](../libraries/chain/include/steem/chain/comment_object.hpp) - Data structures
+   - [src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp:23-33](../src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23) - `curation_reward_operation`
+   - [src/core/chain/include/steem/chain/comment_object.hpp](../src/core/chain/include/steem/chain/comment_object.hpp) - Data structures
 
 ## Key Constants
 

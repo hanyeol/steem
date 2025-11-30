@@ -50,7 +50,7 @@
 
 #### 새로운 Operation
 
-[libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)에 새로운 operation 추가:
+[src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)에 새로운 operation 추가:
 
 ```cpp
 /**
@@ -244,7 +244,7 @@ void nft_collection_approve_operation::validate() const
 
 #### 데이터베이스 객체
 
-[libraries/chain/include/steem/chain/](../../../libraries/chain/include/steem/chain/)에 새로운 객체 추가:
+[src/core/chain/include/steem/chain/](../../../src/core/chain/include/steem/chain/)에 새로운 객체 추가:
 
 `nft_verification_objects.hpp` 생성:
 
@@ -405,7 +405,7 @@ CHAINBASE_SET_INDEX_TYPE( steem::chain::witness_nft_proof_object, steem::chain::
 
 #### 객체 타입 열거형 업데이트
 
-[libraries/chain/include/steem/chain/steem_object_types.hpp](../../../libraries/chain/include/steem/chain/steem_object_types.hpp)에 추가:
+[src/core/chain/include/steem/chain/steem_object_types.hpp](../../../src/core/chain/include/steem/chain/steem_object_types.hpp)에 추가:
 
 ```cpp
 enum object_type
@@ -418,7 +418,7 @@ enum object_type
 
 ### 3. Evaluator 구현
 
-[libraries/chain/](../../../libraries/chain/)에 evaluator 생성:
+[src/core/chain/](../../../src/core/chain/)에 evaluator 생성:
 
 `nft_evaluator.cpp` 생성:
 
@@ -614,7 +614,7 @@ string witness_nft_proof_evaluator::recover_eth_address(
 
 ### 4. 증인 스케줄 검증
 
-블록 생성을 허용하기 전에 NFT 소유권을 검증하도록 [libraries/chain/database.cpp](../../../libraries/chain/database.cpp) 수정:
+블록 생성을 허용하기 전에 NFT 소유권을 검증하도록 [src/core/chain/database.cpp](../../../src/core/chain/database.cpp) 수정:
 
 ```cpp
 bool database::validate_witness_nft_ownership( const account_name_type& witness ) const
@@ -664,7 +664,7 @@ void database::update_witness_schedule()
 
 ### 5. NFT 검증 오라클 플러그인
 
-오프체인 검증을 처리하기 위해 [libraries/plugins/nft_oracle/](../../../libraries/plugins/nft_oracle/)에 새로운 플러그인 생성:
+오프체인 검증을 처리하기 위해 [src/plugins/nft_oracle/](../../../src/plugins/nft_oracle/)에 새로운 플러그인 생성:
 
 `nft_oracle_plugin.hpp` 생성:
 
@@ -898,7 +898,7 @@ void nft_oracle_plugin::plugin_shutdown()
 
 ### 6. API 지원
 
-NFT 검증 상태를 조회하기 위해 [libraries/plugins/apis/database_api/database_api.cpp](../../../libraries/plugins/apis/database_api/database_api.cpp)에 API 메서드 추가:
+NFT 검증 상태를 조회하기 위해 [src/plugins/apis/database_api/database_api.cpp](../../../src/plugins/apis/database_api/database_api.cpp)에 API 메서드 추가:
 
 ```cpp
 struct get_witness_nft_proof_return
@@ -1359,6 +1359,6 @@ nft-oracle-threads = 4
 - **ERC-721 표준**: https://eips.ethereum.org/EIPS/eip-721
 - **EIP-191 서명 데이터**: https://eips.ethereum.org/EIPS/eip-191
 - **이더리움 JSON-RPC**: https://ethereum.org/en/developers/docs/apis/json-rpc/
-- **프로토콜 Operations**: [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- **체인 데이터베이스**: [libraries/chain/database.cpp](../../../libraries/chain/database.cpp)
-- **플러그인 프레임워크**: [libraries/appbase/](../../../libraries/appbase/)
+- **프로토콜 Operations**: [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- **체인 데이터베이스**: [src/core/chain/database.cpp](../../../src/core/chain/database.cpp)
+- **플러그인 프레임워크**: [src/base/appbase/](../../../src/base/appbase/)

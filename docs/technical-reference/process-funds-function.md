@@ -4,7 +4,7 @@
 
 The `process_funds()` function is a core blockchain maintenance function called every block to manage the Steem inflation mechanism and distribute newly created tokens to various stakeholders. It implements the blockchain's monetary policy by calculating and distributing inflation rewards.
 
-**Location:** [libraries/chain/database.cpp:1813](../libraries/chain/database.cpp#L1813)
+**Location:** [src/core/chain/database.cpp:1813](../src/core/chain/database.cpp#L1813)
 
 ## Purpose
 
@@ -146,7 +146,7 @@ witness_reward /= wso.witness_pay_normalization_factor;  // Default: 25
 
 ### Default Weight Configuration
 
-From [witness_objects.hpp:171-173](../libraries/chain/include/steem/chain/witness_objects.hpp#L171-L173):
+From [witness_objects.hpp:171-173](../src/core/chain/include/steem/chain/witness_objects.hpp#L171-L173):
 
 ```cpp
 uint8_t  top20_weight = 1;
@@ -300,10 +300,10 @@ This function is called:
 
 ## Related Functions
 
-- [`pay_reward_funds()`](../libraries/chain/database.cpp#L1955) - Distributes content rewards to reward funds
-- [`create_vesting()`](../libraries/chain/database.cpp) - Converts STEEM to STEEM Power
-- [`process_conversions()`](../libraries/chain/database.cpp#L1984) - Handles SBD conversions
-- [`process_savings_withdraws()`](../libraries/chain/database.cpp#L1860) - Processes savings withdrawals
+- [`pay_reward_funds()`](../src/core/chain/database.cpp#L1955) - Distributes content rewards to reward funds
+- [`create_vesting()`](../src/core/chain/database.cpp) - Converts STEEM to STEEM Power
+- [`process_conversions()`](../src/core/chain/database.cpp#L1984) - Handles SBD conversions
+- [`process_savings_withdraws()`](../src/core/chain/database.cpp#L1860) - Processes savings withdrawals
 
 ## Historical Notes
 
@@ -326,7 +326,7 @@ This function is called:
 
 ### Code Location
 
-**File:** [libraries/protocol/include/steem/protocol/config.hpp:113-115](../libraries/protocol/include/steem/protocol/config.hpp#L113-L115)
+**File:** [src/core/protocol/include/steem/protocol/config.hpp:113-115](../src/core/protocol/include/steem/protocol/config.hpp#L113-L115)
 
 ```cpp
 #define STEEM_INFLATION_RATE_START_PERCENT    (978) // Fixes block 7,000,000 to 9.5%

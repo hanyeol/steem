@@ -215,7 +215,7 @@ transfer_operation    ✗ Wrong
 - `witness_update`, `feed_publish`
 - `limit_order_create`, `limit_order_cancel`
 
-**Full list**: See [steem_operations.hpp](../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
+**Full list**: See [steem_operations.hpp](../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
 
 ## History Pruning
 
@@ -624,8 +624,8 @@ Out of memory
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/account_history/account_history_plugin.cpp](../../libraries/plugins/account_history/account_history_plugin.cpp)
-- **Plugin Header**: [libraries/plugins/account_history/include/steem/plugins/account_history/account_history_plugin.hpp](../../libraries/plugins/account_history/include/steem/plugins/account_history/account_history_plugin.hpp)
+- **Implementation**: [src/plugins/account_history/account_history_plugin.cpp](../../src/plugins/account_history/account_history_plugin.cpp)
+- **Plugin Header**: [src/plugins/account_history/include/steem/plugins/account_history/account_history_plugin.hpp](../../src/plugins/account_history/include/steem/plugins/account_history/account_history_plugin.hpp)
 
 ## License
 

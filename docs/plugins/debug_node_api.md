@@ -597,8 +597,8 @@ steemd --data-dir=/tmp/testnet --plugin="debug_node debug_node_api"
 
 ## Source Code
 
-- **API Definition**: [libraries/plugins/apis/debug_node_api/include/steem/plugins/debug_node_api/debug_node_api.hpp](../../libraries/plugins/apis/debug_node_api/include/steem/plugins/debug_node_api/debug_node_api.hpp)
-- **Implementation**: [libraries/plugins/apis/debug_node_api/debug_node_api_plugin.cpp](../../libraries/plugins/apis/debug_node_api/debug_node_api_plugin.cpp)
+- **API Definition**: [src/plugins/apis/debug_node_api/include/steem/plugins/debug_node_api/debug_node_api.hpp](../../src/plugins/apis/debug_node_api/include/steem/plugins/debug_node_api/debug_node_api.hpp)
+- **Implementation**: [src/plugins/apis/debug_node_api/debug_node_api_plugin.cpp](../../src/plugins/apis/debug_node_api/debug_node_api_plugin.cpp)
 
 ## License
 

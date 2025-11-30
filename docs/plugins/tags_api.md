@@ -821,9 +821,9 @@ Comments have limited fields (no title, etc.)
 
 ## Source Code
 
-- **API Implementation**: [libraries/plugins/apis/tags_api/tags_api.cpp](../../libraries/plugins/apis/tags_api/tags_api.cpp)
-- **API Header**: [libraries/plugins/apis/tags_api/include/steem/plugins/tags_api/tags_api.hpp](../../libraries/plugins/apis/tags_api/include/steem/plugins/tags_api/tags_api.hpp)
-- **State Plugin**: [libraries/plugins/tags/tags_plugin.cpp](../../libraries/plugins/tags/tags_plugin.cpp)
+- **API Implementation**: [src/plugins/apis/tags_api/tags_api.cpp](../../src/plugins/apis/tags_api/tags_api.cpp)
+- **API Header**: [src/plugins/apis/tags_api/include/steem/plugins/tags_api/tags_api.hpp](../../src/plugins/apis/tags_api/include/steem/plugins/tags_api/tags_api.hpp)
+- **State Plugin**: [src/plugins/tags/tags_plugin.cpp](../../src/plugins/tags/tags_plugin.cpp)
 
 ## License
 

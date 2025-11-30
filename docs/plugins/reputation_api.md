@@ -646,9 +646,9 @@ app.get('/api/reputation/:account', async (req, res) => {
 
 ## Source Code
 
-- **API Implementation**: [libraries/plugins/apis/reputation_api/reputation_api.cpp](../../libraries/plugins/apis/reputation_api/reputation_api.cpp)
-- **API Header**: [libraries/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp](../../libraries/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp)
-- **State Plugin**: [libraries/plugins/reputation/reputation_plugin.cpp](../../libraries/plugins/reputation/reputation_plugin.cpp)
+- **API Implementation**: [src/plugins/apis/reputation_api/reputation_api.cpp](../../src/plugins/apis/reputation_api/reputation_api.cpp)
+- **API Header**: [src/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp](../../src/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp)
+- **State Plugin**: [src/plugins/reputation/reputation_plugin.cpp](../../src/plugins/reputation/reputation_plugin.cpp)
 
 ## License
 

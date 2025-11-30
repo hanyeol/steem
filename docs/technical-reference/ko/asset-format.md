@@ -227,7 +227,7 @@ display_amount = amount / (10 ^ precision)
 
 ### C++ Asset 클래스
 
-**파일:** `libraries/protocol/include/steem/protocol/asset.hpp`
+**파일:** `src/core/protocol/include/steem/protocol/asset.hpp`
 
 ```cpp
 // asset 생성
@@ -444,10 +444,10 @@ SMT asset은 특별한 operation을 통해 생성되고 온체인에 등록됩�
 
 ## 관련 파일
 
-- **Asset 정의:** `libraries/protocol/include/steem/protocol/asset.hpp`
-- **Asset 구현:** `libraries/protocol/asset.cpp`
-- **Asset Symbol:** `libraries/protocol/include/steem/protocol/asset_symbol.hpp`
-- **직렬화:** `libraries/protocol/include/steem/protocol/types.hpp`
+- **Asset 정의:** `src/core/protocol/include/steem/protocol/asset.hpp`
+- **Asset 구현:** `src/core/protocol/asset.cpp`
+- **Asset Symbol:** `src/core/protocol/include/steem/protocol/asset_symbol.hpp`
+- **직렬화:** `src/core/protocol/include/steem/protocol/types.hpp`
 
 ## 추가 리소스
 

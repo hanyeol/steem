@@ -515,8 +515,8 @@ steemd --replay-blockchain
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/tags/tags_plugin.cpp](../../libraries/plugins/tags/tags_plugin.cpp)
-- **Header**: [libraries/plugins/tags/include/steem/plugins/tags/tags_plugin.hpp](../../libraries/plugins/tags/include/steem/plugins/tags/tags_plugin.hpp)
+- **Implementation**: [src/plugins/tags/tags_plugin.cpp](../../src/plugins/tags/tags_plugin.cpp)
+- **Header**: [src/plugins/tags/include/steem/plugins/tags/tags_plugin.hpp](../../src/plugins/tags/include/steem/plugins/tags/tags_plugin.hpp)
 
 ## License
 

@@ -16,7 +16,7 @@
 
 큐레이션 보상 비율은 `reward_fund_object`의 `percent_curation_rewards` 필드에 저장되며, 일반적으로 총 보상의 일정 비율(예: 25%)로 설정됩니다.
 
-**코드 참조**: [database.cpp:1671](../libraries/chain/database.cpp#L1671)
+**코드 참조**: [database.cpp:1671](../src/core/chain/database.cpp#L1671)
 
 ```cpp
 share_type curation_tokens = ( ( reward_tokens * get_curation_rewards_percent( comment ) ) / STEEM_100_PERCENT ).to_uint64();
@@ -40,7 +40,7 @@ W(R_N) - W(R_N-1)
 - `R_N` = 현재 투표까지의 누적 vote_rshares
 - `R_N-1` = 이전까지의 누적 vote_rshares
 
-**코드 참조**: [steem_evaluator.cpp:1304-1306](../libraries/chain/steem_evaluator.cpp#L1304-L1306)
+**코드 참조**: [steem_evaluator.cpp:1304-1306](../src/core/chain/steem_evaluator.cpp#L1304-L1306)
 
 ```cpp
 uint64_t old_weight = util::evaluate_reward_curve( old_vote_rshares.value, curve, reward_fund.content_constant ).to_uint64();
@@ -56,12 +56,12 @@ cv.weight = new_weight - old_weight;
 조정된 가중치 = 기본 가중치 × (경과 시간 / 30분)
 ```
 
-**상수 정의**: [config.hpp:105](../libraries/protocol/include/steem/protocol/config.hpp#L105)
+**상수 정의**: [config.hpp:105](../src/core/protocol/include/steem/protocol/config.hpp#L105)
 ```cpp
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) /// 30 minutes
 ```
 
-**코드 참조**: [steem_evaluator.cpp:1310-1316](../libraries/chain/steem_evaluator.cpp#L1310-L1316)
+**코드 참조**: [steem_evaluator.cpp:1310-1316](../src/core/chain/steem_evaluator.cpp#L1310-L1316)
 
 ```cpp
 uint128_t w(max_vote_weight);
@@ -93,7 +93,7 @@ W(R) = R² / (2α + R)
 
 여기서 `α` (alpha)는 `content_constant`입니다.
 
-**코드 참조**: [reward.cpp:80-84](../libraries/chain/util/reward.cpp#L80-L84)
+**코드 참조**: [reward.cpp:80-84](../src/core/chain/util/reward.cpp#L80-L84)
 
 ```cpp
 case protocol::quadratic_curation:
@@ -110,7 +110,7 @@ break;
 - **Quadratic**: `W(R) = (R + S)² - S²` (작성자 보상에 주로 사용)
 - **Square Root**: `W(R) = √R`
 
-**전체 구현**: [reward.cpp:68-95](../libraries/chain/util/reward.cpp#L68-L95)
+**전체 구현**: [reward.cpp:68-95](../src/core/chain/util/reward.cpp#L68-L95)
 
 ### 4. 개별 큐레이터 보상 분배
 
@@ -120,7 +120,7 @@ break;
 큐레이터 보상 = (큐레이터 가중치 / 총 가중치) × 총 큐레이션 보상
 ```
 
-**코드 참조**: [database.cpp:1618-1628](../libraries/chain/database.cpp#L1618-L1628)
+**코드 참조**: [database.cpp:1618-1628](../src/core/chain/database.cpp#L1618-L1628)
 
 ```cpp
 for( auto& item : proxy_set )
@@ -145,7 +145,7 @@ for( auto& item : proxy_set )
 
 투표 시 사용자의 voting power와 vesting shares를 기반으로 rshares가 계산됩니다:
 
-**코드 참조**: [steem_evaluator.cpp:1190-1210](../libraries/chain/steem_evaluator.cpp#L1190-L1210)
+**코드 참조**: [steem_evaluator.cpp:1190-1210](../src/core/chain/steem_evaluator.cpp#L1190-L1210)
 
 ```cpp
 int64_t regenerated_power = (STEEM_100_PERCENT * elapsed_seconds) / STEEM_VOTE_REGENERATION_SECONDS;
@@ -165,7 +165,7 @@ abs_rshares = std::max( int64_t(0), abs_rshares );
 
 투표가 처리되면 `comment_object`가 업데이트됩니다:
 
-**코드 참조**: [steem_evaluator.cpp:1245-1254](../libraries/chain/steem_evaluator.cpp#L1245-L1254)
+**코드 참조**: [steem_evaluator.cpp:1245-1254](../src/core/chain/steem_evaluator.cpp#L1245-L1254)
 
 ```cpp
 _db.modify( comment, [&]( comment_object& c ){
@@ -184,7 +184,7 @@ _db.modify( comment, [&]( comment_object& c ){
 
 각 투표는 `comment_vote_object`로 저장됩니다:
 
-**데이터베이스 객체**: [comment_object.hpp:141-159](../libraries/chain/include/steem/chain/comment_object.hpp#L141-L159)
+**데이터베이스 객체**: [comment_object.hpp:141-159](../src/core/chain/include/steem/chain/comment_object.hpp#L141-L159)
 
 ```cpp
 class comment_vote_object : public object< comment_vote_object_type, comment_vote_object>
@@ -206,7 +206,7 @@ class comment_vote_object : public object< comment_vote_object_type, comment_vot
 
 콘텐츠는 일정 시간 후 자동으로 지급됩니다. `cashout_time`이 현재 블록 시간에 도달하면 지급이 처리됩니다.
 
-**코드 참조**: [database.cpp:1826-1836](../libraries/chain/database.cpp#L1826-L1836)
+**코드 참조**: [database.cpp:1826-1836](../src/core/chain/database.cpp#L1826-L1836)
 
 ```cpp
 while( current != cidx.end() && current->cashout_time <= head_block_time() )
@@ -227,7 +227,7 @@ while( current != cidx.end() && current->cashout_time <= head_block_time() )
 
 `cashout_comment_helper` 함수가 총 보상을 계산하고 큐레이터와 작성자에게 분배합니다:
 
-**전체 프로세스**: [database.cpp:1652-1763](../libraries/chain/database.cpp#L1652-L1763)
+**전체 프로세스**: [database.cpp:1652-1763](../src/core/chain/database.cpp#L1652-L1763)
 
 1. **총 보상 계산**: Rshares를 기반으로 reward fund에서 보상 계산
 2. **큐레이션 보상 분리**: 총 보상의 일정 비율을 큐레이션 토큰으로 분리
@@ -239,7 +239,7 @@ while( current != cidx.end() && current->cashout_time <= head_block_time() )
 
 지급 시 `curation_reward_operation` virtual operation이 생성됩니다:
 
-**프로토콜 정의**: [steem_virtual_operations.hpp:23-33](../libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23-L33)
+**프로토콜 정의**: [steem_virtual_operations.hpp:23-33](../src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23-L33)
 
 ```cpp
 struct curation_reward_operation : public virtual_operation
@@ -255,7 +255,7 @@ struct curation_reward_operation : public virtual_operation
 
 큐레이션 보상을 받으려면 다음 조건을 모두 만족해야 합니다:
 
-**코드 참조**: [steem_evaluator.cpp:1294-1297](../libraries/chain/steem_evaluator.cpp#L1294-L1297)
+**코드 참조**: [steem_evaluator.cpp:1294-1297](../src/core/chain/steem_evaluator.cpp#L1294-L1297)
 
 ```cpp
 bool curation_reward_eligible = rshares > 0 &&
@@ -277,7 +277,7 @@ if( curation_reward_eligible )
 
 작성자는 `comment_options_operation`을 통해 큐레이션 보상을 비활성화할 수 있습니다:
 
-**Comment 객체 필드**: [comment_object.hpp:106](../libraries/chain/include/steem/chain/comment_object.hpp#L106)
+**Comment 객체 필드**: [comment_object.hpp:106](../src/core/chain/include/steem/chain/comment_object.hpp#L106)
 
 ```cpp
 bool allow_curation_rewards = true;
@@ -285,7 +285,7 @@ bool allow_curation_rewards = true;
 
 큐레이션이 비활성화되면 모든 보상이 작성자에게 돌아갑니다:
 
-**코드 참조**: [database.cpp:1601-1605](../libraries/chain/database.cpp#L1601-L1605)
+**코드 참조**: [database.cpp:1601-1605](../src/core/chain/database.cpp#L1601-L1605)
 
 ```cpp
 if( !c.allow_curation_rewards )
@@ -299,7 +299,7 @@ if( !c.allow_curation_rewards )
 
 투표 가중치가 매우 작아 보상이 satoshi 단위로 0이 되는 경우, 해당 보상은 미청구 보상으로 남습니다:
 
-**코드 참조**: [database.cpp:1620-1624](../libraries/chain/database.cpp#L1620-L1624)
+**코드 참조**: [database.cpp:1620-1624](../src/core/chain/database.cpp#L1620-L1624)
 
 ```cpp
 auto claim = ( ( max_rewards.value * weight ) / total_weight ).to_uint64();
@@ -318,7 +318,7 @@ if( claim > 0 )
 
 사용자는 투표를 최대 5회까지 변경할 수 있습니다:
 
-**상수 정의**: [config.hpp:104](../libraries/protocol/include/steem/protocol/config.hpp#L104)
+**상수 정의**: [config.hpp:104](../src/core/protocol/include/steem/protocol/config.hpp#L104)
 ```cpp
 #define STEEM_MAX_VOTE_CHANGES  5
 ```
@@ -329,7 +329,7 @@ if( claim > 0 )
 
 콘텐츠가 첫 지급을 받은 후 투표는 기록되지만 가중치는 0입니다:
 
-**코드 참조**: [steem_evaluator.cpp:1160-1182](../libraries/chain/steem_evaluator.cpp#L1160-L1182)
+**코드 참조**: [steem_evaluator.cpp:1160-1182](../src/core/chain/steem_evaluator.cpp#L1160-L1182)
 
 ```cpp
 if( _db.calculate_discussion_payout_time( comment ) == fc::time_point_sec::maximum() )
@@ -352,7 +352,7 @@ if( _db.calculate_discussion_payout_time( comment ) == fc::time_point_sec::maxim
 
 큐레이션 관련 통계는 `comment_object`에 저장됩니다:
 
-**데이터 필드**: [comment_object.hpp:80-94](../libraries/chain/include/steem/chain/comment_object.hpp#L80-L94)
+**데이터 필드**: [comment_object.hpp:80-94](../src/core/chain/include/steem/chain/comment_object.hpp#L80-L94)
 
 ```cpp
 share_type        net_rshares;           // 순 rshares (업보트 - 다운보트)
@@ -366,7 +366,7 @@ asset             curator_payout_value;  // 지급된 큐레이션 보상 총액
 
 개별 계정의 큐레이션 보상 통계:
 
-**데이터 필드**: [account_object.hpp](../libraries/chain/include/steem/chain/account_object.hpp)
+**데이터 필드**: [account_object.hpp](../src/core/chain/include/steem/chain/account_object.hpp)
 
 ```cpp
 share_type        curation_rewards;  // 누적 큐레이션 보상 (LOW_MEM 모드가 아닐 때)
@@ -376,23 +376,23 @@ share_type        curation_rewards;  // 누적 큐레이션 보상 (LOW_MEM 모�
 
 ### 핵심 파일
 
-1. **투표 처리**: [libraries/chain/steem_evaluator.cpp:1150-1400](../libraries/chain/steem_evaluator.cpp#L1150)
+1. **투표 처리**: [src/core/chain/steem_evaluator.cpp:1150-1400](../src/core/chain/steem_evaluator.cpp#L1150)
    - `vote_evaluator::do_apply()` - 투표 연산 처리
 
-2. **큐레이터 지급**: [libraries/chain/database.cpp:1582-1643](../libraries/chain/database.cpp#L1582)
+2. **큐레이터 지급**: [src/core/chain/database.cpp:1582-1643](../src/core/chain/database.cpp#L1582)
    - `database::pay_curators()` - 큐레이터에게 보상 분배
 
-3. **지급 처리**: [libraries/chain/database.cpp:1652-1851](../libraries/chain/database.cpp#L1652)
+3. **지급 처리**: [src/core/chain/database.cpp:1652-1851](../src/core/chain/database.cpp#L1652)
    - `database::cashout_comment_helper()` - 총 보상 계산 및 분배
    - `database::process_comment_cashout()` - 지급 가능한 모든 콘텐츠 처리
 
-4. **보상 계산**: [libraries/chain/util/reward.cpp](../libraries/chain/util/reward.cpp)
+4. **보상 계산**: [src/core/chain/util/reward.cpp](../src/core/chain/util/reward.cpp)
    - `evaluate_reward_curve()` - 보상 곡선 계산
    - `get_rshare_reward()` - Rshares를 보상으로 변환
 
 5. **프로토콜 정의**:
-   - [libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp:23-33](../libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23) - `curation_reward_operation`
-   - [libraries/chain/include/steem/chain/comment_object.hpp](../libraries/chain/include/steem/chain/comment_object.hpp) - 데이터 구조
+   - [src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp:23-33](../src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp#L23) - `curation_reward_operation`
+   - [src/core/chain/include/steem/chain/comment_object.hpp](../src/core/chain/include/steem/chain/comment_object.hpp) - 데이터 구조
 
 ## 주요 상수
 

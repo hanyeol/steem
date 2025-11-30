@@ -42,7 +42,7 @@ STEEM 블록체인은 "Proof of Brain" 알고리즘을 통해 콘텐츠 생성�
 vesting_share_price = total_vesting_shares / total_vesting_fund_steem
 ```
 
-코드 구현 ([global_property_object.hpp:53-59](libraries/chain/include/steem/chain/global_property_object.hpp#L53-L59)):
+코드 구현 ([global_property_object.hpp:53-59](src/core/chain/include/steem/chain/global_property_object.hpp#L53-L59)):
 
 ```cpp
 price get_vesting_share_price() const
@@ -56,7 +56,7 @@ price get_vesting_share_price() const
 
 #### 초기값
 
-네트워크 초기 상태 ([config.hpp:35,63](libraries/protocol/include/steem/protocol/config.hpp#L35)):
+네트워크 초기 상태 ([config.hpp:35,63](src/core/protocol/include/steem/protocol/config.hpp#L35)):
 
 **표시값**:
 - `1 STEEM = 1,000 VESTS` (기본 비율)
@@ -80,7 +80,7 @@ virtual_supply.amount = 0                  // 0.000 STEEM
 current_sbd_supply.amount = 0              // 0.000 SBD
 ```
 
-첫 베스팅이 발생하기 전까지는 기본 비율이 적용됩니다 ([global_property_object.hpp:55-56](libraries/chain/include/steem/chain/global_property_object.hpp#L55-L56)):
+첫 베스팅이 발생하기 전까지는 기본 비율이 적용됩니다 ([global_property_object.hpp:55-56](src/core/chain/include/steem/chain/global_property_object.hpp#L55-L56)):
 ```cpp
 if ( total_vesting_fund_steem.amount == 0 || total_vesting_shares.amount == 0 )
    return price( asset( 1000, STEEM_SYMBOL ), asset( 1000000, VESTS_SYMBOL ) );
@@ -91,7 +91,7 @@ if ( total_vesting_fund_steem.amount == 0 || total_vesting_shares.amount == 0 )
 
 #### 사토시 단위 표현
 
-STEEM과 VESTS의 정밀도 ([asset_symbol.hpp:13-15](libraries/protocol/include/steem/protocol/asset_symbol.hpp#L13-L15)):
+STEEM과 VESTS의 정밀도 ([asset_symbol.hpp:13-15](src/core/protocol/include/steem/protocol/asset_symbol.hpp#L13-L15)):
 - **STEEM 정밀도**: 3 (= 10³ = 1,000)
   - 1 STEEM = 1,000 사토시 (최소 단위 = 0.001 STEEM)
 - **VESTS 정밀도**: 6 (= 10⁶ = 1,000,000)
@@ -127,7 +127,7 @@ price( asset( 1000, STEEM_SYMBOL ), asset( 1000000, VESTS_SYMBOL ) )
 
 ### 3. STEEM Power 생성 프로세스
 
-사용자가 STEEM을 STEEM Power로 전환할 때 ([database.cpp:1111-1130](libraries/chain/database.cpp#L1111-L1130)):
+사용자가 STEEM을 STEEM Power로 전환할 때 ([database.cpp:1111-1130](src/core/chain/database.cpp#L1111-L1130)):
 
 ```cpp
 asset database::create_vesting( const account_object& to_account, asset liquid, bool to_reward_balance )
@@ -168,7 +168,7 @@ asset database::create_vesting( const account_object& to_account, asset liquid, 
 
 ### 4. 보상 베스팅 가격
 
-미래의 보상을 고려한 가격 계산 ([global_property_object.hpp:61-65](libraries/chain/include/steem/chain/global_property_object.hpp#L61-L65)):
+미래의 보상을 고려한 가격 계산 ([global_property_object.hpp:61-65](src/core/chain/include/steem/chain/global_property_object.hpp#L61-L65)):
 
 ```cpp
 price get_reward_vesting_share_price() const
@@ -189,7 +189,7 @@ STEEM Power를 다시 유동성 STEEM으로 전환하는 과정:
 - **방식**: 매주 1/13씩 STEEM으로 전환
 - **취소 가능**: 파워다운 중에도 언제든 취소 가능
 
-구성 상수 ([config.hpp:92-93](libraries/protocol/include/steem/protocol/config.hpp#L92-L93)):
+구성 상수 ([config.hpp:92-93](src/core/protocol/include/steem/protocol/config.hpp#L92-L93)):
 
 ```cpp
 #define STEEM_VESTING_WITHDRAW_INTERVALS      13
@@ -202,7 +202,7 @@ STEEM Power를 다시 유동성 STEEM으로 전환하는 과정:
 
 ### 1. 보상 풀의 구조
 
-STEEM의 보상 시스템은 `reward_fund_object`를 통해 관리됩니다 ([steem_objects.hpp:257-276](libraries/chain/include/steem/chain/steem_objects.hpp#L257-L276)):
+STEEM의 보상 시스템은 `reward_fund_object`를 통해 관리됩니다 ([steem_objects.hpp:257-276](src/core/chain/include/steem/chain/steem_objects.hpp#L257-L276)):
 
 ```cpp
 class reward_fund_object : public object< reward_fund_object_type, reward_fund_object >
@@ -236,7 +236,7 @@ STEEM은 여러 보상 풀을 가질 수 있으며, 주요 풀은:
 - **콘텐츠 보상 비율**: 인플레이션의 75% (STEEM_CONTENT_REWARD_PERCENT = 7,500)
 - **베스팅 펀드 비율**: 인플레이션의 15% (STEEM_VESTING_FUND_PERCENT = 1,500)
 
-구성 상수 ([config.hpp:117-118](libraries/protocol/include/steem/protocol/config.hpp#L117-L118)):
+구성 상수 ([config.hpp:117-118](src/core/protocol/include/steem/protocol/config.hpp#L117-L118)):
 
 ```cpp
 #define STEEM_CONTENT_REWARD_PERCENT          (75*STEEM_1_PERCENT) // 75% of inflation
@@ -249,7 +249,7 @@ STEEM은 여러 보상 풀을 가질 수 있으며, 주요 풀은:
 
 감쇠 기간: 15일 (STEEM_RECENT_RSHARES_DECAY_TIME)
 
-코드 구현 ([database.cpp:1715-1734](libraries/chain/database.cpp#L1715-L1734)):
+코드 구현 ([database.cpp:1715-1734](src/core/chain/database.cpp#L1715-L1734)):
 
 ```cpp
 void database::process_comment_cashout()
@@ -296,7 +296,7 @@ new_claims = old_claims - (old_claims * elapsed_time / decay_time)
 
 #### 곡선 타입
 
-STEEM은 4가지 보상 곡선을 지원합니다 ([reward.cpp:68-95](libraries/chain/util/reward.cpp#L68-L95)):
+STEEM은 4가지 보상 곡선을 지원합니다 ([reward.cpp:68-95](src/core/chain/util/reward.cpp#L68-L95)):
 
 ```cpp
 uint128_t evaluate_reward_curve( const uint128_t& rshares,
@@ -419,7 +419,7 @@ result = rshares^2 / (2α + rshares)
 
 ### 4. 실제 보상 계산
 
-콘텐츠의 보상이 지급될 때 ([reward.cpp:38-66](libraries/chain/util/reward.cpp#L38-L66)):
+콘텐츠의 보상이 지급될 때 ([reward.cpp:38-66](src/core/chain/util/reward.cpp#L38-L66)):
 
 ```cpp
 uint64_t get_rshare_reward( const comment_reward_context& ctx )
@@ -494,7 +494,7 @@ payout = (1,000,000 * 1,000,000,000,000 * 10,000) / (100,000,000,000,000 * 10,00
 - **기간**: 30분 (STEEM_REVERSE_AUCTION_WINDOW_SECONDS = 1,800초)
 - **메커니즘**: 일찍 투표할수록 더 많은 보상이 저자에게 돌아감
 
-구성 상수 ([config.hpp:99](libraries/protocol/include/steem/protocol/config.hpp#L99)):
+구성 상수 ([config.hpp:99](src/core/protocol/include/steem/protocol/config.hpp#L99)):
 
 ```cpp
 #define STEEM_REVERSE_AUCTION_WINDOW_SECONDS  (60*30) // 30 minutes
@@ -621,28 +621,28 @@ pending_rewarded_vesting_steem = 0 STEEM
 
 #### 1. 데이터 구조
 
-- **[global_property_object.hpp](libraries/chain/include/steem/chain/global_property_object.hpp)**
+- **[global_property_object.hpp](src/core/chain/include/steem/chain/global_property_object.hpp)**
   - `dynamic_global_property_object` 정의
   - 베스팅 가격 계산 함수
 
-- **[steem_objects.hpp](libraries/chain/include/steem/chain/steem_objects.hpp)**
+- **[steem_objects.hpp](src/core/chain/include/steem/chain/steem_objects.hpp)**
   - `reward_fund_object` 정의
   - 보상 풀 관련 객체
 
 #### 2. 보상 계산
 
-- **[util/reward.hpp](libraries/chain/include/steem/chain/util/reward.hpp)**
+- **[util/reward.hpp](src/core/chain/include/steem/chain/util/reward.hpp)**
   - `comment_reward_context` 구조체
   - 보상 계산 함수 선언
 
-- **[util/reward.cpp](libraries/chain/util/reward.cpp)**
+- **[util/reward.cpp](src/core/chain/util/reward.cpp)**
   - `evaluate_reward_curve()` 구현
   - `get_rshare_reward()` 구현
   - 제곱근 근사 함수
 
 #### 3. 데이터베이스 작업
 
-- **[database.cpp](libraries/chain/database.cpp)**
+- **[database.cpp](src/core/chain/database.cpp)**
   - `create_vesting()` - VESTS 생성
   - `process_comment_cashout()` - 보상 지급 처리
   - `adjust_total_payout()` - 지급 기록 업데이트
@@ -650,7 +650,7 @@ pending_rewarded_vesting_steem = 0 STEEM
 
 #### 4. 구성 상수
 
-- **[protocol/config.hpp](libraries/protocol/include/steem/protocol/config.hpp)**
+- **[protocol/config.hpp](src/core/protocol/include/steem/protocol/config.hpp)**
   - 모든 시스템 상수 정의
   - 인플레이션, 보상, 타이밍 관련 설정
 

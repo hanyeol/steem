@@ -512,9 +512,9 @@ docker run -d \
 
 ## Source Code
 
-- **Header**: [webserver_plugin.hpp](../../libraries/plugins/webserver/include/steem/plugins/webserver/webserver_plugin.hpp)
-- **Implementation**: [webserver_plugin.cpp](../../libraries/plugins/webserver/webserver_plugin.cpp)
-- **Library**: WebSocket++ (vendored in `libraries/fc/vendor/websocketpp`)
+- **Header**: [webserver_plugin.hpp](../../src/plugins/webserver/include/steem/plugins/webserver/webserver_plugin.hpp)
+- **Implementation**: [webserver_plugin.cpp](../../src/plugins/webserver/webserver_plugin.cpp)
+- **Library**: WebSocket++ (vendored in `src/base/fc/vendor/websocketpp`)
 
 ## License
 

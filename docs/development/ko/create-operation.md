@@ -88,7 +88,7 @@ operation 자체에는 영향을 주지 않습니다.
 - (5b) operation을 실행하는 실제 코드는 `opname_evaluator::do_apply( const opname_operation& o )`
 메서드에 작성됩니다. 이 코드는 `_db` 클래스 멤버의 데이터베이스에 액세스할 수 있습니다.
 
-- (5c) 모든 새 operation과 모든 새 operation 기능은 `libraries/chain/hardfork.d`에 정의된
+- (5c) 모든 새 operation과 모든 새 operation 기능은 `src/core/chain/hardfork.d`에 정의된
 기능 상수에 대해 `_db.has_hardfork( ... )`를 확인하여 게이트되어야 합니다.
 
 - (5d) 이 예제에서는 `account_object`에 boolean 필드를 추가하고,
@@ -97,7 +97,7 @@ operation 자체에는 영향을 주지 않습니다.
 - (5e) 데이터베이스에서 객체를 가져오는 메서드는 `const` 참조를 반환합니다.
 체인 상태를 검색하는 가장 일반적인 방법은
 `get< type, index >( index_value )`를 사용하는 것입니다. 예를 들어
-[구현](https://github.com/steemit/steem/blob/a0a69b10189d93a9be4da7e7fd9d5358af956e34/libraries/chain/database.cpp#L364)을
+[구현](https://github.com/steemit/steem/blob/a0a69b10189d93a9be4da7e7fd9d5358af956e34/src/core/chain/database.cpp#L364)을
 참조하십시오.
 
 - (5f) 데이터베이스의 객체를 수정하려면 `db.modify()`를 발행해야 하며,
@@ -134,7 +134,7 @@ operation 자체에는 영향을 주지 않습니다.
 
 ## Step 8
 
-- (8a) libraries/chain의 객체는 블록체인 코어의 일부이며, 합의에 사용됩니다
+- (8a) src/core/chain의 객체는 블록체인 코어의 일부이며, 합의에 사용됩니다
 - (8b) 블록체인 코어 객체에 필드를 추가할 때, JSON 클라이언트가 사용할 수 있도록
 RPC 객체에 동일한 필드를 추가해야 합니다
 - (8c) 필드 정의 및 리플렉션 추가

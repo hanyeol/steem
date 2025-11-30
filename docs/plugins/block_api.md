@@ -649,8 +649,8 @@ async function getBlock(blockNum: number): Promise<Block | null> {
 
 ## Source Code
 
-- **API Definition**: [libraries/plugins/apis/block_api/include/steem/plugins/block_api/block_api.hpp](../../libraries/plugins/apis/block_api/include/steem/plugins/block_api/block_api.hpp)
-- **Implementation**: [libraries/plugins/apis/block_api/block_api_plugin.cpp](../../libraries/plugins/apis/block_api/block_api_plugin.cpp)
+- **API Definition**: [src/plugins/apis/block_api/include/steem/plugins/block_api/block_api.hpp](../../src/plugins/apis/block_api/include/steem/plugins/block_api/block_api.hpp)
+- **Implementation**: [src/plugins/apis/block_api/block_api_plugin.cpp](../../src/plugins/apis/block_api/block_api_plugin.cpp)
 
 ## License
 

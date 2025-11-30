@@ -18,7 +18,7 @@
 
 #### 새로운 Operation 필드
 
-[libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)의 `comment_operation` 구조체에 새로운 선택적 필드 추가:
+[src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)의 `comment_operation` 구조체에 새로운 선택적 필드 추가:
 
 ```cpp
 struct comment_operation : public base_operation
@@ -68,7 +68,7 @@ void comment_operation::validate() const
 
 #### 데이터베이스 객체
 
-[libraries/chain/include/steem/chain/comment_object.hpp](../../../../libraries/chain/include/steem/chain/comment_object.hpp)의 `comment_object`에 새로운 필드 추가:
+[src/core/chain/include/steem/chain/comment_object.hpp](../../../../src/core/chain/include/steem/chain/comment_object.hpp)의 `comment_object`에 새로운 필드 추가:
 
 ```cpp
 class comment_object : public object< comment_object_type, comment_object >
@@ -102,7 +102,7 @@ FC_REFLECT( steem::chain::comment_object,
 
 #### Comment Evaluator
 
-[libraries/chain/steem_evaluator.cpp](../../../../libraries/chain/steem_evaluator.cpp)의 `comment_evaluator` 수정:
+[src/core/chain/steem_evaluator.cpp](../../../../src/core/chain/steem_evaluator.cpp)의 `comment_evaluator` 수정:
 
 ```cpp
 void comment_evaluator::do_apply( const comment_operation& o )
@@ -164,7 +164,7 @@ void comment_evaluator::do_apply( const comment_operation& o )
 
 #### Database API
 
-[libraries/plugins/apis/database_api/database_api.cpp](../../../../libraries/plugins/apis/database_api/database_api.cpp)의 `database_api`에 댓글 권한 조회 메서드 추가:
+[src/plugins/apis/database_api/database_api.cpp](../../../../src/plugins/apis/database_api/database_api.cpp)의 `database_api`에 댓글 권한 조회 메서드 추가:
 
 ```cpp
 struct get_comment_permissions_return
@@ -440,7 +440,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 ## 참고자료
 
-- **프로토콜 Operations**: [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- **체인 Objects**: [libraries/chain/include/steem/chain/comment_object.hpp](../../../../libraries/chain/include/steem/chain/comment_object.hpp)
-- **Evaluators**: [libraries/chain/steem_evaluator.cpp](../../../../libraries/chain/steem_evaluator.cpp)
+- **프로토콜 Operations**: [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- **체인 Objects**: [src/core/chain/include/steem/chain/comment_object.hpp](../../../../src/core/chain/include/steem/chain/comment_object.hpp)
+- **Evaluators**: [src/core/chain/steem_evaluator.cpp](../../../../src/core/chain/steem_evaluator.cpp)
 - **Operation 테스트**: [tests/tests/operation_tests.cpp](../../../../tests/tests/operation_tests.cpp)

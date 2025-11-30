@@ -167,7 +167,7 @@ The chain plugin executes these blockchain operations:
 - `limit_order_cancel_operation` - Cancel market order
 - `convert_operation` - Convert SBD to STEEM
 
-**Total**: 60+ operation types (see [steem_operations.hpp](../../libraries/protocol/include/steem/protocol/steem_operations.hpp))
+**Total**: 60+ operation types (see [steem_operations.hpp](../../src/core/protocol/include/steem/protocol/steem_operations.hpp))
 
 ## Consensus Rules
 
@@ -195,7 +195,7 @@ The chain plugin executes these blockchain operations:
 
 The chain plugin manages protocol upgrades through hardforks:
 
-**Current Hardforks**: HF0 through HF26+ (see [hardfork.d/](../../libraries/protocol/hardfork.d/))
+**Current Hardforks**: HF0 through HF26+ (see [hardfork.d/](../../src/core/protocol/hardfork.d/))
 
 ### Hardfork Activation
 
@@ -400,15 +400,15 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
 
 - [database_api](database_api.md) - Query blockchain data
 - [System Architecture](../technical-reference/system-architecture.md) - Overall design
-- [Operations](../../libraries/protocol/include/steem/protocol/steem_operations.hpp) - All operation types
+- [Operations](../../src/core/protocol/include/steem/protocol/steem_operations.hpp) - All operation types
 - [Node Types](../operations/node-types-guide.md) - Configuration by use case
 
 ## Source Code
 
-- **Database**: [libraries/chain/database.cpp](../../libraries/chain/database.cpp)
-- **Operations**: [libraries/chain/*_evaluator.cpp](../../libraries/chain/)
-- **Objects**: [libraries/chain/include/steem/chain/*_object.hpp](../../libraries/chain/include/steem/chain/)
-- **Plugin**: [libraries/plugins/chain/chain_plugin.cpp](../../libraries/plugins/chain/chain_plugin.cpp)
+- **Database**: [src/core/chain/database.cpp](../../src/core/chain/database.cpp)
+- **Operations**: [src/core/chain/*_evaluator.cpp](../../src/core/chain/)
+- **Objects**: [src/core/chain/include/steem/chain/*_object.hpp](../../src/core/chain/include/steem/chain/)
+- **Plugin**: [src/plugins/chain/chain_plugin.cpp](../../src/plugins/chain/chain_plugin.cpp)
 
 ## License
 

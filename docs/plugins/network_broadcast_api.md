@@ -630,8 +630,8 @@ Large transaction volumes may fill mempool:
 
 ## Source Code
 
-- **API Implementation**: [libraries/plugins/apis/network_broadcast_api/network_broadcast_api.cpp](../../libraries/plugins/apis/network_broadcast_api/network_broadcast_api.cpp)
-- **API Header**: [libraries/plugins/apis/network_broadcast_api/include/steem/plugins/network_broadcast_api/network_broadcast_api.hpp](../../libraries/plugins/apis/network_broadcast_api/include/steem/plugins/network_broadcast_api/network_broadcast_api.hpp)
+- **API Implementation**: [src/plugins/apis/network_broadcast_api/network_broadcast_api.cpp](../../src/plugins/apis/network_broadcast_api/network_broadcast_api.cpp)
+- **API Header**: [src/plugins/apis/network_broadcast_api/include/steem/plugins/network_broadcast_api/network_broadcast_api.hpp](../../src/plugins/apis/network_broadcast_api/include/steem/plugins/network_broadcast_api/network_broadcast_api.hpp)
 
 ## License
 

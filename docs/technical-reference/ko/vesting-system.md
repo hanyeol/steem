@@ -21,7 +21,7 @@ Steem 블록체인의 베스팅(Vesting) 시스템은 **Steem Power(SP)**의 핵
 
 ### 1.1 핵심 구성 요소
 
-**파일:** [libraries/chain/include/steem/chain/global_property_object.hpp:46-47](../../libraries/chain/include/steem/chain/global_property_object.hpp#L46-L47)
+**파일:** [src/core/chain/include/steem/chain/global_property_object.hpp:46-47](../../src/core/chain/include/steem/chain/global_property_object.hpp#L46-L47)
 
 ```cpp
 struct dynamic_global_property_object
@@ -47,7 +47,7 @@ struct dynamic_global_property_object
 
 ### 1.3 제네시스 초기 상태
 
-**파일:** [libraries/chain/database.cpp:2369-2378](../../libraries/chain/database.cpp#L2369-L2378)
+**파일:** [src/core/chain/database.cpp:2369-2378](../../src/core/chain/database.cpp#L2369-L2378)
 
 ```cpp
 void database::init_genesis( uint64_t init_supply )
@@ -78,7 +78,7 @@ void database::init_genesis( uint64_t init_supply )
 
 ### 2.1 가격 계산 함수
 
-**파일:** [libraries/chain/include/steem/chain/global_property_object.hpp:53-59](../../libraries/chain/include/steem/chain/global_property_object.hpp#L53-L59)
+**파일:** [src/core/chain/include/steem/chain/global_property_object.hpp:53-59](../../src/core/chain/include/steem/chain/global_property_object.hpp#L53-L59)
 
 ```cpp
 price get_vesting_share_price() const
@@ -113,7 +113,7 @@ total_vesting_shares = 1,000,000,000 VESTS
 
 ### 2.3 보상용 VESTS 가격
 
-**파일:** [libraries/chain/include/steem/chain/global_property_object.hpp:61-65](../../libraries/chain/include/steem/chain/global_property_object.hpp#L61-L65)
+**파일:** [src/core/chain/include/steem/chain/global_property_object.hpp:61-65](../../src/core/chain/include/steem/chain/global_property_object.hpp#L61-L65)
 
 ```cpp
 price get_reward_vesting_share_price() const
@@ -131,7 +131,7 @@ price get_reward_vesting_share_price() const
 
 ### 3.1 파워업 프로세스
 
-**파일:** [libraries/chain/database.cpp:1134-1165](../../libraries/chain/database.cpp#L1134-L1165)
+**파일:** [src/core/chain/database.cpp:1134-1165](../../src/core/chain/database.cpp#L1134-L1165)
 
 ```cpp
 asset database::create_vesting( const account_object& to_account, asset liquid, bool to_reward_balance )
@@ -204,7 +204,7 @@ Steem에서 파워다운은 **13주에 걸쳐 균등 분할**로 진행됩니다
 
 ### 4.2 파워다운 실행 코드
 
-**파일:** [libraries/chain/database.cpp:1482-1510](../../libraries/chain/database.cpp#L1482-L1510)
+**파일:** [src/core/chain/database.cpp:1482-1510](../../src/core/chain/database.cpp#L1482-L1510)
 
 ```cpp
 void database::process_vesting_withdrawals()
@@ -283,7 +283,7 @@ After (13주 후):
 
 ### 5.1 블록 인플레이션 분배
 
-**파일:** [libraries/chain/database.cpp:1830-1854](../../libraries/chain/database.cpp#L1830-L1854)
+**파일:** [src/core/chain/database.cpp:1830-1854](../../src/core/chain/database.cpp#L1830-L1854)
 
 ```cpp
 void database::process_funds()
@@ -316,7 +316,7 @@ void database::process_funds()
 
 ### 5.2 인플레이션 상수
 
-**파일:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
+**파일:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
 
 | 상수 | 값 | 설명 |
 |------|-----|------|
@@ -486,11 +486,11 @@ APR ≈ 15% (베스팅 풀만 증가, VESTS 총량 불변)
 
 ### 코드 위치 참조
 
-- **베스팅 풀 정의:** [libraries/chain/include/steem/chain/global_property_object.hpp:46-47](../../libraries/chain/include/steem/chain/global_property_object.hpp#L46-L47)
-- **VESTS 가격 계산:** [libraries/chain/include/steem/chain/global_property_object.hpp:53-59](../../libraries/chain/include/steem/chain/global_property_object.hpp#L53-L59)
-- **파워업 로직:** [libraries/chain/database.cpp:1134-1165](../../libraries/chain/database.cpp#L1134-L1165)
-- **파워다운 로직:** [libraries/chain/database.cpp:1482-1510](../../libraries/chain/database.cpp#L1482-L1510)
-- **인플레이션 분배:** [libraries/chain/database.cpp:1830-1854](../../libraries/chain/database.cpp#L1830-L1854)
-- **상수 정의:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
+- **베스팅 풀 정의:** [src/core/chain/include/steem/chain/global_property_object.hpp:46-47](../../src/core/chain/include/steem/chain/global_property_object.hpp#L46-L47)
+- **VESTS 가격 계산:** [src/core/chain/include/steem/chain/global_property_object.hpp:53-59](../../src/core/chain/include/steem/chain/global_property_object.hpp#L53-L59)
+- **파워업 로직:** [src/core/chain/database.cpp:1134-1165](../../src/core/chain/database.cpp#L1134-L1165)
+- **파워다운 로직:** [src/core/chain/database.cpp:1482-1510](../../src/core/chain/database.cpp#L1482-L1510)
+- **인플레이션 분배:** [src/core/chain/database.cpp:1830-1854](../../src/core/chain/database.cpp#L1830-L1854)
+- **상수 정의:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
 
 이 설계는 Steem 블록체인이 토큰 보유자에게 자동 이자를 제공하면서도 장기 참여를 유도하는 **"Staking as Earning"** 메커니즘을 구현합니다.

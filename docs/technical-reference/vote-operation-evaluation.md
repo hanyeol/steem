@@ -27,7 +27,7 @@ The vote evaluator processes vote operations on the Steem blockchain, handling u
 - Vote tracking and change limits
 - Integration with the comment reward system
 
-**Source Location**: [libraries/chain/steem_evaluator.cpp:1150](libraries/chain/steem_evaluator.cpp#L1150)
+**Source Location**: [src/core/chain/steem_evaluator.cpp:1150](src/core/chain/steem_evaluator.cpp#L1150)
 
 ## Vote Operation Structure
 
@@ -68,7 +68,7 @@ struct vote_operation : public base_operation
 ### STEEM_MIN_VOTE_INTERVAL_SEC
 
 **Value**: `3` seconds
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:106](libraries/protocol/include/steem/protocol/config.hpp#L106)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:106](src/core/protocol/include/steem/protocol/config.hpp#L106)
 
 **Purpose**: Rate limiting to prevent spam and abuse.
 
@@ -97,7 +97,7 @@ Time 0:03 - Alice votes on Post B ✓ (3 seconds elapsed)
 ### STEEM_VOTE_REGENERATION_SECONDS
 
 **Value**: `432,000` seconds (5 days)
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:103](libraries/protocol/include/steem/protocol/config.hpp#L103)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:103](src/core/protocol/include/steem/protocol/config.hpp#L103)
 
 **Purpose**: Controls voting power regeneration rate.
 
@@ -137,7 +137,7 @@ Day 1, 12:00 - Power regenerates to ~100% (80% + 20%)
 ### STEEM_VOTE_DUST_THRESHOLD
 
 **Value**: `50,000,000` raw units (50 VESTS, since VESTS has 6 decimal places)
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:107](libraries/protocol/include/steem/protocol/config.hpp#L107)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:107](src/core/protocol/include/steem/protocol/config.hpp#L107)
 
 **Purpose**: Filters out economically insignificant votes.
 
@@ -183,7 +183,7 @@ Vote REJECTED: "Cannot vote with 0 rshares."
 ### STEEM_UPVOTE_LOCKOUT
 
 **Value**: `12 hours` (43,200 seconds)
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:25](libraries/protocol/include/steem/protocol/config.hpp#L25)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:25](src/core/protocol/include/steem/protocol/config.hpp#L25)
 
 **Purpose**: Prevents last-minute vote manipulation before payout.
 
@@ -230,7 +230,7 @@ Day 7, 00:00 - Post pays out, voting disabled
 ### STEEM_MAX_VOTE_CHANGES
 
 **Value**: `5`
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:104](libraries/protocol/include/steem/protocol/config.hpp#L104)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:104](src/core/protocol/include/steem/protocol/config.hpp#L104)
 
 **Purpose**: Limits vote manipulation and curation gaming.
 
@@ -277,7 +277,7 @@ Changed votes receive **zero curation rewards**. This is the primary anti-gaming
 ### STEEM_REVERSE_AUCTION_WINDOW_SECONDS
 
 **Value**: `1,800` seconds (30 minutes)
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:105](libraries/protocol/include/steem/protocol/config.hpp#L105)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:105](src/core/protocol/include/steem/protocol/config.hpp#L105)
 
 **Purpose**: Discourages bot voting and rewards manual curation.
 
@@ -347,7 +347,7 @@ Voter at 10:30 AM: Gets 100% curation weight, but smaller share due to competiti
 ### STEEM_100_PERCENT
 
 **Value**: `10,000` (basis points)
-**Source**: [libraries/protocol/include/steem/protocol/config.hpp:116](libraries/protocol/include/steem/protocol/config.hpp#L116)
+**Source**: [src/core/protocol/include/steem/protocol/config.hpp:116](src/core/protocol/include/steem/protocol/config.hpp#L116)
 
 **Purpose**: Standard percentage representation across the protocol.
 
@@ -983,11 +983,11 @@ When `CLEAR_VOTES` is defined, vote objects for expired posts are not created/st
 
 ### Key Files
 
-- **[libraries/chain/steem_evaluator.cpp](libraries/chain/steem_evaluator.cpp)** - Vote evaluator implementation
-- **[libraries/protocol/include/steem/protocol/steem_operations.hpp](libraries/protocol/include/steem/protocol/steem_operations.hpp)** - Vote operation structure
-- **[libraries/protocol/include/steem/protocol/config.hpp](libraries/protocol/include/steem/protocol/config.hpp)** - Core constants
-- **[libraries/chain/include/steem/chain/comment_object.hpp](libraries/chain/include/steem/chain/comment_object.hpp)** - Comment object definition
-- **[libraries/chain/util/reward.cpp](libraries/chain/util/reward.cpp)** - Reward curve evaluation
+- **[src/core/chain/steem_evaluator.cpp](src/core/chain/steem_evaluator.cpp)** - Vote evaluator implementation
+- **[src/core/protocol/include/steem/protocol/steem_operations.hpp](src/core/protocol/include/steem/protocol/steem_operations.hpp)** - Vote operation structure
+- **[src/core/protocol/include/steem/protocol/config.hpp](src/core/protocol/include/steem/protocol/config.hpp)** - Core constants
+- **[src/core/chain/include/steem/chain/comment_object.hpp](src/core/chain/include/steem/chain/comment_object.hpp)** - Comment object definition
+- **[src/core/chain/util/reward.cpp](src/core/chain/util/reward.cpp)** - Reward curve evaluation
 
 ### Database Objects
 

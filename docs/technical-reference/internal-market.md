@@ -523,7 +523,7 @@ curl -s --data '{
 
 #### limit_order_object
 
-**파일**: [libraries/chain/include/steem/chain/steem_objects.hpp:185](libraries/chain/include/steem/chain/steem_objects.hpp#L185)
+**파일**: [src/core/chain/include/steem/chain/steem_objects.hpp:185](src/core/chain/include/steem/chain/steem_objects.hpp#L185)
 
 ```cpp
 class limit_order_object : public object<limit_order_object_type, limit_order_object>
@@ -558,7 +558,7 @@ public:
 
 #### bucket_object
 
-**파일**: [libraries/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp:85](libraries/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp#L85)
+**파일**: [src/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp:85](src/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp#L85)
 
 ```cpp
 struct bucket_object
@@ -587,7 +587,7 @@ struct bucket_object
 
 #### 주문 매칭 (apply_order)
 
-**파일**: [libraries/chain/database.cpp:3401](libraries/chain/database.cpp#L3401)
+**파일**: [src/core/chain/database.cpp:3401](src/core/chain/database.cpp#L3401)
 
 ```cpp
 bool database::apply_order(const limit_order_object& new_order_object)
@@ -620,7 +620,7 @@ bool database::apply_order(const limit_order_object& new_order_object)
 
 #### 주문 체결 (match)
 
-**파일**: [libraries/chain/database.cpp:3423](libraries/chain/database.cpp#L3423)
+**파일**: [src/core/chain/database.cpp:3423](src/core/chain/database.cpp#L3423)
 
 ```cpp
 int database::match(const limit_order_object& new_order,
@@ -671,18 +671,18 @@ int database::match(const limit_order_object& new_order,
 ### 파일 경로 참조
 
 #### Operations & Protocol
-- Operations 정의: [libraries/protocol/include/steem/protocol/steem_operations.hpp:632](libraries/protocol/include/steem/protocol/steem_operations.hpp#L632)
-- Virtual Operations: [libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp:103](libraries/protocol/include/steem/protocol/steem_virtual_operations.hpp#L103)
-- Operations 구현: [libraries/protocol/steem_operations.cpp:337](libraries/protocol/steem_operations.cpp#L337)
+- Operations 정의: [src/core/protocol/include/steem/protocol/steem_operations.hpp:632](src/core/protocol/include/steem/protocol/steem_operations.hpp#L632)
+- Virtual Operations: [src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp:103](src/core/protocol/include/steem/protocol/steem_virtual_operations.hpp#L103)
+- Operations 구현: [src/core/protocol/steem_operations.cpp:337](src/core/protocol/steem_operations.cpp#L337)
 
 #### Chain & Database
-- Evaluators: [libraries/chain/steem_evaluator.cpp:1514](libraries/chain/steem_evaluator.cpp#L1514)
-- Database 객체: [libraries/chain/include/steem/chain/steem_objects.hpp:185](libraries/chain/include/steem/chain/steem_objects.hpp#L185)
-- Database 로직: [libraries/chain/database.cpp:3401](libraries/chain/database.cpp#L3401)
+- Evaluators: [src/core/chain/steem_evaluator.cpp:1514](src/core/chain/steem_evaluator.cpp#L1514)
+- Database 객체: [src/core/chain/include/steem/chain/steem_objects.hpp:185](src/core/chain/include/steem/chain/steem_objects.hpp#L185)
+- Database 로직: [src/core/chain/database.cpp:3401](src/core/chain/database.cpp#L3401)
 
 #### Plugins
-- market_history 플러그인: [libraries/plugins/market_history/market_history_plugin.cpp](libraries/plugins/market_history/market_history_plugin.cpp)
-- market_history_api: [libraries/plugins/apis/market_history_api/market_history_api.cpp](libraries/plugins/apis/market_history_api/market_history_api.cpp)
+- market_history 플러그인: [src/plugins/market_history/market_history_plugin.cpp](src/plugins/market_history/market_history_plugin.cpp)
+- market_history_api: [src/plugins/apis/market_history_api/market_history_api.cpp](src/plugins/apis/market_history_api/market_history_api.cpp)
 
 #### Tests
 - Operation 테스트: [tests/tests/operation_tests.cpp](tests/tests/operation_tests.cpp)
@@ -844,9 +844,9 @@ getRecentTrades();
 - [SteemDB 시장 페이지](https://steemdb.io/market)
 
 ### 소스 코드
-- [limit_order operations](../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- [market_history plugin](../../libraries/plugins/market_history/)
-- [market_history_api plugin](../../libraries/plugins/apis/market_history_api/)
+- [limit_order operations](../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- [market_history plugin](../../src/plugins/market_history/)
+- [market_history_api plugin](../../src/plugins/apis/market_history_api/)
 
 ## 요약
 

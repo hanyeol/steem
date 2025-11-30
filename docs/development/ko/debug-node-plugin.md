@@ -46,7 +46,7 @@ public-api = database_api login_api debug_node_api
 
 `public-api`로 구성된 API는 0부터 시작하는 번호가 할당됩니다. 따라서 `debug_node_api`는 API 번호 2로 호출할 수 있습니다.
 
-API는 다음 메서드를 제공합니다 (이러한 정의는 `libraries/plugins/debug_node/include/steem/plugins/debug_node/debug_node_api.hpp` 참조):
+API는 다음 메서드를 제공합니다 (이러한 정의는 `src/plugins/debug_node/include/steem/plugins/debug_node/debug_node_api.hpp` 참조):
 
 ```cpp
 void debug_push_blocks( std::string src_filename, uint32_t count );

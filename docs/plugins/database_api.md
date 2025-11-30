@@ -827,8 +827,8 @@ while True:
 
 ## Source Code
 
-- **API Definition**: [libraries/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp](../../libraries/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp)
-- **Implementation**: [libraries/plugins/apis/database_api/database_api_plugin.cpp](../../libraries/plugins/apis/database_api/database_api_plugin.cpp)
+- **API Definition**: [src/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp](../../src/plugins/apis/database_api/include/steem/plugins/database_api/database_api.hpp)
+- **Implementation**: [src/plugins/apis/database_api/database_api_plugin.cpp](../../src/plugins/apis/database_api/database_api_plugin.cpp)
 
 ## License
 

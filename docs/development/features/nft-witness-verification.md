@@ -53,7 +53,7 @@ Witnesses must demonstrate ownership of specific ERC-721 NFTs to be eligible for
 
 #### New Operations
 
-Add new operations in [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp):
+Add new operations in [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp):
 
 ```cpp
 /**
@@ -247,7 +247,7 @@ void nft_collection_approve_operation::validate() const
 
 #### Database Objects
 
-Add new objects in [libraries/chain/include/steem/chain/](../../../libraries/chain/include/steem/chain/):
+Add new objects in [src/core/chain/include/steem/chain/](../../../src/core/chain/include/steem/chain/):
 
 Create `nft_verification_objects.hpp`:
 
@@ -416,7 +416,7 @@ CHAINBASE_SET_INDEX_TYPE( steem::chain::witness_nft_proof_object, steem::chain::
 
 #### Update Object Type Enumeration
 
-Add to [libraries/chain/include/steem/chain/steem_object_types.hpp](../../../libraries/chain/include/steem/chain/steem_object_types.hpp):
+Add to [src/core/chain/include/steem/chain/steem_object_types.hpp](../../../src/core/chain/include/steem/chain/steem_object_types.hpp):
 
 ```cpp
 enum object_type
@@ -429,7 +429,7 @@ enum object_type
 
 ### 3. Evaluator Implementation
 
-Create evaluators in [libraries/chain/](../../../libraries/chain/):
+Create evaluators in [src/core/chain/](../../../src/core/chain/):
 
 Create `nft_evaluator.cpp`:
 
@@ -625,7 +625,7 @@ string witness_nft_proof_evaluator::recover_eth_address(
 
 ### 4. Witness Schedule Validation
 
-Modify [libraries/chain/database.cpp](../../../libraries/chain/database.cpp) to validate NFT ownership before allowing block production:
+Modify [src/core/chain/database.cpp](../../../src/core/chain/database.cpp) to validate NFT ownership before allowing block production:
 
 ```cpp
 bool database::validate_witness_nft_ownership( const account_name_type& witness ) const
@@ -675,7 +675,7 @@ void database::update_witness_schedule()
 
 ### 5. NFT Verification Oracle Plugin
 
-Create a new plugin [libraries/plugins/nft_oracle/](../../../libraries/plugins/nft_oracle/) to handle off-chain verification:
+Create a new plugin [src/plugins/nft_oracle/](../../../src/plugins/nft_oracle/) to handle off-chain verification:
 
 Create `nft_oracle_plugin.hpp`:
 
@@ -909,7 +909,7 @@ void nft_oracle_plugin::plugin_shutdown()
 
 ### 6. API Support
 
-Add API methods to query NFT verification status in [libraries/plugins/apis/database_api/database_api.cpp](../../../libraries/plugins/apis/database_api/database_api.cpp):
+Add API methods to query NFT verification status in [src/plugins/apis/database_api/database_api.cpp](../../../src/plugins/apis/database_api/database_api.cpp):
 
 ```cpp
 struct get_witness_nft_proof_return
@@ -1370,6 +1370,6 @@ Seed nodes don't need oracle plugin, but should track NFT objects:
 - **ERC-721 Standard**: https://eips.ethereum.org/EIPS/eip-721
 - **EIP-191 Signed Data**: https://eips.ethereum.org/EIPS/eip-191
 - **Ethereum JSON-RPC**: https://ethereum.org/en/developers/docs/apis/json-rpc/
-- **Protocol Operations**: [libraries/protocol/include/steem/protocol/steem_operations.hpp](../../../libraries/protocol/include/steem/protocol/steem_operations.hpp)
-- **Chain Database**: [libraries/chain/database.cpp](../../../libraries/chain/database.cpp)
-- **Plugin Framework**: [libraries/appbase/](../../../libraries/appbase/)
+- **Protocol Operations**: [src/core/protocol/include/steem/protocol/steem_operations.hpp](../../../src/core/protocol/include/steem/protocol/steem_operations.hpp)
+- **Chain Database**: [src/core/chain/database.cpp](../../../src/core/chain/database.cpp)
+- **Plugin Framework**: [src/base/appbase/](../../../src/base/appbase/)

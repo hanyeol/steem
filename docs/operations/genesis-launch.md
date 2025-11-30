@@ -59,7 +59,7 @@ For complete build instructions including system requirements, dependency instal
 
 ### Chain Parameters
 
-Genesis parameters are configured at build time in `libraries/protocol/include/steem/protocol/config.hpp`.
+Genesis parameters are configured at build time in `src/core/protocol/include/steem/protocol/config.hpp`.
 
 #### Testnet Configuration
 
@@ -715,7 +715,7 @@ docker run -d \
 
 ### Custom Genesis Supply
 
-To change the initial token supply, modify `STEEM_INIT_SUPPLY` in `libraries/protocol/include/steem/protocol/config.hpp` and rebuild.
+To change the initial token supply, modify `STEEM_INIT_SUPPLY` in `src/core/protocol/include/steem/protocol/config.hpp` and rebuild.
 
 Example: For 1 billion initial supply instead of 250 million, change the value accordingly and run `make -j$(nproc) steemd`.
 
@@ -765,8 +765,8 @@ curl -s http://127.0.0.1:8090 | jq '.participation'
 - [Testing Guide](testing.md)
 - [Plugin Development](plugin.md)
 - [Config Reference](../contrib/testnet.config.ini)
-- [Protocol Config](../libraries/protocol/include/steem/protocol/config.hpp)
-- [Database Implementation](../libraries/chain/database.cpp)
+- [Protocol Config](../src/core/protocol/include/steem/protocol/config.hpp)
+- [Database Implementation](../src/core/chain/database.cpp)
 
 ## License
 

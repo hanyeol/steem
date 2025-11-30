@@ -614,8 +614,8 @@ Low-volume markets:
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/market_history/market_history_plugin.cpp](../../libraries/plugins/market_history/market_history_plugin.cpp)
-- **Header**: [libraries/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp](../../libraries/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp)
+- **Implementation**: [src/plugins/market_history/market_history_plugin.cpp](../../src/plugins/market_history/market_history_plugin.cpp)
+- **Header**: [src/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp](../../src/plugins/market_history/include/steem/plugins/market_history/market_history_plugin.hpp)
 
 ## License
 

@@ -14,7 +14,7 @@ Steem uses a **reputation system** to measure user credibility and influence wit
 
 ### Reputation Object
 
-The reputation plugin stores reputation data separately from core chain state ([reputation_objects.hpp:23](../libraries/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L23)):
+The reputation plugin stores reputation data separately from core chain state ([reputation_objects.hpp:23](../src/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L23)):
 
 ```cpp
 class reputation_object {
@@ -42,7 +42,7 @@ Reputation is implemented as a **plugin** rather than core consensus:
 
 ### Basic Formula
 
-Reputation is derived from **rshares** (reward shares) received from votes ([reputation_plugin.cpp:68](../libraries/plugins/reputation/reputation_plugin.cpp#L68)):
+Reputation is derived from **rshares** (reward shares) received from votes ([reputation_plugin.cpp:68](../src/plugins/reputation/reputation_plugin.cpp#L68)):
 
 ```cpp
 // Raw reputation delta from a vote
@@ -56,7 +56,7 @@ rep_delta = cv->rshares >> 6;  // Right shift by 6 (divide by 64)
 
 ### Rshares Calculation
 
-When a user votes, rshares are calculated based on ([steem_evaluator.cpp:1345](../libraries/chain/steem_evaluator.cpp#L1345)):
+When a user votes, rshares are calculated based on ([steem_evaluator.cpp:1345](../src/core/chain/steem_evaluator.cpp#L1345)):
 
 **Formula:**
 ```cpp
@@ -84,7 +84,7 @@ rshares = (vote_weight < 0) ? -abs_rshares : abs_rshares;
 
 Reputation updates occur in two phases:
 
-**Phase 1: Pre-Operation (Undo previous vote)** ([reputation_plugin.cpp:54](../libraries/plugins/reputation/reputation_plugin.cpp#L54))
+**Phase 1: Pre-Operation (Undo previous vote)** ([reputation_plugin.cpp:54](../src/plugins/reputation/reputation_plugin.cpp#L54))
 ```cpp
 void pre_operation(const vote_operation& op) {
     // If revoting, remove old vote's reputation effect
@@ -95,7 +95,7 @@ void pre_operation(const vote_operation& op) {
 }
 ```
 
-**Phase 2: Post-Operation (Apply new vote)** ([reputation_plugin.cpp:112](../libraries/plugins/reputation/reputation_plugin.cpp#L112))
+**Phase 2: Post-Operation (Apply new vote)** ([reputation_plugin.cpp:112](../src/plugins/reputation/reputation_plugin.cpp#L112))
 ```cpp
 void post_operation(const vote_operation& op) {
     // Apply new vote's reputation effect
@@ -106,7 +106,7 @@ void post_operation(const vote_operation& op) {
 
 ## Reputation Rules
 
-The reputation system enforces two main rules to prevent abuse ([reputation_plugin.cpp:76](../libraries/plugins/reputation/reputation_plugin.cpp#L76)):
+The reputation system enforces two main rules to prevent abuse ([reputation_plugin.cpp:76](../src/plugins/reputation/reputation_plugin.cpp#L76)):
 
 ### Rule #1: Negative Reputation Cannot Affect Others
 
@@ -195,7 +195,7 @@ def reputation_to_display(raw_reputation):
 
 ### Querying Reputation
 
-**Via reputation_api** ([reputation_api.hpp:27](../libraries/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp#L27)):
+**Via reputation_api** ([reputation_api.hpp:27](../src/plugins/apis/reputation_api/include/steem/plugins/reputation_api/reputation_api.hpp#L27)):
 
 ```json
 // Request
@@ -309,7 +309,7 @@ def reputation_to_display(raw_reputation):
 
 ### Plugin Architecture
 
-**Initialization** ([reputation_plugin.cpp:196](../libraries/plugins/reputation/reputation_plugin.cpp#L196)):
+**Initialization** ([reputation_plugin.cpp:196](../src/plugins/reputation/reputation_plugin.cpp#L196)):
 ```cpp
 void plugin_initialize(const variables_map& options) {
     // Register operation handlers
@@ -353,7 +353,7 @@ struct post_operation_visitor {
 
 ### Database Indexes
 
-**Reputation index** ([reputation_objects.hpp:46](../libraries/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L46)):
+**Reputation index** ([reputation_objects.hpp:46](../src/plugins/reputation/include/steem/plugins/reputation/reputation_objects.hpp#L46)):
 ```cpp
 typedef multi_index_container<
     reputation_object,

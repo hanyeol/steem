@@ -710,11 +710,11 @@ All follow operations validated:
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/follow/follow_plugin.cpp](../../libraries/plugins/follow/follow_plugin.cpp)
-- **Header**: [libraries/plugins/follow/include/steem/plugins/follow/follow_plugin.hpp](../../libraries/plugins/follow/include/steem/plugins/follow/follow_plugin.hpp)
-- **Operations**: [libraries/plugins/follow/include/steem/plugins/follow/follow_operations.hpp](../../libraries/plugins/follow/include/steem/plugins/follow/follow_operations.hpp)
-- **Objects**: [libraries/plugins/follow/include/steem/plugins/follow/follow_objects.hpp](../../libraries/plugins/follow/include/steem/plugins/follow/follow_objects.hpp)
-- **Evaluators**: [libraries/plugins/follow/follow_evaluators.cpp](../../libraries/plugins/follow/follow_evaluators.cpp)
+- **Implementation**: [src/plugins/follow/follow_plugin.cpp](../../src/plugins/follow/follow_plugin.cpp)
+- **Header**: [src/plugins/follow/include/steem/plugins/follow/follow_plugin.hpp](../../src/plugins/follow/include/steem/plugins/follow/follow_plugin.hpp)
+- **Operations**: [src/plugins/follow/include/steem/plugins/follow/follow_operations.hpp](../../src/plugins/follow/include/steem/plugins/follow/follow_operations.hpp)
+- **Objects**: [src/plugins/follow/include/steem/plugins/follow/follow_objects.hpp](../../src/plugins/follow/include/steem/plugins/follow/follow_objects.hpp)
+- **Evaluators**: [src/plugins/follow/follow_evaluators.cpp](../../src/plugins/follow/follow_evaluators.cpp)
 
 ## License
 

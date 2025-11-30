@@ -35,7 +35,7 @@ if (USE_PCH)
   include (cotire)
 endif(USE_PCH)
 
-list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/fc/cmake" )
+list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/base/fc/cmake" )
 include( GetGitRevisionDescription )
 get_git_head_revision( GIT_REFSPEC GIT_SHA2 )
 
@@ -249,9 +249,9 @@ endif()
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -Werror -DBOOST_THREAD_DONT_PROVIDE_PROMISE_LAZY" )
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing -Werror -DBOOST_THREAD_DONT_PROVIDE_PROMISE_LAZY" )
 
-# external_plugins needs to be compiled first because libraries/app depends on STEEM_EXTERNAL_PLUGINS being fully populated
-add_subdirectory( external_plugins )
-add_subdirectory( libraries )
+# extensions need to be configured first because src/base/appbase depends on STEEM_EXTERNAL_PLUGINS being fully populated
+add_subdirectory( extensions )
+add_subdirectory( src )
 add_subdirectory( programs )
 
 add_subdirectory( tests )
@@ -322,5 +322,4 @@ if( LOW_MEMORY_NODE )
 else()
   MESSAGE( STATUS "\n\n             CONFIGURED FOR FULL NODE                \n\n" )
 endif()
-
 

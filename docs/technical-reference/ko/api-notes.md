@@ -9,7 +9,7 @@ API는 WebSocket / HTTP를 통해 액세스할 수 있고 단일 C++ 클래스�
 `hello_api` 예제 plugin을 사용할 것입니다. 예제를 따라하려면 다음 명령을 실행하고 다시 컴파일하여 `hello_api` 예제 plugin을 활성화할 수 있습니다:
 
 ```bash
-ln -s ../example_plugins/hello_api external_plugins/hello_api
+ln -s extensions/examples/hello_api extensions/hello_api
 ```
 
 ## 공개적으로 사용 가능한 API

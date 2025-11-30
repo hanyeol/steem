@@ -376,9 +376,9 @@ When an account's authority changes:
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/account_by_key/account_by_key_plugin.cpp](../../libraries/plugins/account_by_key/account_by_key_plugin.cpp)
-- **Objects**: [libraries/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_objects.hpp](../../libraries/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_objects.hpp)
-- **Plugin Header**: [libraries/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_plugin.hpp](../../libraries/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_plugin.hpp)
+- **Implementation**: [src/plugins/account_by_key/account_by_key_plugin.cpp](../../src/plugins/account_by_key/account_by_key_plugin.cpp)
+- **Objects**: [src/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_objects.hpp](../../src/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_objects.hpp)
+- **Plugin Header**: [src/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_plugin.hpp](../../src/plugins/account_by_key/include/steem/plugins/account_by_key/account_by_key_plugin.hpp)
 
 ## License
 

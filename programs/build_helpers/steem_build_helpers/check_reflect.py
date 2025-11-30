@@ -52,7 +52,7 @@ for k, v in name2members_doxygen.items():
 #with open("stuff/member_enumerator.out", "r") as f:
 #    name2members_fc = json.load(f)
 
-# scan for FC_REFLECT( graphene::... in all cpp,hpp files under libraries/ programs/ tests/
+# scan for FC_REFLECT( graphene::... in all cpp,hpp files under src/ programs/ tests/ extensions/
 
 re_reflect = re.compile(r"""
 FC_REFLECT\s*[(]
@@ -79,7 +79,7 @@ name2members_re = {}
 
 for root, dirs, files in os.walk("."):
     if root == ".":
-        dirs[:] = ["libraries", "programs", "tests"]
+        dirs[:] = ["src", "programs", "tests", "extensions"]
     for filename in files:
         if not (filename.endswith(".cpp") or filename.endswith(".hpp")):
             continue

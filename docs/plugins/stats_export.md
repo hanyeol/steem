@@ -394,8 +394,8 @@ find /data -name "steem-stats-*.jsonl" -mtime +30 -delete
 
 ## Source Code
 
-- **Implementation**: [libraries/plugins/stats_export/stats_export_plugin.cpp](../../libraries/plugins/stats_export/stats_export_plugin.cpp)
-- **Header**: [libraries/plugins/stats_export/include/steem/plugins/stats_export/stats_export_plugin.hpp](../../libraries/plugins/stats_export/include/steem/plugins/stats_export/stats_export_plugin.hpp)
+- **Implementation**: [src/plugins/stats_export/stats_export_plugin.cpp](../../src/plugins/stats_export/stats_export_plugin.cpp)
+- **Header**: [src/plugins/stats_export/include/steem/plugins/stats_export/stats_export_plugin.hpp](../../src/plugins/stats_export/include/steem/plugins/stats_export/stats_export_plugin.hpp)
 
 ## License
 

@@ -44,11 +44,11 @@ This document outlines the compatibility considerations for supporting Boost ver
 - Boost 1.87+: `io_service` removed, only `io_context` exists
 
 **Files Affected**:
-- `libraries/fc/include/fc/asio.hpp` - Line 75: `boost::asio::io_service& default_io_service()`
-- `libraries/fc/src/asio.cpp` - Implementation of io_service
-- `libraries/plugins/webserver/webserver_plugin.cpp` - Uses io_service
-- `libraries/plugins/witness/witness_plugin.cpp` - Uses io_service
-- `libraries/appbase/include/appbase/application.hpp` - May use io_service
+- `src/base/fc/include/fc/asio.hpp` - Line 75: `boost::asio::io_service& default_io_service()`
+- `src/base/fc/src/asio.cpp` - Implementation of io_service
+- `src/plugins/webserver/webserver_plugin.cpp` - Uses io_service
+- `src/plugins/witness/witness_plugin.cpp` - Uses io_service
+- `src/base/appbase/include/appbase/application.hpp` - May use io_service
 
 **Action Required**:
 Implement version-based conditional compilation to support all Boost versions (1.58-1.89):
@@ -139,7 +139,7 @@ Implement version-based conditional compilation to support all Boost versions (1
 
 **Action Required**:
 ```bash
-grep -r "boost/function_output_iterator.hpp" libraries/
+grep -r "boost/function_output_iterator.hpp" src/
 ```
 Replace deprecated include with new location.
 
@@ -229,17 +229,17 @@ BOOST_COMPONENTS:
 1. **Search for deprecated API usage**
    ```bash
    # io_service usage
-   grep -r "io_service" libraries/ programs/
+   grep -r "io_service" src/ programs/ extensions/
 
    # Filesystem v3 specific APIs
-   grep -r "boost::filesystem::copy_directory" libraries/
+   grep -r "boost::filesystem::copy_directory" src/
 
    # Deprecated headers
-   grep -r "boost/function_output_iterator.hpp" libraries/
-   grep -r "boost/system/cygwin_error.hpp" libraries/
+   grep -r "boost/function_output_iterator.hpp" src/
+   grep -r "boost/system/cygwin_error.hpp" src/
 
    # Coroutine usage
-   grep -r "boost/coroutine/" libraries/
+   grep -r "boost/coroutine/" src/
    ```
 
 2. **Update Docker build environment**
@@ -279,7 +279,7 @@ BOOST_COMPONENTS:
 ### Phase 3: Code Modifications (Week 2-3)
 
 1. **Implement io_service/io_context compatibility layer**
-   - Add version-based typedef to `libraries/fc/include/fc/asio.hpp`
+   - Add version-based typedef to `src/base/fc/include/fc/asio.hpp`
    - Update all files to use `fc::io_service_t` instead of `boost::asio::io_service`
    - Test with Boost 1.58, 1.66, 1.86, 1.87, 1.89 to verify compatibility
 
@@ -436,20 +436,20 @@ If critical issues are discovered with specific Boost versions:
 
 ```bash
 # io_service usage
-grep -rn "io_service" libraries/ programs/ | grep -v ".git"
+grep -rn "io_service" src/ programs/ extensions/ | grep -v ".git"
 
 # Deprecated headers
-grep -rn "boost/function_output_iterator.hpp" libraries/
-grep -rn "boost/system/cygwin_error.hpp" libraries/
+grep -rn "boost/function_output_iterator.hpp" src/
+grep -rn "boost/system/cygwin_error.hpp" src/
 
 # Filesystem copy_directory
-grep -rn "copy_directory" libraries/
+grep -rn "copy_directory" src/
 
 # Coroutine usage
-grep -rn "boost/coroutine/" libraries/ | grep -v "coroutine2"
+grep -rn "boost/coroutine/" src/ | grep -v "coroutine2"
 
 # Custom hash specializations
-grep -rn "std::hash.*boost::optional" libraries/
+grep -rn "std::hash.*boost::optional" src/
 ```
 
 ### Build with Different Boost Versions (Docker)

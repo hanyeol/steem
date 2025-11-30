@@ -44,11 +44,11 @@
 - Boost 1.87+: `io_service` 제거, `io_context`만 존재
 
 **영향받는 파일**:
-- `libraries/fc/include/fc/asio.hpp` - Line 75: `boost::asio::io_service& default_io_service()`
-- `libraries/fc/src/asio.cpp` - io_service 구현
-- `libraries/plugins/webserver/webserver_plugin.cpp` - io_service 사용
-- `libraries/plugins/witness/witness_plugin.cpp` - io_service 사용
-- `libraries/appbase/include/appbase/application.hpp` - io_service 사용 가능
+- `src/base/fc/include/fc/asio.hpp` - Line 75: `boost::asio::io_service& default_io_service()`
+- `src/base/fc/src/asio.cpp` - io_service 구현
+- `src/plugins/webserver/webserver_plugin.cpp` - io_service 사용
+- `src/plugins/witness/witness_plugin.cpp` - io_service 사용
+- `src/base/appbase/include/appbase/application.hpp` - io_service 사용 가능
 
 **필요 조치**:
 모든 Boost 버전(1.58-1.89)을 지원하기 위한 버전 기반 조건부 컴파일 구현:
@@ -139,7 +139,7 @@
 
 **필요 조치**:
 ```bash
-grep -r "boost/function_output_iterator.hpp" libraries/
+grep -r "boost/function_output_iterator.hpp" src/
 ```
 deprecated include를 새 위치로 교체.
 
@@ -229,17 +229,17 @@ BOOST_COMPONENTS:
 1. **deprecated API 사용 검색**
    ```bash
    # io_service 사용
-   grep -r "io_service" libraries/ programs/
+   grep -r "io_service" src/ programs/ extensions/
 
    # Filesystem v3 특정 API
-   grep -r "boost::filesystem::copy_directory" libraries/
+   grep -r "boost::filesystem::copy_directory" src/
 
    # Deprecated 헤더
-   grep -r "boost/function_output_iterator.hpp" libraries/
-   grep -r "boost/system/cygwin_error.hpp" libraries/
+   grep -r "boost/function_output_iterator.hpp" src/
+   grep -r "boost/system/cygwin_error.hpp" src/
 
    # Coroutine 사용
-   grep -r "boost/coroutine/" libraries/
+   grep -r "boost/coroutine/" src/
    ```
 
 2. **Docker 빌드 환경 업데이트**
@@ -279,7 +279,7 @@ BOOST_COMPONENTS:
 ### Phase 3: 코드 수정 (2-3주차)
 
 1. **io_service/io_context 호환성 레이어 구현**
-   - `libraries/fc/include/fc/asio.hpp`에 버전 기반 typedef 추가
+   - `src/base/fc/include/fc/asio.hpp`에 버전 기반 typedef 추가
    - `boost::asio::io_service` 대신 `fc::io_service_t`를 사용하도록 모든 파일 업데이트
    - Boost 1.58, 1.66, 1.86, 1.87, 1.89로 테스트하여 호환성 검증
 
@@ -436,20 +436,20 @@ BOOST_COMPONENTS:
 
 ```bash
 # io_service 사용
-grep -rn "io_service" libraries/ programs/ | grep -v ".git"
+grep -rn "io_service" src/ programs/ extensions/ | grep -v ".git"
 
 # Deprecated 헤더
-grep -rn "boost/function_output_iterator.hpp" libraries/
-grep -rn "boost/system/cygwin_error.hpp" libraries/
+grep -rn "boost/function_output_iterator.hpp" src/
+grep -rn "boost/system/cygwin_error.hpp" src/
 
 # Filesystem copy_directory
-grep -rn "copy_directory" libraries/
+grep -rn "copy_directory" src/
 
 # Coroutine 사용
-grep -rn "boost/coroutine/" libraries/ | grep -v "coroutine2"
+grep -rn "boost/coroutine/" src/ | grep -v "coroutine2"
 
 # 커스텀 hash 특수화
-grep -rn "std::hash.*boost::optional" libraries/
+grep -rn "std::hash.*boost::optional" src/
 ```
 
 ### 다양한 Boost 버전으로 빌드 (Docker)

@@ -20,7 +20,7 @@
 
 `dynamic_global_property_object`는 블록체인의 현재 상태를 저장하는 singleton database object입니다. 정적 구성 파라미터와 달리, 이러한 속성은 블록 처리 중에 지속적으로 업데이트되며 실시간 블록체인 상태를 반영합니다.
 
-**위치**: `libraries/chain/include/steem/chain/global_property_object.hpp`
+**위치**: `src/core/chain/include/steem/chain/global_property_object.hpp`
 
 이 object는 다음에 필수적입니다:
 - 블록 검증 및 생성
@@ -456,7 +456,7 @@ asset sbd_debt = dgpo.current_sbd_supply;
 
 ## 참조
 
-- **소스 코드**: `libraries/chain/include/steem/chain/global_property_object.hpp`
-- **Database 구현**: `libraries/chain/database.cpp`
-- **API 구현**: `libraries/plugins/apis/database_api/database_api.cpp`
-- **Evaluator 사용**: `libraries/chain/steem_evaluator.cpp`
+- **소스 코드**: `src/core/chain/include/steem/chain/global_property_object.hpp`
+- **Database 구현**: `src/core/chain/database.cpp`
+- **API 구현**: `src/plugins/apis/database_api/database_api.cpp`
+- **Evaluator 사용**: `src/core/chain/steem_evaluator.cpp`

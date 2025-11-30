@@ -18,7 +18,7 @@
 
 ### 1.1 기본 인플레이션 모델
 
-**파일:** [libraries/chain/database.cpp:1813-1860](../../libraries/chain/database.cpp#L1813-L1860)
+**파일:** [src/core/chain/database.cpp:1813-1860](../../src/core/chain/database.cpp#L1813-L1860)
 
 Steem의 증인 보상은 블록마다 계산되는 인플레이션에서 나옵니다:
 
@@ -44,7 +44,7 @@ void database::process_funds()
 
 ### 1.2 보상 비율 상수
 
-**파일:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
+**파일:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
 
 | 상수 | 값 | 설명 |
 |------|-----|------|
@@ -58,7 +58,7 @@ void database::process_funds()
 
 ### 1.3 증인 타입별 가중치 적용
 
-**파일:** [libraries/chain/database.cpp:1840-1851](../../libraries/chain/database.cpp#L1840-L1851)
+**파일:** [src/core/chain/database.cpp:1840-1851](../../src/core/chain/database.cpp#L1840-L1851)
 
 ```cpp
 // 증인 보상에 21배 곱하기 (정규화를 위해)
@@ -85,7 +85,7 @@ witness_reward /= wso.witness_pay_normalization_factor;
 
 ### 1.4 보상 지급 방식
 
-**파일:** [libraries/chain/database.cpp:1902-1915](../../libraries/chain/database.cpp#L1902-L1915)
+**파일:** [src/core/chain/database.cpp:1902-1915](../../src/core/chain/database.cpp#L1902-L1915)
 
 ```cpp
 asset database::get_producer_reward()
@@ -115,7 +115,7 @@ asset database::get_producer_reward()
 
 ### 2.1 증인이 21명 미만일 때의 처리
 
-**파일:** [libraries/chain/witness_schedule.cpp:84-271](../../libraries/chain/witness_schedule.cpp#L84-L271)
+**파일:** [src/core/chain/witness_schedule.cpp:84-271](../../src/core/chain/witness_schedule.cpp#L84-L271)
 
 Steem 블록체인은 21명 미만의 증인으로도 원활하게 동작하도록 설계되었습니다:
 
@@ -172,7 +172,7 @@ void update_witness_schedule4( database& db )
 
 ### 2.2 블록 생성 스케줄링
 
-**파일:** [libraries/chain/database.cpp:1016-1022](../../libraries/chain/database.cpp#L1016-L1022)
+**파일:** [src/core/chain/database.cpp:1016-1022](../../src/core/chain/database.cpp#L1016-L1022)
 
 ```cpp
 account_name_type database::get_scheduled_witness( uint32_t slot_num ) const
@@ -198,7 +198,7 @@ account_name_type database::get_scheduled_witness( uint32_t slot_num ) const
 
 ### 2.3 증인 셔플링
 
-**파일:** [libraries/chain/witness_schedule.cpp:266](../../libraries/chain/witness_schedule.cpp#L266)
+**파일:** [src/core/chain/witness_schedule.cpp:266](../../src/core/chain/witness_schedule.cpp#L266)
 
 ```cpp
 // 매 라운드마다 증인 순서를 무작위로 셔플
@@ -214,7 +214,7 @@ _wso.current_shuffled_witnesses[i] = active_witnesses[i];
 
 ### 3.1 초기 상태 생성
 
-**파일:** [libraries/chain/database.cpp:2315-2419](../../libraries/chain/database.cpp#L2315-L2419)
+**파일:** [src/core/chain/database.cpp:2315-2419](../../src/core/chain/database.cpp#L2315-L2419)
 
 ```cpp
 void database::init_genesis( uint64_t init_supply )
@@ -260,7 +260,7 @@ void database::init_genesis( uint64_t init_supply )
 
 ### 3.2 제네시스 상수
 
-**파일:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
+**파일:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
 
 | 상수 | 값 | 설명 |
 |------|-----|------|
@@ -279,7 +279,7 @@ void database::init_genesis( uint64_t init_supply )
 
 ### 3.4 블록 생성 추적
 
-**파일:** [libraries/chain/database.cpp:2644-2648](../../libraries/chain/database.cpp#L2644-L2648)
+**파일:** [src/core/chain/database.cpp:2644-2648](../../src/core/chain/database.cpp#L2644-L2648)
 
 ```cpp
 /// modify current witness so we can track who produced this block
@@ -297,7 +297,7 @@ modify( gprops, [&]( dynamic_global_property_object& dgp ){
 
 ### 4.1 정규화 인수 계산
 
-**파일:** [libraries/chain/include/steem/chain/witness_objects.hpp:172-175](../../libraries/chain/include/steem/chain/witness_objects.hpp#L172-L175)
+**파일:** [src/core/chain/include/steem/chain/witness_objects.hpp:172-175](../../src/core/chain/include/steem/chain/witness_objects.hpp#L172-L175)
 
 ```cpp
 uint8_t top20_weight = 1;         // Top20 증인 가중치
@@ -472,7 +472,7 @@ Timeshare 증인:
 
 ### 6.1 증인 투표 기반 합의
 
-**파일:** [libraries/chain/database.cpp:3191-3228](../../libraries/chain/database.cpp#L3191-L3228)
+**파일:** [src/core/chain/database.cpp:3191-3228](../../src/core/chain/database.cpp#L3191-L3228)
 
 ```cpp
 void database::update_last_irreversible_block()
@@ -562,11 +562,11 @@ Steem 블록체인의 증인 보상 시스템은 다음과 같이 설계되었�
 
 ### 코드 위치 참조
 
-- **보상 계산:** [libraries/chain/database.cpp:1813-1860](../../libraries/chain/database.cpp#L1813-L1860)
-- **증인 스케줄링:** [libraries/chain/witness_schedule.cpp:84-271](../../libraries/chain/witness_schedule.cpp#L84-L271)
-- **제네시스 초기화:** [libraries/chain/database.cpp:2315-2419](../../libraries/chain/database.cpp#L2315-L2419)
-- **증인 보상 지급:** [libraries/chain/database.cpp:1902-1915](../../libraries/chain/database.cpp#L1902-L1915)
-- **불가역 블록 결정:** [libraries/chain/database.cpp:3191-3228](../../libraries/chain/database.cpp#L3191-L3228)
-- **상수 정의:** [libraries/protocol/include/steem/protocol/config.hpp](../../libraries/protocol/include/steem/protocol/config.hpp)
+- **보상 계산:** [src/core/chain/database.cpp:1813-1860](../../src/core/chain/database.cpp#L1813-L1860)
+- **증인 스케줄링:** [src/core/chain/witness_schedule.cpp:84-271](../../src/core/chain/witness_schedule.cpp#L84-L271)
+- **제네시스 초기화:** [src/core/chain/database.cpp:2315-2419](../../src/core/chain/database.cpp#L2315-L2419)
+- **증인 보상 지급:** [src/core/chain/database.cpp:1902-1915](../../src/core/chain/database.cpp#L1902-L1915)
+- **불가역 블록 결정:** [src/core/chain/database.cpp:3191-3228](../../src/core/chain/database.cpp#L3191-L3228)
+- **상수 정의:** [src/core/protocol/include/steem/protocol/config.hpp](../../src/core/protocol/include/steem/protocol/config.hpp)
 
 이 설계는 Steem 블록체인이 단일 증인으로 시작하여 점진적으로 분산화된 21명의 증인 네트워크로 성장할 수 있도록 보장합니다. POW 제거로 인해 시스템이 더욱 단순화되고, 제네시스부터 일관된 베스팅 보상 메커니즘을 사용하여 증인들의 장기적 네트워크 참여를 장려합니다.

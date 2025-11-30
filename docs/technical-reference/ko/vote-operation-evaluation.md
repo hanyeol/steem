@@ -27,7 +27,7 @@ vote evaluator는 Steem 블록체인의 vote operation을 처리하며, 업보�
 - 투표 추적 및 변경 제한
 - 댓글 보상 시스템과의 통합
 
-**소스 위치**: [libraries/chain/steem_evaluator.cpp:1150](libraries/chain/steem_evaluator.cpp#L1150)
+**소스 위치**: [src/core/chain/steem_evaluator.cpp:1150](src/core/chain/steem_evaluator.cpp#L1150)
 
 ## Vote Operation 구조
 
@@ -68,7 +68,7 @@ struct vote_operation : public base_operation
 ### STEEM_MIN_VOTE_INTERVAL_SEC
 
 **값**: `3`초
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:106](libraries/protocol/include/steem/protocol/config.hpp#L106)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:106](src/core/protocol/include/steem/protocol/config.hpp#L106)
 
 **목적**: 스팸 및 남용 방지를 위한 속도 제한
 
@@ -97,7 +97,7 @@ FC_ASSERT(elapsed_seconds >= STEEM_MIN_VOTE_INTERVAL_SEC,
 ### STEEM_VOTE_REGENERATION_SECONDS
 
 **값**: `432,000`초 (5일)
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:103](libraries/protocol/include/steem/protocol/config.hpp#L103)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:103](src/core/protocol/include/steem/protocol/config.hpp#L103)
 
 **목적**: Voting power 재생률 제어
 
@@ -137,7 +137,7 @@ int64_t current_power = std::min(int64_t(voter.voting_power + regenerated_power)
 ### STEEM_VOTE_DUST_THRESHOLD
 
 **값**: `50,000,000` raw 단위 (50 VESTS, VESTS는 소수점 6자리이므로)
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:107](libraries/protocol/include/steem/protocol/config.hpp#L107)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:107](src/core/protocol/include/steem/protocol/config.hpp#L107)
 
 **목적**: 경제적으로 의미 없는 투표 필터링
 
@@ -183,7 +183,7 @@ abs_rshares = max(0, -49,800,000) = 0
 ### STEEM_UPVOTE_LOCKOUT
 
 **값**: `12시간` (43,200초)
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:25](libraries/protocol/include/steem/protocol/config.hpp#L25)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:25](src/core/protocol/include/steem/protocol/config.hpp#L25)
 
 **목적**: 지급 전 막판 투표 조작 방지
 
@@ -230,7 +230,7 @@ Lockout 시작: 6일 12:00 (지급 12시간 전)
 ### STEEM_MAX_VOTE_CHANGES
 
 **값**: `5`
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:104](libraries/protocol/include/steem/protocol/config.hpp#L104)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:104](src/core/protocol/include/steem/protocol/config.hpp#L104)
 
 **목적**: 투표 조작 및 큐레이션 게이밍 제한
 
@@ -277,7 +277,7 @@ cv.num_changes += 1;
 ### STEEM_REVERSE_AUCTION_WINDOW_SECONDS
 
 **값**: `1,800`초 (30분)
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:105](libraries/protocol/include/steem/protocol/config.hpp#L105)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:105](src/core/protocol/include/steem/protocol/config.hpp#L105)
 
 **목적**: 봇 투표 억제 및 수동 큐레이션 보상
 
@@ -347,7 +347,7 @@ penalty_to_author = max_weight - actual_curation_weight
 ### STEEM_100_PERCENT
 
 **값**: `10,000` (베이시스 포인트)
-**소스**: [libraries/protocol/include/steem/protocol/config.hpp:116](libraries/protocol/include/steem/protocol/config.hpp#L116)
+**소스**: [src/core/protocol/include/steem/protocol/config.hpp:116](src/core/protocol/include/steem/protocol/config.hpp#L116)
 
 **목적**: 프로토콜 전체에서 표준 백분율 표현
 
@@ -982,11 +982,11 @@ old_rshares = util::evaluate_reward_curve(old_rshares);
 
 ### 주요 파일
 
-- **[libraries/chain/steem_evaluator.cpp](libraries/chain/steem_evaluator.cpp)** - Vote evaluator 구현
-- **[libraries/protocol/include/steem/protocol/steem_operations.hpp](libraries/protocol/include/steem/protocol/steem_operations.hpp)** - Vote operation 구조
-- **[libraries/protocol/include/steem/protocol/config.hpp](libraries/protocol/include/steem/protocol/config.hpp)** - 핵심 상수
-- **[libraries/chain/include/steem/chain/comment_object.hpp](libraries/chain/include/steem/chain/comment_object.hpp)** - Comment object 정의
-- **[libraries/chain/util/reward.cpp](libraries/chain/util/reward.cpp)** - 보상 곡선 평가
+- **[src/core/chain/steem_evaluator.cpp](src/core/chain/steem_evaluator.cpp)** - Vote evaluator 구현
+- **[src/core/protocol/include/steem/protocol/steem_operations.hpp](src/core/protocol/include/steem/protocol/steem_operations.hpp)** - Vote operation 구조
+- **[src/core/protocol/include/steem/protocol/config.hpp](src/core/protocol/include/steem/protocol/config.hpp)** - 핵심 상수
+- **[src/core/chain/include/steem/chain/comment_object.hpp](src/core/chain/include/steem/chain/comment_object.hpp)** - Comment object 정의
+- **[src/core/chain/util/reward.cpp](src/core/chain/util/reward.cpp)** - 보상 곡선 평가
 
 ### 데이터베이스 객체
 

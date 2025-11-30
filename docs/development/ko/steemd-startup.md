@@ -35,10 +35,10 @@ appbase::app().add_program_options( bpo::options_description(), options );
 steem::plugins::register_plugins();
 ```
 
-**파일**: [libraries/manifest/include/steem/manifest/plugins.hpp](../../libraries/manifest/include/steem/manifest/plugins.hpp)
+**파일**: [src/base/manifest/include/steem/manifest/plugins.hpp](../../src/base/manifest/include/steem/manifest/plugins.hpp)
 
 - `register_plugins()` 함수가 모든 사용 가능한 플러그인을 `appbase::application`에 등록합니다.
-- 이 함수는 빌드 시스템에 의해 자동 생성되며, `libraries/plugins/` 디렉토리의 모든 플러그인을 포함합니다.
+- 이 함수는 빌드 시스템에 의해 자동 생성되며, `src/plugins/` 디렉토리의 모든 플러그인을 포함합니다.
 - 각 플러그인은 `appbase::app().register_plugin<PluginType>()` 형태로 등록됩니다.
 
 #### 3. 애플리케이션 메타데이터 설정 (라인 83-84)
@@ -70,7 +70,7 @@ bool initialized = appbase::app().initialize<
       ( argc, argv );
 ```
 
-**파일**: [libraries/appbase/include/appbase/application.hpp](../../libraries/appbase/include/appbase/application.hpp#L37)
+**파일**: [src/base/appbase/include/appbase/application.hpp](../../src/base/appbase/include/appbase/application.hpp#L37)
 
 - 설정 파일 내용과 관계없이 **항상 로드되는 필수 플러그인**들입니다:
   - `chain_plugin`: 블록체인 데이터베이스 관리
@@ -109,7 +109,7 @@ appbase::app().exec();
 
 ## appbase::application 초기화 프로세스
 
-**파일**: [libraries/appbase/application.cpp](../../libraries/appbase/application.cpp)
+**파일**: [src/base/appbase/application.cpp](../../src/base/appbase/application.cpp)
 
 ### initialize_impl() (라인 93-190)
 
@@ -183,7 +183,7 @@ for (const auto& plugin : autostart_plugins)
 2. `plugin_initialize()` 메서드 호출
 3. 초기화된 플러그인 목록에 추가
 
-**파일**: [libraries/appbase/include/appbase/application.hpp](../../libraries/appbase/include/appbase/application.hpp#L153-165)
+**파일**: [src/base/appbase/include/appbase/application.hpp](../../src/base/appbase/include/appbase/application.hpp#L153-165)
 
 ### startup() (라인 36-39)
 
@@ -231,7 +231,7 @@ void application::exec() {
 
 ### 1. chain_plugin
 
-**파일**: [libraries/plugins/chain/chain_plugin.cpp](../../libraries/plugins/chain/chain_plugin.cpp)
+**파일**: [src/plugins/chain/chain_plugin.cpp](../../src/plugins/chain/chain_plugin.cpp)
 
 #### plugin_initialize() (라인 323-379)
 
@@ -291,11 +291,11 @@ my->start_write_processing();
 ```
 
 - 별도의 스레드에서 블록 및 트랜잭션 쓰기 작업을 처리합니다.
-- [chain_plugin.cpp:197-268](../../libraries/plugins/chain/chain_plugin.cpp#L197-268) 참조
+- [chain_plugin.cpp:197-268](../../src/plugins/chain/chain_plugin.cpp#L197-268) 참조
 
 ### 2. p2p_plugin
 
-**파일**: [libraries/plugins/p2p/p2p_plugin.cpp](../../libraries/plugins/p2p/p2p_plugin.cpp)
+**파일**: [src/plugins/p2p/p2p_plugin.cpp](../../src/plugins/p2p/p2p_plugin.cpp)
 
 P2P 네트워크 레이어를 관리합니다:
 
@@ -316,7 +316,7 @@ P2P 네트워크 레이어를 관리합니다:
 
 ### 3. webserver_plugin
 
-**파일**: [libraries/plugins/webserver/webserver_plugin.cpp](../../libraries/plugins/webserver/webserver_plugin.cpp)
+**파일**: [src/plugins/webserver/webserver_plugin.cpp](../../src/plugins/webserver/webserver_plugin.cpp)
 
 HTTP/WebSocket RPC 서버를 제공합니다:
 
@@ -338,7 +338,7 @@ HTTP/WebSocket RPC 서버를 제공합니다:
 
 ### 플러그인 상태
 
-**파일**: [libraries/appbase/include/appbase/plugin.hpp](../../libraries/appbase/include/appbase/plugin.hpp)
+**파일**: [src/base/appbase/include/appbase/plugin.hpp](../../src/base/appbase/include/appbase/plugin.hpp)
 
 각 플러그인은 다음 상태를 가집니다:
 
@@ -497,11 +497,11 @@ steemd --resync-blockchain
 ## 관련 파일
 
 - [programs/steemd/main.cpp](../../programs/steemd/main.cpp) - 메인 진입점
-- [libraries/appbase/application.cpp](../../libraries/appbase/application.cpp) - 애플리케이션 프레임워크
-- [libraries/appbase/include/appbase/application.hpp](../../libraries/appbase/include/appbase/application.hpp) - 애플리케이션 인터페이스
-- [libraries/plugins/chain/chain_plugin.cpp](../../libraries/plugins/chain/chain_plugin.cpp) - 체인 플러그인
-- [libraries/plugins/p2p/p2p_plugin.cpp](../../libraries/plugins/p2p/p2p_plugin.cpp) - P2P 플러그인
-- [libraries/plugins/webserver/webserver_plugin.cpp](../../libraries/plugins/webserver/webserver_plugin.cpp) - 웹서버 플러그인
+- [src/base/appbase/application.cpp](../../src/base/appbase/application.cpp) - 애플리케이션 프레임워크
+- [src/base/appbase/include/appbase/application.hpp](../../src/base/appbase/include/appbase/application.hpp) - 애플리케이션 인터페이스
+- [src/plugins/chain/chain_plugin.cpp](../../src/plugins/chain/chain_plugin.cpp) - 체인 플러그인
+- [src/plugins/p2p/p2p_plugin.cpp](../../src/plugins/p2p/p2p_plugin.cpp) - P2P 플러그인
+- [src/plugins/webserver/webserver_plugin.cpp](../../src/plugins/webserver/webserver_plugin.cpp) - 웹서버 플러그인
 
 ## 참고 문서
 

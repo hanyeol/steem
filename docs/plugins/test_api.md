@@ -401,8 +401,8 @@ plugin = test_api
 
 ## Source Code
 
-- **Plugin Implementation**: [libraries/plugins/apis/test_api/test_api_plugin.cpp](../../libraries/plugins/apis/test_api/test_api_plugin.cpp)
-- **Plugin Header**: [libraries/plugins/apis/test_api/include/steem/plugins/test_api/test_api_plugin.hpp](../../libraries/plugins/apis/test_api/include/steem/plugins/test_api/test_api_plugin.hpp)
+- **Plugin Implementation**: [src/plugins/apis/test_api/test_api_plugin.cpp](../../src/plugins/apis/test_api/test_api_plugin.cpp)
+- **Plugin Header**: [src/plugins/apis/test_api/include/steem/plugins/test_api/test_api_plugin.hpp](../../src/plugins/apis/test_api/include/steem/plugins/test_api/test_api_plugin.hpp)
 
 ## License
 
