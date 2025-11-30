@@ -133,6 +133,7 @@ brew install \
     cmake \
     git \
     boost \
+    bzip2 \
     libtool \
     openssl \
     snappy \
@@ -163,11 +164,14 @@ cd steem
 git checkout stable
 git submodule update --init --recursive
 
-export BOOST_ROOT=$(brew --prefix boost)
-export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
-
 mkdir build && cd build
-cmake -DBOOST_ROOT="$BOOST_ROOT" -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release \
+      -DBOOST_ROOT=$(brew --prefix boost) \
+      -DOPENSSL_ROOT_DIR=$(brew --prefix openssl) \
+      -DZLIB_ROOT=$(brew --prefix zlib) \
+      -DBZIP2_INCLUDE_DIR=$(brew --prefix bzip2)/include \
+      -DBZIP2_LIBRARIES=$(brew --prefix bzip2)/lib/libbz2.a \
+      ..
 make -j$(sysctl -n hw.logicalcpu)
 ```
 
