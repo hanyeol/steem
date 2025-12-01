@@ -8,8 +8,8 @@ Example configuration files for different node types. Copy and modify as needed.
 
 ### Node Type Configurations
 
-#### `docker.config.ini`
-- **Purpose**: Basic consensus node for Docker environments
+#### `witness.config.ini`
+- **Purpose**: Witness/consensus node
 - **Memory**: 54GB shared memory
 - **Plugins**: `witness`, `database_api`, `witness_api`
 - **Use Case**: Optimized for P2P and witness node operation
@@ -20,11 +20,7 @@ Example configuration files for different node types. Copy and modify as needed.
 - **Plugins**: `account_by_key`, `tags`, `follow`, `market_history`, and more
 - **APIs**: `database_api`, `account_by_key_api`, `tags_api`, `follow_api`, `market_history_api`, etc.
 - **Use Case**: Backend for social media platforms
-
-#### `fullnode.opswhitelist.config.ini`
-- **Purpose**: Optimized full node that records only specific operations
-- **Feature**: Selective operation tracking via `account-history-whitelist-ops`
-- **Benefit**: Reduced memory and disk usage
+- **Note**: Use `account-history-whitelist-ops` to reduce memory usage by tracking only specific operations
 
 #### `ahnode.config.ini`
 - **Purpose**: Account history specialized node
@@ -32,8 +28,8 @@ Example configuration files for different node types. Copy and modify as needed.
 - **Plugins**: Focused on `account_history` and `account_history_api`
 - **Use Case**: Account transaction history query service
 
-#### `broadcaster.config.ini`
-- **Purpose**: Transaction broadcast dedicated node
+#### `broadcast.config.ini`
+- **Purpose**: Transaction broadcast node
 - **Memory**: 24GB shared memory (low footprint)
 - **Plugins**: Optimized for `network_broadcast_api`
 - **Use Case**: Focused on transaction submission with minimal resources
@@ -104,10 +100,10 @@ Private testnet initialization script
 
 ## Usage Examples
 
-### 1. Starting a Basic Node
+### 1. Starting a Witness Node
 ```bash
 # Copy configuration file
-cp contrib/docker.config.ini witness_node_data_dir/config.ini
+cp contrib/witness.config.ini witness_node_data_dir/config.ini
 
 # Run node
 ./programs/steemd/steemd

@@ -4,7 +4,7 @@
 Use docker:
 ```
 docker run \
-    -d -p 2001:2001 -p 8090:8090 --name steemd-default \
+    -d -p 2001:2001 -p 8090:8090 --name steemd-low \
     --restart unless-stopped hanyeol/steem
 ```
 
@@ -20,8 +20,8 @@ For full api node use:
 
 ```
 docker run \
-    --env USE_WAY_TOO_MUCH_RAM=1 --env USE_FULL_WEB_NODE=1 \
-    -d -p 2001:2001 -p 8090:8090 --name steemd-full \
+    --env USE_HIGH_MEMORY=1 --env USE_FULL_WEB_NODE=1 \
+    -d -p 2001:2001 -p 8090:8090 --name steemd-high \
     --restart unless-stopped \
     hanyeol/steem
 ```
@@ -30,7 +30,7 @@ docker run \
 
 ### Full API Node
 
-You need to use `USE_WAY_TOO_MUCH_RAM=1` and `USE_FULL_WEB_NODE=1` as stated above. You can use `contrib/fullnode.config.ini` as a base for your `config.ini` file.
+You need to use `USE_HIGH_MEMORY=1` and `USE_FULL_WEB_NODE=1` as stated above. You can use `contrib/fullnode.config.ini` as a base for your `config.ini` file.
 
 ### Exchanges
 

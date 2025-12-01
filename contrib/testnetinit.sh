@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=`cat /etc/steemdversion`
+VERSION=`cat /etc/steemd-version`
 
 STEEMD="/usr/local/steemd-testnet/bin/steemd"
 

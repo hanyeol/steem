@@ -56,8 +56,8 @@ Docker로 빌드했지만 docker 컨테이너 내에서 steemd를 실행하고 �
 
 ```
 docker run -d --name steemd-exchange steemit/steem
-docker cp steemd-exchange:/usr/local/steemd-default/bin/steemd /local/path/to/steemd
-docker cp steemd-exchange:/usr/local/steemd-default/bin/cli_wallet /local/path/to/cli_wallet
+docker cp steemd-exchange:/usr/local/steemd-low/bin/steemd /local/path/to/steemd
+docker cp steemd-exchange:/usr/local/steemd-low/bin/cli_wallet /local/path/to/cli_wallet
 docker stop steemd-exchange
 ```
 
@@ -91,5 +91,5 @@ docker run -d --name steemd-exchange --env TRACK_ACCOUNT=nameofaccount -p 2001:2
 아래 명령은 실행 중인 컨테이너 내부에서 cli_wallet을 실행하면서 호스트에서 생성한 디렉터리에 `wallet.json`을 매핑합니다.
 
 ```
-docker exec -it steemd-exchange /usr/local/steemd-default/bin/cli_wallet -w /var/steemwallet/wallet.json
+docker exec -it steemd-exchange /usr/local/steemd-low/bin/cli_wallet -w /var/steemwallet/wallet.json
 ```

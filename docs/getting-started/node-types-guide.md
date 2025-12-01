@@ -33,7 +33,7 @@ Steem nodes can be configured for different purposes by enabling specific plugin
 
 ### Configuration
 
-**Config file**: [contrib/docker.config.ini](../contrib/docker.config.ini)
+**Config file**: [contrib/witness.config.ini](../contrib/witness.config.ini)
 
 ```ini
 # Logging
@@ -350,7 +350,7 @@ account-history-blacklist-ops = custom_json_operation
 
 ### Configuration
 
-**Config file**: [contrib/broadcaster.config.ini](../contrib/broadcaster.config.ini)
+**Config file**: [contrib/broadcast.config.ini](../contrib/broadcast.config.ini)
 
 ```ini
 # Logging

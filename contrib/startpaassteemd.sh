@@ -1,24 +1,36 @@
 #!/bin/bash
 
-VERSION=`cat /etc/steemdversion`
+VERSION=`cat /etc/steemd-version`
 
-if [[ "$IS_BROADCAST_NODE" ]]; then
-  STEEMD="/usr/local/steemd-default/bin/steemd"
-elif [[ "$IS_AH_NODE" ]]; then
-  STEEMD="/usr/local/steemd-default/bin/steemd"
+# clean out data dir since it may contain stale data from previous runs
+rm -rf $HOME/*
+
+if [[ "$USE_HIGH_MEMORY" ]]; then
+  STEEMD="/usr/local/steemd-high/bin/steemd"
 else
-  STEEMD="/usr/local/steemd-full/bin/steemd"
+  STEEMD="/usr/local/steemd-low/bin/steemd"
+fi
+
+# copy config from image (data dir is cleaned on every PaaS restart)
+if [[ "$STEEMD_NODE_MODE" == "fullnode" ]]; then
+  cp /etc/steemd/fullnode.config.ini $HOME/config.ini
+elif [[ "$STEEMD_NODE_MODE" == "broadcast" ]]; then
+  cp /etc/steemd/broadcast.config.ini $HOME/config.ini
+elif [[ "$STEEMD_NODE_MODE" == "ahnode" ]]; then
+  cp /etc/steemd/ahnode.config.ini $HOME/config.ini
+elif [[ "$STEEMD_NODE_MODE" == "witness" ]]; then
+  cp /etc/steemd/witness.config.ini $HOME/config.ini
+elif [[ -f "/etc/steemd/config.ini" ]]; then
+  cp /etc/steemd/config.ini $HOME/config.ini
+else
+  cp /etc/steemd/fullnode.config.ini $HOME/config.ini
 fi
 
 chown -R steemd:steemd $HOME
 
-# clean out data dir since it may be semi-persistent block storage on the ec2 with stale data
-rm -rf $HOME/*
-
 ARGS=""
 
-# if user did pass in desired seed nodes, use
-# the ones the user specified:
+# if user did pass in desired seed nodes, use the ones the user specified
 if [[ ! -z "$STEEMD_SEED_NODES" ]]; then
     for NODE in $STEEMD_SEED_NODES ; do
         ARGS+=" --p2p-seed-node=$NODE"
@@ -36,19 +48,6 @@ ARGS+=" --tags-start-promoted=$STEEMD_PROMOTED_START_TIME"
 if [[ ! "$DISABLE_BLOCK_API" ]]; then
    ARGS+=" --plugin=block_api"
 fi
-
-# overwrite local config with image one
-if [[ "$IS_BROADCAST_NODE" ]]; then
-  cp /etc/steemd/broadcaster.config.ini $HOME/config.ini
-elif [[ "$IS_AH_NODE" ]]; then
-  cp /etc/steemd/ahnode.config.ini $HOME/config.ini
-elif [[ "$IS_OPSWHITELIST_NODE" ]]; then
-  cp /etc/steemd/fullnode.opswhitelist.config.ini $HOME/config.ini
-else
-  cp /etc/steemd/fullnode.config.ini $HOME/config.ini
-fi
-
-chown steemd:steemd $HOME/config.ini
 
 cd $HOME
 
@@ -68,9 +67,9 @@ if [[ "$USE_RAMDISK" ]]; then
   do
     rm -rf $HOME/blockchain/*
     rm -rf /mnt/ramdisk/blockchain/*
-    if [[ "$IS_BROADCAST_NODE" ]]; then
+    if [[ "$STEEMD_NODE_MODE" == "broadcast" ]]; then
       aws s3 cp s3://$S3_BUCKET/broadcast-$VERSION-latest.tar.lz4 - | lz4 -d | tar x --wildcards 'blockchain/block*' -C /mnt/ramdisk 'blockchain/shared*'
-    elif [[ "$IS_AH_NODE" ]]; then
+    elif [[ "$STEEMD_NODE_MODE" == "ahnode" ]]; then
       aws s3 cp s3://$S3_BUCKET/ahnode-$VERSION-latest.tar.lz4 - | lz4 -d | tar x --wildcards 'blockchain/block*' 'blockchain/*rocksdb-storage*' -C /mnt/ramdisk 'blockchain/shared*'
     else
       aws s3 cp s3://$S3_BUCKET/blockchain-$VERSION-latest.tar.lz4 - | lz4 -d | tar x --wildcards 'blockchain/block*' -C /mnt/ramdisk 'blockchain/shared*'
@@ -88,9 +87,9 @@ else
   while [[ $count -le 5 ]] && [[ $finished == 0 ]]
   do
     rm -rf $HOME/blockchain/*
-    if [[ "$IS_BROADCAST_NODE" ]]; then
+    if [[ "$STEEMD_NODE_MODE" == "broadcast" ]]; then
       aws s3 cp s3://$S3_BUCKET/broadcast-$VERSION-latest.tar.lz4 - | lz4 -d | tar x
-    elif [[ "$IS_AH_NODE" ]]; then
+    elif [[ "$STEEMD_NODE_MODE" == "ahnode" ]]; then
       aws s3 cp s3://$S3_BUCKET/ahnode-$VERSION-latest.tar.lz4 - | lz4 -d | tar x
     else
       aws s3 cp s3://$S3_BUCKET/blockchain-$VERSION-latest.tar.lz4 - | lz4 -d | tar x

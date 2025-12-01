@@ -127,7 +127,7 @@ RUN \
     mkdir build && \
     cd build && \
     cmake \
-        -DCMAKE_INSTALL_PREFIX=/usr/local/steemd-default \
+        -DCMAKE_INSTALL_PREFIX=/usr/local/steemd-low \
         -DCMAKE_BUILD_TYPE=Release \
         -DLOW_MEMORY_NODE=ON \
         -DCLEAR_VOTES=ON \
@@ -139,18 +139,18 @@ RUN \
     make -j$(nproc) && \
     make install && \
     cd .. && \
-    ( /usr/local/steemd-default/bin/steemd --version \
+    ( /usr/local/steemd-low/bin/steemd --version \
       | grep -o '[0-9]*\.[0-9]*\.[0-9]*' \
       && echo '_' \
       && git rev-parse --short HEAD ) \
       | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n//g' \
-      > /etc/steemdversion && \
-    cat /etc/steemdversion && \
+      > /etc/steemd-version && \
+    cat /etc/steemd-version && \
     rm -rfv build && \
     mkdir build && \
     cd build && \
     cmake \
-        -DCMAKE_INSTALL_PREFIX=/usr/local/steemd-full \
+        -DCMAKE_INSTALL_PREFIX=/usr/local/steemd-high \
         -DCMAKE_BUILD_TYPE=Release \
         -DLOW_MEMORY_NODE=OFF \
         -DCLEAR_VOTES=OFF \
@@ -223,10 +223,9 @@ EXPOSE 2001
 # ADD docs/seednodes.txt /etc/steemd/seednodes.txt
 
 # the following adds lots of logging info to stdout
-ADD contrib/docker.config.ini /etc/steemd/config.ini
+ADD contrib/witness.config.ini /etc/steemd/witness.config.ini
 ADD contrib/fullnode.config.ini /etc/steemd/fullnode.config.ini
-ADD contrib/fullnode.opswhitelist.config.ini /etc/steemd/fullnode.opswhitelist.config.ini
-ADD contrib/broadcaster.config.ini /etc/steemd/broadcaster.config.ini
+ADD contrib/broadcast.config.ini /etc/steemd/broadcast.config.ini
 ADD contrib/ahnode.config.ini /etc/steemd/ahnode.config.ini
 ADD contrib/testnet.config.ini /etc/steemd/testnet.config.ini
 ADD contrib/fastgen.config.ini /etc/steemd/fastgen.config.ini

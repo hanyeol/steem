@@ -174,7 +174,7 @@ docker logs -f steem-testnet
 ### Testnet vs Mainnet Binary
 
 The Docker image contains two binaries:
-- `/usr/local/steemd-default/bin/steemd` - Mainnet binary (`BUILD_STEEM_TESTNET=OFF`)
+- `/usr/local/steemd-low/bin/steemd` - Mainnet binary (`BUILD_STEEM_TESTNET=OFF`)
 - `/usr/local/steemd-testnet/bin/steemd` - Testnet binary (`BUILD_STEEM_TESTNET=ON`)
 
 **You must use the testnet binary** for the genesis account and private key to work correctly.

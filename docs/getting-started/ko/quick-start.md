@@ -20,8 +20,8 @@ docker build -t hanyeol/steem .
 ```
 
 **참고:** 빌드 시 3가지 바이너리가 생성됩니다:
-- `/usr/local/steemd-default/bin/steemd` - 저메모리 노드
-- `/usr/local/steemd-full/bin/steemd` - 전체 API 노드
+- `/usr/local/steemd-low/bin/steemd` - 저메모리 노드
+- `/usr/local/steemd-high/bin/steemd` - 전체 API 노드
 - `/usr/local/steemd-testnet/bin/steemd` - 테스트넷 노드
 
 ## Docker 볼륨 생성
@@ -47,7 +47,7 @@ docker volume create steem-data
 ```bash
 docker run \
     -d \
-    --name steemd-default \
+    --name steemd-low \
     -p 2001:2001 -p 8090:8090 \
     --restart unless-stopped \
     -v steem-data:/var/lib/steemd \
@@ -66,9 +66,9 @@ docker run \
 ```bash
 docker run \
     -d \
-    --name steemd-full \
+    --name steemd-high \
     -p 2001:2001 -p 8090:8090 \
-    --env USE_WAY_TOO_MUCH_RAM=1 \
+    --env USE_HIGH_MEMORY=1 \
     --env USE_FULL_WEB_NODE=1 \
     --restart unless-stopped \
     -v steem-data:/var/lib/steemd \
@@ -123,10 +123,10 @@ docker run \
 
 ```bash
 # 실시간 로그 보기
-docker logs -f steemd-default
+docker logs -f steemd-low
 
 # 마지막 100줄 보기
-docker logs --tail 100 steemd-default
+docker logs --tail 100 steemd-low
 ```
 
 ### API 동작 확인
@@ -209,7 +209,7 @@ Docker 컨테이너 실행 시 다음 환경 변수를 사용할 수 있습니�
 
 | 환경 변수 | 설명 | 사용 예시 |
 |----------|------|----------|
-| `USE_WAY_TOO_MUCH_RAM=1` | 전체 노드 바이너리 사용 | `-e USE_WAY_TOO_MUCH_RAM=1` |
+| `USE_HIGH_MEMORY=1` | 고메모리 모드 (인메모리 계정 히스토리) | `-e USE_HIGH_MEMORY=1` |
 | `USE_FULL_WEB_NODE=1` | 전체 API 설정 사용 | `-e USE_FULL_WEB_NODE=1` |
 | `TRACK_ACCOUNT="account"` | 특정 계정 추적 | `-e TRACK_ACCOUNT="exchange"` |
 | `USE_NGINX_FRONTEND=1` | NGINX 프록시 활성화 | `-e USE_NGINX_FRONTEND=1` |
@@ -279,8 +279,8 @@ docker run -d \
 # 주의: 볼륨을 삭제하면 모든 블록체인 데이터가 삭제됩니다!
 
 # 먼저 컨테이너 중지 및 삭제
-docker stop steemd-default
-docker rm steemd-default
+docker stop steemd-lite
+docker rm steemd-lite
 
 # 볼륨 삭제
 docker volume rm steem-data
@@ -296,20 +296,20 @@ docker ps
 docker ps -a  # 중지된 컨테이너 포함
 
 # 로그 확인
-docker logs -f steemd-default
+docker logs -f steemd-low
 
 # 컨테이너 중지
-docker stop steemd-default
+docker stop steemd-low
 
 # 컨테이너 시작
-docker start steemd-default
+docker start steemd-low
 
 # 컨테이너 재시작
-docker restart steemd-default
+docker restart steemd-low
 
 # 컨테이너 삭제 (볼륨은 유지됨)
-docker stop steemd-default
-docker rm steemd-default
+docker stop steemd-low
+docker rm steemd-low
 
 # 컨테이너 상태 확인
 docker ps -a | grep steemd
@@ -319,10 +319,10 @@ docker ps -a | grep steemd
 
 ```bash
 # 실시간 리소스 사용량
-docker stats steemd-default
+docker stats steemd-low
 
 # 한 번만 확인
-docker stats --no-stream steemd-default
+docker stats --no-stream steemd-low
 ```
 
 ## 호스트 디렉토리 사용 (대안)
@@ -336,7 +336,7 @@ mkdir -p ~/steem-data
 # 2. 노드 실행
 docker run \
     -d \
-    --name steemd-default \
+    --name steemd-low \
     -p 2001:2001 -p 8090:8090 \
     --restart unless-stopped \
     -v ~/steem-data:/var/lib/steemd \
@@ -344,7 +344,7 @@ docker run \
 
 # 3. 설정 파일 직접 수정
 vi ~/steem-data/config.ini
-docker restart steemd-default
+docker restart steemd-low
 ```
 
 **호스트 디렉토리 사용 시 장점:**
@@ -409,7 +409,7 @@ sudo systemctl restart docker
 
 ```bash
 # 로그 확인
-docker logs steemd-default
+docker logs steemd-low
 
 # 일반적인 원인:
 # 1. 포트 충돌 (2001, 8090 포트가 이미 사용 중)
@@ -428,7 +428,7 @@ free -h
 
 ```bash
 # P2P 연결 확인
-docker logs steemd-default | grep "p2p"
+docker logs steemd-low | grep "p2p"
 
 # 시드 노드 추가
 docker run \

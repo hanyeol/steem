@@ -36,10 +36,10 @@ Minimal node for blockchain sync (requires ~2GB RAM):
 
 ```bash
 docker run \
-    -d -p 2001:2001 -p 8090:8090 --name steemd-default \
+    -d -p 2001:2001 -p 8090:8090 --name steemd-low \
     hanyeol/steem
 
-docker logs -f steemd-default
+docker logs -f steemd-low
 ```
 
 #### Run a Full API Node
@@ -48,12 +48,12 @@ Full node with all APIs enabled (requires ~16GB RAM, ~110GB disk):
 
 ```bash
 docker run \
-    --env USE_WAY_TOO_MUCH_RAM=1 \
-    --env USE_FULL_WEB_NODE=1 \
-    -d -p 2001:2001 -p 8090:8090 --name steemd-full \
+    --env STEEMD_NODE_MODE=fullnode \
+    --env USE_HIGH_MEMORY=1 \
+    -d -p 2001:2001 -p 8090:8090 --name steemd-high \
     hanyeol/steem
 
-docker logs -f steemd-full
+docker logs -f steemd-high
 ```
 
 ### Build from Source
@@ -114,10 +114,10 @@ See [doc/building.md](doc/building.md) for detailed build instructions.
 
 Located in [`contrib/`](contrib/):
 
-- [`docker.config.ini`](contrib/docker.config.ini) - Consensus node (witnesses/seed nodes)
+- [`witness.config.ini`](contrib/witness.config.ini) - Witness/consensus node
 - [`fullnode.config.ini`](contrib/fullnode.config.ini) - Full API node
 - [`ahnode.config.ini`](contrib/ahnode.config.ini) - Account history node
-- [`broadcaster.config.ini`](contrib/broadcaster.config.ini) - Broadcast node
+- [`broadcast.config.ini`](contrib/broadcast.config.ini) - Broadcast node
 - [`testnet.config.ini`](contrib/testnet.config.ini) - Private testnet
 
 ### Seed Nodes
@@ -133,8 +133,8 @@ STEEMD_SEED_NODES="seed1.example.com:2001 seed2.example.com:2001"
 
 | Variable | Description |
 |----------|-------------|
-| `USE_WAY_TOO_MUCH_RAM` | Enable full node with all data |
-| `USE_FULL_WEB_NODE` | Enable full API set with default config |
+| `STEEMD_NODE_MODE` | Node configuration: `fullnode`, `broadcast`, `ahnode`, or `witness` |
+| `USE_HIGH_MEMORY` | Enable high-memory mode with in-memory account history |
 | `USE_NGINX_FRONTEND` | Enable NGINX reverse proxy with `/health` endpoint |
 | `USE_MULTICORE_READONLY` | Enable multi-reader mode (experimental, 4 readers per core) |
 | `HOME` | Data directory path (default: `/var/lib/steemd`) |

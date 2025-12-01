@@ -33,7 +33,7 @@ Steem 노드는 특정 플러그인을 활성화하고 리소스 할당을 조�
 
 ### 구성
 
-**설정 파일**: [contrib/docker.config.ini](../contrib/docker.config.ini)
+**설정 파일**: [contrib/witness.config.ini](../contrib/witness.config.ini)
 
 ```ini
 # 로깅
@@ -350,7 +350,7 @@ account-history-blacklist-ops = custom_json_operation
 
 ### 구성
 
-**설정 파일**: [contrib/broadcaster.config.ini](../contrib/broadcaster.config.ini)
+**설정 파일**: [contrib/broadcast.config.ini](../contrib/broadcast.config.ini)
 
 ```ini
 # 로깅

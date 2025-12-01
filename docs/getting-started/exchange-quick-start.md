@@ -56,8 +56,8 @@ To extract the binary you need to start a container and then copy the file from 
 
 ```
 docker run -d --name steemd-exchange steemit/steem
-docker cp steemd-exchange:/usr/local/steemd-default/bin/steemd /local/path/to/steemd
-docker cp steemd-exchange:/usr/local/steemd-default/bin/cli_wallet /local/path/to/cli_wallet
+docker cp steemd-exchange:/usr/local/steemd-low/bin/steemd /local/path/to/steemd
+docker cp steemd-exchange:/usr/local/steemd-low/bin/cli_wallet /local/path/to/cli_wallet
 docker stop steemd-exchange
 ```
 
@@ -91,5 +91,5 @@ Initial syncing will take between 6 and 48 hours depending on your equipment, fa
 The command below will run the cli_wallet from inside the running container while mapping the `wallet.json` to the directory you created for it on the host.
 
 ```
-docker exec -it steemd-exchange /usr/local/steemd-default/bin/cli_wallet -w /var/steemwallet/wallet.json
+docker exec -it steemd-exchange /usr/local/steemd-low/bin/cli_wallet -w /var/steemwallet/wallet.json
 ```
