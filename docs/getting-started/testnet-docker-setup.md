@@ -189,7 +189,7 @@ The private key is derived from `fc::sha256::hash(std::string("init_key"))` and 
 
 ### Configuration File Behavior
 
-The Docker entrypoint script (`/usr/local/bin/steemdentrypoint.sh`) automatically copies configuration files from `/etc/steemd/` to the data directory. To use a custom config:
+The Docker entrypoint script (`/usr/local/bin/steemd-entrypoint.sh`) automatically copies configuration files from `/etc/steemd/` to the data directory. To use a custom config:
 1. Mount your config file to `/var/lib/steemd/config.ini` (overrides after copy)
 2. Or use environment variables like `STEEMD_WITNESS_NAME` and `STEEMD_PRIVATE_KEY`
 

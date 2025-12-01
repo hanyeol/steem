@@ -10,13 +10,13 @@ Node configuration files have been moved to the [`configs/`](../configs/) direct
 
 ### Docker & PaaS
 
-#### `steemdentrypoint.sh`
+#### `steemd-entrypoint.sh`
 Docker container entrypoint script
 
 #### `steemd.run`
 Runit/daemontools style service run script
 
-#### `startpaassteemd.sh`
+#### `start-paas-steemd.sh`
 - Launch steemd in PaaS environments like AWS Elastic Beanstalk
 - Download/upload blockchain snapshots from/to S3 bucket
 - Environment variables:
@@ -51,7 +51,7 @@ Health check configuration template
 
 ### Testnet
 
-#### `testnetinit.sh`
+#### `testnet-init.sh`
 Private testnet initialization script
 - Generate genesis block
 - Configure initial witness accounts
