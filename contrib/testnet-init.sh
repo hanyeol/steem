@@ -8,7 +8,7 @@ UTILS="/usr/local/steemd-testnet/bin"
 
 chown -R steemd:steemd $HOME
 
-# clean out data dir since it may be semi-persistent block storage on the ec2 with stale data
+# clean out data dir since it may contain stale data from previous runs
 rm -rf $HOME/*
 
 mkdir -p $HOME/testnet_datadir
