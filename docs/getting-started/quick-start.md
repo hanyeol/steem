@@ -30,7 +30,7 @@ docker run \
 
 ### Full API Node
 
-You need to use `USE_HIGH_MEMORY=1` and `USE_FULL_WEB_NODE=1` as stated above. You can use `contrib/fullnode.config.ini` as a base for your `config.ini` file.
+You need to use `USE_HIGH_MEMORY=1` and `USE_FULL_WEB_NODE=1` as stated above. You can use `configs/fullnode.config.ini` as a base for your `config.ini` file.
 
 ### Exchanges
 

@@ -112,13 +112,13 @@ See [doc/building.md](doc/building.md) for detailed build instructions.
 
 ### Example Configurations
 
-Located in [`contrib/`](contrib/):
+Located in [`configs/`](configs/):
 
-- [`witness.config.ini`](contrib/witness.config.ini) - Witness/consensus node
-- [`fullnode.config.ini`](contrib/fullnode.config.ini) - Full API node
-- [`ahnode.config.ini`](contrib/ahnode.config.ini) - Account history node
-- [`broadcast.config.ini`](contrib/broadcast.config.ini) - Broadcast node
-- [`testnet.config.ini`](contrib/testnet.config.ini) - Private testnet
+- [`witness.config.ini`](configs/witness.config.ini) - Witness/consensus node
+- [`fullnode.config.ini`](configs/fullnode.config.ini) - Full API node
+- [`ahnode.config.ini`](configs/ahnode.config.ini) - Account history node
+- [`broadcast.config.ini`](configs/broadcast.config.ini) - Broadcast node
+- [`testnet.config.ini`](configs/testnet.config.ini) - Private testnet
 
 ### Seed Nodes
 

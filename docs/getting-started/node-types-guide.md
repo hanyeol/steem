@@ -33,7 +33,7 @@ Steem nodes can be configured for different purposes by enabling specific plugin
 
 ### Configuration
 
-**Config file**: [contrib/witness.config.ini](../contrib/witness.config.ini)
+**Config file**: [configs/witness.config.ini](../../configs/witness.config.ini)
 
 ```ini
 # Logging
@@ -169,7 +169,7 @@ make -j$(nproc) steemd
 
 ### Configuration
 
-**Config file**: [contrib/fullnode.config.ini](../contrib/fullnode.config.ini)
+**Config file**: [configs/fullnode.config.ini](../../configs/fullnode.config.ini)
 
 ```ini
 # Logging
@@ -266,7 +266,7 @@ docker run -d \
 
 ### Configuration
 
-**Config file**: [contrib/ahnode.config.ini](../contrib/ahnode.config.ini)
+**Config file**: [configs/ahnode.config.ini](../../configs/ahnode.config.ini)
 
 ```ini
 # Logging
@@ -350,7 +350,7 @@ account-history-blacklist-ops = custom_json_operation
 
 ### Configuration
 
-**Config file**: [contrib/broadcast.config.ini](../contrib/broadcast.config.ini)
+**Config file**: [configs/broadcast.config.ini](../../configs/broadcast.config.ini)
 
 ```ini
 # Logging
@@ -394,7 +394,7 @@ webserver-ws-endpoint = 0.0.0.0:8090
 
 ### Configuration
 
-**Config file**: [contrib/testnet.config.ini](../contrib/testnet.config.ini)
+**Config file**: [configs/testnet.config.ini](../../configs/testnet.config.ini)
 
 ```ini
 # Logging - verbose for debugging
@@ -691,7 +691,7 @@ htop
 - [Genesis Launch Guide](genesis-launch.md) - Launch private network
 - [Reverse Proxy Guide](reverse-proxy-guide.md) - NGINX/HAProxy setup
 - [Exchange Quick Start](exchangequickstart.md) - Exchange integration
-- [Example Configs](../contrib/) - Ready-to-use configuration files
+- [Example Configs](../../configs/) - Ready-to-use configuration files
 
 ## License
 

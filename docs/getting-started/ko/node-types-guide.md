@@ -33,7 +33,7 @@ Steem 노드는 특정 플러그인을 활성화하고 리소스 할당을 조�
 
 ### 구성
 
-**설정 파일**: [contrib/witness.config.ini](../contrib/witness.config.ini)
+**설정 파일**: [configs/witness.config.ini](../../../configs/witness.config.ini)
 
 ```ini
 # 로깅
@@ -169,7 +169,7 @@ make -j$(nproc) steemd
 
 ### 구성
 
-**설정 파일**: [contrib/fullnode.config.ini](../contrib/fullnode.config.ini)
+**설정 파일**: [configs/fullnode.config.ini](../../../configs/fullnode.config.ini)
 
 ```ini
 # 로깅
@@ -266,7 +266,7 @@ docker run -d \
 
 ### 구성
 
-**설정 파일**: [contrib/ahnode.config.ini](../contrib/ahnode.config.ini)
+**설정 파일**: [configs/ahnode.config.ini](../../../configs/ahnode.config.ini)
 
 ```ini
 # 로깅
@@ -350,7 +350,7 @@ account-history-blacklist-ops = custom_json_operation
 
 ### 구성
 
-**설정 파일**: [contrib/broadcast.config.ini](../contrib/broadcast.config.ini)
+**설정 파일**: [configs/broadcast.config.ini](../../../configs/broadcast.config.ini)
 
 ```ini
 # 로깅
@@ -394,7 +394,7 @@ webserver-ws-endpoint = 0.0.0.0:8090
 
 ### 구성
 
-**설정 파일**: [contrib/testnet.config.ini](../contrib/testnet.config.ini)
+**설정 파일**: [configs/testnet.config.ini](../../../configs/testnet.config.ini)
 
 ```ini
 # 로깅 - 디버깅을 위한 상세 로그
@@ -691,7 +691,7 @@ htop
 - [제네시스 런치 가이드](genesis-launch.md) - 프라이빗 네트워크 시작
 - [리버스 프록시 가이드](reverse-proxy-guide.md) - NGINX/HAProxy 설정
 - [거래소 빠른 시작](exchange-quick-start.md) - 거래소 통합
-- [예제 설정](../../contrib/) - 바로 사용 가능한 구성 파일
+- [예제 설정](../../../configs/) - 바로 사용 가능한 구성 파일
 
 ## 라이선스
 

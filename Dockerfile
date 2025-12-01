@@ -223,12 +223,12 @@ EXPOSE 2001
 # ADD docs/seednodes.txt /etc/steemd/seednodes.txt
 
 # the following adds lots of logging info to stdout
-ADD contrib/witness.config.ini /etc/steemd/witness.config.ini
-ADD contrib/fullnode.config.ini /etc/steemd/fullnode.config.ini
-ADD contrib/broadcast.config.ini /etc/steemd/broadcast.config.ini
-ADD contrib/ahnode.config.ini /etc/steemd/ahnode.config.ini
-ADD contrib/testnet.config.ini /etc/steemd/testnet.config.ini
-ADD contrib/fastgen.config.ini /etc/steemd/fastgen.config.ini
+ADD configs/witness.config.ini /etc/steemd/witness.config.ini
+ADD configs/fullnode.config.ini /etc/steemd/fullnode.config.ini
+ADD configs/broadcast.config.ini /etc/steemd/broadcast.config.ini
+ADD configs/ahnode.config.ini /etc/steemd/ahnode.config.ini
+ADD configs/testnet.config.ini /etc/steemd/testnet.config.ini
+ADD configs/fastgen.config.ini /etc/steemd/fastgen.config.ini
 
 # add normal startup script that starts via sv
 ADD contrib/steemd.run /usr/local/bin/steem-sv-run.sh
