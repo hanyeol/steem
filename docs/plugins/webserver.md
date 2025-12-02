@@ -497,7 +497,7 @@ docker run -d \
   --name steem-api \
   -p 8090:8090 \
   -p 8091:8091 \
-  -v $(pwd)/config.ini:/etc/steemd/config.ini:ro \
+  -v $(pwd)/config.ini:/etc/steemdig.ini:ro \
   -v steem-data:/var/lib/steemd \
   steemit/steem:latest
 ```

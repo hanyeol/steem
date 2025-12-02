@@ -14,7 +14,9 @@ Node configuration files have been moved to the [`configs/`](../configs/) direct
 Docker container entrypoint script
 
 #### `steemd.run`
-Runit/daemontools style service run script
+Runit service script for standard steemd execution
+- Direct steemd process execution
+- Managed by runit process supervisor
 
 #### `start-paas-steemd.sh`
 - Launch steemd in PaaS environments like AWS Elastic Beanstalk
@@ -24,11 +26,20 @@ Runit/daemontools style service run script
   - `S3_BUCKET=<bucket-name>`
   - `SYNC_TO_S3=true` (snapshot upload mode)
 
-#### `paas-sv-run.sh`
-Supervisor script for PaaS environments
+#### `steemd-paas-monitor.run`
+Runit monitoring script for PaaS environments
+- Monitors steemd process health
+- Collects core dumps on crash
+- Triggers container restart on failure
+- Runs every 10 seconds
 
-#### `sync-sv-run.sh`
-S3 sync service run script
+#### `steemd-snapshot-uploader.run`
+Runit script for blockchain snapshot management
+- Monitors blockchain synchronization status
+- Compresses and uploads snapshots when fully synced
+- Handles crash recovery with core dump collection
+- Supports S3 and compatible storage backends
+- Runs every 60 seconds
 
 ### Health Check
 

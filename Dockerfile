@@ -222,7 +222,8 @@ EXPOSE 2001
 # add seednodes from documentation to image
 # ADD docs/seednodes.txt /etc/steemd/seednodes.txt
 
-# the following adds lots of logging info to stdout
+# add config files to /etc/steemd/
+RUN mkdir -p /etc/steemd
 ADD configs/witness.config.ini /etc/steemd/witness.config.ini
 ADD configs/fullnode.config.ini /etc/steemd/fullnode.config.ini
 ADD configs/broadcast.config.ini /etc/steemd/broadcast.config.ini
@@ -230,9 +231,10 @@ ADD configs/ahnode.config.ini /etc/steemd/ahnode.config.ini
 ADD configs/fastgen.config.ini /etc/steemd/fastgen.config.ini
 ADD configs/testnet.config.ini /etc/steemd/testnet.config.ini
 
-# add normal startup script that starts via sv
-ADD contrib/steemd.run /usr/local/bin/steem-sv-run.sh
-RUN chmod +x /usr/local/bin/steem-sv-run.sh
+# add runit service templates to /etc/steemd/runit/
+RUN mkdir -p /etc/steemd/runit
+ADD contrib/steemd.run /etc/steemd/runit/steemd.run
+RUN chmod +x /etc/steemd/runit/steemd.run
 
 # add nginx templates
 ADD contrib/steemd.nginx.conf /etc/nginx/steemd.nginx.conf
@@ -241,14 +243,16 @@ ADD contrib/healthcheck.conf.template /etc/nginx/healthcheck.conf.template
 # add PaaS startup script and service script
 ADD contrib/start-paas-steemd.sh /usr/local/bin/start-paas-steemd.sh
 ADD contrib/testnet-init.sh /usr/local/bin/testnet-init.sh
-ADD contrib/paas-sv-run.sh /usr/local/bin/paas-sv-run.sh
-ADD contrib/sync-sv-run.sh /usr/local/bin/sync-sv-run.sh
 ADD contrib/healthcheck.sh /usr/local/bin/healthcheck.sh
 RUN chmod +x /usr/local/bin/start-paas-steemd.sh
 RUN chmod +x /usr/local/bin/testnet-init.sh
-RUN chmod +x /usr/local/bin/paas-sv-run.sh
-RUN chmod +x /usr/local/bin/sync-sv-run.sh
 RUN chmod +x /usr/local/bin/healthcheck.sh
+
+# add PaaS runit templates
+ADD contrib/steemd-paas-monitor.run /etc/steemd/runit/steemd-paas-monitor.run
+ADD contrib/steemd-snapshot-uploader.run /etc/steemd/runit/steemd-snapshot-uploader.run
+RUN chmod +x /etc/steemd/runit/steemd-paas-monitor.run
+RUN chmod +x /etc/steemd/runit/steemd-snapshot-uploader.run
 
 # new entrypoint for all instances
 # this enables exitting of the container when the writer node dies

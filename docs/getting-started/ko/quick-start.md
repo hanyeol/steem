@@ -150,7 +150,7 @@ Docker 이미지에 포함된 설정 파일을 추출하여 수정할 수 있습
 
 ```bash
 # 저메모리 노드 설정
-docker run --rm hanyeol/steem cat /etc/steemd/config.ini > my-config.ini
+docker run --rm hanyeol/steem cat /etc/steemdig.ini > my-config.ini
 
 # 전체 노드 설정
 docker run --rm hanyeol/steem cat /etc/steemd/fullnode.config.ini > my-config.ini
@@ -187,7 +187,7 @@ docker run -d \
 
 ```bash
 # 1. 설정 파일 준비
-docker run --rm hanyeol/steem cat /etc/steemd/config.ini > my-config.ini
+docker run --rm hanyeol/steem cat /etc/steemdig.ini > my-config.ini
 vi my-config.ini
 
 # 2. 설정 파일을 직접 마운트하여 실행

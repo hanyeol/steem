@@ -158,9 +158,9 @@ SAVED_PID=`pgrep -f p2p-endpoint`
 echo $SAVED_PID >> /tmp/steemdpid
 mkdir -p /etc/service/steemd
 if [[ ! "$SYNC_TO_S3" ]]; then
-  cp /usr/local/bin/paas-sv-run.sh /etc/service/steemd/run
+  cp /etc/steemd/runit/steemd-paas-monitor.run /etc/service/steemd/run
 else
-  cp /usr/local/bin/sync-sv-run.sh /etc/service/steemd/run
+  cp /etc/steemd/runit/steemd-snapshot-uploader.run /etc/service/steemd/run
 fi
 chmod +x /etc/service/steemd/run
 runsv /etc/service/steemd
