@@ -212,7 +212,7 @@ Docker 컨테이너 실행 시 다음 환경 변수를 사용할 수 있습니�
 | `USE_HIGH_MEMORY=1` | 고메모리 모드 (인메모리 계정 히스토리) | `-e USE_HIGH_MEMORY=1` |
 | `USE_FULL_WEB_NODE=1` | 전체 API 설정 사용 | `-e USE_FULL_WEB_NODE=1` |
 | `TRACK_ACCOUNT="account"` | 특정 계정 추적 | `-e TRACK_ACCOUNT="exchange"` |
-| `USE_NGINX_FRONTEND=1` | NGINX 프록시 활성화 | `-e USE_NGINX_FRONTEND=1` |
+| `USE_NGINX_PROXY=1` | NGINX 프록시 활성화 | `-e USE_NGINX_PROXY=1` |
 | `USE_MULTICORE_READONLY=1` | 멀티리더 모드 (실험적) | `-e USE_MULTICORE_READONLY=1` |
 
 ## Docker 볼륨 관리

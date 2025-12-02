@@ -694,7 +694,7 @@ graph TB
 
 ### Health Check Endpoints
 
-When using NGINX frontend (`USE_NGINX_FRONTEND=1`), the following endpoints are available:
+When using NGINX frontend (`USE_NGINX_PROXY=1`), the following endpoints are available:
 
 - `GET /health` - Basic health check (200 if node is responsive)
 - `GET /.well-known/healthcheck.json` - Detailed health status

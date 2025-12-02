@@ -694,7 +694,7 @@ graph TB
 
 ### 헬스 체크 Endpoint
 
-NGINX frontend(`USE_NGINX_FRONTEND=1`)를 사용할 때 다음 endpoint를 사용할 수 있습니다:
+NGINX frontend(`USE_NGINX_PROXY=1`)를 사용할 때 다음 endpoint를 사용할 수 있습니다:
 
 - `GET /health` - 기본 헬스 체크 (노드가 응답하면 200)
 - `GET /.well-known/healthcheck.json` - 상세 헬스 상태

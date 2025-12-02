@@ -135,7 +135,7 @@ STEEMD_SEED_NODES="seed1.example.com:2001 seed2.example.com:2001"
 |----------|-------------|
 | `STEEMD_NODE_MODE` | Node configuration: `fullnode`, `broadcast`, `ahnode`, or `witness` |
 | `USE_HIGH_MEMORY` | Enable high-memory mode with in-memory account history |
-| `USE_NGINX_FRONTEND` | Enable NGINX reverse proxy with `/health` endpoint |
+| `USE_NGINX_PROXY` | Enable NGINX reverse proxy with `/health` endpoint |
 | `USE_MULTICORE_READONLY` | Enable multi-reader mode (experimental, 4 readers per core) |
 | `HOME` | Data directory path (default: `/var/lib/steemd`) |
 | `USE_PAAS` | PaaS mode for AWS Elastic Beanstalk |

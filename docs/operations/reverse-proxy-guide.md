@@ -62,7 +62,7 @@ Enable the built-in NGINX reverse proxy via environment variable:
 ```bash
 docker run -d \
   --name steem-node \
-  -e USE_NGINX_FRONTEND=true \
+  -e USE_NGINX_PROXY=true \
   -p 8090:8090 \
   -p 2001:2001 \
   hanyeol/steem:latest
