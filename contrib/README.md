@@ -61,13 +61,13 @@ Health check configuration template
 - Load balancing (for multicore readonly mode)
 - Provides `/health` endpoint
 
-### Testnet
+### Test
 
-#### `steemd-testnet-bootstrap.sh`
-Private testnet bootstrap script
+#### `steemd-test-bootstrap.sh`
+Private test network bootstrap script
 - Initialize fastgen node for transaction generation
 - Configure 21 witness accounts
-- Setup testnet environment with genesis block
+- Setup test environment with genesis block
 
 ## Usage Examples
 

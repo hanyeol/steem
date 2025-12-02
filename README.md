@@ -118,7 +118,7 @@ Located in [`configs/`](configs/):
 - [`fullnode.config.ini`](configs/fullnode.config.ini) - Full API node
 - [`ahnode.config.ini`](configs/ahnode.config.ini) - Account history node
 - [`broadcast.config.ini`](configs/broadcast.config.ini) - Broadcast node
-- [`testnet.config.ini`](configs/testnet.config.ini) - Private testnet
+- [`test.config.ini`](configs/test.config.ini) - Private test network
 
 ### Seed Nodes
 

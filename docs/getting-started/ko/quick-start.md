@@ -21,8 +21,8 @@ docker build -t hanyeol/steem .
 
 **참고:** 빌드 시 3가지 바이너리가 생성됩니다:
 - `/usr/local/steemd-low/bin/steemd` - 저메모리 노드
-- `/usr/local/steemd-high/bin/steemd` - 전체 API 노드
-- `/usr/local/steemd-testnet/bin/steemd` - 테스트넷 노드
+- `/usr/local/steemd-high/bin/steemd` - 고가용성 노드
+- `/usr/local/steemd-test/bin/steemd` - 테스트 노드
 
 ## Docker 볼륨 생성
 
@@ -100,22 +100,22 @@ docker run \
 - 디스크: 50GB+
 - 공유 메모리: 16GB+
 
-### 테스트넷 노드
+### 테스트 노드
 
 개발 및 테스트 목적으로 사용합니다.
 
 ```bash
 docker run \
     -d \
-    --name steemd-testnet \
+    --name steemd-test \
     -p 2001:2001 -p 8090:8090 \
     --restart unless-stopped \
-    -v steem-testnet-data:/var/lib/steemd \
+    -v steem-test-data:/var/lib/steemd \
     hanyeol/steem \
-    /usr/local/steemd-testnet/bin/steemd
+    /usr/local/steemd-test/bin/steemd
 ```
 
-**참고:** 테스트넷은 별도의 볼륨(`steem-testnet-data`)을 사용하는 것이 좋습니다.
+**참고:** 테스트 노드는 별도의 볼륨(`steem-test-data`)을 사용하는 것이 좋습니다.
 
 ## 노드 상태 확인
 

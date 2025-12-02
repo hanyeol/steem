@@ -764,7 +764,7 @@ curl -s http://127.0.0.1:8090 | jq '.participation'
 - [Building Steem](building.md)
 - [Testing Guide](testing.md)
 - [Plugin Development](plugin.md)
-- [Config Reference](../../configs/testnet.config.ini)
+- [Config Reference](../../configs/test.config.ini)
 - [Protocol Config](../src/core/protocol/include/steem/protocol/config.hpp)
 - [Database Implementation](../src/core/chain/database.cpp)
 

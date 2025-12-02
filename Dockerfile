@@ -77,7 +77,7 @@ RUN \
     mkdir build && \
     cd build && \
     cmake \
-        -DCMAKE_INSTALL_PREFIX=/usr/local/steemd-testnet \
+        -DCMAKE_INSTALL_PREFIX=/usr/local/steemd-test \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_STEEM_TESTNET=ON \
         -DLOW_MEMORY_NODE=OFF \
@@ -229,7 +229,7 @@ ADD configs/fullnode.config.ini /etc/steemd/fullnode.config.ini
 ADD configs/broadcast.config.ini /etc/steemd/broadcast.config.ini
 ADD configs/ahnode.config.ini /etc/steemd/ahnode.config.ini
 ADD configs/fastgen.config.ini /etc/steemd/fastgen.config.ini
-ADD configs/testnet.config.ini /etc/steemd/testnet.config.ini
+ADD configs/test.config.ini /etc/steemd/test.config.ini
 
 # add runit service templates to /etc/steemd/runit/
 RUN mkdir -p /etc/steemd/runit
@@ -242,10 +242,10 @@ ADD contrib/healthcheck.conf.template /etc/nginx/healthcheck.conf.template
 
 # add PaaS startup script and service script
 ADD contrib/steemd-paas-bootstrap.sh /usr/local/bin/steemd-paas-bootstrap.sh
-ADD contrib/steemd-testnet-bootstrap.sh /usr/local/bin/steemd-testnet-bootstrap.sh
+ADD contrib/steemd-test-bootstrap.sh /usr/local/bin/steemd-test-bootstrap.sh
 ADD contrib/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
 RUN chmod +x /usr/local/bin/steemd-paas-bootstrap.sh
-RUN chmod +x /usr/local/bin/steemd-testnet-bootstrap.sh
+RUN chmod +x /usr/local/bin/steemd-test-bootstrap.sh
 RUN chmod +x /usr/local/bin/steemd-healthcheck.sh
 
 # add PaaS runit templates

@@ -394,7 +394,7 @@ webserver-ws-endpoint = 0.0.0.0:8090
 
 ### 구성
 
-**설정 파일**: [configs/testnet.config.ini](../../../configs/testnet.config.ini)
+**설정 파일**: [configs/test.config.ini](../../../configs/test.config.ini)
 
 ```ini
 # 로깅 - 디버깅을 위한 상세 로그

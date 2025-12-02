@@ -394,7 +394,7 @@ webserver-ws-endpoint = 0.0.0.0:8090
 
 ### Configuration
 
-**Config file**: [configs/testnet.config.ini](../../configs/testnet.config.ini)
+**Config file**: [configs/test.config.ini](../../configs/test.config.ini)
 
 ```ini
 # Logging - verbose for debugging

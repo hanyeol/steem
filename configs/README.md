@@ -30,8 +30,8 @@ This directory contains example configuration files for different types of Steem
 - **Plugins**: Optimized for `network_broadcast_api`
 - **Use Case**: Focused on transaction submission with minimal resources
 
-### `testnet.config.ini`
-- **Purpose**: Private testnet node
+### `test.config.ini`
+- **Purpose**: Private test network node
 - **Memory**: 30GB shared memory
 - **Plugins**: Full functionality including `account_history` and `witness`
 - **Features**:
@@ -64,13 +64,13 @@ cp configs/fullnode.config.ini witness_node_data_dir/config.ini
 ./programs/steemd/steemd
 ```
 
-### 3. Starting a Testnet
+### 3. Starting a Test Network
 ```bash
-# Requires testnet build option
+# Requires test network build option
 # cmake -DBUILD_STEEM_TESTNET=ON ..
 
-cp configs/testnet.config.ini witness_node_data_dir/config.ini
-./contrib/steemd-testnet-bootstrap.sh
+cp configs/test.config.ini witness_node_data_dir/config.ini
+./contrib/steemd-test-bootstrap.sh
 ./programs/steemd/steemd
 ```
 

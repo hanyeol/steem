@@ -120,7 +120,7 @@ docker run -d \
   -v "$(pwd)/running-steemd/witness_node_data_dir:/var/lib/steemd" \
   -v "$(pwd)/running-steemd/config.ini:/var/lib/steemd/config.ini" \
   hanyeol/steem \
-  /usr/local/steemd-testnet/bin/steemd --data-dir=/var/lib/steemd
+  /usr/local/steemd-test/bin/steemd --data-dir=/var/lib/steemd
 ```
 
 ### Port Mappings
@@ -173,11 +173,12 @@ docker logs -f steem-testnet
 
 ### Testnet vs Mainnet Binary
 
-The Docker image contains two binaries:
-- `/usr/local/steemd-low/bin/steemd` - Mainnet binary (`BUILD_STEEM_TESTNET=OFF`)
-- `/usr/local/steemd-testnet/bin/steemd` - Testnet binary (`BUILD_STEEM_TESTNET=ON`)
+The Docker image contains three binaries:
+- `/usr/local/steemd-low/bin/steemd` - Low memory node
+- `/usr/local/steemd-high/bin/steemd` - Full API node
+- `/usr/local/steemd-test/bin/steemd` - Test node (`BUILD_STEEM_TESTNET=ON`)
 
-**You must use the testnet binary** for the genesis account and private key to work correctly.
+**You must use the test binary** for the genesis account and private key to work correctly.
 
 ### Genesis Account Credentials
 
@@ -243,7 +244,7 @@ If you see this error, it means:
 1. The config.ini file is not being read correctly
 2. Or you're using the mainnet binary instead of testnet binary
 
-Solution: Make sure you're using `/usr/local/steemd-testnet/bin/steemd`
+Solution: Make sure you're using `/usr/local/steemd-test/bin/steemd`
 
 ### "I don't have the private key" Error
 
@@ -254,7 +255,7 @@ Not producing block because I don't have the private key for STM8GC13uCZbP44HzML
 
 This means you're running the **mainnet binary** instead of the testnet binary. The mainnet genesis public key is `STM8GC...` while testnet is `TST6LL...`.
 
-Solution: Use the correct command with `/usr/local/steemd-testnet/bin/steemd`
+Solution: Use the correct command with `/usr/local/steemd-test/bin/steemd`
 
 ### Config File Gets Overwritten
 
