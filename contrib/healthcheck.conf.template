@@ -3,7 +3,7 @@
 
     location /health {
       fastcgi_pass unix:/var/run/fcgiwrap.socket;
-      fastcgi_param SCRIPT_FILENAME /usr/local/bin/healthcheck.sh;
+      fastcgi_param SCRIPT_FILENAME /usr/local/bin/steemd-healthcheck.sh;
     }
 
     location / {

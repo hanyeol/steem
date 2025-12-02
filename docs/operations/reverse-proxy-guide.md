@@ -79,7 +79,7 @@ docker run -d \
 |------|---------|
 | [contrib/steemd.nginx.conf](../contrib/steemd.nginx.conf) | Main NGINX configuration |
 | [contrib/healthcheck.conf.template](../contrib/healthcheck.conf.template) | Health check endpoint and proxy config |
-| [contrib/healthcheck.sh](../contrib/healthcheck.sh) | Health check script (CGI) |
+| [contrib/steemd-healthcheck.sh](../contrib/steemd-healthcheck.sh) | Health check script (CGI) |
 
 ### Docker Compose with NGINX
 
@@ -113,7 +113,7 @@ services:
       - "8090:8090"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./healthcheck.sh:/usr/local/bin/healthcheck.sh:ro
+      - ./steemd-healthcheck.sh:/usr/local/bin/steemd-healthcheck.sh:ro
     depends_on:
       - steemd
     networks:
@@ -363,7 +363,7 @@ server {
     location /health {
         access_log off;
         fastcgi_pass unix:/var/run/fcgiwrap.socket;
-        fastcgi_param SCRIPT_FILENAME /usr/local/bin/healthcheck.sh;
+        fastcgi_param SCRIPT_FILENAME /usr/local/bin/steemd-healthcheck.sh;
         include fastcgi_params;
     }
 }
@@ -384,11 +384,11 @@ sudo systemctl reload nginx
 
 ### Health Check Script
 
-Copy [contrib/healthcheck.sh](../contrib/healthcheck.sh) to `/usr/local/bin/healthcheck.sh`:
+Copy [contrib/steemd-healthcheck.sh](../contrib/steemd-healthcheck.sh) to `/usr/local/bin/steemd-healthcheck.sh`:
 
 ```bash
-sudo cp contrib/healthcheck.sh /usr/local/bin/healthcheck.sh
-sudo chmod +x /usr/local/bin/healthcheck.sh
+sudo cp contrib/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
+sudo chmod +x /usr/local/bin/steemd-healthcheck.sh
 ```
 
 **How it works**:
@@ -437,7 +437,7 @@ server {
         limit_req zone=health_limit burst=5;
 
         fastcgi_pass unix:/var/run/fcgiwrap.socket;
-        fastcgi_param SCRIPT_FILENAME /usr/local/bin/healthcheck.sh;
+        fastcgi_param SCRIPT_FILENAME /usr/local/bin/steemd-healthcheck.sh;
     }
 }
 ```
@@ -1558,7 +1558,7 @@ tail -f /var/log/nginx/error.log
 **Debug**:
 ```bash
 # Test health check directly
-/usr/local/bin/healthcheck.sh
+/usr/local/bin/steemd-healthcheck.sh
 
 # Check dependencies
 which curl jq

@@ -10,7 +10,7 @@ if [[ ! "$USE_PAAS" ]]; then
   chmod +x /etc/service/steemd/run
   runsv /etc/service/steemd
 elif [[ "$IS_TESTNET" ]]; then
-  /usr/local/bin/testnet-init.sh
+  /usr/local/bin/steemd-testnet-bootstrap.sh
 else
-  /usr/local/bin/start-paas-steemd.sh
+  /usr/local/bin/steemd-paas-bootstrap.sh
 fi

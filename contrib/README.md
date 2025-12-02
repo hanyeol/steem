@@ -18,9 +18,10 @@ Runit service script for standard steemd execution
 - Direct steemd process execution
 - Managed by runit process supervisor
 
-#### `start-paas-steemd.sh`
-- Launch steemd in PaaS environments like AWS Elastic Beanstalk
-- Download/upload blockchain snapshots from/to S3 bucket
+#### `steemd-paas-bootstrap.sh`
+PaaS environment bootstrap script
+- Download blockchain snapshots from S3
+- Configure and launch steemd for AWS Elastic Beanstalk
 - Environment variables:
   - `USE_PAAS=true`
   - `S3_BUCKET=<bucket-name>`
@@ -43,7 +44,7 @@ Runit script for blockchain snapshot management
 
 ### Health Check
 
-#### `healthcheck.sh`
+#### `steemd-healthcheck.sh`
 Node health check script
 - Verify blockchain sync status
 - Measure time difference from latest block
@@ -62,11 +63,11 @@ Health check configuration template
 
 ### Testnet
 
-#### `testnet-init.sh`
-Private testnet initialization script
-- Generate genesis block
-- Configure initial witness accounts
-- Setup test environment
+#### `steemd-testnet-bootstrap.sh`
+Private testnet bootstrap script
+- Initialize fastgen node for transaction generation
+- Configure 21 witness accounts
+- Setup testnet environment with genesis block
 
 ## Usage Examples
 

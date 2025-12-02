@@ -241,12 +241,12 @@ ADD contrib/steemd.nginx.conf /etc/nginx/steemd.nginx.conf
 ADD contrib/healthcheck.conf.template /etc/nginx/healthcheck.conf.template
 
 # add PaaS startup script and service script
-ADD contrib/start-paas-steemd.sh /usr/local/bin/start-paas-steemd.sh
-ADD contrib/testnet-init.sh /usr/local/bin/testnet-init.sh
-ADD contrib/healthcheck.sh /usr/local/bin/healthcheck.sh
-RUN chmod +x /usr/local/bin/start-paas-steemd.sh
-RUN chmod +x /usr/local/bin/testnet-init.sh
-RUN chmod +x /usr/local/bin/healthcheck.sh
+ADD contrib/steemd-paas-bootstrap.sh /usr/local/bin/steemd-paas-bootstrap.sh
+ADD contrib/steemd-testnet-bootstrap.sh /usr/local/bin/steemd-testnet-bootstrap.sh
+ADD contrib/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
+RUN chmod +x /usr/local/bin/steemd-paas-bootstrap.sh
+RUN chmod +x /usr/local/bin/steemd-testnet-bootstrap.sh
+RUN chmod +x /usr/local/bin/steemd-healthcheck.sh
 
 # add PaaS runit templates
 ADD contrib/steemd-paas-monitor.run /etc/steemd/runit/steemd-paas-monitor.run

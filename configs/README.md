@@ -70,7 +70,7 @@ cp configs/fullnode.config.ini witness_node_data_dir/config.ini
 # cmake -DBUILD_STEEM_TESTNET=ON ..
 
 cp configs/testnet.config.ini witness_node_data_dir/config.ini
-./contrib/testnet-init.sh
+./contrib/steemd-testnet-bootstrap.sh
 ./programs/steemd/steemd
 ```
 
