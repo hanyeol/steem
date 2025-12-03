@@ -10,37 +10,37 @@ Shell scripts for automated Docker builds, tests, and GitHub status updates in J
 
 | Script | Purpose |
 |--------|---------|
-| **[buildscript.sh](buildscript.sh)** | Build and push Docker image |
-| **[buildtests.sh](buildtests.sh)** | Run tests and generate coverage reports |
-| **[triggerbuild.sh](triggerbuild.sh)** | Main build orchestration script |
-| **[triggertests.sh](triggertests.sh)** | Main test orchestration script |
-| **[buildpending.sh](buildpending.sh)** | Update GitHub status to "pending" |
-| **[buildsuccess.sh](buildsuccess.sh)** | Update GitHub status to "success" |
-| **[buildfailure.sh](buildfailure.sh)** | Update GitHub status to "failure" |
+| **[build-release.sh](build-release.sh)** | Build and push Docker image |
+| **[build-tests.sh](build-tests.sh)** | Run tests and generate coverage reports |
+| **[trigger-build.sh](trigger-build.sh)** | Main build orchestration script |
+| **[trigger-tests.sh](trigger-tests.sh)** | Main test orchestration script |
+| **[build-pending.sh](build-pending.sh)** | Update GitHub status to "pending" |
+| **[build-success.sh](build-success.sh)** | Update GitHub status to "success" |
+| **[build-failure.sh](build-failure.sh)** | Update GitHub status to "failure" |
 
 ## Workflow
 
 ### Build Workflow
 
 ```bash
-triggerbuild.sh
-  ├── buildpending.sh      # Set GitHub status: pending
-  ├── buildscript.sh       # Build & push Docker image
-  ├── buildsuccess.sh      # Set GitHub status: success (if success)
-  └── buildfailure.sh      # Set GitHub status: failure (if failure)
+trigger-build.sh
+  ├── build-pending.sh      # Set GitHub status: pending
+  ├── build-release.sh      # Build & push Docker image
+  ├── build-success.sh      # Set GitHub status: success (if success)
+  └── build-failure.sh      # Set GitHub status: failure (if failure)
 ```
 
 ### Test Workflow
 
 ```bash
-triggertests.sh
-  ├── buildpending.sh      # Set GitHub status: pending
-  ├── buildtests.sh        # Run tests & extract coverage
-  ├── buildsuccess.sh      # Set GitHub status: success (if success)
-  └── buildfailure.sh      # Set GitHub status: failure (if failure)
+trigger-tests.sh
+  ├── build-pending.sh      # Set GitHub status: pending
+  ├── build-tests.sh        # Run tests & extract coverage
+  ├── build-success.sh      # Set GitHub status: success (if success)
+  └── build-failure.sh      # Set GitHub status: failure (if failure)
 ```
 
-## buildscript.sh
+## build-release.sh
 
 Build and push Docker image to Docker Hub.
 
@@ -50,7 +50,7 @@ Build and push Docker image to Docker Hub.
 export BRANCH_NAME=main
 export DOCKER_USER=<username>
 export DOCKER_PASS=<password>
-./buildscript.sh
+./build-release.sh
 ```
 
 ### Environment Variables
@@ -74,16 +74,16 @@ export DOCKER_PASS=<password>
 ```bash
 # Build from stable branch
 export BRANCH_NAME=stable
-./buildscript.sh
+./build-release.sh
 # → steemit/steem:latest
 
 # Build from feature branch
 export BRANCH_NAME=feature-xyz
-./buildscript.sh
+./build-release.sh
 # → steemit/steem:feature-xyz
 ```
 
-## buildtests.sh
+## build-tests.sh
 
 Run tests in Docker and extract code coverage reports.
 
@@ -91,7 +91,7 @@ Run tests in Docker and extract code coverage reports.
 
 ```bash
 export WORKSPACE=/path/to/workspace
-./buildtests.sh
+./build-tests.sh
 ```
 
 ### Environment Variables
@@ -118,32 +118,32 @@ $WORKSPACE/cobertura/
 
 Scripts to update GitHub commit status via API.
 
-### buildpending.sh
+### build-pending.sh
 
 ```bash
 export GITHUB_SECRET=<token>
 export BUILD_URL=<jenkins_url>
-./buildpending.sh
+./build-pending.sh
 ```
 
 Updates commit status to **pending**.
 
-### buildsuccess.sh
+### build-success.sh
 
 ```bash
 export GITHUB_SECRET=<token>
 export BUILD_URL=<jenkins_url>
-./buildsuccess.sh
+./build-success.sh
 ```
 
 Updates commit status to **success**.
 
-### buildfailure.sh
+### build-failure.sh
 
 ```bash
 export GITHUB_SECRET=<token>
 export BUILD_URL=<jenkins_url>
-./buildfailure.sh
+./build-failure.sh
 ```
 
 Updates commit status to **failure**.
@@ -169,7 +169,7 @@ curl -XPOST \
   }'
 ```
 
-## triggerbuild.sh
+## trigger-build.sh
 
 Main build orchestration script.
 
@@ -182,7 +182,7 @@ export DOCKER_USER=<username>
 export DOCKER_PASS=<password>
 export GITHUB_SECRET=<token>
 export BUILD_URL=<jenkins_url>
-./triggerbuild.sh
+./trigger-build.sh
 ```
 
 ### Flow
@@ -198,12 +198,12 @@ export BUILD_URL=<jenkins_url>
 // Jenkinsfile
 stage('Build') {
     steps {
-        sh './ciscripts/triggerbuild.sh'
+        sh './scripts/ci/trigger-build.sh'
     }
 }
 ```
 
-## triggertests.sh
+## trigger-tests.sh
 
 Main test orchestration script.
 
@@ -213,7 +213,7 @@ Main test orchestration script.
 export WORKSPACE=/path/to/workspace
 export GITHUB_SECRET=<token>
 export BUILD_URL=<jenkins_url>
-./triggertests.sh
+./trigger-tests.sh
 ```
 
 ### Flow
@@ -230,7 +230,7 @@ export BUILD_URL=<jenkins_url>
 // Jenkinsfile
 stage('Test') {
     steps {
-        sh './ciscripts/triggertests.sh'
+        sh './scripts/ci/trigger-tests.sh'
     }
     post {
         always {
@@ -281,7 +281,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh './ciscripts/triggertests.sh'
+                sh './scripts/ci/trigger-tests.sh'
             }
         }
 
@@ -290,17 +290,17 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh './ciscripts/triggerbuild.sh'
+                sh './scripts/ci/trigger-build.sh'
             }
         }
     }
 
     post {
         success {
-            sh './ciscripts/buildsuccess.sh'
+            sh './scripts/ci/build-success.sh'
         }
         failure {
-            sh './ciscripts/buildfailure.sh'
+            sh './scripts/ci/build-failure.sh'
         }
     }
 }
@@ -396,7 +396,7 @@ sudo docker build ...
 export BRANCH_NAME=test
 export DOCKER_USER=testuser
 export DOCKER_PASS=testpass
-./buildscript.sh
+./build-release.sh
 ```
 
 ### Test Coverage Generation
@@ -404,7 +404,7 @@ export DOCKER_PASS=testpass
 ```bash
 export WORKSPACE=/tmp/test-workspace
 mkdir -p $WORKSPACE
-./buildtests.sh
+./build-tests.sh
 ls -la $WORKSPACE/cobertura/
 ```
 
@@ -413,9 +413,9 @@ ls -la $WORKSPACE/cobertura/
 Comment out status update lines:
 
 ```bash
-# ./buildpending.sh  # Skip this in local testing
-./buildscript.sh
-# ./buildsuccess.sh  # Skip this in local testing
+# ./build-pending.sh  # Skip this in local testing
+./build-release.sh
+# ./build-success.sh  # Skip this in local testing
 ```
 
 ## Additional Resources
