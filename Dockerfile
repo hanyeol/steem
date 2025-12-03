@@ -233,24 +233,24 @@ ADD configs/test.config.ini /etc/steemd/test.config.ini
 
 # add runit service templates to /etc/steemd/runit/
 RUN mkdir -p /etc/steemd/runit
-ADD contrib/steemd.run /etc/steemd/runit/steemd.run
+ADD deploy/runit/steemd.run /etc/steemd/runit/steemd.run
 RUN chmod +x /etc/steemd/runit/steemd.run
 
 # add nginx templates
-ADD contrib/steemd.nginx.conf /etc/nginx/steemd.nginx.conf
-ADD contrib/steemd-proxy.conf.template /etc/nginx/steemd-proxy.conf.template
+ADD deploy/nginx/steemd.nginx.conf /etc/nginx/steemd.nginx.conf
+ADD deploy/nginx/steemd-proxy.conf.template /etc/nginx/steemd-proxy.conf.template
 
 # add PaaS startup script and service script
-ADD contrib/steemd-paas-bootstrap.sh /usr/local/bin/steemd-paas-bootstrap.sh
-ADD contrib/steemd-test-bootstrap.sh /usr/local/bin/steemd-test-bootstrap.sh
-ADD contrib/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
+ADD deploy/steemd-paas-bootstrap.sh /usr/local/bin/steemd-paas-bootstrap.sh
+ADD deploy/steemd-test-bootstrap.sh /usr/local/bin/steemd-test-bootstrap.sh
+ADD deploy/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
 RUN chmod +x /usr/local/bin/steemd-paas-bootstrap.sh
 RUN chmod +x /usr/local/bin/steemd-test-bootstrap.sh
 RUN chmod +x /usr/local/bin/steemd-healthcheck.sh
 
 # add PaaS runit templates
-ADD contrib/steemd-paas-monitor.run /etc/steemd/runit/steemd-paas-monitor.run
-ADD contrib/steemd-snapshot-uploader.run /etc/steemd/runit/steemd-snapshot-uploader.run
+ADD deploy/runit/steemd-paas-monitor.run /etc/steemd/runit/steemd-paas-monitor.run
+ADD deploy/runit/steemd-snapshot-uploader.run /etc/steemd/runit/steemd-snapshot-uploader.run
 RUN chmod +x /etc/steemd/runit/steemd-paas-monitor.run
 RUN chmod +x /etc/steemd/runit/steemd-snapshot-uploader.run
 
@@ -258,6 +258,6 @@ RUN chmod +x /etc/steemd/runit/steemd-snapshot-uploader.run
 # this enables exitting of the container when the writer node dies
 # for PaaS mode (elasticbeanstalk, etc)
 # AWS EB Docker requires a non-daemonized entrypoint
-ADD contrib/steemd-entrypoint.sh /usr/local/bin/steemd-entrypoint.sh
+ADD deploy/steemd-entrypoint.sh /usr/local/bin/steemd-entrypoint.sh
 RUN chmod +x /usr/local/bin/steemd-entrypoint.sh
 CMD /usr/local/bin/steemd-entrypoint.sh
