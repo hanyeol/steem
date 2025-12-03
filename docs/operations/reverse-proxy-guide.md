@@ -77,9 +77,9 @@ docker run -d \
 
 | File | Purpose |
 |------|---------|
-| [contrib/steemd.nginx.conf](../contrib/steemd.nginx.conf) | Main NGINX configuration |
-| [contrib/healthcheck.conf.template](../contrib/healthcheck.conf.template) | Health check endpoint and proxy config |
-| [contrib/steemd-healthcheck.sh](../contrib/steemd-healthcheck.sh) | Health check script (CGI) |
+| [contrib/steemd.nginx.conf](../../contrib/steemd.nginx.conf) | Main NGINX configuration |
+| [contrib/steemd-proxy.conf.template](../../contrib/steemd-proxy.conf.template) | NGINX site configuration with reverse proxy and health check endpoint |
+| [contrib/steemd-healthcheck.sh](../../contrib/steemd-healthcheck.sh) | Health check script (CGI) |
 
 ### Docker Compose with NGINX
 

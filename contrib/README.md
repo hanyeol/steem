@@ -50,8 +50,8 @@ Node health check script
 - Measure time difference from latest block
 - Return HTTP 200/503 response
 
-#### `healthcheck.conf.template`
-Health check configuration template
+#### `steemd-proxy.conf.template`
+NGINX reverse proxy configuration template with health check endpoint
 
 ### NGINX
 

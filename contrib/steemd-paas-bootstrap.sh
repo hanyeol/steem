@@ -138,11 +138,11 @@ fi
 chown -R steemd:steemd $HOME/*
 
 # let's get going
-cp /etc/nginx/healthcheck.conf.template /etc/nginx/healthcheck.conf
-echo server 127.0.0.1:8091\; >> /etc/nginx/healthcheck.conf
-echo } >> /etc/nginx/healthcheck.conf
+cp /etc/nginx/steemd-proxy.conf.template /etc/nginx/steemd-proxy.conf
+echo server 127.0.0.1:8091\; >> /etc/nginx/steemd-proxy.conf
+echo } >> /etc/nginx/steemd-proxy.conf
 rm /etc/nginx/sites-enabled/default
-cp /etc/nginx/healthcheck.conf /etc/nginx/sites-enabled/default
+cp /etc/nginx/steemd-proxy.conf /etc/nginx/sites-enabled/default
 /etc/init.d/fcgiwrap restart
 service nginx restart
 exec chpst -usteemd \

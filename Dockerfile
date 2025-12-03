@@ -238,7 +238,7 @@ RUN chmod +x /etc/steemd/runit/steemd.run
 
 # add nginx templates
 ADD contrib/steemd.nginx.conf /etc/nginx/steemd.nginx.conf
-ADD contrib/healthcheck.conf.template /etc/nginx/healthcheck.conf.template
+ADD contrib/steemd-proxy.conf.template /etc/nginx/steemd-proxy.conf.template
 
 # add PaaS startup script and service script
 ADD contrib/steemd-paas-bootstrap.sh /usr/local/bin/steemd-paas-bootstrap.sh
