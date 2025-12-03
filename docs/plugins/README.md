@@ -263,7 +263,7 @@ For creating custom plugins, see:
 - [Node Types Guide](../operations/node-types-guide.md) - Pre-configured node setups
 - [System Architecture](../technical-reference/system-architecture.md) - Overall system design
 - [API Notes](../technical-reference/api-notes.md) - API usage guidelines
-- [Configuration Files](../../contrib/) - Example config.ini files
+- [Configuration Files](../../configs/) - Example config.ini files
 
 ## License
 

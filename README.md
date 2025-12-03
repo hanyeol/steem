@@ -222,7 +222,8 @@ steem/
 │   └── examples/          # Example extensions
 ├── programs/              # Executable programs (steemd, cli_wallet, utilities)
 ├── tests/                 # Test suite
-├── contrib/               # Configuration examples and scripts
+├── configs/               # Node configuration examples
+├── deploy/                # Deployment scripts and configurations
 └── docs/                  # Documentation
 ```
 

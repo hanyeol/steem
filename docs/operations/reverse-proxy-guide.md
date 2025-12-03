@@ -45,7 +45,7 @@ Client → Reverse Proxy:8090 → steemd-1:8091
 
 ### Built-in NGINX Configuration
 
-Steem includes production-ready NGINX configuration files in the `contrib/` directory. These configurations are battle-tested and optimized for production use.
+Steem includes production-ready NGINX configuration files in the `deploy/nginx/` directory. These configurations are battle-tested and optimized for production use.
 
 #### Features
 
@@ -77,9 +77,9 @@ docker run -d \
 
 | File | Purpose |
 |------|---------|
-| [contrib/steemd.nginx.conf](../../contrib/steemd.nginx.conf) | Main NGINX configuration |
-| [contrib/steemd-proxy.conf.template](../../contrib/steemd-proxy.conf.template) | NGINX site configuration with reverse proxy and health check endpoint |
-| [contrib/steemd-healthcheck.sh](../../contrib/steemd-healthcheck.sh) | Health check script (CGI) |
+| [deploy/nginx/steemd.nginx.conf](../../deploy/nginx/steemd.nginx.conf) | Main NGINX configuration |
+| [deploy/nginx/steemd-proxy.conf.template](../../deploy/nginx/steemd-proxy.conf.template) | NGINX site configuration with reverse proxy and health check endpoint |
+| [deploy/steemd-healthcheck.sh](../../deploy/steemd-healthcheck.sh) | Health check script (CGI) |
 
 ### Docker Compose with NGINX
 
@@ -384,10 +384,10 @@ sudo systemctl reload nginx
 
 ### Health Check Script
 
-Copy [contrib/steemd-healthcheck.sh](../contrib/steemd-healthcheck.sh) to `/usr/local/bin/steemd-healthcheck.sh`:
+Copy [deploy/steemd-healthcheck.sh](../../deploy/steemd-healthcheck.sh) to `/usr/local/bin/steemd-healthcheck.sh`:
 
 ```bash
-sudo cp contrib/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
+sudo cp deploy/steemd-healthcheck.sh /usr/local/bin/steemd-healthcheck.sh
 sudo chmod +x /usr/local/bin/steemd-healthcheck.sh
 ```
 
@@ -1667,7 +1667,7 @@ Choose the right reverse proxy based on your deployment environment and requirem
 - [HAProxy Documentation](https://docs.haproxy.org/)
 - [Traefik Documentation](https://doc.traefik.io/traefik/)
 - [Caddy Documentation](https://caddyserver.com/docs/)
-- [Steem Config Examples](../contrib/)
+- [Steem Deployment Scripts](../../deploy/)
 - [Chain Configuration Guide](chain-configuration.md)
 - [Genesis Launch Guide](genesis-launch.md)
 

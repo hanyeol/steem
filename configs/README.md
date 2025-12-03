@@ -70,7 +70,7 @@ cp configs/fullnode.config.ini witness_node_data_dir/config.ini
 # cmake -DBUILD_STEEM_TESTNET=ON ..
 
 cp configs/test.config.ini witness_node_data_dir/config.ini
-./contrib/steemd-test-bootstrap.sh
+./deploy/steemd-test-bootstrap.sh
 ./programs/steemd/steemd
 ```
 
@@ -124,4 +124,4 @@ market-history-bucket-size = [15,60,300,3600,86400]
 
 - [Node Types Guide](../docs/getting-started/node-types-guide.md) - Comprehensive guide to different node types
 - [Quick Start Guide](../docs/getting-started/quick-start.md) - Get started quickly with Docker
-- [Deployment Scripts](../contrib/) - Scripts for deploying and managing nodes
+- [Deployment Scripts](../deploy/) - Scripts for deploying and managing nodes
