@@ -23,15 +23,26 @@ This directory contains deployment scripts and configuration files for running S
 Docker container entrypoint script that configures and starts steemd based on environment variables.
 
 **Environment Variables:**
-- `USE_HIGH_MEMORY` - Enable high-memory mode with in-memory account history
-- `USE_FULL_WEB_NODE` - Enable full API set with default config
-- `USE_NGINX_FRONTEND` - Enable NGINX reverse proxy with `/health` endpoint
-- `USE_MULTICORE_READONLY` - Enable multi-reader mode (experimental, 4 readers per core)
+- `USE_HIGH_MEMORY` - Enable high-memory mode with in-memory account history (uses steemd-high binary)
+- `STEEMD_NODE_MODE` - Node type: `fullnode`, `broadcast`, `ahnode`, or `witness` (sets config file)
+- `USE_NGINX_PROXY` - Enable NGINX reverse proxy with `/health` endpoint
+- `USE_PUBLIC_SHARED_MEMORY` - Download public shared memory snapshot on startup
+- `USE_PUBLIC_BLOCKLOG` - Download public block log on startup
 - `HOME` - Data directory path (default: `/var/lib/steemd`)
+- `STEEMD_SEED_NODES` - Whitespace-delimited list of P2P seed nodes
+- `STEEMD_WITNESS_NAME` - Witness account name (for witness mode)
+- `STEEMD_PRIVATE_KEY` - Witness private key (for witness mode)
+- `STEEMD_TRACK_ACCOUNT` - Account to track in account history
+- `DISABLE_SCALE_MEM` - Disable shared memory scaling (omit for default scaling)
+- `STEEMD_EXTRA_OPTS` - Additional command line options
 
 **Example:**
 ```bash
-docker run -e USE_FULL_WEB_NODE=1 -e USE_NGINX_FRONTEND=1 steem/steem
+# Run as full node with NGINX proxy
+docker run -e STEEMD_NODE_MODE=fullnode -e USE_NGINX_PROXY=1 steem/steem
+
+# Run high-memory node
+docker run -e USE_HIGH_MEMORY=1 -e STEEMD_NODE_MODE=fullnode steem/steem
 ```
 
 ## PaaS Deployment
@@ -102,6 +113,6 @@ See [nginx/README.md](nginx/README.md) for reverse proxy setup.
 ## Additional Resources
 
 - **[Configuration Files](../configs/)** - Node configuration examples
-- **[Node Types Guide](../docs/getting-started/node-types-guide.md)** - Detailed guide to different node types
+- **[Node Modes Guide](../docs/getting-started/node-modes-guide.md)** - Detailed guide to different node modes
 - **[Quick Start Guide](../docs/getting-started/quick-start.md)** - Docker quick start
 - **[Deployment Documentation](../docs/operations/)** - Production deployment guides

@@ -624,7 +624,7 @@ chown steem:steem /path/to/export.jsonl
 ## Related Documentation
 
 - [chain Plugin](chain.md) - Core blockchain database
-- [Node Types Guide](../operations/node-types-guide.md) - Configuration by use case
+- [Node Modes Guide](../operations/node-modes-guide.md) - Configuration by use case
 
 ## Source Code
 

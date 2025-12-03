@@ -9,7 +9,7 @@ then
    echo "Usage: path_to_tested_steemd path_to_reference_steemd"
    echo "       path_to_test_blockchain_directory path_to_reference_blockchain_directory"
    echo "       number_of_blocks_to_replay [--dont-copy-config]"
-   echo "Example: ~/work/steemit/steem/build/programs/steemd/steemd ~/master/steemit/steem/build/programs/steemd/steemd ~/steemit/steem/work1 ~/steemit/steem/work2 2000000"
+   echo "Example: ~/work/hanyeol/steem/build/programs/steemd/steemd ~/master/hanyeol/steem/build/programs/steemd/steemd ~/hanyeol/steem/work1 ~/hanyeol/steem/work2 2000000"
    echo "Note: Run this script from test group directory."
    exit -1
 fi

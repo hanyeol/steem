@@ -516,7 +516,7 @@ p2p-seed-node = 10.0.1.102:2001
 ## Related Documentation
 
 - [chain Plugin](chain.md) - Blockchain database
-- [Node Types Guide](../operations/node-types-guide.md) - Configuration by use case
+- [Node Modes Guide](../operations/node-modes-guide.md) - Configuration by use case
 - [Genesis Launch](../operations/genesis-launch.md) - Start private network
 - [DDoS Protection](../operations/ddos-protection.md) - Network security
 

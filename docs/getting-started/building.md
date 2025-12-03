@@ -259,4 +259,4 @@ cmake -DSKIP_BY_TX_ID=ON ..
 After building:
 - See [quick-start.md](quick-start.md) for running your first node
 - See [cli-wallet-guide.md](cli-wallet-guide.md) for wallet usage
-- See [node-types-guide.md](node-types-guide.md) for different node configurations
+- See [node-modes-guide.md](node-modes-guide.md) for different node configurations

@@ -717,7 +717,7 @@ crontab -e
 
 ## Additional Resources
 
-- [Node Types Guide](node-types-guide.md) - Different node configurations
+- [Node Modes Guide](node-modes-guide.md) - Different node configurations
 - [Building Steem](building.md) - Detailed build instructions
 - [CLI Wallet Guide](cli-wallet-guide.md) - Wallet usage
 - [Hardfork Procedure](../operations/hardfork-procedure.md) - Upgrade procedures
@@ -725,7 +725,7 @@ crontab -e
 
 ## Getting Help
 
-- GitHub Issues: [https://github.com/steemit/steem/issues](https://github.com/steemit/steem/issues)
+- GitHub Issues: [https://github.com/hanyeol/steem/issues](https://github.com/hanyeol/steem/issues)
 - Developer Documentation: [docs/development/](../development/)
 - Community Forums: Steem witness channels
 

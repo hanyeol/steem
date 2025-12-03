@@ -97,7 +97,7 @@ operation 자체에는 영향을 주지 않습니다.
 - (5e) 데이터베이스에서 객체를 가져오는 메서드는 `const` 참조를 반환합니다.
 체인 상태를 검색하는 가장 일반적인 방법은
 `get< type, index >( index_value )`를 사용하는 것입니다. 예를 들어
-[구현](https://github.com/steemit/steem/blob/a0a69b10189d93a9be4da7e7fd9d5358af956e34/src/core/chain/database.cpp#L364)을
+[구현](https://github.com/hanyeol/steem/blob/a0a69b10189d93a9be4da7e7fd9d5358af956e34/src/core/chain/database.cpp#L364)을
 참조하십시오.
 
 - (5f) 데이터베이스의 객체를 수정하려면 `db.modify()`를 발행해야 하며,

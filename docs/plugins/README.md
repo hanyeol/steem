@@ -260,7 +260,7 @@ For creating custom plugins, see:
 
 ## Additional Resources
 
-- [Node Types Guide](../operations/node-types-guide.md) - Pre-configured node setups
+- [Node Modes Guide](../operations/node-modes-guide.md) - Pre-configured node setups
 - [System Architecture](../technical-reference/system-architecture.md) - Overall system design
 - [API Notes](../technical-reference/api-notes.md) - API usage guidelines
 - [Configuration Files](../../configs/) - Example config.ini files

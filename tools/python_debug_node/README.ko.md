@@ -30,11 +30,11 @@ from steemdebugnode import DebugNode
 
 #### debug_hardforks.py
 
-[debug_hardforks.py](https://github.com/steemit/steem/python_scripts/tests/debug_hardforks.py) - 이 스크립트는 debug node를 시작하고, 블록을 재생하고, 하드포크를 예약하고, 마지막으로 하드포크 후 새 블록을 생성합니다. 스크립트는 또한 Xeroc의 라이브러리에서 범용 RPC 인터페이스를 통해 통신하여 결과에 대한 간단한 분석을 수행합니다. 이 경우 블록 생산자의 히스토그램을 생성하여 증인 스케줄링 알고리즘이 제대로 작동하는지 확인합니다. 스크립트의 목적은 주어진 하드포크에 체인 전체를 충돌시킬 수 있는 버그가 없는지 확인하는 것입니다.
+[debug_hardforks.py](https://github.com/hanyeol/steem/blob/main/tools/python_debug_node/tests/debug_hardforks.py) - 이 스크립트는 debug node를 시작하고, 블록을 재생하고, 하드포크를 예약하고, 마지막으로 하드포크 후 새 블록을 생성합니다. 스크립트는 또한 Xeroc의 라이브러리에서 범용 RPC 인터페이스를 통해 통신하여 결과에 대한 간단한 분석을 수행합니다. 이 경우 블록 생산자의 히스토그램을 생성하여 증인 스케줄링 알고리즘이 제대로 작동하는지 확인합니다. 스크립트의 목적은 주어진 하드포크에 체인 전체를 충돌시킬 수 있는 버그가 없는지 확인하는 것입니다.
 
 #### debugnode.py
 
-[debugnode.py](https://github.com/steemit/steem/python_scripts/steemdebugnode/debugnode.py#L212) - 이 스크립트는 훨씬 더 간단합니다. 동일한 파싱 로직이 있지만 테스트 로직이 훨씬 적습니다. 블록체인을 재생하고 주기적으로 상태 업데이트를 출력하여 사용자가 여전히 작동 중임을 알 수 있도록 합니다. 그런 다음 스크립트는 사용자가 RPC 호출 또는 CLI Wallet을 통해 체인과 상호 작용할 수 있도록 대기합니다.
+[debugnode.py](https://github.com/hanyeol/steem/blob/main/tools/python_debug_node/steemdebugnode/debugnode.py#L212) - 이 스크립트는 훨씬 더 간단합니다. 동일한 파싱 로직이 있지만 테스트 로직이 훨씬 적습니다. 블록체인을 재생하고 주기적으로 상태 업데이트를 출력하여 사용자가 여전히 작동 중임을 알 수 있도록 합니다. 그런 다음 스크립트는 사용자가 RPC 호출 또는 CLI Wallet을 통해 체인과 상호 작용할 수 있도록 대기합니다.
 
 ### 기본 사용 패턴
 

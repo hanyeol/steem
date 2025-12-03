@@ -1,7 +1,7 @@
 # 소개
 
 이 문서에서는 큐레이션 곡선을 위해 Steem이 사용하는 근사 정수 제곱근 함수를 도출합니다
-[여기](https://github.com/steemit/steem/issues/1052).
+[여기](https://github.com/hanyeol/steem/issues/1052).
 
 # MSB 함수
 

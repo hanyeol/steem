@@ -771,7 +771,7 @@ plugin = account_by_key_api
 
 - [제네시스 실행 가이드](../operations/genesis-launch.md) - 제네시스 노드 설정
 - [Steem 빌드하기](building.md) - 빌드 지침
-- [노드 타입 가이드](node-types-guide.md) - 다양한 노드 구성
+- [노드 타입 가이드](node-modes-guide.md) - 다양한 노드 구성
 - [월렛 API 리팩토링](../development/todo/wallet-api-refactoring.md) - 모듈식 API 마이그레이션의 기술적 세부 사항
 - [프로토콜 작업](../../src/core/protocol/include/steem/protocol/) - 작업 정의
 

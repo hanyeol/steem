@@ -95,7 +95,7 @@ docker run -d \
   -v $(pwd)/witness.config.ini:/var/lib/steemd/config.ini:ro \
   -p 2001:2001 \
   --restart=unless-stopped \
-  steemit/steem:latest
+  hanyeol/steem:latest
 ```
 
 ## Seed Node
@@ -250,7 +250,7 @@ docker run -d \
   -p 2001:2001 \
   --shm-size=280g \
   --restart=unless-stopped \
-  steemit/steem:latest
+  hanyeol/steem:latest
 ```
 
 ## Account History Node

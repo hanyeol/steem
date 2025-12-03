@@ -37,9 +37,9 @@ ARGS+=" --tags-skip-startup-update"
 cd $HOME
 
 # setup tinman
-git clone https://github.com/steemit/tinman
+git clone https://github.com/hanyeol/tinman
 cd tinman/tinman
-git clone https://github.com/steemit/simple_steem_client
+git clone https://github.com/hanyeol/simple_steem_client
 cd $HOME
 virtualenv -p $(which python3) ~/ve/tinman
 source ~/ve/tinman/bin/activate

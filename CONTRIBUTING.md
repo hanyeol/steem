@@ -24,7 +24,7 @@ Please do a keyword search to see if there is already an existing issue before o
 
 ## Steemit.com vs. Steem Blockchain
 
-This issue tracker is only intended to track issues for the Steem blockchain. If the issue is with the Steemit.com website, please open an issue in the [Steemit.com Repository](https://github.com/steemit/steemit.com/).
+This issue tracker is only intended to track issues for the Steem blockchain. If the issue is with the Steemit.com website, please open an issue in the [Steemit.com Repository](https://github.com/hanyeol/steemit.com/).
 
 ## Pull Requests
 

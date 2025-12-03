@@ -30,11 +30,11 @@ There are a couple of examples already made that you can try modifying yourself.
 
 #### debug_hardforks.py
 
-[debug_hardforks.py](https://github.com/steemit/steem/python_scripts/tests/debug_hardforks.py) - This script starts a debug node, replays blocks, schedules a hardfork, and finally generates new blocks after the hardfork. The script also communicates via the general purpose RPC interface in Xeroc's Library to do a simple analysis of the results. In this case it generates a histogram of block producers to verify the witness scheduling algorithm works properly. The purpose of the script is to verify any given hardfork does not have a bug that could crash the chain entirely.
+[debug_hardforks.py](https://github.com/hanyeol/steem/blob/main/tools/python_debug_node/tests/debug_hardforks.py) - This script starts a debug node, replays blocks, schedules a hardfork, and finally generates new blocks after the hardfork. The script also communicates via the general purpose RPC interface in Xeroc's Library to do a simple analysis of the results. In this case it generates a histogram of block producers to verify the witness scheduling algorithm works properly. The purpose of the script is to verify any given hardfork does not have a bug that could crash the chain entirely.
 
 #### debugnode.py
 
-[debugnode.py](https://github.com/steemit/steem/python_scripts/steemdebugnode/debugnode.py#L212) - This script is much simpler. It has the same parsing logic, but has much less test logic. All it does is replay the blockchain, periodically printing a status update so the user knows it is still working. The script then hangs so the user can interact with the chain through RPC calls or the CLI Wallet.
+[debugnode.py](https://github.com/hanyeol/steem/blob/main/tools/python_debug_node/steemdebugnode/debugnode.py#L212) - This script is much simpler. It has the same parsing logic, but has much less test logic. All it does is replay the blockchain, periodically printing a status update so the user knows it is still working. The script then hangs so the user can interact with the chain through RPC calls or the CLI Wallet.
 
 ### Basic Usage Pattern
 

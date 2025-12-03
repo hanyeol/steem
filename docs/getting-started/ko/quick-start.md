@@ -452,7 +452,7 @@ docker run --rm -v steem-data:/data alpine du -sh /data/*
 
 ## 추가 리소스
 
-- [노드 타입 가이드](node-types-guide.md) - 다양한 노드 타입에 대한 상세 정보
+- [노드 타입 가이드](node-modes-guide.md) - 다양한 노드 타입에 대한 상세 정보
 - [빌드 가이드](building.md) - 소스에서 직접 빌드하기
 - [거래소 빠른 시작](exchange-quick-start.md) - 거래소 통합 가이드
 - [테스팅 가이드](../development/testing.md) - 테스트 실행 방법

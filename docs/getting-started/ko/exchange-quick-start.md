@@ -22,7 +22,7 @@ sh get-docker.sh
 
 GitHub의 공식 소스에서 steem 저장소를 가져온 다음 생성된 디렉터리로 이동합니다.
 ```
-git clone https://github.com/steemit/steem
+git clone https://github.com/hanyeol/steem
 cd steem
 ```
 
@@ -31,7 +31,7 @@ cd steem
 Docker는 이미 빌드된 이미지를 다운로드하는 것만을 위한 것이 아니라 소스에서 빌드하는 데 사용할 수 있습니다. 이렇게 하면 빌드 환경이 소프트웨어 개발에 사용하는 것과 동일하다는 것을 보장합니다. 아래 명령을 사용하여 빌드를 시작하세요:
 
 ```
-docker build -t=steemit/steem .
+docker build -t=hanyeol/steem .
 ```
 
 현재 디렉터리가 빌드 대상임을 나타내는 줄 끝의 `.`을 잊지 마세요.
@@ -45,7 +45,7 @@ docker build -t=steemit/steem .
 미리 빌드된 공식 바이너리 이미지를 사용하려면 하나의 명령으로 Dockerhub 레지스트리에서 다운로드하면 됩니다:
 
 ```
-docker pull steemit/steem
+docker pull hanyeol/steem
 ```
 
 ### Docker 컨테이너 없이 바이너리 빌드 실행
@@ -55,7 +55,7 @@ Docker로 빌드했지만 docker 컨테이너 내에서 steemd를 실행하고 �
 바이너리를 추출하려면 컨테이너를 시작한 다음 파일을 복사해야 합니다.
 
 ```
-docker run -d --name steemd-exchange steemit/steem
+docker run -d --name steemd-exchange hanyeol/steem
 docker cp steemd-exchange:/usr/local/steemd-low/bin/steemd /local/path/to/steemd
 docker cp steemd-exchange:/usr/local/steemd-low/bin/cli_wallet /local/path/to/cli_wallet
 docker stop steemd-exchange
@@ -77,7 +77,7 @@ mkdir steemwallet
 아래 명령은 p2p 및 RPC용 포트를 열면서 데몬화된 인스턴스를 시작하고 블록체인 및 월렛 데이터용으로 생성한 디렉터리를 컨테이너 내부에 링크합니다. `TRACK_ACCOUNT`를 팔로우하려는 거래소 계정 이름으로 채우세요. `-v` 플래그는 컨테이너 외부 디렉터리를 내부로 매핑하는 방법이며, 각 `-v` 플래그에 대해 `:`앞에 앞서 생성한 디렉터리의 경로를 나열합니다. 재시작 정책은 시스템이 재시작되더라도 컨테이너가 자동으로 재시작되도록 합니다.
 
 ```
-docker run -d --name steemd-exchange --env TRACK_ACCOUNT=nameofaccount -p 2001:2001 -p 8090:8090 -v /path/to/steemwallet:/var/steemwallet -v /path/to/blockchain:/var/lib/steemd/blockchain --restart always steemit/steem
+docker run -d --name steemd-exchange --env TRACK_ACCOUNT=nameofaccount -p 2001:2001 -p 8090:8090 -v /path/to/steemwallet:/var/steemwallet -v /path/to/blockchain:/var/lib/steemd/blockchain --restart always hanyeol/steem
 ```
 
 `docker ps` 명령으로 컨테이너가 실행 중인지 확인할 수 있습니다.

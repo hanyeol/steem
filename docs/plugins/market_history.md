@@ -609,7 +609,7 @@ Low-volume markets:
 ## Related Documentation
 
 - [market_history_api Plugin](market_history_api.md) - RPC API for market data
-- [Witness Guide](../operations/node-types-guide.md) - Witness node configuration
+- [Witness Guide](../operations/node-modes-guide.md) - Witness node configuration
 - [chain Plugin](chain.md) - Blockchain database
 
 ## Source Code

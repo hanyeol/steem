@@ -717,7 +717,7 @@ crontab -e
 
 ## 추가 자료
 
-- [노드 타입 가이드](node-types-guide.md) - 다양한 노드 설정
+- [노드 타입 가이드](node-modes-guide.md) - 다양한 노드 설정
 - [Steem 빌드](building.md) - 상세 빌드 지침
 - [CLI 지갑 가이드](cli-wallet-guide.md) - 지갑 사용법
 - [하드포크 절차](../../operations/hardfork-procedure.md) - 업그레이드 절차
@@ -725,7 +725,7 @@ crontab -e
 
 ## 도움 받기
 
-- GitHub Issues: [https://github.com/steemit/steem/issues](https://github.com/steemit/steem/issues)
+- GitHub Issues: [https://github.com/hanyeol/steem/issues](https://github.com/hanyeol/steem/issues)
 - 개발자 문서: [docs/development/](../../development/)
 - 커뮤니티 포럼: Steem 증인 채널
 

@@ -96,7 +96,7 @@ cmake -DBOOST_ROOT="$BOOST_ROOT" -DCMAKE_BUILD_TYPE=Release ..
 make -j$(sysctl -n hw.logicalcpu) steemd cli_wallet
 ```
 
-See [doc/building.md](doc/building.md) for detailed build instructions.
+See [docs/building.md](docs/building.md) for detailed build instructions.
 
 ## Configuration
 
@@ -122,7 +122,7 @@ Located in [`configs/`](configs/):
 
 ### Seed Nodes
 
-Seed node list: [doc/seednodes.txt](doc/seednodes.txt)
+Seed node list: [docs/seednodes.txt](docs/seednodes.txt)
 
 Override via environment variable:
 ```bash
@@ -251,7 +251,7 @@ make -j$(nproc) chain_test plugin_test
 ./tests/plugin_test
 ```
 
-See [tests/README.md](tests/README.md) and [doc/testing.md](doc/testing.md) for more.
+See [tests/README.md](tests/README.md) and [docs/testing.md](docs/testing.md) for more.
 
 ### CMake Build Options
 
@@ -271,7 +271,7 @@ See [tests/README.md](tests/README.md) and [doc/testing.md](doc/testing.md) for 
 ./programs/utils/newplugin.py
 ```
 
-See [doc/plugin.md](doc/plugin.md) for plugin development guide.
+See [docs/plugin.md](docs/plugin.md) for plugin development guide.
 
 ## Contributing
 
@@ -303,11 +303,11 @@ IN THE SOFTWARE.
 ## Additional Resources
 
 - [Steem Whitepaper](https://steem.io/SteemWhitePaper.pdf)
-- [Exchange Quickstart](doc/exchangequickstart.md)
-- [Building Guide](doc/building.md)
-- [Testing Guide](doc/testing.md)
-- [Plugin Development](doc/plugin.md)
-- [API Documentation](doc/api-notes.md)
-- [Git Guidelines](doc/git-guildelines.md)
-- [Python Debug Node](doc/Python-Debug-Node.md)
-- [Seed Nodes](doc/seednodes.txt)
+- [Exchange Quickstart](docs/exchangequickstart.md)
+- [Building Guide](docs/building.md)
+- [Testing Guide](docs/testing.md)
+- [Plugin Development](docs/plugin.md)
+- [API Documentation](docs/api-notes.md)
+- [Git Guidelines](docs/git-guildelines.md)
+- [Python Debug Node](docs/Python-Debug-Node.md)
+- [Seed Nodes](docs/seednodes.txt)

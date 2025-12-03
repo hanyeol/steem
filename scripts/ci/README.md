@@ -63,8 +63,8 @@ export DOCKER_PASS=<password>
 
 ### Behavior
 
-- **Branch `stable`**: Tags as `steemit/steem:latest`
-- **Other branches**: Tags as `steemit/steem:$BRANCH_NAME`
+- **Branch `stable`**: Tags as `hanyeol/steem:latest`
+- **Other branches**: Tags as `hanyeol/steem:$BRANCH_NAME`
 - Builds with `BUILD_STEP=2` argument
 - Pushes to Docker Hub
 - Cleans up exited containers
@@ -75,12 +75,12 @@ export DOCKER_PASS=<password>
 # Build from stable branch
 export BRANCH_NAME=stable
 ./build-release.sh
-# → steemit/steem:latest
+# → hanyeol/steem:latest
 
 # Build from feature branch
 export BRANCH_NAME=feature-xyz
 ./build-release.sh
-# → steemit/steem:feature-xyz
+# → hanyeol/steem:feature-xyz
 ```
 
 ## build-tests.sh
@@ -160,7 +160,7 @@ Updates commit status to **failure**.
 ```bash
 curl -XPOST \
   -H "Authorization: token $GITHUB_SECRET" \
-  https://api.github.com/repos/steemit/steem/statuses/$(git rev-parse HEAD) \
+  https://api.github.com/repos/hanyeol/steem/statuses/$(git rev-parse HEAD) \
   -d '{
     "state": "pending|success|failure",
     "target_url": "jenkins_url",
@@ -362,7 +362,7 @@ docker build --build-arg BUILD_STEP=2 -t test .
 ```bash
 # Verify token has correct permissions
 curl -H "Authorization: token $GITHUB_SECRET" \
-  https://api.github.com/repos/steemit/steem
+  https://api.github.com/repos/hanyeol/steem
 
 # Check commit hash
 git rev-parse HEAD
@@ -375,7 +375,7 @@ git rev-parse HEAD
 echo $WORKSPACE
 
 # Check container volume mount
-docker run -v $WORKSPACE:/var/jenkins steemit/steem:tests ls -la /var/cobertura
+docker run -v $WORKSPACE:/var/jenkins hanyeol/steem:tests ls -la /var/cobertura
 ```
 
 ### Docker Permission Issues

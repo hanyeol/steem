@@ -499,13 +499,13 @@ docker run -d \
   -p 8091:8091 \
   -v $(pwd)/config.ini:/etc/steemdig.ini:ro \
   -v steem-data:/var/lib/steemd \
-  steemit/steem:latest
+  hanyeol/steem:latest
 ```
 
 ## Related Documentation
 
 - [json_rpc Plugin](json_rpc.md) - JSON-RPC request handling
-- [Node Types Guide](../operations/node-types-guide.md) - Pre-configured setups
+- [Node Modes Guide](../operations/node-modes-guide.md) - Pre-configured setups
 - [Reverse Proxy Guide](../operations/reverse-proxy-guide.md) - NGINX/HAProxy setup
 - [DDoS Protection](../operations/ddos-protection.md) - API protection strategies
 - [API Notes](../technical-reference/api-notes.md) - API usage guidelines

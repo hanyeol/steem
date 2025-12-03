@@ -259,4 +259,4 @@ cmake -DSKIP_BY_TX_ID=ON ..
 빌드 완료 후:
 - 첫 노드 실행은 [quick-start.md](quick-start.md)를 참조하세요
 - 지갑 사용법은 [cli-wallet-guide.md](cli-wallet-guide.md)를 참조하세요
-- 다양한 노드 구성은 [node-types-guide.md](node-types-guide.md)를 참조하세요
+- 다양한 노드 구성은 [node-modes-guide.md](node-modes-guide.md)를 참조하세요

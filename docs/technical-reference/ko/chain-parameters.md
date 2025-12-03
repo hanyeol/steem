@@ -848,7 +848,7 @@ curl -s --data '{
 - [Block Confirmation Process](block-confirmation.md) - Witness가 블록을 생성하는 방법
 - [Witness Plugin](../development/plugin.md) - Witness 노드 실행
 - [Genesis Launch](../operations/genesis-launch.md) - 초기 파라미터 설정
-- [Node Types Guide](../operations/node-types-guide.md) - Witness 노드 구성
+- [Node Modes Guide](../operations/node-modes-guide.md) - Witness 노드 구성
 
 ## 요약
 

@@ -565,7 +565,7 @@ sudo make install
 
 ### Docker
 ```bash
-docker pull steemit/steem:v0.1.0
+docker pull hanyeol/steem:v0.1.0
 ```
 
 ## Upgrade Instructions

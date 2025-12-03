@@ -17,7 +17,7 @@ popd () { command popd "$@" > /dev/null; }
 function print_help_and_quit {
    echo "Usage: path_to_tested_steemd path_to_reference_steemd path_to_test_blockchain_directory"
    echo "       path_to_reference_blockchain_directory number_of_blocks_to_replay [number_of_jobs [--dont-copy-config]]"
-   echo "Example: ~/work/steemit/steem/build/Release/programs/steemd/steemd ~/master/steemit/steem/build/Release/programs/steemd/steemd ~/steemit/steem/work1 ~/steemit/steem/work2 5000000"
+   echo "Example: ~/work/hanyeol/steem/build/Release/programs/steemd/steemd ~/master/hanyeol/steem/build/Release/programs/steemd/steemd ~/hanyeol/steem/work1 ~/hanyeol/steem/work2 5000000"
    echo "         Pass absolute, not relative paths;"
    echo "         if <number_of_jobs> not passed or if is less or zero equal <nproc> will be used;"
    echo "         if --dont-copy-config is passed config.init files are not copied from test directories."

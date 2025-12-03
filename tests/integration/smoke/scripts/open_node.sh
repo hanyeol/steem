@@ -7,7 +7,7 @@ popd () { command popd "$@" > /dev/null; }
 if [ $# -ne 5 ]
 then
    echo Usage: node_kind steemd_path node_options work_path port
-   echo Example: reference ~/steemit/steem/build/programs/steemd/steemd --webserver-http-endpoint=127.0.0.1:8090 ~/working 8090
+   echo Example: reference ~/hanyeol/steem/build/programs/steemd/steemd --webserver-http-endpoint=127.0.0.1:8090 ~/working 8090
    exit -1
 fi
 

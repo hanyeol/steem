@@ -620,7 +620,7 @@ Out of memory
 - [account_history_rocksdb Plugin](account_history_rocksdb.md) - Disk-based alternative
 - [account_history_api Plugin](account_history_api.md) - RPC API interface
 - [chain Plugin](chain.md) - Core blockchain database
-- [Node Types Guide](../operations/node-types-guide.md) - Configuration by use case
+- [Node Modes Guide](../operations/node-modes-guide.md) - Configuration by use case
 
 ## Source Code
 

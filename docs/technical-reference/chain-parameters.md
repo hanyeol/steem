@@ -848,7 +848,7 @@ curl -s --data '{
 - [Block Confirmation Process](block-confirmation.md) - How witnesses produce blocks
 - [Witness Plugin](../development/plugin.md) - Running a witness node
 - [Genesis Launch](../operations/genesis-launch.md) - Initial parameter setup
-- [Node Types Guide](../operations/node-types-guide.md) - Witness node configuration
+- [Node Modes Guide](../operations/node-modes-guide.md) - Witness node configuration
 
 ## Summary
 

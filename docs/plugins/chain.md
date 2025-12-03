@@ -401,7 +401,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
 - [database_api](database_api.md) - Query blockchain data
 - [System Architecture](../technical-reference/system-architecture.md) - Overall design
 - [Operations](../../src/core/protocol/include/steem/protocol/steem_operations.hpp) - All operation types
-- [Node Types](../operations/node-types-guide.md) - Configuration by use case
+- [Node Types](../operations/node-modes-guide.md) - Configuration by use case
 
 ## Source Code
 

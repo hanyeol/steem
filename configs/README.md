@@ -118,10 +118,10 @@ market-history-bucket-size = [15,60,300,3600,86400]
 - Node must be restarted after configuration changes
 - Changing state-tracking plugins may require chain replay
 - For production, consider placing `shared-file-dir` on SSD or ramdisk
-- See the [Node Types Guide](../docs/getting-started/node-types-guide.md) for detailed information
+- See the [Node Modes Guide](../docs/getting-started/node-modes-guide.md) for detailed information
 
 ## Additional Resources
 
-- [Node Types Guide](../docs/getting-started/node-types-guide.md) - Comprehensive guide to different node types
+- [Node Modes Guide](../docs/getting-started/node-modes-guide.md) - Comprehensive guide to different node modes
 - [Quick Start Guide](../docs/getting-started/quick-start.md) - Get started quickly with Docker
 - [Deployment Scripts](../deploy/) - Scripts for deploying and managing nodes

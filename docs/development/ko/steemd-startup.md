@@ -507,4 +507,4 @@ steemd --resync-blockchain
 
 - [Plugin Development Guide](plugin.md) - 플러그인 개발 가이드
 - [Building Guide](../getting-started/building.md) - 빌드 가이드
-- [Node Types Guide](../operations/node-types-guide.md) - 노드 타입 가이드
+- [Node Modes Guide](../operations/node-modes-guide.md) - 노드 타입 가이드
