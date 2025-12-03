@@ -6,7 +6,7 @@ popd () { command popd "$@" > /dev/null; }
 
 function print_help_and_quit {
    echo Usage: jobs test_steemd_path ref_steemd_path test_work_path ref_work_path block_limit [--dont-copy-config]
-   echo Example: 16 ~/steemit/1/steemd ~/steemit/2/steemd ~/steemit/1/wdir ~/steemit/2/wdir 5000000
+   echo Example: 16 ~/hanyeol/1/steemd ~/hanyeol/2/steemd ~/hanyeol/1/wdir ~/hanyeol/2/wdir 5000000
    exit -1
 }
 
