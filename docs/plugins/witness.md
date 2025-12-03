@@ -346,7 +346,7 @@ private-key = 5K...backup-key...
 ```ini
 plugin = chain p2p witness
 
-witness = "initwitness"
+witness = "genesis"
 private-key = 5K...testnet-key...
 
 # Enable stale production for testnet

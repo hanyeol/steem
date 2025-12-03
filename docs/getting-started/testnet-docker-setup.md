@@ -82,7 +82,7 @@ enable-stale-production = true
 # Percent of witnesses (0-99) that must be participating in order to produce blocks
 required-participation = 0
 
-# name of witness controlled by this node (e.g. initwitness )
+# name of witness controlled by this node (e.g. genesis )
 witness = "genesis"
 
 # WIF PRIVATE KEY to be used by witnesses

@@ -625,7 +625,7 @@ void witness_plugin::set_program_options(
    boost::program_options::options_description& cli,
    boost::program_options::options_description& cfg)
 {
-   string witness_id_example = "initwitness";
+   string witness_id_example = "genesis";
    cfg.add_options()
          ("enable-stale-production", bpo::bool_switch()->default_value(false), "Enable block production, even if the chain is stale.")
          ("required-participation", bpo::value< uint32_t >()->default_value( 33 ), "Percent of witnesses (0-99) that must be participating in order to produce blocks")
