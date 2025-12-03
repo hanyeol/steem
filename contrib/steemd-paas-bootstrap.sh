@@ -155,7 +155,7 @@ exec chpst -usteemd \
         $STEEMD_EXTRA_OPTS \
         2>&1&
 SAVED_PID=`pgrep -f p2p-endpoint`
-echo $SAVED_PID >> /tmp/steemdpid
+echo $SAVED_PID > /var/run/steemd.pid
 mkdir -p /etc/service/steemd
 if [[ ! "$SYNC_TO_S3" ]]; then
   cp /etc/steemd/runit/steemd-paas-monitor.run /etc/service/steemd/run
