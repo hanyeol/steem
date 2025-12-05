@@ -104,7 +104,7 @@ else
   done
 fi
 if [[ $finished == 0 ]]; then
-  if [[ ! "$SYNC_TO_S3" ]]; then
+  if [[ ! "$IS_SNAPSHOT_NODE" ]]; then
     echo notifyalert steemd: unable to pull blockchain state from S3 - exiting
     exit 1
   else
@@ -130,7 +130,7 @@ ARGS+=" --tags-skip-startup-update"
 
 cd $HOME
 
-if [[ "$SYNC_TO_S3" ]]; then
+if [[ "$IS_SNAPSHOT_NODE" ]]; then
   touch /tmp/issyncnode
   chown www-data:www-data /tmp/issyncnode
 fi
@@ -157,7 +157,7 @@ exec chpst -usteemd \
 SAVED_PID=`pgrep -f p2p-endpoint`
 echo $SAVED_PID > /var/run/steemd.pid
 mkdir -p /etc/service/steemd
-if [[ ! "$SYNC_TO_S3" ]]; then
+if [[ ! "$IS_SNAPSHOT_NODE" ]]; then
   cp /etc/steemd/runit/steemd-paas-monitor.run /etc/service/steemd/run
 else
   cp /etc/steemd/runit/steemd-snapshot-uploader.run /etc/service/steemd/run

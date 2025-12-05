@@ -734,7 +734,7 @@ graph LR
 
 1. **빠른 복구:** S3의 snapshot 사용 + 최근 블록 replay
 2. **완전 복구:** genesis부터 또는 신뢰할 수 있는 block log부터 전체 체인 replay
-3. **State File 공유:** 사전 동기화된 shared memory file 다운로드 (PaaS mode with `SYNC_TO_S3`)
+3. **State File 공유:** 사전 동기화된 shared memory file 다운로드 (PaaS mode with `IS_SNAPSHOT_NODE`)
 
 ## 보안 고려사항
 

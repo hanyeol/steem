@@ -24,7 +24,7 @@ Docker container entrypoint script that configures and starts steemd based on en
 
 **Environment Variables:**
 - `USE_HIGH_MEMORY` - Enable high-memory mode with in-memory account history (uses steemd-high binary)
-- `STEEMD_NODE_MODE` - Node type: `fullnode`, `broadcast`, `ahnode`, or `witness` (sets config file)
+- `STEEMD_NODE_MODE` - Node mode: `fullnode`, `broadcast`, `ahnode`, or `witness` (sets config file)
 - `USE_NGINX_PROXY` - Enable NGINX reverse proxy with `/health` endpoint
 - `USE_PUBLIC_SHARED_MEMORY` - Download public shared memory snapshot on startup
 - `USE_PUBLIC_BLOCKLOG` - Download public block log on startup
@@ -33,7 +33,7 @@ Docker container entrypoint script that configures and starts steemd based on en
 - `STEEMD_WITNESS_NAME` - Witness account name (for witness mode)
 - `STEEMD_PRIVATE_KEY` - Witness private key (for witness mode)
 - `STEEMD_TRACK_ACCOUNT` - Account to track in account history
-- `DISABLE_SCALE_MEM` - Disable shared memory scaling (omit for default scaling)
+- `DISABLE_SHARED_MEMORY_SCALING` - Disable shared memory scaling (omit for default scaling)
 - `STEEMD_EXTRA_OPTS` - Additional command line options
 
 **Example:**
@@ -59,7 +59,7 @@ Bootstrap script for PaaS environments (AWS Elastic Beanstalk).
 **Environment Variables:**
 - `USE_PAAS=true` - Enable PaaS mode
 - `S3_BUCKET=<bucket-name>` - S3 bucket for snapshots
-- `SYNC_TO_S3=true` - Enable snapshot upload mode
+- `IS_SNAPSHOT_NODE=1` - Enable snapshot upload mode
 - `STEEMD_SEED_NODES` - Whitespace-delimited list of seed nodes
 
 **Example:**

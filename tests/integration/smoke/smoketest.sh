@@ -6,7 +6,7 @@ GROUP_PASSED=0
 GROUP_SKIPPED=0
 GROUP_FAILURE=0
 JOBS=0
-API_TEST_PATH=../../python_scripts/tests/api_tests
+API_TEST_PATH=../../tools/python_debug_node/tests/api_tests
 BLOCK_SUBPATH=blockchain/block_log
 GROUP_TEST_SCRIPT=test_group.sh
 

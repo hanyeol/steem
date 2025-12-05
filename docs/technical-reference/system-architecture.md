@@ -734,7 +734,7 @@ graph LR
 
 1. **Fast Recovery:** Use snapshot from S3 + replay recent blocks
 2. **Full Recovery:** Replay entire chain from genesis or trusted block log
-3. **State File Sharing:** Download pre-synced shared memory file (PaaS mode with `SYNC_TO_S3`)
+3. **State File Sharing:** Download pre-synced shared memory file (PaaS mode with `IS_SNAPSHOT_NODE`)
 
 ## Security Considerations
 

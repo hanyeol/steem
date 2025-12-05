@@ -66,7 +66,7 @@ Runit script for blockchain snapshot management.
 
 **Environment Variables:**
 - `S3_BUCKET` - S3 bucket name for snapshot storage
-- `SYNC_TO_S3=true` - Enable snapshot upload mode
+- `IS_SNAPSHOT_NODE=1` - Enable snapshot upload mode
 - `HOME` - Data directory path
 
 **Usage:**

@@ -11,14 +11,15 @@
 #
 # WARNING: use absolute paths instead of relative!
 #
-# sudo ./docker_build_and_run.sh ~/hanyeol/steem/build/Release/programs/steemd ~/hanyeol/steem/build/Release/programs/steemd ~/hanyeol/steemd_data/steemnet ~/hanyeol/steemd_data/steemnet ~/hanyeol/logs 5000000 12
+# sudo ./docker_build_and_run.sh ~/hanyeol/steem/build/programs/steemd/steemd ~/hanyeol/steem/build/programs/steemd/steemd ~/hanyeol/smoke-test/reference/blockchain ~/hanyeol/smoke-test/tested/blockchain ~/hanyeol/smoke-test/logs 5000000 12
 
 if [ $# -lt 6 -o $# -gt 8 ]
 then
    echo "Usage: reference_steemd_location tested_steemd_location ref_blockchain_folder_location tested_blockchain_folder_location"
    echo "       logs_dir stop_replay_at_block [jobs [--dont-copy-config]"
-   echo "Example: ~/hanyeol/ref_steemd ~/hanyeol/steem/build/Release/programs/steemd ~/hanyeol/steemnet ~/hanyeol/testnet"
-   echo "         ~/hanyeol/logs 5000000 12"
+   echo "Example: ~/hanyeol/steem/build/programs/steemd/steemd ~/hanyeol/steem/build/programs/steemd/steemd"
+   echo "         ~/hanyeol/smoke-test/reference/blockchain ~/hanyeol/smoke-test/tested/blockchain"
+   echo "         ~/hanyeol/smoke-test/logs 5000000 12"
    echo "         if <jobs> not passed, <nproc> will be used."
    exit -1
 fi

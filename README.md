@@ -140,7 +140,7 @@ STEEMD_SEED_NODES="seed1.example.com:2001 seed2.example.com:2001"
 | `HOME` | Data directory path (default: `/var/lib/steemd`) |
 | `USE_PAAS` | PaaS mode for AWS Elastic Beanstalk |
 | `S3_BUCKET` | S3 bucket for shared memory files (PaaS mode) |
-| `SYNC_TO_S3` | Generate and upload shared memory files to S3 |
+| `IS_SNAPSHOT_NODE` | Generate and upload shared memory files to S3 |
 | `STEEMD_SEED_NODES` | Override default seed nodes (whitespace-delimited) |
 
 See [README.md environment variables section](#environment-variables) for more details.
